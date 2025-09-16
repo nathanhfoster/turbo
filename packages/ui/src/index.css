@@ -1,0 +1,62 @@
+/**
+ * Global styles for the UI package
+ * 
+ * Imports Tailwind CSS and configures it to scan the src directory for class usage.
+ * This ensures that only the CSS classes actually used in the source code are included
+ * in the final bundle, optimizing the CSS output size.
+ * 
+ * The source('../src') configuration is particularly important for monorepo setups
+ * where build commands run from the root directory rather than individual project roots.
+ * 
+ * @see https://tailwindcss.com/docs/detecting-classes-in-source-files#setting-your-base-path
+ */
+@import 'tailwindcss' source('../src');
+
+@theme {
+  /* Custom Colors */
+  --color-background-DEFAULT: initial;
+  --color-background-light: #1b1f23;
+  --color-background-dark: black;
+  --color-foreground-DEFAULT: inherit;
+  --color-foreground-dark: white;
+  --color-foreground-light: #3c3c3c;
+  
+  /* Tailwind v4 color definitions for utility classes */
+  --color-primary: #0077c5;
+  --color-secondary: #5dab2a;
+  --color-accent: #ff906c;
+  --color-error: #cd0c05;
+  --color-success: #27b045;
+  --color-warning: #ffbb00;
+  --color-info: #f9c00e;
+
+  /* Custom Font Families */
+  --font-family-volkhov: Volkhov, serif;
+  --font-family-inter: Inter, sans-serif;
+
+  /* Custom Font Sizes with Line Heights */
+  --font-size-xs: 0.75rem;
+  --font-size-xs--line-height: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-sm--line-height: 1.25rem;
+  --font-size-base: 1rem;
+  --font-size-base--line-height: 1.5rem;
+  --font-size-lg: 1.125rem;
+  --font-size-lg--line-height: 1.75rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xl--line-height: 1.75rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-2xl--line-height: 2rem;
+  --font-size-3xl: 2rem;
+  --font-size-3xl--line-height: 2.5rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-4xl--line-height: 3rem;
+  --font-size-5xl: 3rem;
+  --font-size-5xl--line-height: 4rem;
+  --font-size-6xl: 4rem;
+  --font-size-6xl--line-height: 4rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-7xl--line-height: 1;
+  --font-size-8xl: 5rem;
+  --font-size-8xl--line-height: 1;
+}

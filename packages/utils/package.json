@@ -1,0 +1,41 @@
+{
+  "name": "@nathanhfoster/utils",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tailwind/combineClassNames": {
+      "types": "./dist/tailwind/combineClassNames.d.ts",
+      "default": "./dist/tailwind/combineClassNames.js"
+    },
+    "./isPromise": {
+      "types": "./dist/isPromise.d.ts",
+      "default": "./dist/isPromise.js"
+    },
+    "./isMobile": {
+      "types": "./dist/isMobile.d.ts",
+      "default": "./dist/isMobile.js"
+    },
+    "./getDerivedStateFromProps": {
+      "types": "./dist/getDerivedStateFromProps.d.ts",
+      "default": "./dist/getDerivedStateFromProps.js"
+    },
+    "./defaultInitializer": {
+      "types": "./dist/defaultInitializer.d.ts",
+      "default": "./dist/defaultInitializer.js"
+    },
+    "./throttle": {
+      "types": "./dist/throttle.d.ts",
+      "default": "./dist/throttle.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json"
+  },
+  "dependencies": {}
+}
