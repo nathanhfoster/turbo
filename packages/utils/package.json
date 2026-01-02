@@ -1,12 +1,21 @@
 {
   "name": "@nathanhfoster/utils",
   "version": "0.1.0",
+  "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./cache": {
+      "types": "./dist/cache.d.ts",
+      "default": "./dist/cache.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
     },
     "./tailwind/combineClassNames": {
       "types": "./dist/tailwind/combineClassNames.d.ts",
@@ -35,7 +44,14 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "dev": "tsc -w -p tsconfig.json"
+    "dev": "tsc -w -p tsconfig.json",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit"
   },
-  "dependencies": {}
+  "devDependencies": {
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
+    "eslint": "^9.34.0",
+    "typescript": "5.9.2"
+  }
 }

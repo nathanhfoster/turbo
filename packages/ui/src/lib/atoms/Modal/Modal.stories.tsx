@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import Modal from '.';
 import Button from '../Button';
-import { useBooleanToggler } from 'resurrection';
+import { useBooleanToggler } from '@nathanhfoster/resurrection';
 
 const meta: Meta<typeof Modal> = {
   title: 'Atoms/Modal',

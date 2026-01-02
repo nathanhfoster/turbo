@@ -43,12 +43,12 @@ const shallowEquals = <T = any>(a: T, b: T) => {
   const keys = Object.keys(a as object);
 
   for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if (key === undefined) continue;
+
     if (
-      !hasProp.call(b, keys[i]) ||
-      !is(
-        (a as Record<string, any>)[keys[i]],
-        (b as Record<string, any>)[keys[i]],
-      )
+      !hasProp.call(b, key) ||
+      !is((a as Record<string, any>)[key], (b as Record<string, any>)[key])
     ) {
       return false;
     }

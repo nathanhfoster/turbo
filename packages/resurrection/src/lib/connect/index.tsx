@@ -92,6 +92,7 @@ const connect = <
       const dispatchToProps = useMemo<MDTP>(() => {
         return mapDispatchToPropsOptions.reduce((acc, item, index) => {
           const dispatch = dispatchers[index];
+          if (!dispatch) return acc;
 
           const creator = isFunction(item.mapDispatchToProps)
             ? item.mapDispatchToProps(dispatch, ownPropsRef.current)

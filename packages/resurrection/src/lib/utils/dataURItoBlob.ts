@@ -13,10 +13,16 @@
  * ```
  */
 const dataURItoBlob = (dataURI: string) => {
-  const byteString = Buffer.from(dataURI.split(',')[1], 'base64').toString(
-    'binary',
-  );
-  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const parts = dataURI.split(',');
+  const base64Data = parts[1];
+  if (!base64Data) {
+    throw new Error('Invalid data URI: missing data component');
+  }
+
+  const byteString = Buffer.from(base64Data, 'base64').toString('binary');
+
+  const mimeMatch = parts[0]?.split(':')[1]?.split(';')[0];
+  const mimeString = mimeMatch || 'application/octet-stream';
 
   const ab = new ArrayBuffer(byteString.length);
   const ia = new Uint8Array(ab);

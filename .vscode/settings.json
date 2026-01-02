@@ -1,7 +1,4 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ]
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000
 }

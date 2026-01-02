@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import type { TabsProps } from './types';
 import Tab from '../../atoms/Tab';
-import { isNotNotTrue } from 'resurrection';
+import { isNotNotTrue } from '@nathanhfoster/resurrection';
 
 const Tabs: React.FC<TabsProps> = ({
   data,

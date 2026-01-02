@@ -1,6 +1,21 @@
 {
-  "name": "resurrection",
+  "name": "@nathanhfoster/resurrection",
   "version": "1.13.0",
+  "description": "A lightweight React state management library that follows Redux patterns using React Context API and hooks",
+  "author": "Nathan Foster <nathanhfoster@gmail.com> (https://github.com/nathanhfoster)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanhfoster/turbo.git",
+    "directory": "packages/resurrection"
+  },
+  "homepage": "https://github.com/nathanhfoster/turbo/tree/main/packages/resurrection#readme",
+  "bugs": {
+    "url": "https://github.com/nathanhfoster/turbo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -12,7 +27,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "react",
@@ -36,27 +53,42 @@
   ],
   "scripts": {
     "build": "vite build",
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "prepublishOnly": "pnpm build",
     "version:patch": "npm version patch && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
     "version:minor": "npm version minor && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
     "version:major": "npm version major && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
-    "publish": "npm publish",
-    "publish:patch": "pnpm run version:patch && git push && git push --tags && npm publish",
-    "publish:minor": "pnpm run version:minor && git push && git push --tags && npm publish",
-    "publish:major": "pnpm run version:major && git push && git push --tags && npm publish",
+    "publish": "pnpm publish --access public",
+    "publish:force": "pnpm publish --access public --no-git-checks",
+    "publish:patch": "pnpm run version:patch && git push && git push --tags && pnpm publish --access public",
+    "publish:minor": "pnpm run version:minor && git push && git push --tags && pnpm publish --access public",
+    "publish:major": "pnpm run version:major && git push && git push --tags && pnpm publish --access public",
     "preversion": "pnpm run build",
     "postversion": "git push && git push --tags"
   },
   "peerDependencies": {
     "immer": "^10.1.1",
-    "react": "^19.0.0",
+    "react": "^18.0.0 || ^19.0.0",
     "use-context-selector": "^2.0.0"
   },
-  "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    }
+  "devDependencies": {
+    "immer": "^10.1.1",
+    "react": "^19.0.0",
+    "use-context-selector": "^2.0.0",
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "19.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.34.0",
+    "jsdom": "^25.0.1",
+    "typescript": "5.9.2",
+    "vite": "^6.0.11",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^3.0.9"
   }
 }

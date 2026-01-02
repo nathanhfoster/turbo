@@ -1,6 +1,6 @@
 # @turbo/auth
 
-Cross-app authentication utilities and services for the MonkeyTilt platform.
+Cross-app authentication utilities and services for the platform.
 
 ## Overview
 
@@ -8,7 +8,7 @@ This package provides authentication-related functionality that can be shared ac
 
 ## Installation
 
-This package is part of the MonkeyTilt monorepo and is automatically available as a workspace dependency.
+This package is part of the monorepo and is automatically available as a workspace dependency.
 
 ```bash
 # In your app's package.json
@@ -109,7 +109,7 @@ pnpm lint
 
 ## Architecture
 
-This package follows the MonkeyTilt frontend architecture patterns:
+This package follows the frontend architecture patterns:
 
 - **Cross-app package**: Located in `packages/auth/` for use across all apps
 - **Service-oriented**: Provides reusable services with clear interfaces

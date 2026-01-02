@@ -11,7 +11,7 @@ import {
   SPEED_DIAL_POSITIONS,
   SPEED_DIAL_DIRECTIONS,
 } from './constants';
-import { useBooleanToggler } from 'resurrection';
+import { useBooleanToggler } from '@nathanhfoster/resurrection';
 
 const SpeedDial: React.FC<SpeedDialProps> = ({
   actions,

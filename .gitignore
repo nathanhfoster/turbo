@@ -39,3 +39,6 @@ yarn-error.log*
 
 *storybook.log
 storybook-static
+
+# NPM config (may contain tokens)
+packages/*/.npmrc

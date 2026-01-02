@@ -63,7 +63,10 @@ const deepEquals = <T = any>(a: T, b: T) => {
 
     if (length !== keyList(b).length) return false;
 
-    for (i = length; i-- !== 0; ) if (!hasProp.call(b, keys[i])) return false;
+    for (i = length; i-- !== 0; ) {
+      const k = keys[i];
+      if (k !== undefined && !hasProp.call(b, k)) return false;
+    }
 
     // custom handling for DOM elements
     if (isDomElement(a)) return false;
@@ -71,6 +74,8 @@ const deepEquals = <T = any>(a: T, b: T) => {
     // custom handling for React
     for (i = length; i-- !== 0; ) {
       key = keys[i];
+      if (key === undefined) continue;
+
       //@ts-expect-error React elements have $$typeof property that TypeScript doesn't know about
       if (key === '_owner' && a.$$typeof) {
         // React-specific: avoid traversing React elements' _owner.

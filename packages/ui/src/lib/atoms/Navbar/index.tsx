@@ -22,7 +22,7 @@ import {
   NAVBAR_USER_MENU_DROPDOWN_CLASSES,
   NAVBAR_USER_MENU_DROPDOWN_ITEM_CLASSES,
 } from './constants';
-import { useBooleanToggler } from 'resurrection';
+import { useBooleanToggler } from '@nathanhfoster/resurrection';
 
 const Navbar: FC<NavbarProps> = ({
   brand,
