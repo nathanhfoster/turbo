@@ -14,7 +14,7 @@ This package is part of the MonkeyTilt monorepo and is automatically available a
 # In your app's package.json
 {
   "dependencies": {
-    "@monkey-tilt/auth": "workspace:*"
+    "@nathanhfoster/auth": "workspace:*"
   }
 }
 ```
@@ -29,7 +29,7 @@ Comprehensive email validation service with multiple validation strategies.
 import {
   emailValidationService,
   VALIDATION_CHECKS,
-} from '@monkey-tilt/auth';
+} from '@nathanhfoster/auth';
 
 // Validate email syntax and check against disposable email blacklist
 const result = await emailValidationService.validate('user@example.com', [
@@ -61,7 +61,7 @@ import {
   createSyntaxValidator,
   createBlacklistValidator,
   createDnsValidator,
-} from '@monkey-tilt/auth';
+} from '@nathanhfoster/auth';
 
 // Create service with custom validators
 const customService = createEmailValidationService({
@@ -94,7 +94,7 @@ packages/auth/
 
 ## Dependencies
 
-- **@monkey-tilt/utils**: Core utility types (DomainResult)
+- **@nathanhfoster/utils**: Core utility types (DomainResult)
 - **mailchecker**: Disposable email detection library
 
 ## Development
@@ -122,7 +122,7 @@ This package was created by migrating the EmailValidationService from `apps/casi
 
 ```typescript
 // ✅ New import path (recommended)
-import { emailValidationService } from '@monkey-tilt/auth';
+import { emailValidationService } from '@nathanhfoster/auth';
 
 // ✅ Old import path (still works via re-export)
 import { emailValidationService } from '@/domains/AuthDomain';

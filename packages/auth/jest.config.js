@@ -4,8 +4,8 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   moduleNameMapper: {
-    '^@monkey-tilt/utils$': '<rootDir>/../utils/src/index.ts',
-    '^@monkey-tilt/utils/(.*)$': '<rootDir>/../utils/src/$1',
+    '^@nathanhfoster/utils$': '<rootDir>/../utils/src/index.ts',
+    '^@nathanhfoster/utils/(.*)$': '<rootDir>/../utils/src/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   collectCoverageFrom: [

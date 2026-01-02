@@ -7,7 +7,7 @@
  * 
  * @example
  * ```ts
- * import { createCache } from '@monkey-tilt/utils/cache';
+ * import { createCache } from '@nathanhfoster/utils/cache';
  * 
  * const cache = createCache({ cacheTTL: 60000, debugLog: true });
  * cache.setItem('key', { data: 'value' });

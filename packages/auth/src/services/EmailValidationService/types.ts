@@ -1,4 +1,4 @@
-import type { DomainResult } from '@monkey-tilt/utils/types';
+import type { DomainResult } from '@nathanhfoster/utils/types';
 
 /**
  * Email validation checks that can be performed

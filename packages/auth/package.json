@@ -1,5 +1,5 @@
 {
-  "name": "@monkey-tilt/auth",
+  "name": "@nathanhfoster/auth",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -21,12 +21,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@monkey-tilt/utils": "workspace:*",
+    "@nathanhfoster/utils": "workspace:*",
     "mailchecker": "^6.0.9"
   },
   "devDependencies": {
-    "@monkey-tilt/eslint-config": "workspace:*",
-    "@monkey-tilt/typescript-config": "workspace:*",
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
     "@types/jest": "^30.0.0",
     "eslint": "^9.34.0",
     "jest": "^30.2.0",

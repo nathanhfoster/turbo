@@ -1,11 +1,11 @@
-import { createTypedCache, type Cache } from '@monkey-tilt/utils/cache';
+import { createTypedCache, type Cache } from '@nathanhfoster/utils/cache';
 import type { DnsCache } from './types';
 
 /**
  * Simple in-memory cache for DNS validation results
  * This cache is NOT persisted across server restarts and not shared between different edge instances
  * 
- * Uses the generic cache implementation from @monkey-tilt/utils.
+ * Uses the generic cache implementation from @nathanhfoster/utils.
  * Cache<boolean> is compatible with DnsCache interface.
  */
 
