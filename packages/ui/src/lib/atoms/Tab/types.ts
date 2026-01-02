@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type TabVariant = 'default' | 'underline' | 'pills';
+export type TabVariant = "default" | "underline" | "pills";
 
 export interface TabProps {
   id: string;

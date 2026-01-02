@@ -1,15 +1,15 @@
-import { combineClassNames } from '../../../utils';
-import type { ButtonGroupProps, ButtonGroupItemProps } from './types';
-import type { FC } from 'react';
-import { BUTTON_GROUP_BASE_CLASSES } from './constants';
-import React from 'react';
+import { combineClassNames } from "../../../utils";
+import type { ButtonGroupProps, ButtonGroupItemProps } from "./types";
+import type { FC } from "react";
+import { BUTTON_GROUP_BASE_CLASSES } from "./constants";
+import React from "react";
 
 const ButtonGroup: FC<ButtonGroupProps> = ({
   children,
   className,
   outline,
   size,
-  variant = 'default',
+  variant = "default",
 }) => {
   const renderChildren = () => {
     if (!children) return null;

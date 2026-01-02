@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Grid from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import Grid from "./index";
 
 const meta = {
-  title: 'Atoms/Grid',
+  title: "Atoms/Grid",
   component: Grid,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Grid>;
 
 export default meta;
@@ -58,7 +58,7 @@ export const Responsive: Story = {
 export const AutoFlow: Story = {
   args: {
     autoCols: true,
-    autoFlow: 'row',
+    autoFlow: "row",
     children: (
       <>
         <div className="bg-blue-100 p-4">Item 1</div>

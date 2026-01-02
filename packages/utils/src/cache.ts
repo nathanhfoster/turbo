@@ -1,14 +1,14 @@
 /**
  * Generic in-memory cache implementation
- * 
+ *
  * This is a simple in-memory cache for server-side data.
  * It is NOT persisted across server restarts and not shared between different edge instances.
  * Best used for caching API responses, DNS lookups, or any other server-side data.
- * 
+ *
  * @example
  * ```ts
  * import { createCache } from '@nathanhfoster/utils/cache';
- * 
+ *
  * const cache = createCache({ cacheTTL: 60000, debugLog: true });
  * cache.setItem('key', { data: 'value' });
  * const value = cache.getItem('key');
@@ -73,13 +73,13 @@ const DEFAULT_TTL = 1000 * 60 * 1; // 1 minute default TTL
 
 class CacheImpl<T = unknown> implements Cache<T> {
   #cache = new Map<string, CacheEntry<T>>();
-  #config: Required<Omit<CacheConfig, 'logPrefix'>> & { logPrefix: string };
+  #config: Required<Omit<CacheConfig, "logPrefix">> & { logPrefix: string };
 
   constructor(config: CacheConfig = {}) {
     this.#config = {
       cacheTTL: config.cacheTTL ?? DEFAULT_TTL,
       debugLog: config.debugLog ?? false,
-      logPrefix: config.logPrefix ?? 'Cache',
+      logPrefix: config.logPrefix ?? "Cache",
     };
   }
 
@@ -153,7 +153,7 @@ class CacheImpl<T = unknown> implements Cache<T> {
 
 /**
  * Create a new cache instance with the specified configuration
- * 
+ *
  * @param config - Cache configuration options
  * @returns A new cache instance
  */
@@ -163,7 +163,7 @@ export function createCache<T = unknown>(config: CacheConfig = {}): Cache<T> {
 
 /**
  * Create a typed cache instance (for better TypeScript inference)
- * 
+ *
  * @param config - Cache configuration options
  * @returns A new typed cache instance
  */
@@ -173,4 +173,3 @@ export function createTypedCache<T>(config: CacheConfig = {}): Cache<T> {
 
 // Export the class for advanced usage
 export { CacheImpl };
-

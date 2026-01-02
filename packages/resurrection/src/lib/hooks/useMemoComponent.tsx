@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ComponentType, Ref, useMemo, useRef, JSX } from 'react';
-import { ComponentPropsType, EqualityFunctionType } from '../connect/types';
-import usePreviousValue from './usePreviousValue';
+import { ComponentType, Ref, useMemo, useRef, JSX } from "react";
+import { ComponentPropsType, EqualityFunctionType } from "../connect/types";
+import usePreviousValue from "./usePreviousValue";
 
 export interface useMemoComponentOptions<P extends ComponentPropsType> {
   Component: ComponentType<P>;

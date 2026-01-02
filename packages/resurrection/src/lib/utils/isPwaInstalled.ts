@@ -1,4 +1,4 @@
-import isClientSide from './isClientSide';
+import isClientSide from "./isClientSide";
 
 declare global {
   interface Navigator {
@@ -10,7 +10,7 @@ const isPwaInstalled = () => {
   if (!isClientSide()) return false;
 
   return (
-    (window.matchMedia?.('(display-mode: standalone)').matches ?? false) ||
+    (window.matchMedia?.("(display-mode: standalone)").matches ?? false) ||
     window.navigator.standalone === true
   );
 };

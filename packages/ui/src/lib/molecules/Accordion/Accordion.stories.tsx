@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Accordion from '.';
-import { ACCORDION_COLORS, ACCORDION_VARIANTS } from './constants';
+import type { Meta, StoryObj } from "@storybook/react";
+import Accordion from ".";
+import { ACCORDION_COLORS, ACCORDION_VARIANTS } from "./constants";
 
 const meta: Meta<typeof Accordion> = {
-  title: 'Molecules/Accordion',
+  title: "Molecules/Accordion",
   component: Accordion,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
+      control: "select",
       options: Object.values(ACCORDION_VARIANTS),
     },
     color: {
-      control: 'select',
+      control: "select",
       options: Object.values(ACCORDION_COLORS),
     },
   },
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof Accordion>;
 
 const defaultItems = [
   {
-    title: 'What is Flowbite?',
+    title: "What is Flowbite?",
     content: (
       <p className="mb-2 text-gray-500 dark:text-gray-400">
         Flowbite is an open-source library of interactive components built on
@@ -33,7 +33,7 @@ const defaultItems = [
     ),
   },
   {
-    title: 'Is there a Figma file available?',
+    title: "Is there a Figma file available?",
     content: (
       <p className="mb-2 text-gray-500 dark:text-gray-400">
         Flowbite is first conceptualized and designed using the Figma software
@@ -43,7 +43,7 @@ const defaultItems = [
     ),
   },
   {
-    title: 'What are the differences between Flowbite and Tailwind UI?',
+    title: "What are the differences between Flowbite and Tailwind UI?",
     content: (
       <p className="mb-2 text-gray-500 dark:text-gray-400">
         The main difference is that the core components from Flowbite are open
@@ -141,7 +141,7 @@ export const WithCustomContent: Story = {
   args: {
     data: [
       {
-        title: 'Custom Content Example',
+        title: "Custom Content Example",
         content: (
           <div className="space-y-4">
             <p className="text-gray-500 dark:text-gray-400">

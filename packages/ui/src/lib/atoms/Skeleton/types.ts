@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type SkeletonVariant = 'text' | 'circular' | 'rectangular';
-export type SkeletonAnimation = 'pulse' | 'wave' | 'none';
+export type SkeletonVariant = "text" | "circular" | "rectangular";
+export type SkeletonAnimation = "pulse" | "wave" | "none";
 
 export interface SkeletonProps {
   variant?: SkeletonVariant;

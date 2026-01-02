@@ -1,7 +1,7 @@
-import isClientSide from './isClientSide';
+import isClientSide from "./isClientSide";
 
 const DEFAULT_VALUE = {
-  userAgent: '',
+  userAgent: "",
   isMobile: false,
 };
 

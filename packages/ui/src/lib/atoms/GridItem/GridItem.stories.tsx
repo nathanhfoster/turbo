@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import GridItem from './index';
-import Grid from '../Grid';
+import type { Meta, StoryObj } from "@storybook/react";
+import GridItem from "./index";
+import Grid from "../Grid";
 
 const meta = {
-  title: 'Atoms/GridItem',
+  title: "Atoms/GridItem",
   component: GridItem,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof GridItem>;
 
 export default meta;

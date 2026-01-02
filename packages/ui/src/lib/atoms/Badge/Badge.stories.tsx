@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Badge from '.';
-import { BADGE_COLORS, BADGE_SIZES, BADGE_VARIANTS } from './constants';
+import type { Meta, StoryObj } from "@storybook/react";
+import Badge from ".";
+import { BADGE_COLORS, BADGE_SIZES, BADGE_VARIANTS } from "./constants";
 
 const meta: Meta<typeof Badge> = {
-  title: 'Atoms/Badge',
+  title: "Atoms/Badge",
   component: Badge,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     color: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BADGE_COLORS),
     },
     size: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BADGE_SIZES),
     },
     variant: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BADGE_VARIANTS),
     },
   },
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
   args: {
-    children: 'Default',
+    children: "Default",
   },
 };
 
@@ -68,20 +68,20 @@ export const Variants: Story = {
 export const Dismissible: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge dismissible onDismiss={() => alert('Badge dismissed!')}>
+      <Badge dismissible onDismiss={() => alert("Badge dismissed!")}>
         Default
       </Badge>
       <Badge
         color="dark"
         dismissible
-        onDismiss={() => alert('Badge dismissed!')}
+        onDismiss={() => alert("Badge dismissed!")}
       >
         Dark
       </Badge>
       <Badge
         color="red"
         dismissible
-        onDismiss={() => alert('Badge dismissed!')}
+        onDismiss={() => alert("Badge dismissed!")}
       >
         Red
       </Badge>

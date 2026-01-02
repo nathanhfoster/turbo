@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { combineClassNames } from '../../../utils';
-import type { PopoverProps } from './types';
+import { useEffect, useRef, useState } from "react";
+import { combineClassNames } from "../../../utils";
+import type { PopoverProps } from "./types";
 import {
   POPOVER_BASE_CLASSES,
   POPOVER_ARROW_CLASSES,
   POPOVER_PLACEMENTS,
-} from './constants';
+} from "./constants";
 
 export function Popover({
   children,
   content,
-  placement = 'bottom',
-  triggerType = 'hover',
+  placement = "bottom",
+  triggerType = "hover",
   offset = 10,
   className,
   onShow,
@@ -27,7 +27,7 @@ export function Popover({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        triggerType === 'click' &&
+        triggerType === "click" &&
         contentRef.current &&
         !contentRef.current.contains(event.target as Node) &&
         !triggerRef.current?.contains(event.target as Node)
@@ -37,26 +37,26 @@ export function Popover({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [triggerType, onHide]);
 
   const handleMouseEnter = () => {
-    if (triggerType === 'hover') {
+    if (triggerType === "hover") {
       setIsOpen(true);
       onShow?.();
     }
   };
 
   const handleMouseLeave = () => {
-    if (triggerType === 'hover') {
+    if (triggerType === "hover") {
       setIsOpen(false);
       onHide?.();
     }
   };
 
   const handleClick = () => {
-    if (triggerType === 'click') {
+    if (triggerType === "click") {
       setIsOpen(!isOpen);
       onToggle?.();
     }
@@ -75,7 +75,7 @@ export function Popover({
         className={combineClassNames(
           POPOVER_BASE_CLASSES,
           POPOVER_PLACEMENTS[placement],
-          isOpen ? 'opacity-100 visible' : '',
+          isOpen ? "opacity-100 visible" : "",
           className,
         )}
         style={{ marginTop: offset }}

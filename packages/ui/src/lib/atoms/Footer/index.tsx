@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import type { FooterProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { FooterProps } from "./types";
+import type { FC } from "react";
 import {
   FOOTER_BASE_CLASSES,
   FOOTER_STICKY_CLASSES,
@@ -11,7 +11,7 @@ import {
   FOOTER_LOGO_CONTAINER_CLASSES,
   FOOTER_LOGO_TEXT_CLASSES,
   FOOTER_SOCIAL_LINK_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Footer: FC<FooterProps> = ({
   children,
@@ -43,7 +43,7 @@ const Footer: FC<FooterProps> = ({
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           {copyright && (
             <span className={FOOTER_COPYRIGHT_CLASSES}>
-              © {new Date().getFullYear()}{' '}
+              © {new Date().getFullYear()}{" "}
               {copyright.href ? (
                 <a href={copyright.href} className="hover:underline">
                   {copyright.text}

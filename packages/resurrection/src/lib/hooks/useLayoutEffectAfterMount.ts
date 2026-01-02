@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { isClientSide } from '../utils';
+import { isClientSide } from "../utils";
 import {
   DependencyList,
   EffectCallback,
   useEffect,
   useLayoutEffect,
-} from 'react';
+} from "react";
 
-import useIsMounted from './useIsMounted';
+import useIsMounted from "./useIsMounted";
 
 const useLayoutEffectAfterMount = (
   callback: EffectCallback,

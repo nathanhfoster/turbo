@@ -4,14 +4,14 @@ import {
   Dispatch,
   ReactNode,
   RefObject,
-} from 'react';
+} from "react";
 
 import {
   IfMaybeUndefined,
   IfVoid,
   IsAny,
   IsUnknownOrNonInferrable,
-} from './utils/tsHelpers';
+} from "./utils/tsHelpers";
 
 /**
  * Represent a generic function.
@@ -169,7 +169,7 @@ export type ReducerStateMaybeWithAction<
 
 export type Thunk<A, S, P = void> = (
   dispatch: Dispatch<A>,
-  getState: () => RefObject<S>['current'],
+  getState: () => RefObject<S>["current"],
 ) => PayloadActionCreator | Promise<P> | Promise<void> | P;
 
 export type ThunkFunction<P = void, S = any, A = any> = IsAny<
@@ -218,7 +218,7 @@ export type DataConfigComponent<
 
 export type Ensure<T, K extends keyof T> = T & PickEnsure<T, K>;
 
-export type Falsely = null | undefined | false | typeof NaN | 0 | bigint | '';
+export type Falsely = null | undefined | false | typeof NaN | 0 | bigint | "";
 
 export type LayoutProps = {
   Footer?: ComponentType;
@@ -262,7 +262,7 @@ export interface ExtendableComponent extends ClickableComponent {
 }
 
 export interface PolyMorphicComponent<
-  T extends React.ElementType = 'button' | 'span',
+  T extends React.ElementType = "button" | "span",
 > extends ExtendableComponent {
   component?: T;
   props?: React.ComponentProps<T>;

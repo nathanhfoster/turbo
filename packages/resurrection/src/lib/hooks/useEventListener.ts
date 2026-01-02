@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 // original source - https://github.com/donavon/use-event-listener/blob/develop/src/index.js
 
-import { isClientSide } from '../utils';
-import { useEffect, useRef } from 'react';
+import { isClientSide } from "../utils";
+import { useEffect, useRef } from "react";
 
 type ElementOrWindow = HTMLElement | (Window & typeof globalThis);
 type ElementOption = ElementOrWindow | undefined | null;

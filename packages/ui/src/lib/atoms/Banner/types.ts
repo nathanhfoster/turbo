@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type BannerPosition = 'top' | 'bottom';
+export type BannerPosition = "top" | "bottom";
 export type BannerVariant =
-  | 'default'
-  | 'marketing'
-  | 'newsletter'
-  | 'informational';
+  | "default"
+  | "marketing"
+  | "newsletter"
+  | "informational";
 
 export interface BannerProps {
   children: ReactNode;

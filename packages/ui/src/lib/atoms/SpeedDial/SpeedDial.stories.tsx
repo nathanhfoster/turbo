@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import SpeedDial from '.';
-import type { SpeedDialProps } from './types';
+import type { Meta, StoryObj } from "@storybook/react";
+import SpeedDial from ".";
+import type { SpeedDialProps } from "./types";
 
 const meta: Meta<SpeedDialProps> = {
-  title: 'Atoms/SpeedDial',
+  title: "Atoms/SpeedDial",
   component: SpeedDial,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     position: {
-      control: 'select',
-      options: ['top', 'right', 'bottom', 'left'],
+      control: "select",
+      options: ["top", "right", "bottom", "left"],
     },
     direction: {
-      control: 'select',
-      options: ['up', 'down', 'left', 'right'],
+      control: "select",
+      options: ["up", "down", "left", "right"],
     },
     triggerType: {
-      control: 'select',
-      options: ['hover', 'click'],
+      control: "select",
+      options: ["hover", "click"],
     },
   },
 };
@@ -37,8 +37,8 @@ const defaultActions = [
         <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
       </svg>
     ),
-    tooltip: 'Notifications',
-    onClick: () => console.log('Notifications clicked'),
+    tooltip: "Notifications",
+    onClick: () => console.log("Notifications clicked"),
   },
   {
     icon: (
@@ -56,8 +56,8 @@ const defaultActions = [
         />
       </svg>
     ),
-    tooltip: 'View',
-    onClick: () => console.log('View clicked'),
+    tooltip: "View",
+    onClick: () => console.log("View clicked"),
   },
   {
     icon: (
@@ -74,8 +74,8 @@ const defaultActions = [
         />
       </svg>
     ),
-    tooltip: 'More',
-    onClick: () => console.log('More clicked'),
+    tooltip: "More",
+    onClick: () => console.log("More clicked"),
   },
 ];
 
@@ -105,7 +105,7 @@ export const TopPosition: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    position: 'top',
+    position: "top",
   },
 };
 
@@ -113,7 +113,7 @@ export const RightPosition: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    position: 'right',
+    position: "right",
   },
 };
 
@@ -121,7 +121,7 @@ export const LeftPosition: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    position: 'left',
+    position: "left",
   },
 };
 
@@ -129,7 +129,7 @@ export const DownDirection: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    direction: 'down',
+    direction: "down",
   },
 };
 
@@ -137,7 +137,7 @@ export const LeftDirection: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    direction: 'left',
+    direction: "left",
   },
 };
 
@@ -145,7 +145,7 @@ export const RightDirection: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    direction: 'right',
+    direction: "right",
   },
 };
 
@@ -153,7 +153,7 @@ export const ClickTrigger: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    triggerType: 'click',
+    triggerType: "click",
   },
 };
 
@@ -176,8 +176,8 @@ export const CustomActions: Story = {
             />
           </svg>
         ),
-        tooltip: 'View',
-        onClick: () => console.log('View clicked'),
+        tooltip: "View",
+        onClick: () => console.log("View clicked"),
       },
       {
         icon: (
@@ -194,8 +194,8 @@ export const CustomActions: Story = {
             />
           </svg>
         ),
-        tooltip: 'Edit',
-        onClick: () => console.log('Edit clicked'),
+        tooltip: "Edit",
+        onClick: () => console.log("Edit clicked"),
       },
       {
         icon: (
@@ -212,8 +212,8 @@ export const CustomActions: Story = {
             />
           </svg>
         ),
-        tooltip: 'Delete',
-        onClick: () => console.log('Delete clicked'),
+        tooltip: "Delete",
+        onClick: () => console.log("Delete clicked"),
       },
     ],
     triggerIcon: defaultTriggerIcon,
@@ -224,8 +224,8 @@ export const WithEventHandlers: Story = {
   args: {
     actions: defaultActions,
     triggerIcon: defaultTriggerIcon,
-    onShow: () => console.log('Speed dial opened'),
-    onHide: () => console.log('Speed dial closed'),
-    onToggle: (isOpen) => console.log('Speed dial toggled:', isOpen),
+    onShow: () => console.log("Speed dial opened"),
+    onHide: () => console.log("Speed dial closed"),
+    onToggle: (isOpen) => console.log("Speed dial toggled:", isOpen),
   },
 };

@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type StepStatus = 'complete' | 'current' | 'upcoming';
-export type StepVariant = 'default' | 'progress' | 'vertical';
+export type StepStatus = "complete" | "current" | "upcoming";
+export type StepVariant = "default" | "progress" | "vertical";
 
 export interface StepType {
   title: string;

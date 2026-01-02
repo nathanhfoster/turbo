@@ -1,8 +1,8 @@
-import type { StaticImageData } from 'next/image';
-import type { ComponentProps } from 'react';
+import type { StaticImageData } from "next/image";
+import type { ComponentProps } from "react";
 
-type NextImageProps = ComponentProps<typeof import('next/image').default>;
-type ImgProps = ComponentProps<'img'>;
+type NextImageProps = ComponentProps<typeof import("next/image").default>;
+type ImgProps = ComponentProps<"img">;
 
 export interface GalleryImage {
   src: string | StaticImageData;

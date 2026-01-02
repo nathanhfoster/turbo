@@ -1,5 +1,5 @@
-import type { GenericFunction } from './types';
-import isFunction from './isFunction';
+import type { GenericFunction } from "./types";
+import isFunction from "./isFunction";
 
 export interface DebounceOptions {
   leading?: boolean;
@@ -38,15 +38,15 @@ export function debounce<T extends GenericFunction>(
   let leading = false;
   let trailing = true;
   const maxWait =
-    'maxWait' in options ? Math.max(+(options.maxWait ?? 0), wait) : undefined;
+    "maxWait" in options ? Math.max(+(options.maxWait ?? 0), wait) : undefined;
 
   if (!isFunction(func)) {
-    throw new TypeError('Expected a function');
+    throw new TypeError("Expected a function");
   }
 
   wait = +wait || 0;
   leading = !!options.leading;
-  trailing = 'trailing' in options ? !!options.trailing : trailing;
+  trailing = "trailing" in options ? !!options.trailing : trailing;
 
   function invokeFunc(time: number) {
     const args = lastArgs;

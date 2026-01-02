@@ -1,13 +1,13 @@
-import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import type { Context } from 'use-context-selector';
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Context } from "use-context-selector";
 import type {
   ContextStoreInitializer,
   Thunk,
   ActionCreatorWithPayload,
   PayloadActionCreator,
   PayloadAction,
-} from '../types';
-import type { ReducerActionCreators } from '../utils/createSlice/types';
+} from "../types";
+import type { ReducerActionCreators } from "../utils/createSlice/types";
 
 export type ProviderProps<
   S extends object,

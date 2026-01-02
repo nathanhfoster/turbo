@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
+import { FC } from "react";
 import {
   createContextWithName,
   Provider,
-  ReducerActionCreators,
-} from '@nathanhfoster/ui';
+  type ReducerActionCreators,
+} from "@nathanhfoster/resurrection";
 
-import { getAdminInitialState, adminInitialState, adminSlice } from './reducer';
-import type { AdminContextProviderProps, AdminContextState } from './types';
+import { getAdminInitialState, adminInitialState, adminSlice } from "./reducer";
+import type { AdminContextProviderProps, AdminContextState } from "./types";
 
 export const adminContextActions = adminSlice.actions;
 
 export type AdminActions = ReducerActionCreators<
   typeof adminContextActions,
-  'Admin'
+  "Admin"
 >;
 
 export const AdminContext = createContextWithName<
   AdminContextState,
   AdminActions
->('Admin', adminInitialState);
+>("Admin", adminInitialState);
 
 export const {
   StateContext: AdminStateContext,

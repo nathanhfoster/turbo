@@ -1,16 +1,16 @@
-import { isValid as isValidEmail } from 'mailchecker';
-import { EMAIL_REGEX } from './constants';
-import type { EmailValidator, DnsCache } from './types';
-import { dnsCache as defaultDnsCache } from './cache';
+import { isValid as isValidEmail } from "mailchecker";
+import { EMAIL_REGEX } from "./constants";
+import type { EmailValidator, DnsCache } from "./types";
+import { dnsCache as defaultDnsCache } from "./cache";
 
 /**
  * Creates a syntax validator that validates email format against RFC 5322 compliant regex
  * @returns EmailValidator - Validator instance
  */
 export const createSyntaxValidator = (): EmailValidator => ({
-  errorMessage: 'Invalid email address format',
+  errorMessage: "Invalid email address format",
   validate: async (email: string): Promise<boolean> => {
-    if (!email || typeof email !== 'string') {
+    if (!email || typeof email !== "string") {
       return false;
     }
 
@@ -22,7 +22,7 @@ export const createSyntaxValidator = (): EmailValidator => ({
     }
 
     // Check for @ symbol
-    const atIndex = trimmedEmail.lastIndexOf('@');
+    const atIndex = trimmedEmail.lastIndexOf("@");
     if (atIndex === -1) {
       return false;
     }
@@ -52,9 +52,9 @@ export const createSyntaxValidator = (): EmailValidator => ({
  * @returns EmailValidator - Validator instance
  */
 export const createBlacklistValidator = (): EmailValidator => ({
-  errorMessage: 'Disposable email addresses are not allowed',
+  errorMessage: "Disposable email addresses are not allowed",
   validate: async (email: string): Promise<boolean> => {
-    if (!email || typeof email !== 'string') {
+    if (!email || typeof email !== "string") {
       return false;
     }
 
@@ -77,104 +77,103 @@ export const createDnsValidator = (cache?: DnsCache): EmailValidator => {
   const dnsCache = cache ?? defaultDnsCache;
 
   return {
-    errorMessage: 'Email domain does not exist',
+    errorMessage: "Email domain does not exist",
     validate: async (email: string): Promise<boolean> => {
-    // Check if we're in a Node.js environment
-    if (typeof window !== 'undefined') {
-      console.warn(
-        '[EmailValidationService] checkDomain() can only run on server-side',
-      );
-      return false;
-    }
-
-    if (!email || typeof email !== 'string') {
-      return false;
-    }
-
-    const trimmedEmail = email.trim();
-
-    // Extract domain from email
-    const atIndex = trimmedEmail.lastIndexOf('@');
-    if (atIndex === -1) {
-      return false;
-    }
-
-    const domain = trimmedEmail.substring(atIndex + 1).toLowerCase();
-
-    // Check cache first (handle cache errors gracefully)
-    const cacheKey = `dns:${domain}`;
-    let cachedResult: boolean | null = null;
-    try {
-      cachedResult = dnsCache.getItem(cacheKey);
-      if (cachedResult !== null) {
-        return cachedResult;
+      // Check if we're in a Node.js environment
+      if (typeof window !== "undefined") {
+        console.warn(
+          "[EmailValidationService] checkDomain() can only run on server-side",
+        );
+        return false;
       }
-    } catch (cacheError) {
-      // If cache fails, continue with DNS lookup
-      console.warn(
-        '[EmailValidationService] Cache error, proceeding with DNS lookup:',
-        cacheError instanceof Error ? cacheError.message : cacheError,
-      );
-    }
 
-    try {
-      // Use require() for Node.js core modules to avoid webpack bundling issues
-      // Note: require() is synchronous in Node.js - no await needed
-      // We're accessing the .promises property which provides promise-based DNS methods
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const dns = require('dns').promises;
+      if (!email || typeof email !== "string") {
+        return false;
+      }
 
-      let hasValidRecords = false;
+      const trimmedEmail = email.trim();
+
+      // Extract domain from email
+      const atIndex = trimmedEmail.lastIndexOf("@");
+      if (atIndex === -1) {
+        return false;
+      }
+
+      const domain = trimmedEmail.substring(atIndex + 1).toLowerCase();
+
+      // Check cache first (handle cache errors gracefully)
+      const cacheKey = `dns:${domain}`;
+      let cachedResult: boolean | null = null;
+      try {
+        cachedResult = dnsCache.getItem(cacheKey);
+        if (cachedResult !== null) {
+          return cachedResult;
+        }
+      } catch (cacheError) {
+        // If cache fails, continue with DNS lookup
+        console.warn(
+          "[EmailValidationService] Cache error, proceeding with DNS lookup:",
+          cacheError instanceof Error ? cacheError.message : cacheError,
+        );
+      }
 
       try {
-        // First, try to resolve MX records (preferred for email)
-        const mxRecords = await dns.resolveMx(domain);
-        if (mxRecords && mxRecords.length > 0) {
-          hasValidRecords = true;
-        }
-      } catch (mxError) {
-        // MX lookup failed, try A records as fallback
+        // Use require() for Node.js core modules to avoid webpack bundling issues
+        // Note: require() is synchronous in Node.js - no await needed
+        // We're accessing the .promises property which provides promise-based DNS methods
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const dns = require("dns").promises;
+
+        let hasValidRecords = false;
+
         try {
-          const aRecords = await dns.resolve4(domain);
-          if (aRecords && aRecords.length > 0) {
+          // First, try to resolve MX records (preferred for email)
+          const mxRecords = await dns.resolveMx(domain);
+          if (mxRecords && mxRecords.length > 0) {
             hasValidRecords = true;
           }
-        } catch (aError) {
-          // Both MX and A record lookups failed
-          hasValidRecords = false;
+        } catch (mxError) {
+          // MX lookup failed, try A records as fallback
+          try {
+            const aRecords = await dns.resolve4(domain);
+            if (aRecords && aRecords.length > 0) {
+              hasValidRecords = true;
+            }
+          } catch (aError) {
+            // Both MX and A record lookups failed
+            hasValidRecords = false;
+          }
         }
-      }
 
-      // Cache the result (5 minutes TTL for DNS records)
-      try {
-        dnsCache.setItem(cacheKey, hasValidRecords);
-      } catch (cacheError) {
-        // If cache set fails, log but don't fail validation
-        console.warn(
-          '[EmailValidationService] Failed to cache DNS result:',
-          cacheError instanceof Error ? cacheError.message : cacheError,
-        );
-      }
+        // Cache the result (5 minutes TTL for DNS records)
+        try {
+          dnsCache.setItem(cacheKey, hasValidRecords);
+        } catch (cacheError) {
+          // If cache set fails, log but don't fail validation
+          console.warn(
+            "[EmailValidationService] Failed to cache DNS result:",
+            cacheError instanceof Error ? cacheError.message : cacheError,
+          );
+        }
 
-      return hasValidRecords;
-    } catch (error) {
-      console.error(
-        '[EmailValidationService] DNS validation error:',
-        error instanceof Error ? error.message : error,
-      );
-      // Cache negative result to avoid repeated lookups for invalid domains
-      try {
-        dnsCache.setItem(cacheKey, false);
-      } catch (cacheError) {
-        // If cache set fails, log but don't fail validation
-        console.warn(
-          '[EmailValidationService] Failed to cache negative DNS result:',
-          cacheError instanceof Error ? cacheError.message : cacheError,
+        return hasValidRecords;
+      } catch (error) {
+        console.error(
+          "[EmailValidationService] DNS validation error:",
+          error instanceof Error ? error.message : error,
         );
+        // Cache negative result to avoid repeated lookups for invalid domains
+        try {
+          dnsCache.setItem(cacheKey, false);
+        } catch (cacheError) {
+          // If cache set fails, log but don't fail validation
+          console.warn(
+            "[EmailValidationService] Failed to cache negative DNS result:",
+            cacheError instanceof Error ? cacheError.message : cacheError,
+          );
+        }
+        return false;
       }
-      return false;
-    }
     },
   };
 };
-

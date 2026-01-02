@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type RatingSize = 'sm' | 'md' | 'lg';
-export type RatingColor = 'yellow' | 'green' | 'red' | 'blue' | 'purple';
+export type RatingSize = "sm" | "md" | "lg";
+export type RatingColor = "yellow" | "green" | "red" | "blue" | "purple";
 
 export interface RatingProps {
   value: number;

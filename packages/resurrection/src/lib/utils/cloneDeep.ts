@@ -8,7 +8,7 @@
  */
 const cloneDeep = <T>(value: T): T => {
   // Handle primitive types
-  if (value === null || typeof value !== 'object') {
+  if (value === null || typeof value !== "object") {
     return value;
   }
 
@@ -23,7 +23,7 @@ const cloneDeep = <T>(value: T): T => {
   }
 
   // Handle objects
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     const result: Record<string, any> = {};
     for (const key in value) {
       if (Object.prototype.hasOwnProperty.call(value, key)) {

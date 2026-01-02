@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Banner from '.';
-import { BANNER_POSITIONS, BANNER_VARIANTS } from './constants';
+import type { Meta, StoryObj } from "@storybook/react";
+import Banner from ".";
+import { BANNER_POSITIONS, BANNER_VARIANTS } from "./constants";
 
 const meta: Meta<typeof Banner> = {
-  title: 'Atoms/Banner',
+  title: "Atoms/Banner",
   component: Banner,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     position: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BANNER_POSITIONS),
     },
     variant: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BANNER_VARIANTS),
     },
   },
@@ -23,13 +23,13 @@ type Story = StoryObj<typeof Banner>;
 
 export const Default: Story = {
   args: {
-    children: 'New brand identity has been launched for the Flowbite Library',
+    children: "New brand identity has been launched for the Flowbite Library",
   },
 };
 
 export const WithIcon: Story = {
   args: {
-    children: 'New brand identity has been launched for the Flowbite Library',
+    children: "New brand identity has been launched for the Flowbite Library",
     icon: (
       <svg
         className="w-3 h-3"
@@ -46,7 +46,7 @@ export const WithIcon: Story = {
 
 export const WithCta: Story = {
   args: {
-    children: 'New brand identity has been launched for the Flowbite Library',
+    children: "New brand identity has been launched for the Flowbite Library",
     icon: (
       <svg
         className="w-3 h-3"
@@ -59,15 +59,15 @@ export const WithCta: Story = {
       </svg>
     ),
     cta: {
-      label: 'Learn more',
-      href: 'https://flowbite.com',
+      label: "Learn more",
+      href: "https://flowbite.com",
     },
   },
 };
 
 export const WithSecondaryCta: Story = {
   args: {
-    children: 'New brand identity has been launched for the Flowbite Library',
+    children: "New brand identity has been launched for the Flowbite Library",
     icon: (
       <svg
         className="w-3 h-3"
@@ -80,8 +80,8 @@ export const WithSecondaryCta: Story = {
       </svg>
     ),
     cta: {
-      label: 'Get started',
-      href: '#',
+      label: "Get started",
+      href: "#",
       icon: (
         <svg
           className="w-3 h-3 ms-2 rtl:rotate-180"
@@ -101,8 +101,8 @@ export const WithSecondaryCta: Story = {
       ),
     },
     secondaryCta: {
-      label: 'Learn more',
-      href: '#',
+      label: "Learn more",
+      href: "#",
       icon: (
         <svg
           className="w-3 h-3 me-2"
@@ -120,26 +120,26 @@ export const WithSecondaryCta: Story = {
 
 export const Newsletter: Story = {
   args: {
-    variant: 'newsletter',
-    children: 'Sign up for our newsletter',
+    variant: "newsletter",
+    children: "Sign up for our newsletter",
     form: {
-      label: 'Sign up for our newsletter',
-      placeholder: 'Enter your email',
-      buttonLabel: 'Subscribe',
-      onSubmit: (email) => console.log('Subscribed:', email),
+      label: "Sign up for our newsletter",
+      placeholder: "Enter your email",
+      buttonLabel: "Subscribe",
+      onSubmit: (email) => console.log("Subscribed:", email),
     },
   },
 };
 
 export const Informational: Story = {
   args: {
-    variant: 'informational',
-    title: 'Integration is the key',
+    variant: "informational",
+    title: "Integration is the key",
     children:
-      'You can integrate Flowbite with many tools to make your work even more efficient and lightning fast based on Tailwind CSS.',
+      "You can integrate Flowbite with many tools to make your work even more efficient and lightning fast based on Tailwind CSS.",
     cta: {
-      label: 'Get started',
-      href: '#',
+      label: "Get started",
+      href: "#",
       icon: (
         <svg
           className="w-3 h-3 ms-2 rtl:rotate-180"
@@ -159,8 +159,8 @@ export const Informational: Story = {
       ),
     },
     secondaryCta: {
-      label: 'Learn more',
-      href: '#',
+      label: "Learn more",
+      href: "#",
       icon: (
         <svg
           className="w-3 h-3 me-2"
@@ -178,19 +178,19 @@ export const Informational: Story = {
 
 export const BottomPosition: Story = {
   args: {
-    position: 'bottom',
-    children: 'Get 5% commission per sale',
+    position: "bottom",
+    children: "Get 5% commission per sale",
     cta: {
-      label: 'Become a partner',
-      href: '#',
+      label: "Become a partner",
+      href: "#",
     },
   },
 };
 
 export const Dismissible: Story = {
   args: {
-    children: 'New brand identity has been launched for the Flowbite Library',
+    children: "New brand identity has been launched for the Flowbite Library",
     dismissible: true,
-    onDismiss: () => alert('Banner dismissed!'),
+    onDismiss: () => alert("Banner dismissed!"),
   },
 };

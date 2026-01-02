@@ -1,4 +1,4 @@
-import { Reducer } from 'react';
+import { Reducer } from "react";
 
 const triggerRerenderReducer: Reducer<number, void> = (state) => state + 1;
 

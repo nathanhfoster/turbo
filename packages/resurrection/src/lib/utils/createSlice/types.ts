@@ -1,4 +1,4 @@
-import { Draft } from 'immer';
+import { Draft } from "immer";
 
 import {
   ActionCreatorWithoutPayload,
@@ -6,14 +6,14 @@ import {
   PayloadActionCreator,
   Thunk,
   ThunkFunction,
-} from '../../types';
+} from "../../types";
 
 import {
   ActionsUnionType,
   IsUnknownOrNonInferrable,
   NoInfer,
-} from '../tsHelpers';
-import type { ComponentPropsType } from '../../connect/types';
+} from "../tsHelpers";
+import type { ComponentPropsType } from "../../connect/types";
 
 export type ActionTypeName<
   SliceName extends string,

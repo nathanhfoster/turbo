@@ -1,13 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import Banner from '.';
+import { render, screen, fireEvent } from "@testing-library/react";
+import Banner from ".";
 
-describe('Banner', () => {
-  it('renders with default props', () => {
+describe("Banner", () => {
+  it("renders with default props", () => {
     render(<Banner>Test Banner</Banner>);
-    expect(screen.getByText('Test Banner')).toBeInTheDocument();
+    expect(screen.getByText("Test Banner")).toBeInTheDocument();
   });
 
-  it('renders with icon', () => {
+  it("renders with icon", () => {
     const icon = (
       <svg
         className="w-3 h-3"
@@ -20,96 +20,96 @@ describe('Banner', () => {
       </svg>
     );
     render(<Banner icon={icon}>With Icon</Banner>);
-    expect(screen.getByText('With Icon')).toBeInTheDocument();
-    expect(screen.getByRole('img', { hidden: true })).toBeInTheDocument();
+    expect(screen.getByText("With Icon")).toBeInTheDocument();
+    expect(screen.getByRole("img", { hidden: true })).toBeInTheDocument();
   });
 
-  it('renders with title', () => {
+  it("renders with title", () => {
     render(<Banner title="Test Title">Test Content</Banner>);
-    expect(screen.getByText('Test Title')).toBeInTheDocument();
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+    expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
 
-  it('renders with CTA', () => {
+  it("renders with CTA", () => {
     render(
       <Banner
         cta={{
-          label: 'Learn more',
-          href: 'https://example.com',
+          label: "Learn more",
+          href: "https://example.com",
         }}
       >
         Test Content
       </Banner>,
     );
-    const ctaLink = screen.getByRole('link');
-    expect(ctaLink).toHaveAttribute('href', 'https://example.com');
-    expect(ctaLink).toHaveTextContent('Learn more');
+    const ctaLink = screen.getByRole("link");
+    expect(ctaLink).toHaveAttribute("href", "https://example.com");
+    expect(ctaLink).toHaveTextContent("Learn more");
   });
 
-  it('renders with secondary CTA', () => {
+  it("renders with secondary CTA", () => {
     render(
       <Banner
         secondaryCta={{
-          label: 'Learn more',
-          href: 'https://example.com',
+          label: "Learn more",
+          href: "https://example.com",
         }}
       >
         Test Content
       </Banner>,
     );
-    const secondaryCtaLink = screen.getByRole('link');
-    expect(secondaryCtaLink).toHaveAttribute('href', 'https://example.com');
-    expect(secondaryCtaLink).toHaveTextContent('Learn more');
+    const secondaryCtaLink = screen.getByRole("link");
+    expect(secondaryCtaLink).toHaveAttribute("href", "https://example.com");
+    expect(secondaryCtaLink).toHaveTextContent("Learn more");
   });
 
-  it('renders with form', () => {
+  it("renders with form", () => {
     const onSubmit = jest.fn();
     render(
       <Banner
         form={{
-          label: 'Sign up',
-          placeholder: 'Enter email',
-          buttonLabel: 'Subscribe',
+          label: "Sign up",
+          placeholder: "Enter email",
+          buttonLabel: "Subscribe",
           onSubmit,
         }}
       >
         Test Content
       </Banner>,
     );
-    expect(screen.getByLabelText('Sign up')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Enter email')).toBeInTheDocument();
+    expect(screen.getByLabelText("Sign up")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Enter email")).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: 'Subscribe' }),
+      screen.getByRole("button", { name: "Subscribe" }),
     ).toBeInTheDocument();
   });
 
-  it('handles dismiss action', () => {
+  it("handles dismiss action", () => {
     const onDismiss = jest.fn();
     render(
       <Banner dismissible onDismiss={onDismiss}>
         Test Content
       </Banner>,
     );
-    const dismissButton = screen.getByRole('button', { name: 'Close banner' });
+    const dismissButton = screen.getByRole("button", { name: "Close banner" });
     fireEvent.click(dismissButton);
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it('applies custom className', () => {
+  it("applies custom className", () => {
     render(<Banner className="custom-class">Test Content</Banner>);
-    const banner = screen.getByText('Test Content').parentElement;
-    expect(banner).toHaveClass('custom-class');
+    const banner = screen.getByText("Test Content").parentElement;
+    expect(banner).toHaveClass("custom-class");
   });
 
-  it('renders in bottom position', () => {
+  it("renders in bottom position", () => {
     render(<Banner position="bottom">Test Content</Banner>);
-    const banner = screen.getByText('Test Content').parentElement;
-    expect(banner).toHaveClass('fixed bottom-0');
+    const banner = screen.getByText("Test Content").parentElement;
+    expect(banner).toHaveClass("fixed bottom-0");
   });
 
-  it('renders with different variants', () => {
+  it("renders with different variants", () => {
     render(<Banner variant="marketing">Test Content</Banner>);
-    const banner = screen.getByText('Test Content').parentElement;
-    expect(banner).toHaveClass('bg-blue-50');
+    const banner = screen.getByText("Test Content").parentElement;
+    expect(banner).toHaveClass("bg-blue-50");
   });
 });

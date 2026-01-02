@@ -1,4 +1,4 @@
-import { isString } from '../utils';
+import { isString } from "../utils";
 
 type ErrorWithMessage = {
   message: string;
@@ -6,10 +6,10 @@ type ErrorWithMessage = {
 
 const isErrorWithMessage = (error: unknown): error is ErrorWithMessage => {
   return (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error !== null &&
-    'message' in error &&
-    isString((error as Record<string, unknown>)['message'])
+    "message" in error &&
+    isString((error as Record<string, unknown>)["message"])
   );
 };
 

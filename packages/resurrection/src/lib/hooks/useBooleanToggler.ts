@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useReducer } from 'react';
+import { useReducer } from "react";
 
-import toggleBooleanReducer from './reducers/toggleBooleanReducer';
-import { DispatchMaybeWithAction } from '../types';
+import toggleBooleanReducer from "./reducers/toggleBooleanReducer";
+import { DispatchMaybeWithAction } from "../types";
 
 /**
  * Boolean reducer that toggles it's state by default or is overwritten by a passed value

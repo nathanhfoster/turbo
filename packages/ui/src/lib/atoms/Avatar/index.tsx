@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import type { AvatarProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { AvatarProps } from "./types";
+import type { FC } from "react";
 import {
   AVATAR_BORDER_STYLES,
   AVATAR_SHAPES,
@@ -9,15 +9,15 @@ import {
   AVATAR_STATUS_STYLES,
   AVATAR_STACKED_STYLES,
   DEFAULT_AVATAR,
-} from './constants';
+} from "./constants";
 
 const Avatar: FC<AvatarProps> = ({
   src,
-  alt = '',
-  size = 'md',
-  shape = 'rounded',
+  alt = "",
+  size = "md",
+  shape = "rounded",
   status,
-  statusPosition = 'top-right',
+  statusPosition = "top-right",
   bordered = false,
   stacked = false,
   className,
@@ -26,7 +26,7 @@ const Avatar: FC<AvatarProps> = ({
   return (
     <div
       className={combineClassNames(
-        'relative',
+        "relative",
         AVATAR_SIZES[size],
         AVATAR_SHAPES[shape],
         bordered && AVATAR_BORDER_STYLES.default,
@@ -39,7 +39,7 @@ const Avatar: FC<AvatarProps> = ({
           src={src}
           alt={alt}
           className={combineClassNames(
-            'w-full h-full object-cover',
+            "w-full h-full object-cover",
             AVATAR_SHAPES[shape],
           )}
         />
@@ -49,7 +49,7 @@ const Avatar: FC<AvatarProps> = ({
       {status && (
         <span
           className={combineClassNames(
-            'absolute w-3.5 h-3.5',
+            "absolute w-3.5 h-3.5",
             AVATAR_STATUS_STYLES[status],
             AVATAR_STATUS_POSITIONS[statusPosition],
           )}

@@ -1,7 +1,7 @@
-import { Reducer } from 'react';
+import { Reducer } from "react";
 
-import ActionTypes from './actionTypes';
-import { PayloadActionType } from '../types';
+import ActionTypes from "./actionTypes";
+import { PayloadActionType } from "../types";
 
 /**
  * Initializes a reducers state

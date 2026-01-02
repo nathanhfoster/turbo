@@ -1,6 +1,6 @@
-import { isBoolean } from '../../utils';
+import { isBoolean } from "../../utils";
 
-import type { ReducerMaybeWithAction } from '../../types';
+import type { ReducerMaybeWithAction } from "../../types";
 
 /**
  * Toggles the boolean state if there is not an action passed in

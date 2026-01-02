@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import SearchInput from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import SearchInput from ".";
 
 const meta: Meta<typeof SearchInput> = {
-  title: 'Molecules/SearchInput',
+  title: "Molecules/SearchInput",
   component: SearchInput,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -51,7 +51,7 @@ export const Default: Story = {
           />
         </svg>
       }
-      onSearch={(value) => console.log('Search:', value)}
+      onSearch={(value) => console.log("Search:", value)}
     />
   ),
 };
@@ -77,7 +77,7 @@ export const LeftIconOnly: Story = {
           />
         </svg>
       }
-      onSearch={(value) => console.log('Search:', value)}
+      onSearch={(value) => console.log("Search:", value)}
     />
   ),
 };
@@ -103,7 +103,7 @@ export const RightIconOnly: Story = {
           />
         </svg>
       }
-      onSearch={(value) => console.log('Search:', value)}
+      onSearch={(value) => console.log("Search:", value)}
     />
   ),
 };

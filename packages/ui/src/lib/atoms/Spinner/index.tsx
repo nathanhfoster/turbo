@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { combineClassNames } from '../../../utils';
-import type { SpinnerProps } from './types';
+import { combineClassNames } from "../../../utils";
+import type { SpinnerProps } from "./types";
 import {
   SPINNER_SIZES,
   SPINNER_COLORS,
   SPINNER_BASE_CLASSES,
   SPINNER_BG_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Spinner: React.FC<SpinnerProps> = ({
-  size = 'md',
-  color = 'blue',
+  size = "md",
+  color = "blue",
   className,
   children,
 }) => {

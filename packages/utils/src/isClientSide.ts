@@ -1,12 +1,12 @@
 const isClientSide = (checkServiceWorker = false) => {
-  const isBrowser = typeof window !== 'undefined';
+  const isBrowser = typeof window !== "undefined";
 
   if (!isBrowser) {
     return false;
   }
 
   if (checkServiceWorker) {
-    return 'serviceWorker' in navigator;
+    return "serviceWorker" in navigator;
   }
 
   return true;

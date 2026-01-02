@@ -1,31 +1,31 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Stepper from '.';
-import type { StepperProps } from './types';
+import type { Meta, StoryObj } from "@storybook/react";
+import Stepper from ".";
+import type { StepperProps } from "./types";
 
 const meta: Meta<typeof Stepper> = {
-  title: 'Molecules/Stepper',
+  title: "Molecules/Stepper",
   component: Stepper,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<typeof Stepper>;
 
-const steps: StepperProps['steps'] = [
+const steps: StepperProps["steps"] = [
   {
-    title: 'Personal Info',
-    description: 'Enter your personal details',
+    title: "Personal Info",
+    description: "Enter your personal details",
   },
   {
-    title: 'Account Info',
-    description: 'Set up your account',
+    title: "Account Info",
+    description: "Set up your account",
   },
   {
-    title: 'Confirmation',
-    description: 'Review and confirm',
+    title: "Confirmation",
+    description: "Review and confirm",
   },
 ];
 
@@ -40,7 +40,7 @@ export const WithProgress: Story = {
   args: {
     steps,
     currentStep: 1,
-    variant: 'progress',
+    variant: "progress",
   },
 };
 
@@ -48,7 +48,7 @@ export const Vertical: Story = {
   args: {
     steps,
     currentStep: 2,
-    variant: 'vertical',
+    variant: "vertical",
   },
 };
 
@@ -56,8 +56,8 @@ export const WithIcons: Story = {
   args: {
     steps: [
       {
-        title: 'Personal Info',
-        description: 'Enter your personal details',
+        title: "Personal Info",
+        description: "Enter your personal details",
         icon: (
           <svg
             className="w-5 h-5"
@@ -75,8 +75,8 @@ export const WithIcons: Story = {
         ),
       },
       {
-        title: 'Account Info',
-        description: 'Set up your account',
+        title: "Account Info",
+        description: "Set up your account",
         icon: (
           <svg
             className="w-5 h-5"
@@ -94,8 +94,8 @@ export const WithIcons: Story = {
         ),
       },
       {
-        title: 'Confirmation',
-        description: 'Review and confirm',
+        title: "Confirmation",
+        description: "Review and confirm",
         icon: (
           <svg
             className="w-5 h-5"

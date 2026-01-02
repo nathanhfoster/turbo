@@ -1,8 +1,8 @@
-import { combineClassNames } from '../../../utils';
-import type { StepperProps } from './types';
-import type { FC } from 'react';
-import { STEPPER_VARIANTS } from '../../atoms/Step/constants';
-import Step from '../../atoms/Step';
+import { combineClassNames } from "../../../utils";
+import type { StepperProps } from "./types";
+import type { FC } from "react";
+import { STEPPER_VARIANTS } from "../../atoms/Step/constants";
+import Step from "../../atoms/Step";
 
 const Stepper: FC<StepperProps> = ({
   steps,
@@ -14,8 +14,8 @@ const Stepper: FC<StepperProps> = ({
   return (
     <div
       className={combineClassNames(
-        'flex gap-4',
-        variant === STEPPER_VARIANTS.vertical ? 'flex-col' : 'flex-row',
+        "flex gap-4",
+        variant === STEPPER_VARIANTS.vertical ? "flex-col" : "flex-row",
         className,
       )}
     >
@@ -31,10 +31,10 @@ const Stepper: FC<StepperProps> = ({
           {index < steps.length - 1 && (
             <div
               className={combineClassNames(
-                'h-0.5 w-full bg-gray-200 dark:bg-gray-700',
+                "h-0.5 w-full bg-gray-200 dark:bg-gray-700",
                 variant === STEPPER_VARIANTS.vertical
-                  ? 'w-0.5 h-full'
-                  : 'w-full h-0.5',
+                  ? "w-0.5 h-full"
+                  : "w-full h-0.5",
               )}
             />
           )}

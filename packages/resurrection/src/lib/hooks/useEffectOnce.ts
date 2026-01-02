@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import isPromise from '../utils/isPromise';
+import { useEffect, useRef, useState } from "react";
+import isPromise from "../utils/isPromise";
 
-import { isFunction } from '../utils';
+import { isFunction } from "../utils";
 
 type EffectResult = void | (() => void);
 type EffectFunction = () => EffectResult | Promise<EffectResult>;
@@ -45,7 +45,7 @@ const useEffectOnce = (effect: EffectFunction) => {
       if (!renderAfterCalled.current) {
         return;
       }
-      if (typeof destroyFunc.current === 'function') {
+      if (typeof destroyFunc.current === "function") {
         destroyFunc.current();
       }
     };

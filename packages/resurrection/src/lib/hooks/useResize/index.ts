@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { MouseEventHandler, RefObject, useCallback, useState } from 'react';
+import { MouseEventHandler, RefObject, useCallback, useState } from "react";
 
-import useEffectAfterMount from '../useEffectAfterMount';
+import useEffectAfterMount from "../useEffectAfterMount";
 
 import {
   CURSOR_MAP,
   getWidthHeightInitialState,
   getXYInitialState,
-} from './constant';
-import { UseResizeOptions } from './types';
+} from "./constant";
+import { UseResizeOptions } from "./types";
 
 const useResize = (
   ref: RefObject<any> = { current: null },
@@ -17,7 +17,7 @@ const useResize = (
 ) => {
   const minWidth = options.minWidth;
 
-  const { step = 1, axis = 'horizontal' } = options;
+  const { step = 1, axis = "horizontal" } = options;
   const [coords, setCoords] = useState(getXYInitialState);
   const [dims, setDims] = useState(getWidthHeightInitialState);
   const [size, setSize] = useState(getWidthHeightInitialState);
@@ -55,14 +55,14 @@ const useResize = (
 
       // Set the box size.
       switch (axis) {
-        case 'both':
+        case "both":
           ref.current.style.width = `${size.width}px`;
           ref.current.style.height = `${size.height}px`;
           break;
-        case 'horizontal':
+        case "horizontal":
           ref.current.style.width = `${size.width}px`;
           break;
-        case 'vertical':
+        case "vertical":
           ref.current.style.height = `${size.width}px`;
           break;
         default:
@@ -74,12 +74,12 @@ const useResize = (
     };
 
     const stopDrag = () => {
-      document.removeEventListener('mousemove', doDrag, false);
-      document.removeEventListener('mouseup', stopDrag, false);
+      document.removeEventListener("mousemove", doDrag, false);
+      document.removeEventListener("mouseup", stopDrag, false);
     };
 
-    document.addEventListener('mousemove', doDrag, false);
-    document.addEventListener('mouseup', stopDrag, false);
+    document.addEventListener("mousemove", doDrag, false);
+    document.addEventListener("mouseup", stopDrag, false);
   }, [dims, coords, step, ref, axis]);
 
   return { initializeResize, size, cursor: CURSOR_MAP[axis] };

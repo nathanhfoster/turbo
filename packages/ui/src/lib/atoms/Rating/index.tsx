@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { combineClassNames } from '../../../utils';
-import type { RatingProps } from './types';
+import { useState } from "react";
+import { combineClassNames } from "../../../utils";
+import type { RatingProps } from "./types";
 import {
   RATING_SIZES,
   RATING_COLORS,
@@ -10,13 +10,13 @@ import {
   RATING_STAR_BASE_CLASSES,
   RATING_STAR_DISABLED_CLASSES,
   RATING_LABEL_BASE_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Rating: React.FC<RatingProps> = ({
   value,
   onChange,
-  size = 'md',
-  color = 'yellow',
+  size = "md",
+  color = "yellow",
   className,
   starClassName,
   label,
@@ -48,9 +48,9 @@ const Rating: React.FC<RatingProps> = ({
 
   const getStarColor = (starValue: number) => {
     if (hoverValue !== null) {
-      return starValue <= hoverValue ? RATING_COLORS[color] : 'text-gray-300';
+      return starValue <= hoverValue ? RATING_COLORS[color] : "text-gray-300";
     }
-    return starValue <= value ? RATING_COLORS[color] : 'text-gray-300';
+    return starValue <= value ? RATING_COLORS[color] : "text-gray-300";
   };
 
   return (

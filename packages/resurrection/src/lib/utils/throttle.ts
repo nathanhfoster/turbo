@@ -1,4 +1,4 @@
-import type { GenericFunction } from '../types';
+import type { GenericFunction } from "../types";
 
 /**
  * Creates a throttled function that only invokes the provided function

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   SetStateAction,
@@ -7,10 +7,10 @@ import {
   useReducer,
   useRef,
   useTransition,
-} from 'react';
+} from "react";
 
-import setObjectStateReducer from '../reducers/setStateObjectReducer';
-import defaultInitializer from '../utils/defaultInitializer';
+import setObjectStateReducer from "../reducers/setStateObjectReducer";
+import defaultInitializer from "../utils/defaultInitializer";
 
 export type StateCallback<S> = (prevState: S) => void;
 

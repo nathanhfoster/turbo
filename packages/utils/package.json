@@ -51,6 +51,8 @@
   "devDependencies": {
     "@nathanhfoster/eslint-config": "workspace:*",
     "@nathanhfoster/typescript-config": "workspace:*",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
     "eslint": "^9.34.0",
     "typescript": "5.9.2"
   }

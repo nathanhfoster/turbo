@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { combineClassNames } from '../../../utils';
-import type { TooltipProps } from './types';
+import { useEffect, useRef, useState } from "react";
+import { combineClassNames } from "../../../utils";
+import type { TooltipProps } from "./types";
 import {
   TOOLTIP_BASE_CLASSES,
   TOOLTIP_STYLES,
   TOOLTIP_ARROW_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Tooltip: React.FC<TooltipProps> = ({
   content,
   children,
-  placement = 'bottom',
-  style = 'dark',
-  triggerType = 'hover',
+  placement = "bottom",
+  style = "dark",
+  triggerType = "hover",
   className,
   contentClassName,
   onShow,
@@ -46,26 +46,26 @@ const Tooltip: React.FC<TooltipProps> = ({
       onHide?.();
     };
 
-    if (triggerType === 'click') {
-      trigger.addEventListener('click', handleTrigger);
+    if (triggerType === "click") {
+      trigger.addEventListener("click", handleTrigger);
     } else {
-      trigger.addEventListener('mouseenter', handleMouseEnter);
-      trigger.addEventListener('mouseleave', handleMouseLeave);
+      trigger.addEventListener("mouseenter", handleMouseEnter);
+      trigger.addEventListener("mouseleave", handleMouseLeave);
     }
 
     return () => {
-      if (triggerType === 'click') {
-        trigger.removeEventListener('click', handleTrigger);
+      if (triggerType === "click") {
+        trigger.removeEventListener("click", handleTrigger);
       } else {
-        trigger.removeEventListener('mouseenter', handleMouseEnter);
-        trigger.removeEventListener('mouseleave', handleMouseLeave);
+        trigger.removeEventListener("mouseenter", handleMouseEnter);
+        trigger.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
   }, [triggerType, onShow, onHide, onToggle]);
 
   return (
     <div
-      className={combineClassNames('relative inline-block', className)}
+      className={combineClassNames("relative inline-block", className)}
       ref={triggerRef}
     >
       {children}
@@ -76,7 +76,7 @@ const Tooltip: React.FC<TooltipProps> = ({
           TOOLTIP_BASE_CLASSES,
           TOOLTIP_STYLES[style],
           contentClassName,
-          isVisible ? 'visible opacity-100' : 'invisible opacity-0',
+          isVisible ? "visible opacity-100" : "invisible opacity-0",
         )}
         data-tooltip-placement={placement}
       >

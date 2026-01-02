@@ -1,22 +1,22 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 export type ButtonVariant =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'alternative'
-  | 'dark'
-  | 'light'
-  | 'green'
-  | 'red'
-  | 'yellow'
-  | 'purple'
-  | 'outline'
-  | 'gradient'
-  | 'gradientDuotone'
-  | 'gradientOutline';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "alternative"
+  | "dark"
+  | "light"
+  | "green"
+  | "red"
+  | "yellow"
+  | "purple"
+  | "outline"
+  | "gradient"
+  | "gradientDuotone"
+  | "gradientOutline";
 
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

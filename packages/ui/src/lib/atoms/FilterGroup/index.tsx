@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
-import { combineClassNames } from '../../../utils';
-import type { FilterGroupProps } from './types';
+import { FC } from "react";
+import { combineClassNames } from "../../../utils";
+import type { FilterGroupProps } from "./types";
 import {
   FILTER_GROUP_BASE_CLASSES,
   FILTER_GROUP_LABEL_CLASSES,
@@ -11,7 +11,7 @@ import {
   FILTER_GROUP_CHECKBOX_CLASSES,
   FILTER_GROUP_LABEL_TEXT_CLASSES,
   FILTER_GROUP_COUNT_CLASSES,
-} from './constants';
+} from "./constants";
 
 const FilterGroup: FC<FilterGroupProps> = ({
   label,

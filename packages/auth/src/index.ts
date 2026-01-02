@@ -16,4 +16,4 @@ export {
   createEmailValidationService,
   // Constants
   EMAIL_REGEX,
-} from './services/EmailValidationService';
+} from "./services/EmailValidationService";

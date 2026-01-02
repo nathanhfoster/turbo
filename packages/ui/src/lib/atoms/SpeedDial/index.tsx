@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { combineClassNames } from '../../../utils';
-import type { SpeedDialProps } from './types';
+import { combineClassNames } from "../../../utils";
+import type { SpeedDialProps } from "./types";
 import {
   SPEED_DIAL_BASE_CLASSES,
   SPEED_DIAL_TRIGGER_CLASSES,
@@ -10,17 +10,17 @@ import {
   SPEED_DIAL_TOOLTIP_CLASSES,
   SPEED_DIAL_POSITIONS,
   SPEED_DIAL_DIRECTIONS,
-} from './constants';
-import { useBooleanToggler } from '@nathanhfoster/resurrection';
+} from "./constants";
+import { useBooleanToggler } from "../../../utils";
 
 const SpeedDial: React.FC<SpeedDialProps> = ({
   actions,
-  position = 'bottom',
-  direction = 'up',
+  position = "bottom",
+  direction = "up",
   className,
   triggerIcon,
-  triggerLabel = 'Open speed dial',
-  triggerType = 'hover',
+  triggerLabel = "Open speed dial",
+  triggerType = "hover",
   onShow,
   onHide,
   onToggle,
@@ -28,21 +28,21 @@ const SpeedDial: React.FC<SpeedDialProps> = ({
   const [isOpen, toggleIsOpen] = useBooleanToggler(false);
 
   const handleMouseEnter = () => {
-    if (triggerType === 'hover') {
+    if (triggerType === "hover") {
       toggleIsOpen(true);
       onShow?.();
     }
   };
 
   const handleMouseLeave = () => {
-    if (triggerType === 'hover') {
+    if (triggerType === "hover") {
       toggleIsOpen(false);
       onHide?.();
     }
   };
 
   const handleClick = () => {
-    if (triggerType === 'click') {
+    if (triggerType === "click") {
       toggleIsOpen(!isOpen);
       onToggle?.(isOpen);
     }
@@ -62,7 +62,7 @@ const SpeedDial: React.FC<SpeedDialProps> = ({
         className={combineClassNames(
           SPEED_DIAL_ACTIONS_CLASSES,
           SPEED_DIAL_DIRECTIONS[direction],
-          isOpen ? 'group-hover:flex' : '',
+          isOpen ? "group-hover:flex" : "",
         )}
       >
         {actions.map((action, index) => (

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import FilterDrawer from './index';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import FilterDrawer from "./index";
+import { useState } from "react";
 
 const meta = {
-  title: 'Atoms/FilterDrawer',
+  title: "Atoms/FilterDrawer",
   component: FilterDrawer,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof FilterDrawer>;
 
 export default meta;
@@ -75,7 +75,7 @@ export const Default: Story = {
   args: {
     isOpen: true,
     onClose: () => {},
-    title: 'Filters',
+    title: "Filters",
     children: null,
   },
   render: () => {
@@ -90,9 +90,9 @@ export const WithCustomClass: Story = {
   args: {
     isOpen: true,
     onClose: () => {},
-    title: 'Custom Filters',
+    title: "Custom Filters",
     children: null,
-    className: 'bg-gray-50',
+    className: "bg-gray-50",
   },
   render: () => {
     const [isOpen, setIsOpen] = useState(true);

@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Tabs from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Tabs from ".";
 
 const meta = {
-  title: 'Molecules/Tabs',
+  title: "Molecules/Tabs",
   component: Tabs,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Tabs>;
 
 export default meta;
@@ -15,8 +15,8 @@ type Story = StoryObj<typeof meta>;
 
 const defaultItems = [
   {
-    id: 'profile',
-    label: 'Profile',
+    id: "profile",
+    label: "Profile",
     content: (
       <div className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -29,8 +29,8 @@ const defaultItems = [
     ),
   },
   {
-    id: 'dashboard',
-    label: 'Dashboard',
+    id: "dashboard",
+    label: "Dashboard",
     content: (
       <div className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -43,8 +43,8 @@ const defaultItems = [
     ),
   },
   {
-    id: 'settings',
-    label: 'Settings',
+    id: "settings",
+    label: "Settings",
     content: (
       <div className="p-4 bg-gray-50 rounded-lg dark:bg-gray-800">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white">
@@ -104,14 +104,14 @@ export const WithDisabledTab: Story = {
 export const UnderlineVariant: Story = {
   args: {
     data: defaultItems,
-    variant: 'underline',
+    variant: "underline",
   },
 };
 
 export const PillsVariant: Story = {
   args: {
     data: defaultItems,
-    variant: 'pills',
+    variant: "pills",
   },
 };
 
@@ -125,6 +125,6 @@ export const FullWidth: Story = {
 export const WithActiveTab: Story = {
   args: {
     data: defaultItems,
-    activeTab: 'dashboard',
+    activeTab: "dashboard",
   },
 };

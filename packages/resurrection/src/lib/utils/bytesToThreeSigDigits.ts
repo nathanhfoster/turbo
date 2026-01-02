@@ -13,7 +13,7 @@
  * ```
  */
 const bytesToThreeSigDigits = (size: number) => {
-  const units = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+  const units = ["bytes", "KB", "MB", "GB", "TB"];
   let scaleIndex = 0;
   let scaledValue = size;
 

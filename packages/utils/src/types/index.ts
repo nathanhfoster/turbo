@@ -1,1 +1,5 @@
-export type { DomainResult, DomainResultSuccess, DomainResultFailure } from './DomainResult';
+export type {
+  DomainResult,
+  DomainResultSuccess,
+  DomainResultFailure,
+} from "./DomainResult";

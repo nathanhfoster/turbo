@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch } from "react";
 
 /**
  * Turns an object whose values are action creators, into an object with the

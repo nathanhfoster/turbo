@@ -26,22 +26,19 @@ This package is part of the monorepo and is automatically available as a workspa
 Comprehensive email validation service with multiple validation strategies.
 
 ```typescript
-import {
-  emailValidationService,
-  VALIDATION_CHECKS,
-} from '@nathanhfoster/auth';
+import { emailValidationService, VALIDATION_CHECKS } from "@nathanhfoster/auth";
 
 // Validate email syntax and check against disposable email blacklist
-const result = await emailValidationService.validate('user@example.com', [
+const result = await emailValidationService.validate("user@example.com", [
   VALIDATION_CHECKS.CHECK_BLACKLIST,
 ]);
 
 if (result.ok) {
   // Email is valid and not disposable
-  console.log('Email accepted!');
+  console.log("Email accepted!");
 } else {
   // Show error to user
-  console.log('Validation failed:', result.value?.errors);
+  console.log("Validation failed:", result.value?.errors);
 }
 ```
 
@@ -61,13 +58,13 @@ import {
   createSyntaxValidator,
   createBlacklistValidator,
   createDnsValidator,
-} from '@nathanhfoster/auth';
+} from "@nathanhfoster/auth";
 
 // Create service with custom validators
 const customService = createEmailValidationService({
   validators: {
     [VALIDATION_CHECKS.CHECK_DOMAIN]: mockDnsValidator,
-  }
+  },
 });
 ```
 
@@ -122,15 +119,16 @@ This package was created by migrating the EmailValidationService from `apps/casi
 
 ```typescript
 // ✅ New import path (recommended)
-import { emailValidationService } from '@nathanhfoster/auth';
+import { emailValidationService } from "@nathanhfoster/auth";
 
 // ✅ Old import path (still works via re-export)
-import { emailValidationService } from '@/domains/AuthDomain';
+import { emailValidationService } from "@/domains/AuthDomain";
 ```
 
 ## Future Enhancements
 
 Potential additions to this package:
+
 - Password validation utilities
 - JWT token handling
 - OAuth provider integrations

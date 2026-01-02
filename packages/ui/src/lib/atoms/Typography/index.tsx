@@ -1,13 +1,13 @@
-import { combineClassNames } from '../../../utils';
-import type { TypographyProps } from './types';
-import type { FC, ElementType } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { TypographyProps } from "./types";
+import type { FC, ElementType } from "react";
 import {
   TYPOGRAPHY_VARIANTS,
   TYPOGRAPHY_COLORS,
   TYPOGRAPHY_VARIANT_MAPPING,
   TYPOGRAPHY_VARIANT_STYLES,
   TYPOGRAPHY_COLOR_STYLES,
-} from './constants';
+} from "./constants";
 
 const Typography: FC<TypographyProps> = ({
   variant = TYPOGRAPHY_VARIANTS.body1,

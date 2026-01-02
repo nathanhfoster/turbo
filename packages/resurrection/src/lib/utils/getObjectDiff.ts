@@ -1,5 +1,5 @@
-import deepEquals from './deepEquals';
-import pickBy from './pickBy';
+import deepEquals from "./deepEquals";
+import pickBy from "./pickBy";
 
 const getObjectDiff = <
   OO extends Record<string, any>,
@@ -8,7 +8,10 @@ const getObjectDiff = <
   originalObject: OO,
   updatedObject: UO,
 ): Partial<UO> => {
-  const diff = pickBy(updatedObject, (v, k) => !deepEquals(originalObject[k], v));
+  const diff = pickBy(
+    updatedObject,
+    (v, k) => !deepEquals(originalObject[k], v),
+  );
   const diffKeys = Object.keys(diff);
 
   return pickBy(updatedObject, (_, k) => diffKeys.includes(k)) as Partial<UO>;

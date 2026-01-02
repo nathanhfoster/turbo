@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { GridCols } from '../Grid/types';
+import { ReactNode } from "react";
+import { GridCols } from "../Grid/types";
 
 export interface GridItemProps {
   children: ReactNode;

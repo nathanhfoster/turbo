@@ -1,13 +1,13 @@
-import { combineClassNames } from '../../../utils';
-import type { TimelineProps } from './types';
-import type { FC } from 'react';
-import Typography from '../../atoms/Typography';
-import { TYPOGRAPHY_VARIANTS } from '../../atoms/Typography/constants';
+import { combineClassNames } from "../../../utils";
+import type { TimelineProps } from "./types";
+import type { FC } from "react";
+import Typography from "../../atoms/Typography";
+import { TYPOGRAPHY_VARIANTS } from "../../atoms/Typography/constants";
 import {
   TIMELINE_CONNECTOR_COLORS,
   TIMELINE_CONNECTOR_STYLES,
   TIMELINE_DOT_STYLES,
-} from './constants';
+} from "./constants";
 
 const Timeline: FC<TimelineProps> = ({
   data,
@@ -19,8 +19,8 @@ const Timeline: FC<TimelineProps> = ({
   return (
     <ol
       className={combineClassNames(
-        'relative',
-        showConnector && 'border-s',
+        "relative",
+        showConnector && "border-s",
         showConnector && TIMELINE_CONNECTOR_STYLES[connectorColor],
         className,
       )}
@@ -29,7 +29,7 @@ const Timeline: FC<TimelineProps> = ({
         <li key={index} className="mb-10 ms-4">
           <div
             className={combineClassNames(
-              'absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900',
+              "absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900",
               TIMELINE_DOT_STYLES[connectorColor],
             )}
           />

@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Skeleton from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Skeleton from ".";
 
 const meta: Meta<typeof Skeleton> = {
-  title: 'Atoms/Skeleton',
+  title: "Atoms/Skeleton",
   component: Skeleton,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Skeleton>;
 
 export const Default: Story = {
   args: {
-    children: 'Loading...',
+    children: "Loading...",
   },
 };
 

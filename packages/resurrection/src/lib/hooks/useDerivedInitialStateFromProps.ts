@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import useEffectAfterMount from './useEffectAfterMount';
-import usePreviousValue from './usePreviousValue';
+import useEffectAfterMount from "./useEffectAfterMount";
+import usePreviousValue from "./usePreviousValue";
 
 const useDerivedInitialStateFromProps = <T, I extends (intialState: T) => any>(
   initialState: T | undefined,

@@ -1,29 +1,29 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import Dropdown from '.';
-import type { DropdownProps } from './types';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import Dropdown from ".";
+import type { DropdownProps } from "./types";
 
 const meta: Meta<DropdownProps> = {
-  title: 'Atoms/Dropdown',
+  title: "Atoms/Dropdown",
   component: Dropdown,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
 type Story = StoryObj<DropdownProps>;
 
 const defaultItems = [
-  { href: '#', label: 'Dashboard' },
-  { href: '#', label: 'Settings' },
-  { href: '#', label: 'Earnings' },
-  { href: '#', label: 'Sign out' },
+  { href: "#", label: "Dashboard" },
+  { href: "#", label: "Settings" },
+  { href: "#", label: "Earnings" },
+  { href: "#", label: "Sign out" },
 ];
 
 const DropdownWithState = ({
   label,
   items,
   trigger,
-}: Omit<DropdownProps, 'isOpen' | 'onToggle'>) => {
+}: Omit<DropdownProps, "isOpen" | "onToggle">) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Dropdown

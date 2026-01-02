@@ -1,9 +1,9 @@
-import { renderHook } from '@testing-library/react';
-import React, { useState } from 'react';
-import createContextWithName from '../createContextWithName';
-import { ReducerActionCreators } from '../../..';
+import { renderHook } from "@testing-library/react";
+import React, { useState } from "react";
+import createContextWithName from "../createContextWithName";
+import { ReducerActionCreators } from "../../..";
 
-describe('createContextWithName', () => {
+describe("createContextWithName", () => {
   type TestState = {
     count: number;
     name: string;
@@ -11,15 +11,15 @@ describe('createContextWithName', () => {
 
   const initialState: TestState = {
     count: 0,
-    name: 'initial',
+    name: "initial",
   };
 
-  type TestActions = ReducerActionCreators<any, 'Test'>;
+  type TestActions = ReducerActionCreators<any, "Test">;
 
   const { StateContext, useSelector, DispatchContext } = createContextWithName<
     TestState,
     TestActions
-  >('Test', initialState);
+  >("Test", initialState);
 
   const TestProvider = ({ children }: { children: React.ReactNode }) => {
     const [state, setState] = useState<TestState>(initialState);
@@ -37,12 +37,12 @@ describe('createContextWithName', () => {
     );
   };
 
-  it('should create context with correct display names', () => {
-    expect(StateContext.displayName).toBe('TestStateContext');
-    expect(DispatchContext.displayName).toBe('TestDispatchContext');
+  it("should create context with correct display names", () => {
+    expect(StateContext.displayName).toBe("TestStateContext");
+    expect(DispatchContext.displayName).toBe("TestDispatchContext");
   });
 
-  it('should provide initial state through useSelector', () => {
+  it("should provide initial state through useSelector", () => {
     const { result } = renderHook(() => useSelector((state) => state), {
       wrapper: TestProvider,
     });

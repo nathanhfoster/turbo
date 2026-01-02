@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Input from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Input from ".";
 
 const meta: Meta<typeof Input> = {
-  title: 'Atoms/Input',
+  title: "Atoms/Input",
   component: Input,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes to apply to the input',
+      control: "text",
+      description: "Additional CSS classes to apply to the input",
     },
   },
 };
@@ -18,23 +18,23 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Enter text...',
+    placeholder: "Enter text...",
   },
 };
 
 export const WithLabel: Story = {
   args: {
-    placeholder: 'Enter email',
-    type: 'email',
+    placeholder: "Enter email",
+    type: "email",
     className:
-      'border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full',
+      "border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full",
   },
 };
 
 export const Disabled: Story = {
   args: {
-    placeholder: 'Disabled input',
+    placeholder: "Disabled input",
     disabled: true,
-    className: 'border rounded px-3 py-2 bg-gray-100 cursor-not-allowed',
+    className: "border rounded px-3 py-2 bg-gray-100 cursor-not-allowed",
   },
 };

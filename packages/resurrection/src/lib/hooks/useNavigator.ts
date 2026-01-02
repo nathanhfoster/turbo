@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import isMobile from '../utils/isMobile';
+import { useMemo } from "react";
+import isMobile from "../utils/isMobile";
 
 const useNavigator = () => {
   const value = useMemo(() => {

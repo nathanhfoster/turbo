@@ -1,10 +1,10 @@
 export default {
   process() {
     return {
-      code: 'export default {};',
+      code: "export default {};",
     };
   },
   getCacheKey() {
-    return 'cssTransform';
+    return "cssTransform";
   },
 };

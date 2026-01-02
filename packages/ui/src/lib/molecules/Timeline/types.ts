@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react';
-import { TYPOGRAPHY_VARIANTS } from '../../atoms/Typography/constants';
-import type { DataComponent } from '../../../types';
+import type { ReactNode } from "react";
+import { TYPOGRAPHY_VARIANTS } from "../../atoms/Typography/constants";
+import type { DataComponent } from "../../../types";
 
 export type TimelineConnectorColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'accent';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "accent";
 
 export type TimelineVariant =
   (typeof TYPOGRAPHY_VARIANTS)[keyof typeof TYPOGRAPHY_VARIANTS];

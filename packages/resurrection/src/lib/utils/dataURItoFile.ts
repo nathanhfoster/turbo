@@ -1,5 +1,5 @@
-import dataURItoBlob from './dataURItoBlob';
-import isClientSide from './isClientSide';
+import dataURItoBlob from "./dataURItoBlob";
+import isClientSide from "./isClientSide";
 
 /**
  * Converts a data URI to a `File` object or a file-like object depending on the environment.
@@ -9,12 +9,12 @@ import isClientSide from './isClientSide';
  */
 const dataURItoFile = (dataURL: string) => {
   if (isClientSide()) {
-    return new File([dataURItoBlob(dataURL)], 'current.csv', {
-      type: 'text/csv',
+    return new File([dataURItoBlob(dataURL)], "current.csv", {
+      type: "text/csv",
     });
   } else {
     return {
-      name: 'current.csv',
+      name: "current.csv",
     } as File;
   }
 };

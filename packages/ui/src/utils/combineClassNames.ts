@@ -17,8 +17,8 @@ const combineClassNames = (
 ): string => {
   return classes
     .filter(Boolean) // Remove falsy values
-    .join(' ') // Join with space
-    .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+    .join(" ") // Join with space
+    .replace(/\s+/g, " ") // Replace multiple spaces with single space
     .trim(); // Remove leading/trailing spaces
 };
 

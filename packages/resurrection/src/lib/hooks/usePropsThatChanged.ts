@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { shallowEquals } from '../utils';
-import { useRef } from 'react';
-import usePreviousValue from './usePreviousValue';
-import { ComponentPropsType } from '../connect/types';
+import { shallowEquals } from "../utils";
+import { useRef } from "react";
+import usePreviousValue from "./usePreviousValue";
+import { ComponentPropsType } from "../connect/types";
 
 /**
  * Returns a copy of the next props whose values shallowly differ from the previous ones
@@ -11,7 +11,7 @@ import { ComponentPropsType } from '../connect/types';
  * @returns {object} - the props whose values are shallowly differnt from the previous
  */
 const usePropsThatChanged = <P extends ComponentPropsType>(
-  nextProps: Partial<P> | undefined = {}
+  nextProps: Partial<P> | undefined = {},
 ): Partial<P> => {
   const previousProps = usePreviousValue<Partial<P>>(nextProps);
   const propsThatChanged = useRef<Partial<P>>({});

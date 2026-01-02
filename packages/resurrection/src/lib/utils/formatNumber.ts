@@ -1,4 +1,4 @@
-import isNil from './isNil';
+import isNil from "./isNil";
 
 interface NumberFormatCustomOptions {
   process?: (val: number) => number;
@@ -10,12 +10,12 @@ const formatNumber = (
 ): string => {
   const { process, ...intlOptions } = options || {};
 
-  if (isNil(val)) return '';
+  if (isNil(val)) return "";
   if (process) process(Number(val));
   const numberVal = Number(val);
 
-  return new Intl.NumberFormat('en-us', {
-    currency: 'USD',
+  return new Intl.NumberFormat("en-us", {
+    currency: "USD",
     ...intlOptions,
   }).format(process ? process(numberVal) : numberVal);
 };

@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import type { DataComponent } from '../../../types';
+import type { ReactNode } from "react";
+import type { DataComponent } from "../../../types";
 
 export interface TableColumn<T extends object> {
   key: keyof T & (string | number);

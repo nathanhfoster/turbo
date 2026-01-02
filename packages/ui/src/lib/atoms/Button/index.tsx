@@ -1,17 +1,17 @@
-import { combineClassNames } from '../../../utils';
-import type { ButtonProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { ButtonProps } from "./types";
+import type { FC } from "react";
 import {
   BUTTON_VARIANTS,
   BUTTON_SIZES,
   BUTTON_BASE_CLASSES,
   BUTTON_LOADING_SPINNER,
-} from './constants';
+} from "./constants";
 
 const Button: FC<ButtonProps> = ({
   children,
-  variant = 'default',
-  size = 'md',
+  variant = "default",
+  size = "md",
   isLoading = false,
   leftIcon,
   rightIcon,
@@ -36,24 +36,24 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   const getGradientClasses = () => {
-    if (variant === 'gradient' && gradientFrom && gradientTo) {
+    if (variant === "gradient" && gradientFrom && gradientTo) {
       return `bg-gradient-to-r from-${gradientFrom} to-${gradientTo} hover:from-${gradientHoverFrom || gradientFrom} hover:to-${gradientHoverTo || gradientTo}`;
     }
     if (
-      variant === 'gradientDuotone' &&
+      variant === "gradientDuotone" &&
       gradientDuotoneFrom &&
       gradientDuotoneTo
     ) {
       return `bg-gradient-to-r from-${gradientDuotoneFrom} to-${gradientDuotoneTo} hover:from-${gradientDuotoneHoverFrom || gradientDuotoneFrom} hover:to-${gradientDuotoneHoverTo || gradientDuotoneTo}`;
     }
     if (
-      variant === 'gradientOutline' &&
+      variant === "gradientOutline" &&
       gradientOutlineFrom &&
       gradientOutlineTo
     ) {
       return `border border-${gradientOutlineFrom} hover:bg-gradient-to-r hover:from-${gradientOutlineHoverFrom || gradientOutlineFrom} hover:to-${gradientOutlineHoverTo || gradientOutlineTo}`;
     }
-    return '';
+    return "";
   };
 
   return (
@@ -62,10 +62,10 @@ const Button: FC<ButtonProps> = ({
         BUTTON_BASE_CLASSES,
         BUTTON_VARIANTS[variant],
         BUTTON_SIZES[size],
-        fullWidth && 'w-full',
-        pill && 'rounded-full',
+        fullWidth && "w-full",
+        pill && "rounded-full",
         getGradientClasses(),
-        disabled && 'opacity-50 cursor-not-allowed',
+        disabled && "opacity-50 cursor-not-allowed",
         className,
       )}
       disabled={disabled || isLoading}

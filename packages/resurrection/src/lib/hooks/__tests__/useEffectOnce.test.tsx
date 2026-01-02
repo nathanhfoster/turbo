@@ -1,9 +1,9 @@
-import { renderHook, act } from '@testing-library/react';
-import useEffectOnce from '../useEffectOnce';
-import { vi } from 'vitest';
+import { renderHook, act } from "@testing-library/react";
+import useEffectOnce from "../useEffectOnce";
+import { vi } from "vitest";
 
-describe('useEffectOnce', () => {
-  it('should call effect only once', () => {
+describe("useEffectOnce", () => {
+  it("should call effect only once", () => {
     const effect = vi.fn();
     const { rerender } = renderHook(() => useEffectOnce(effect));
 
@@ -21,7 +21,7 @@ describe('useEffectOnce', () => {
     expect(effect).toHaveBeenCalledTimes(1);
   });
 
-  it('should call cleanup function on unmount', () => {
+  it("should call cleanup function on unmount", () => {
     const cleanup = vi.fn();
     const effect = vi.fn().mockReturnValue(cleanup);
     const { unmount } = renderHook(() => useEffectOnce(effect));
@@ -37,7 +37,7 @@ describe('useEffectOnce', () => {
     expect(cleanup).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle effect that returns nothing', () => {
+  it("should handle effect that returns nothing", () => {
     const effect = vi.fn().mockReturnValue(undefined);
     const { unmount } = renderHook(() => useEffectOnce(effect));
 
@@ -48,7 +48,7 @@ describe('useEffectOnce', () => {
     unmount();
   });
 
-  it('should handle async effect', async () => {
+  it("should handle async effect", async () => {
     const effect = vi.fn().mockImplementation(async () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
       return () => {};

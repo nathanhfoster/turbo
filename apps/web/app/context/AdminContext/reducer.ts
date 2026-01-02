@@ -1,17 +1,21 @@
-import { createSlice, Draft, ContextStoreInitializer } from '@nathanhfoster/ui';
+import {
+  createSlice,
+  Draft,
+  ContextStoreInitializer,
+} from "@nathanhfoster/resurrection";
 
 import {
   AdminContextState,
   AdminServerProps,
   AdminSettings,
   AdminUser,
-} from './types';
+} from "./types";
 
 export const adminInitialState: AdminContextState = {
   users: [],
   settings: {
-    theme: 'light',
-    language: 'en',
+    theme: "light",
+    language: "en",
     notifications: true,
     sidebarCollapsed: false,
   },
@@ -36,7 +40,7 @@ const SetUsers = (state: Draft<AdminContextState>, users: AdminUser[]) => {
 };
 
 const UpdateUser = (state: Draft<AdminContextState>, user: AdminUser) => {
-  const index = state.users.findIndex((u) => u.id === user.id);
+  const index = state.users.findIndex((u: AdminUser) => u.id === user.id);
   if (index !== -1) {
     state.users[index] = user;
   }
@@ -53,7 +57,7 @@ const UpdateSettings = (
 };
 
 export const adminSlice = createSlice({
-  name: 'Admin',
+  name: "Admin",
   initialState: adminInitialState,
   actions: {
     SetUsers,

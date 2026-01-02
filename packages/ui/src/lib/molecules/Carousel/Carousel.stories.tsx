@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Carousel from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Carousel from ".";
 
 const meta: Meta<typeof Carousel> = {
-  title: 'Molecules/Carousel',
+  title: "Molecules/Carousel",
   component: Carousel,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Carousel>;
 
 const data = [
   {
-    id: '1',
+    id: "1",
     content: (
       <img
         src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
@@ -25,7 +25,7 @@ const data = [
     ),
   },
   {
-    id: '2',
+    id: "2",
     content: (
       <img
         src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
@@ -35,7 +35,7 @@ const data = [
     ),
   },
   {
-    id: '3',
+    id: "3",
     content: (
       <img
         src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
@@ -77,7 +77,7 @@ export const WithCustomContent: Story = {
   args: {
     data: [
       {
-        id: '1',
+        id: "1",
         content: (
           <div className="absolute block w-full h-full bg-blue-500 flex items-center justify-center text-white text-4xl">
             Slide 1
@@ -85,7 +85,7 @@ export const WithCustomContent: Story = {
         ),
       },
       {
-        id: '2',
+        id: "2",
         content: (
           <div className="absolute block w-full h-full bg-green-500 flex items-center justify-center text-white text-4xl">
             Slide 2
@@ -93,7 +93,7 @@ export const WithCustomContent: Story = {
         ),
       },
       {
-        id: '3',
+        id: "3",
         content: (
           <div className="absolute block w-full h-full bg-purple-500 flex items-center justify-center text-white text-4xl">
             Slide 3

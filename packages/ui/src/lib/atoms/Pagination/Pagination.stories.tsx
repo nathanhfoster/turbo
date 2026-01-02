@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Pagination from './index';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import Pagination from "./index";
+import { useState } from "react";
 
 const meta = {
-  title: 'Atoms/Pagination',
+  title: "Atoms/Pagination",
   component: Pagination,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Pagination>;
 
 export default meta;
@@ -57,7 +57,7 @@ export const WithCustomClass: Story = {
     currentPage: 1,
     totalPages: 10,
     onPageChange: () => {},
-    className: 'bg-gray-100 p-4 rounded-lg',
+    className: "bg-gray-100 p-4 rounded-lg",
   },
   render: () => (
     <Pagination

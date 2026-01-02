@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 const useIsMounted = (initialValue = false): boolean => {
   const mounted = useRef(initialValue);

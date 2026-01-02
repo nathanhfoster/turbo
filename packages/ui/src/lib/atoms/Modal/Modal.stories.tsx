@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import Modal from '.';
-import Button from '../Button';
-import { useBooleanToggler } from '@nathanhfoster/resurrection';
+import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
+import Modal from ".";
+import Button from "../Button";
+import { useBooleanToggler } from "../../../utils";
 
 const meta: Meta<typeof Modal> = {
-  title: 'Atoms/Modal',
+  title: "Atoms/Modal",
   component: Modal,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -48,7 +48,7 @@ export const WithTitle: Story = {
     <ModalDemo
       args={{
         ...args,
-        title: 'Terms of Service',
+        title: "Terms of Service",
       }}
     />
   ),
@@ -61,7 +61,7 @@ export const WithFooter: Story = {
       <ModalDemo
         args={{
           ...args,
-          title: 'Terms of Service',
+          title: "Terms of Service",
           footer: (
             <div className="flex gap-2">
               <Button variant="alternative" onClick={() => setShow(false)}>
@@ -79,10 +79,10 @@ export const WithFooter: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex gap-2">
-      <ModalDemo args={{ size: 'sm' }} />
-      <ModalDemo args={{ size: 'md' }} />
-      <ModalDemo args={{ size: 'lg' }} />
-      <ModalDemo args={{ size: 'xl' }} />
+      <ModalDemo args={{ size: "sm" }} />
+      <ModalDemo args={{ size: "md" }} />
+      <ModalDemo args={{ size: "lg" }} />
+      <ModalDemo args={{ size: "xl" }} />
     </div>
   ),
 };
@@ -90,12 +90,12 @@ export const Sizes: Story = {
 export const Colors: Story = {
   render: () => (
     <div className="flex gap-2">
-      <ModalDemo args={{ color: 'blue' }} />
-      <ModalDemo args={{ color: 'green' }} />
-      <ModalDemo args={{ color: 'red' }} />
-      <ModalDemo args={{ color: 'yellow' }} />
-      <ModalDemo args={{ color: 'purple' }} />
-      <ModalDemo args={{ color: 'gray' }} />
+      <ModalDemo args={{ color: "blue" }} />
+      <ModalDemo args={{ color: "green" }} />
+      <ModalDemo args={{ color: "red" }} />
+      <ModalDemo args={{ color: "yellow" }} />
+      <ModalDemo args={{ color: "purple" }} />
+      <ModalDemo args={{ color: "gray" }} />
     </div>
   ),
 };

@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import { BottomNavigationProps } from './types';
-import { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import { BottomNavigationProps } from "./types";
+import { FC } from "react";
 import {
   BOTTOM_NAVIGATION_ACTIVE_STYLES,
   BOTTOM_NAVIGATION_DISABLED_STYLES,
@@ -8,17 +8,17 @@ import {
   BOTTOM_NAVIGATION_ITEM_STYLES,
   BOTTOM_NAVIGATION_LABEL_STYLES,
   BOTTOM_NAVIGATION_VARIANTS,
-} from './constants';
+} from "./constants";
 
 const BottomNavigation: FC<BottomNavigationProps> = ({
   data,
   className,
-  variant = 'default',
+  variant = "default",
 }) => {
   return (
     <div
       className={combineClassNames(
-        'fixed bottom-0 left-0 z-50 w-full h-16',
+        "fixed bottom-0 left-0 z-50 w-full h-16",
         BOTTOM_NAVIGATION_VARIANTS[variant],
         className,
       )}

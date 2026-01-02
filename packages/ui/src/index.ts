@@ -1,5 +1,7 @@
-import './styles.css';
+"use client";
 
-export type * from './types';
-export * from './lib';
-export * from './utils';
+import "./styles.css";
+
+export type * from "./types";
+export * from "./lib";
+export * from "./utils";

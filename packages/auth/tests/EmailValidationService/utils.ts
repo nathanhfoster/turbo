@@ -3,18 +3,18 @@ import {
   createEmailValidationService,
   type ValidationResult,
   type DnsCache,
-} from '../../src/services/EmailValidationService';
-import { VALID_DOMAINS } from './constants';
-import type { MockDnsValidator, MockDnsCache } from './types';
+} from "../../src/services/EmailValidationService";
+import { VALID_DOMAINS } from "./constants";
+import type { MockDnsValidator, MockDnsCache } from "./types";
 
 /**
  * Helper function to create a mock DNS validator for testing
  */
 export const createMockDnsValidator = (): MockDnsValidator => ({
-  errorMessage: 'Email domain does not exist',
+  errorMessage: "Email domain does not exist",
   validate: async (email: string): Promise<boolean> => {
-    if (!email || typeof email !== 'string') return false;
-    const domain = email.split('@')[1];
+    if (!email || typeof email !== "string") return false;
+    const domain = email.split("@")[1];
     return VALID_DOMAINS.includes(domain?.toLowerCase());
   },
 });
@@ -112,4 +112,3 @@ export const createTestServiceWithCache = (cache?: DnsCache) => {
     cache: mockCache as MockDnsCache,
   };
 };
-

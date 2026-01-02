@@ -1,4 +1,4 @@
-import type { DomainResult } from '@nathanhfoster/utils/types';
+import type { DomainResult } from "@nathanhfoster/utils/types";
 
 /**
  * Email validation checks that can be performed
@@ -7,18 +7,18 @@ export enum VALIDATION_CHECKS {
   /**
    * Check email syntax against RFC 5322 compliant regex
    */
-  CHECK_SYNTAX = 'CHECK_SYNTAX',
+  CHECK_SYNTAX = "CHECK_SYNTAX",
 
   /**
    * Check email domain against open-source blacklists of disposable/temporary email providers
    */
-  CHECK_BLACKLIST = 'CHECK_BLACKLIST',
+  CHECK_BLACKLIST = "CHECK_BLACKLIST",
 
   /**
    * Check if email domain has valid DNS records (MX or A records)
    * Note: This check only works on server-side
    */
-  CHECK_DOMAIN = 'CHECK_DOMAIN',
+  CHECK_DOMAIN = "CHECK_DOMAIN",
 }
 
 /**

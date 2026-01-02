@@ -1,4 +1,4 @@
-import isObject from './isObject';
+import isObject from "./isObject";
 
 const objectKeysHaveAValue = <T extends object>(
   object: T,

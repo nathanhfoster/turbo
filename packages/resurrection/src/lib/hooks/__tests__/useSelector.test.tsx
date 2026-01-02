@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import * as React from 'react';
-import createUseSelectorHook from '../createUseSelectorHook';
-import { createContext, useContext } from 'use-context-selector';
+import { renderHook } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
+import * as React from "react";
+import createUseSelectorHook from "../createUseSelectorHook";
+import { createContext, useContext } from "use-context-selector";
 
 interface TestState {
   count: number;
@@ -11,7 +11,7 @@ interface TestState {
 
 const initialState: TestState = {
   count: 0,
-  text: 'initial',
+  text: "initial",
 };
 
 const TestContext = createContext<{
@@ -26,8 +26,8 @@ const TestContext = createContext<{
 
 const useSelector = createUseSelectorHook(TestContext);
 
-describe('useSelector', () => {
-  it('should select and return the correct state', () => {
+describe("useSelector", () => {
+  it("should select and return the correct state", () => {
     const { result } = renderHook(
       () => {
         const { state } = useContext(TestContext);
@@ -46,13 +46,13 @@ describe('useSelector', () => {
             {children}
           </TestContext.Provider>
         ),
-      }
+      },
     );
 
     expect(result.current).toBe(42);
   });
 
-  it('should only update when selected state changes', () => {
+  it("should only update when selected state changes", () => {
     const { result, rerender } = renderHook(
       () => {
         return useSelector((state) => state.state.count);
@@ -70,7 +70,7 @@ describe('useSelector', () => {
             {children}
           </TestContext.Provider>
         ),
-      }
+      },
     );
 
     expect(result.current).toBe(42);
@@ -82,7 +82,7 @@ describe('useSelector', () => {
     expect(result.current).toBe(42);
   });
 
-  it('should handle props correctly', () => {
+  it("should handle props correctly", () => {
     const { result } = renderHook(
       () => {
         return useSelector((state) => state.state.text);
@@ -91,7 +91,7 @@ describe('useSelector', () => {
         wrapper: ({ children }) => (
           <TestContext.Provider
             value={{
-              state: { ...initialState, text: 'test' },
+              state: { ...initialState, text: "test" },
               dispatch: () => {
                 // Empty implementation for testing
               },
@@ -100,13 +100,13 @@ describe('useSelector', () => {
             {children}
           </TestContext.Provider>
         ),
-      }
+      },
     );
 
-    expect(result.current).toBe('test');
+    expect(result.current).toBe("test");
   });
 
-  it('should handle nested state correctly', () => {
+  it("should handle nested state correctly", () => {
     const { result } = renderHook(
       () => {
         const { state } = useContext(TestContext);
@@ -119,7 +119,7 @@ describe('useSelector', () => {
         wrapper: ({ children }) => (
           <TestContext.Provider
             value={{
-              state: { ...initialState, count: 42, text: 'test' },
+              state: { ...initialState, count: 42, text: "test" },
               dispatch: () => {
                 // Empty implementation for testing
               },
@@ -128,13 +128,13 @@ describe('useSelector', () => {
             {children}
           </TestContext.Provider>
         ),
-      }
+      },
     );
 
-    expect(result.current).toEqual({ count: 42, text: 'test' });
+    expect(result.current).toEqual({ count: 42, text: "test" });
   });
 
-  it('should not re-render when non-selected state changes', () => {
+  it("should not re-render when non-selected state changes", () => {
     const { result, rerender } = renderHook(
       () => {
         return useSelector((state) => state.state.count);
@@ -143,7 +143,7 @@ describe('useSelector', () => {
         wrapper: ({ children }) => (
           <TestContext.Provider
             value={{
-              state: { ...initialState, count: 42, text: 'test' },
+              state: { ...initialState, count: 42, text: "test" },
               dispatch: () => {
                 // Empty implementation for testing
               },
@@ -152,7 +152,7 @@ describe('useSelector', () => {
             {children}
           </TestContext.Provider>
         ),
-      }
+      },
     );
 
     expect(result.current).toBe(42);

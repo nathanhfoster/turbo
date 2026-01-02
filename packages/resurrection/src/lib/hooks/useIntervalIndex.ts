@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { getRandomNumber, isArray } from '../utils';
-import { useEffect, useState } from 'react';
+import { getRandomNumber, isArray } from "../utils";
+import { useEffect, useState } from "react";
 
 export interface UseIntervalParams {
   interval: number | [number, number] | false;

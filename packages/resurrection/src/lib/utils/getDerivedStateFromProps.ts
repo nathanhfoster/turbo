@@ -2,7 +2,7 @@
  * This function allows the state to be controlled by an HOC by overwritting it with props
  */
 
-import { isArray, isObject } from '../utils';
+import { isArray, isObject } from "../utils";
 
 const getDerivedStateFromProps = <S>(state: S, props: Partial<S>): S => {
   if (

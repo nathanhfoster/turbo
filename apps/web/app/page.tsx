@@ -1,11 +1,9 @@
-import { Button } from "@nathanhfoster/ui";
-import Box from "@nathanhfoster/ui/common/atoms/Box/index";
-import Typography from "@nathanhfoster/ui/common/atoms/Typography/index";
+import { Button, Box, Typography } from "@nathanhfoster/ui";
 import { AdminContextProvider } from "./context/AdminContext";
 
 export default function Home() {
   return (
-    <AdminContextProvider>
+    <AdminContextProvider initialState={{ users: [] }}>
       <Box className="min-h-screen bg-gray-100 flex items-center justify-center">
         <Box variant="main" className="text-center space-y-6">
           <Typography variant="h1" className="text-4xl font-bold text-gray-900">
@@ -16,10 +14,10 @@ export default function Home() {
           </Typography>
 
           <Box className="space-y-4">
-            <Button color="primary" variant="contained" className="mx-2">
+            <Button variant="primary" className="mx-2">
               Primary Button
             </Button>
-            <Button color="secondary" variant="outlined" className="mx-2">
+            <Button variant="secondary" className="mx-2">
               Secondary Button
             </Button>
           </Box>

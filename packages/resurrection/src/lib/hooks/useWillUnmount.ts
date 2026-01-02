@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { createHandlerSetter, isFunction } from '../utils';
-import type { GenericFunction } from '../types';
+import { createHandlerSetter, isFunction } from "../utils";
+import type { GenericFunction } from "../types";
 
 /**
  * Returns a callback setter for a callback to be performed when the component will unmount.

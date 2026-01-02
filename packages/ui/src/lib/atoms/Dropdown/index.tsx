@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
-import Button from '../Button';
-import { combineClassNames } from '../../../utils';
-import type { DropdownProps } from './types';
+import { FC } from "react";
+import Button from "../Button";
+import { combineClassNames } from "../../../utils";
+import type { DropdownProps } from "./types";
 import {
   DROPDOWN_BASE_CLASSES,
   DROPDOWN_TRIGGER_CLASSES,
   DROPDOWN_MENU_CLASSES,
   DROPDOWN_ITEM_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Dropdown: FC<DropdownProps> = ({
   label,

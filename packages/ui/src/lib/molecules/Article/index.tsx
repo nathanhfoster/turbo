@@ -1,8 +1,8 @@
-import { combineClassNames } from '../../../utils';
-import type { ArticleProps } from './types';
-import type { FC } from 'react';
-import Typography from '../../atoms/Typography';
-import { TYPOGRAPHY_VARIANTS } from '../../atoms/Typography/constants';
+import { combineClassNames } from "../../../utils";
+import type { ArticleProps } from "./types";
+import type { FC } from "react";
+import Typography from "../../atoms/Typography";
+import { TYPOGRAPHY_VARIANTS } from "../../atoms/Typography/constants";
 
 const Article: FC<ArticleProps> = ({
   title,
@@ -17,7 +17,7 @@ const Article: FC<ArticleProps> = ({
   tags,
 }) => {
   return (
-    <article className={combineClassNames('space-y-4', className)}>
+    <article className={combineClassNames("space-y-4", className)}>
       {imageUrl && (
         <img
           src={imageUrl}

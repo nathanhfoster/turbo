@@ -24,15 +24,9 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
     devDependencies:
-      '@types/node':
-        specifier: ^22.15.3
-        version: 22.15.3
-      '@types/react':
-        specifier: 19.1.0
-        version: 19.1.0
-      '@types/react-dom':
-        specifier: 19.1.1
-        version: 19.1.1(@types/react@19.1.0)
+      '@nathanhfoster/eslint-config':
+        specifier: workspace:*
+        version: link:packages/eslint-config
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
@@ -51,6 +45,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@nathanhfoster/resurrection':
+        specifier: workspace:*
+        version: link:../../packages/resurrection
       '@nathanhfoster/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -64,6 +61,15 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.13
         version: 4.1.13
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.1.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.1.1(@types/react@19.1.0)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
@@ -89,6 +95,9 @@ importers:
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
@@ -139,16 +148,6 @@ importers:
         version: 8.40.0(eslint@9.34.0(jiti@2.6.1))(typescript@5.9.2)
 
   packages/resurrection:
-    dependencies:
-      immer:
-        specifier: ^10.1.1
-        version: 10.1.3
-      react:
-        specifier: ^19.0.0
-        version: 19.1.0
-      use-context-selector:
-        specifier: ^2.0.0
-        version: 2.0.0(react@19.1.0)(scheduler@0.26.0)
     devDependencies:
       '@nathanhfoster/eslint-config':
         specifier: workspace:*
@@ -162,6 +161,9 @@ importers:
       '@testing-library/react':
         specifier: ^16.1.0
         version: 16.3.1(@testing-library/dom@10.4.1)(@types/react-dom@19.1.1(@types/react@19.1.0))(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
       '@types/react':
         specifier: 19.1.0
         version: 19.1.0
@@ -171,12 +173,21 @@ importers:
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
+      immer:
+        specifier: ^10.1.1
+        version: 10.1.3
       jsdom:
         specifier: ^25.0.1
         version: 25.0.1
+      react:
+        specifier: ^19.0.0
+        version: 19.1.0
       typescript:
         specifier: 5.9.2
         version: 5.9.2
+      use-context-selector:
+        specifier: ^2.0.0
+        version: 2.0.0(react@19.1.0)(scheduler@0.26.0)
       vite:
         specifier: ^6.0.11
         version: 6.4.1(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@1.10.2)
@@ -204,12 +215,21 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.13
         version: 4.1.18(vite@6.4.1(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@1.10.2))
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.1.0
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.7.0(vite@6.4.1(@types/node@22.15.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(yaml@1.10.2))
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
+      react:
+        specifier: ^19.0.0
+        version: 19.1.0
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -228,6 +248,12 @@ importers:
       '@nathanhfoster/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.15.3
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.1.0
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)

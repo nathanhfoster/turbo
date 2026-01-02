@@ -1,11 +1,11 @@
-import { combineClassNames } from '../../../utils';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { FC } from "react";
 import {
   STEPPER_BASE_CLASSES,
   STEPPER_STATUS_CLASSES,
   STEPPER_VARIANTS,
-} from './constants';
-import type { StepProps } from './types';
+} from "./constants";
+import type { StepProps } from "./types";
 
 const Step: FC<StepProps> = ({
   step,
@@ -21,8 +21,8 @@ const Step: FC<StepProps> = ({
   return (
     <div
       className={combineClassNames(
-        'flex items-center',
-        variant === STEPPER_VARIANTS.vertical ? 'flex-col' : 'flex-row',
+        "flex items-center",
+        variant === STEPPER_VARIANTS.vertical ? "flex-col" : "flex-row",
         className,
       )}
     >
@@ -30,14 +30,14 @@ const Step: FC<StepProps> = ({
         className={combineClassNames(
           STEPPER_BASE_CLASSES,
           STEPPER_STATUS_CLASSES[
-            isComplete ? 'complete' : isCurrent ? 'current' : 'upcoming'
+            isComplete ? "complete" : isCurrent ? "current" : "upcoming"
           ],
         )}
         onClick={() => onStepClick?.(index)}
       >
         {step.icon || (
           <span className="text-sm font-medium">
-            {isComplete ? '✓' : index + 1}
+            {isComplete ? "✓" : index + 1}
           </span>
         )}
       </div>

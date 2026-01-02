@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { isClientSide } from '../utils';
-import { useState } from 'react';
+import { isClientSide } from "../utils";
+import { useState } from "react";
 
-import useEventListener from './useEventListener';
-import useThrottledCallback from './useThrottledCallback';
+import useEventListener from "./useEventListener";
+import useThrottledCallback from "./useThrottledCallback";
 
 interface Props {
   initialWidth?: number;
@@ -27,7 +27,7 @@ const useWindowSize = (params?: Props) => {
     throttleMs ?? 0,
   );
 
-  useEventListener('resize', () => {
+  useEventListener("resize", () => {
     const newSize = {
       width: window.innerWidth,
       height: window.innerHeight,

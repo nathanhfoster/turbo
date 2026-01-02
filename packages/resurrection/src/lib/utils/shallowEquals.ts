@@ -1,5 +1,5 @@
-import hasProp from './hasProp';
-import isObjectLike from './isObjectLike';
+import hasProp from "./hasProp";
+import isObjectLike from "./isObjectLike";
 
 /**
  * This function does a shallow comparison on two objects

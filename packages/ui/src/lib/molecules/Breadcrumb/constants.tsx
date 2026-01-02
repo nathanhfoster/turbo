@@ -1,21 +1,21 @@
-import type { BreadcrumbVariant } from './types.js';
+import type { BreadcrumbVariant } from "./types.js";
 
 export const BREADCRUMB_VARIANTS: Record<BreadcrumbVariant, string> = {
-  default: '',
+  default: "",
   solid:
-    'px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700',
+    "px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700",
 };
 
-export const BREADCRUMB_BASE_CLASSES = 'flex';
+export const BREADCRUMB_BASE_CLASSES = "flex";
 export const BREADCRUMB_LIST_CLASSES =
-  'inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse';
-export const BREADCRUMB_ITEM_CLASSES = 'inline-flex items-center';
+  "inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse";
+export const BREADCRUMB_ITEM_CLASSES = "inline-flex items-center";
 export const BREADCRUMB_LINK_CLASSES =
-  'inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white';
+  "inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white";
 export const BREADCRUMB_SEPARATOR_CLASSES =
-  'rtl:rotate-180 w-3 h-3 text-gray-400 mx-1';
+  "rtl:rotate-180 w-3 h-3 text-gray-400 mx-1";
 export const BREADCRUMB_CURRENT_ITEM_CLASSES =
-  'ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400';
+  "ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400";
 
 export const DEFAULT_SEPARATOR = (
   <svg

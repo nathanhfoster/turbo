@@ -1,6 +1,6 @@
-import type { SearchInputProps } from './types';
-import type { FC } from 'react';
-import { Input } from '../../atoms';
+import type { SearchInputProps } from "./types";
+import type { FC } from "react";
+import { Input } from "../../atoms";
 
 const SearchInput: FC<SearchInputProps> = ({
   onSearch,

@@ -6,7 +6,7 @@
  */
 const getDerivedStateFromProps = <S extends Record<string, any>>(
   state: S,
-  props: Partial<S> = {}
+  props: Partial<S> = {},
 ): S => {
   return { ...state, ...props };
 };

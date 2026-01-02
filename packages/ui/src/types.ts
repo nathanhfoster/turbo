@@ -1,4 +1,4 @@
-import type { ComponentType, ReactNode } from 'react';
+import type { ComponentType, ReactNode } from "react";
 
 /**
  * A callback setter is generally used to set the value of
@@ -19,7 +19,7 @@ export type DataConfigComponent<
 
 export type Ensure<T, K extends keyof T> = T & PickEnsure<T, K>;
 
-export type Falsely = null | undefined | false | typeof NaN | 0 | bigint | '';
+export type Falsely = null | undefined | false | typeof NaN | 0 | bigint | "";
 
 /**
  * Represent a generic function.

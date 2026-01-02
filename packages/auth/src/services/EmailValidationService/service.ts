@@ -1,16 +1,16 @@
-import type { DomainResult } from '@nathanhfoster/utils/types';
+import type { DomainResult } from "@nathanhfoster/utils/types";
 import {
   createBlacklistValidator,
   createDnsValidator,
   createSyntaxValidator,
-} from './validators';
-import { VALIDATION_CHECKS } from './types';
+} from "./validators";
+import { VALIDATION_CHECKS } from "./types";
 import type {
   EmailValidationService,
   EmailValidationServiceDeps,
   EmailValidator,
   ValidationResult,
-} from './types';
+} from "./types";
 
 /**
  * Creates an email validation service that combines multiple validators
@@ -80,7 +80,7 @@ export const createEmailValidationService = (
     for (const check of checks) {
       try {
         // Skip syntax check since we already validated it above
-        if (check === 'CHECK_SYNTAX') {
+        if (check === "CHECK_SYNTAX") {
           continue;
         }
 
@@ -106,7 +106,7 @@ export const createEmailValidationService = (
           error instanceof Error ? error.message : error,
         );
         errors.push(
-          `Error performing ${check}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          `Error performing ${check}: ${error instanceof Error ? error.message : "Unknown error"}`,
         );
         failedChecks.push(check);
       }
@@ -123,7 +123,7 @@ export const createEmailValidationService = (
       ? { ok: true, value: validationResult }
       : {
           ok: false,
-          reason: 'Email validation failed',
+          reason: "Email validation failed",
           value: validationResult,
         };
   };

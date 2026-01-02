@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { combineClassNames } from '../../../utils';
+import { FC } from "react";
+import { combineClassNames } from "../../../utils";
 
 export interface PaginationProps {
   currentPage: number;
@@ -30,7 +30,7 @@ const Pagination: FC<PaginationProps> = ({
   return (
     <nav
       className={combineClassNames(
-        'flex items-center justify-center gap-2',
+        "flex items-center justify-center gap-2",
         className,
       )}
       aria-label="Pagination"
@@ -65,12 +65,12 @@ const Pagination: FC<PaginationProps> = ({
           key={page}
           onClick={() => onPageChange(page)}
           className={combineClassNames(
-            'relative inline-flex items-center rounded-md px-3 py-2 text-sm font-medium',
+            "relative inline-flex items-center rounded-md px-3 py-2 text-sm font-medium",
             page === currentPage
-              ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-              : 'text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800',
+              ? "bg-indigo-600 text-white hover:bg-indigo-700"
+              : "text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-800",
           )}
-          aria-current={page === currentPage ? 'page' : undefined}
+          aria-current={page === currentPage ? "page" : undefined}
         >
           {page}
         </button>

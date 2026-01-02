@@ -1,4 +1,4 @@
-import { combineClassNames } from '../../../utils';
+import { combineClassNames } from "../../../utils";
 
 export interface StyleClasses {
   table: string;
@@ -25,25 +25,25 @@ export const useStyles = ({
   className,
 }: UseStylesProps): UseStylesResult => {
   const tableClasses = combineClassNames(
-    'w-full text-sm text-left rtl:text-right text-gray-500',
-    bordered && 'border border-gray-200',
+    "w-full text-sm text-left rtl:text-right text-gray-500",
+    bordered && "border border-gray-200",
     className,
   );
 
   const theadClasses = combineClassNames(
-    'text-xs text-gray-700 uppercase bg-gray-50',
-    bordered && 'border-b border-gray-200',
+    "text-xs text-gray-700 uppercase bg-gray-50",
+    bordered && "border-b border-gray-200",
   );
 
   const tbodyClasses = combineClassNames(
-    'divide-y divide-gray-200',
-    bordered && 'border-b border-gray-200',
+    "divide-y divide-gray-200",
+    bordered && "border-b border-gray-200",
   );
 
   const trClasses = combineClassNames(
-    'bg-white',
-    striped && 'odd:bg-white even:bg-gray-50',
-    hoverable && 'hover:bg-gray-50 cursor-pointer',
+    "bg-white",
+    striped && "odd:bg-white even:bg-gray-50",
+    hoverable && "hover:bg-gray-50 cursor-pointer",
   );
 
   return {

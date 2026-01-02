@@ -1,0 +1,14 @@
+{
+  "terminal.integrated.defaultProfile.windows": "WSL",
+  "terminal.integrated.profiles.windows": {
+    "WSL": {
+      "path": "wsl.exe",
+      "args": ["-d", "Ubuntu"]
+    },
+    "Bash": {
+      "path": "wsl.exe",
+      "args": ["-d", "Ubuntu", "-e", "bash"]
+    }
+  }
+}
+

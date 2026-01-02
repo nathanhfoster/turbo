@@ -1,4 +1,4 @@
-import { isFunction } from '../utils';
+import { isFunction } from "../utils";
 
 /** @public */
 export type ActionFromMatcher<M extends Matcher<any>> =

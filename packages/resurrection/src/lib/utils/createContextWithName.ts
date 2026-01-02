@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import type { Dispatch, SetStateAction } from 'react';
-import { createContext } from 'use-context-selector';
-import createUseDispatchHook from '../hooks/createUseDispatchHook';
-import createUseSelectorHook from '../hooks/createUseSelectorHook';
-import type { ReducerActionCreators } from './createSlice/types';
+import type { Dispatch, SetStateAction } from "react";
+import { createContext } from "use-context-selector";
+import createUseDispatchHook from "../hooks/createUseDispatchHook";
+import createUseSelectorHook from "../hooks/createUseSelectorHook";
+import type { ReducerActionCreators } from "./createSlice/types";
 import type {
   Thunk,
   ActionCreatorWithPayload,
   PayloadActionCreator,
   PayloadAction,
-} from '../types';
-import type { ComponentPropsType } from '../connect/types';
+} from "../types";
+import type { ComponentPropsType } from "../connect/types";
 
 const createContextWithName = <
   S extends ComponentPropsType,
   A extends ReducerActionCreators<any, string>,
 >(
   displayName: string,
-  initialState: S
+  initialState: S,
 ) => {
   const StateContext = createContext<S>(initialState);
 
@@ -35,7 +35,7 @@ const createContextWithName = <
       | Partial<S>
     >
   >(() => {
-    throw new Error('Dispatch function not initialized');
+    throw new Error("Dispatch function not initialized");
   });
 
   DispatchContext.displayName = `${displayName}DispatchContext`;

@@ -1,24 +1,24 @@
-import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { vi } from 'vitest';
-import connect from '../index';
-import createContextWithName from '../../utils/createContextWithName';
-import Provider from '../../Provider';
+import React from "react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { vi } from "vitest";
+import connect from "../index";
+import createContextWithName from "../../utils/createContextWithName";
+import Provider from "../../Provider";
 import type {
   ComponentPropsType,
   MergePropsReturnType,
   ConnectHookProps,
   ConnectOptionUseEffectAfterChangeReturn,
-} from '../types';
-import { createSlice } from '../../utils';
+} from "../types";
+import { createSlice } from "../../utils";
 
 // Test context and reducer
 type CounterState = { count: number };
 type UserState = { name: string };
 
 const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState: { count: 0 },
   actions: {
     increment: (state) => {
@@ -31,8 +31,8 @@ const counterSlice = createSlice({
 });
 
 const userSlice = createSlice({
-  name: 'user',
-  initialState: { name: 'John' },
+  name: "user",
+  initialState: { name: "John" },
   actions: {
     setName: (state, payload: string) => {
       state.name = payload;
@@ -46,10 +46,10 @@ const userActions = userSlice.actions;
 const {
   StateContext: CounterStateContext,
   DispatchContext: CounterDispatchContext,
-} = createContextWithName<CounterState, any>('Counter', { count: 0 });
+} = createContextWithName<CounterState, any>("Counter", { count: 0 });
 
 const { StateContext: UserStateContext, DispatchContext: UserDispatchContext } =
-  createContextWithName<UserState, any>('User', { name: 'John' });
+  createContextWithName<UserState, any>("User", { name: "John" });
 
 type CounterActions = typeof counterActions;
 type UserActions = typeof userActions;
@@ -77,12 +77,12 @@ const TestComponent = React.forwardRef<HTMLDivElement, TestComponentProps>(
   },
 );
 
-TestComponent.displayName = 'TestComponent';
+TestComponent.displayName = "TestComponent";
 
-describe('connect HOC', () => {
-  it('should connect component to context and map state to props', () => {
+describe("connect HOC", () => {
+  it("should connect component to context and map state to props", () => {
     const ConnectedComponent = connect<
-      Pick<CounterState, 'count'>,
+      Pick<CounterState, "count">,
       {},
       {
         ownProp: string;
@@ -107,16 +107,16 @@ describe('connect HOC', () => {
       </Provider>,
     );
 
-    expect(screen.getByTestId('count')).toHaveTextContent('0');
-    expect(screen.getByTestId('own-prop')).toHaveTextContent('test');
+    expect(screen.getByTestId("count")).toHaveTextContent("0");
+    expect(screen.getByTestId("own-prop")).toHaveTextContent("test");
   });
 
-  it('should map dispatch to props', () => {
+  it("should map dispatch to props", () => {
     const ConnectedComponent = connect<
-      Pick<CounterState, 'count'>,
+      Pick<CounterState, "count">,
       {
-        increment: CounterActions['increment'];
-        decrement: CounterActions['decrement'];
+        increment: CounterActions["increment"];
+        decrement: CounterActions["decrement"];
       }
     >({
       mapStateToPropsOptions: [
@@ -147,14 +147,14 @@ describe('connect HOC', () => {
       </Provider>,
     );
 
-    fireEvent.click(screen.getByText('Increment'));
-    expect(screen.getByTestId('count')).toHaveTextContent('1');
+    fireEvent.click(screen.getByText("Increment"));
+    expect(screen.getByTestId("count")).toHaveTextContent("1");
 
-    fireEvent.click(screen.getByText('Decrement'));
-    expect(screen.getByTestId('count')).toHaveTextContent('0');
+    fireEvent.click(screen.getByText("Decrement"));
+    expect(screen.getByTestId("count")).toHaveTextContent("0");
   });
 
-  it('should support pure component optimization', () => {
+  it("should support pure component optimization", () => {
     const renderSpy = vi.fn();
     const PureTestComponent: React.FC<TestComponentProps> = (props) => {
       renderSpy();
@@ -200,10 +200,10 @@ describe('connect HOC', () => {
     expect(renderSpy.mock.calls.length).toBe(initialRenders);
   });
 
-  it('should support ref forwarding', () => {
+  it("should support ref forwarding", () => {
     const ref = React.createRef<HTMLDivElement>();
     const ConnectedComponent = connect<
-      Pick<CounterState, 'count'>,
+      Pick<CounterState, "count">,
       {},
       { ref?: React.Ref<HTMLDivElement> }
     >({
@@ -230,7 +230,7 @@ describe('connect HOC', () => {
     expect(ref.current).toBeTruthy();
   });
 
-  it('should support custom mergeProps', () => {
+  it("should support custom mergeProps", () => {
     const ConnectedComponent = connect({
       mapStateToPropsOptions: [
         {
@@ -276,10 +276,10 @@ describe('connect HOC', () => {
       </Provider>,
     );
 
-    expect(screen.getByTestId('count')).toHaveTextContent('0'); // 0 * 2
+    expect(screen.getByTestId("count")).toHaveTextContent("0"); // 0 * 2
   });
 
-  it('should support useHookDataFetchingOnce', async () => {
+  it("should support useHookDataFetchingOnce", async () => {
     const dataFetchSpy = vi.fn();
     const ConnectedComponent = connect({
       mapStateToPropsOptions: [
@@ -311,7 +311,7 @@ describe('connect HOC', () => {
     expect(dataFetchSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should support useHookEffectAfterChange', async () => {
+  it("should support useHookEffectAfterChange", async () => {
     const effectSpy = vi.fn();
     const ConnectedComponent = connect({
       mapStateToPropsOptions: [
@@ -352,7 +352,7 @@ describe('connect HOC', () => {
     );
 
     // Trigger a state change by clicking increment
-    fireEvent.click(screen.getByText('Increment'));
+    fireEvent.click(screen.getByText("Increment"));
 
     // Rerender to ensure effect runs
     rerender(
@@ -374,7 +374,7 @@ describe('connect HOC', () => {
     expect(effectSpy).toHaveBeenCalled();
   });
 
-  it('should connect to multiple stores using mapStateToPropsOptions without infinite rerenders', () => {
+  it("should connect to multiple stores using mapStateToPropsOptions without infinite rerenders", () => {
     const renderSpy = vi.fn();
     const PureTestComponent: React.FC<TestComponentProps> = (props) => {
       renderSpy();
@@ -382,7 +382,7 @@ describe('connect HOC', () => {
     };
 
     const ConnectedComponent = connect<
-      Pick<CounterState, 'count'> & Pick<UserState, 'name'>,
+      Pick<CounterState, "count"> & Pick<UserState, "name">,
       {},
       {
         ownProp: string;
@@ -412,7 +412,7 @@ describe('connect HOC', () => {
           StateContext={UserStateContext}
           DispatchContext={UserDispatchContext}
           reducer={userSlice.reducer}
-          initialState={{ name: 'John' }}
+          initialState={{ name: "John" }}
         >
           <ConnectedComponent ownProp="test" />
         </Provider>
@@ -433,7 +433,7 @@ describe('connect HOC', () => {
           StateContext={UserStateContext}
           DispatchContext={UserDispatchContext}
           reducer={userSlice.reducer}
-          initialState={{ name: 'John' }}
+          initialState={{ name: "John" }}
         >
           <ConnectedComponent ownProp="test" />
         </Provider>
@@ -444,8 +444,8 @@ describe('connect HOC', () => {
     expect(renderSpy.mock.calls.length).toBe(initialRenders);
 
     // Verify the component still shows the correct state
-    expect(screen.getByTestId('count')).toHaveTextContent('0');
-    expect(screen.getByTestId('name')).toHaveTextContent('John');
-    expect(screen.getByTestId('own-prop')).toHaveTextContent('test');
+    expect(screen.getByTestId("count")).toHaveTextContent("0");
+    expect(screen.getByTestId("name")).toHaveTextContent("John");
+    expect(screen.getByTestId("own-prop")).toHaveTextContent("test");
   });
 });

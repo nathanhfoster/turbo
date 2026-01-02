@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import ButtonGroup from '.';
-import ButtonGroupItem from './ButtonGroupItem';
+import type { Meta, StoryObj } from "@storybook/react";
+import ButtonGroup from ".";
+import ButtonGroupItem from "./ButtonGroupItem";
 
 const meta: Meta<typeof ButtonGroup> = {
-  title: 'Atoms/ButtonGroup',
+  title: "Atoms/ButtonGroup",
   component: ButtonGroup,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;

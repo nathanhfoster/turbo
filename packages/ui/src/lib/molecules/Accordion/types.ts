@@ -1,16 +1,16 @@
-import type { ReactNode } from 'react';
-import type { DataComponent } from '../../../types';
+import type { ReactNode } from "react";
+import type { DataComponent } from "../../../types";
 
-export type AccordionVariant = 'default' | 'flush' | 'bordered';
+export type AccordionVariant = "default" | "flush" | "bordered";
 export type AccordionColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'dark';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark";
 
 export interface AccordionItemProps {
   title: string;

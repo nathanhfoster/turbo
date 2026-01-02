@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import ChatBubble from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import ChatBubble from ".";
 
 const meta: Meta<typeof ChatBubble> = {
-  title: 'Atoms/ChatBubble',
+  title: "Atoms/ChatBubble",
   component: ChatBubble,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -17,8 +17,8 @@ export const Default: Story = {
   render: () => (
     <ChatBubble
       avatar={{
-        src: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-        alt: 'Jese image',
+        src: "https://flowbite.com/docs/images/people/profile-picture-3.jpg",
+        alt: "Jese image",
       }}
       sender="Bonnie Green"
       timestamp="11:46"
@@ -34,8 +34,8 @@ export const Outline: Story = {
     <ChatBubble
       variant="outline"
       avatar={{
-        src: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-        alt: 'Jese image',
+        src: "https://flowbite.com/docs/images/people/profile-picture-3.jpg",
+        alt: "Jese image",
       }}
       sender="Bonnie Green"
       timestamp="11:46"
@@ -51,8 +51,8 @@ export const Clean: Story = {
     <ChatBubble
       variant="clean"
       avatar={{
-        src: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-        alt: 'Jese image',
+        src: "https://flowbite.com/docs/images/people/profile-picture-3.jpg",
+        alt: "Jese image",
       }}
       sender="Bonnie Green"
       timestamp="11:46"
@@ -68,8 +68,8 @@ export const Sender: Story = {
     <ChatBubble
       isSender
       avatar={{
-        src: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-        alt: 'Jese image',
+        src: "https://flowbite.com/docs/images/people/profile-picture-3.jpg",
+        alt: "Jese image",
       }}
       sender="Bonnie Green"
       timestamp="11:46"

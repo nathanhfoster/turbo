@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Progress from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Progress from ".";
 import {
   PROGRESS_COLORS,
   PROGRESS_LABEL_POSITIONS,
   PROGRESS_SIZES,
-} from './constants';
+} from "./constants";
 
 const meta: Meta<typeof Progress> = {
-  title: 'Atoms/Progress',
+  title: "Atoms/Progress",
   component: Progress,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     size: {
-      control: 'select',
+      control: "select",
       options: Object.values(PROGRESS_SIZES),
     },
     color: {
-      control: 'select',
+      control: "select",
       options: Object.values(PROGRESS_COLORS),
     },
     labelPosition: {
-      control: 'select',
+      control: "select",
       options: Object.values(PROGRESS_LABEL_POSITIONS),
     },
   },
@@ -38,7 +38,7 @@ export const Default: Story = {
 export const WithLabel: Story = {
   args: {
     value: 45,
-    label: 'Flowbite',
+    label: "Flowbite",
     labelPosition: PROGRESS_LABEL_POSITIONS.outside,
   },
 };

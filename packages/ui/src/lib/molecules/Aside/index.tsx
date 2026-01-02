@@ -1,14 +1,14 @@
-import { combineClassNames } from '../../../utils';
-import type { AsideProps } from './types';
-import type { FC } from 'react';
-import Typography from '../../atoms/Typography';
-import { TYPOGRAPHY_VARIANTS } from '../../atoms/Typography/constants';
+import { combineClassNames } from "../../../utils";
+import type { AsideProps } from "./types";
+import type { FC } from "react";
+import Typography from "../../atoms/Typography";
+import { TYPOGRAPHY_VARIANTS } from "../../atoms/Typography/constants";
 import {
   ASIDE_POSITIONS,
   ASIDE_BACKGROUND_COLORS,
   ASIDE_POSITION_STYLES,
   ASIDE_BACKGROUND_STYLES,
-} from './constants';
+} from "./constants";
 
 const Aside: FC<AsideProps> = ({
   title,
@@ -23,10 +23,10 @@ const Aside: FC<AsideProps> = ({
   return (
     <aside
       className={combineClassNames(
-        'p-4 rounded-lg',
+        "p-4 rounded-lg",
         ASIDE_POSITION_STYLES[position],
         ASIDE_BACKGROUND_STYLES[backgroundColor],
-        isSticky && 'sticky top-4',
+        isSticky && "sticky top-4",
         className,
       )}
     >

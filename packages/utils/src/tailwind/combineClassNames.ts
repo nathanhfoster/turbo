@@ -20,12 +20,12 @@ const combineClassNames = (
     ...new Set(
       classes
         .filter(Boolean) // Remove falsy values
-        .join(' ') // Join with space
-        .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+        .join(" ") // Join with space
+        .replace(/\s+/g, " ") // Replace multiple spaces with single space
         .trim() // Remove leading/trailing spaces
-        .split(' ') // Split into array
+        .split(" "), // Split into array
     ),
-  ].join(' '); // Convert Set back to array and join with spaces
+  ].join(" "); // Convert Set back to array and join with spaces
 };
 
 export default combineClassNames;

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { combineClassNames } from '../../../utils';
-import type { ModalProps } from './types';
+import { useEffect } from "react";
+import { combineClassNames } from "../../../utils";
+import type { ModalProps } from "./types";
 import {
   MODAL_SIZES,
   MODAL_COLORS,
@@ -13,7 +13,7 @@ import {
   MODAL_BODY_CLASSES,
   MODAL_FOOTER_CLASSES,
   MODAL_CLOSE_BUTTON_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Modal: React.FC<ModalProps> = ({
   show,
@@ -21,8 +21,8 @@ const Modal: React.FC<ModalProps> = ({
   children,
   title,
   footer,
-  size = 'md',
-  color = 'blue',
+  size = "md",
+  color = "blue",
   dismissible = true,
   className,
   contentClassName,
@@ -43,20 +43,20 @@ const Modal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && dismissible) {
+      if (event.key === "Escape" && dismissible) {
         onClose();
         onToggle?.();
       }
     };
 
     if (show) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [show, dismissible, onClose, onToggle]);
 
@@ -82,7 +82,7 @@ const Modal: React.FC<ModalProps> = ({
           >
             <h3
               className={combineClassNames(
-                'text-xl font-semibold',
+                "text-xl font-semibold",
                 MODAL_COLORS[color],
               )}
             >

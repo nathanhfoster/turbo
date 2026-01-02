@@ -11,9 +11,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/ui": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@nathanhfoster/eslint-config": "workspace:*",
     "@nathanhfoster/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.13",

@@ -1,4 +1,4 @@
-import type { ProviderProps, ContextStore, Ensure } from 'resurrection';
+import type { ProviderProps, ContextStore, Ensure } from "@nathanhfoster/resurrection";
 
 export interface AdminUser {
   id: string;
@@ -13,14 +13,14 @@ export interface AdminUser {
 }
 
 export enum AdminRole {
-  SUPER_ADMIN = 'SUPER_ADMIN',
-  ADMIN = 'ADMIN',
-  MANAGER = 'MANAGER',
-  USER = 'USER',
+  SUPER_ADMIN = "SUPER_ADMIN",
+  ADMIN = "ADMIN",
+  MANAGER = "MANAGER",
+  USER = "USER",
 }
 
 export interface AdminSettings {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   language: string;
   notifications: boolean;
   sidebarCollapsed: boolean;
@@ -31,11 +31,11 @@ export type AdminState = {
   settings: AdminSettings;
 };
 
-export type AdminServerProps = Pick<AdminState, 'users'>;
+export type AdminServerProps = Pick<AdminState, "users">;
 
 export type AdminContextProviderProps = Ensure<
   ProviderProps<AdminState, AdminServerProps>,
-  'initialState'
+  "initialState"
 >;
 
 export type AdminContextState = ContextStore<AdminState>;

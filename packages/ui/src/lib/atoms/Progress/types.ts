@@ -1,16 +1,16 @@
-export type ProgressSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ProgressSize = "sm" | "md" | "lg" | "xl";
 
 export type ProgressColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'dark';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark";
 
-export type ProgressLabelPosition = 'inside' | 'outside' | 'none';
+export type ProgressLabelPosition = "inside" | "outside" | "none";
 
 export interface ProgressProps {
   value: number;

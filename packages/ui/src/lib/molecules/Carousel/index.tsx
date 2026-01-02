@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import type { CarouselProps } from './types';
+import { useEffect, useState } from "react";
+import type { CarouselProps } from "./types";
 
 const Carousel: React.FC<CarouselProps> = ({
   data,
   interval = 3000,
   showControls = true,
   showIndicators = true,
-  className = '',
+  className = "",
   onSlideChange,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,9 +45,9 @@ const Carousel: React.FC<CarouselProps> = ({
           <div
             key={`carousel-item-${item.id}-${index}`}
             className={`absolute block w-full h-full transition-opacity duration-700 ease-in-out ${
-              index === currentIndex ? 'opacity-100' : 'opacity-0'
+              index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
-            data-carousel-item={index === currentIndex ? 'active' : undefined}
+            data-carousel-item={index === currentIndex ? "active" : undefined}
           >
             {item.content}
           </div>
@@ -63,8 +63,8 @@ const Carousel: React.FC<CarouselProps> = ({
               type="button"
               className={`w-3 h-3 rounded-full ${
                 index === currentIndex
-                  ? 'bg-white dark:bg-gray-800'
-                  : 'bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800'
+                  ? "bg-white dark:bg-gray-800"
+                  : "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
               }`}
               aria-current={index === currentIndex}
               aria-label={`Slide ${index + 1}`}

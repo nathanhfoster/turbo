@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type PopoverPlacement = 'top' | 'right' | 'bottom' | 'left';
-export type PopoverTriggerType = 'hover' | 'click' | 'none';
+export type PopoverPlacement = "top" | "right" | "bottom" | "left";
+export type PopoverTriggerType = "hover" | "click" | "none";
 
 export interface PopoverProps {
   children: ReactNode;

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useReducer } from 'react';
+import { useReducer } from "react";
 
-import triggerRerenderReducer from './reducers/triggerRerenderReducer';
+import triggerRerenderReducer from "./reducers/triggerRerenderReducer";
 
 /**
  * Hook that returns a callback to force a rerender of a component

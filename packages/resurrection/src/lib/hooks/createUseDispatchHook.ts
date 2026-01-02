@@ -1,5 +1,5 @@
-import { useContext, Context } from 'use-context-selector';
-import type { InferStateFromContext } from '../connect/types';
+import { useContext, Context } from "use-context-selector";
+import type { InferStateFromContext } from "../connect/types";
 
 /**
  * Creates a custom hook for accessing the dispatch function from a given context.

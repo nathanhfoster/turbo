@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-export type SpeedDialPosition = 'top' | 'right' | 'bottom' | 'left';
-export type SpeedDialDirection = 'up' | 'down' | 'left' | 'right';
-export type SpeedDialTriggerType = 'hover' | 'click';
+export type SpeedDialPosition = "top" | "right" | "bottom" | "left";
+export type SpeedDialDirection = "up" | "down" | "left" | "right";
+export type SpeedDialTriggerType = "hover" | "click";
 
 export interface SpeedDialAction {
   icon: ReactNode;

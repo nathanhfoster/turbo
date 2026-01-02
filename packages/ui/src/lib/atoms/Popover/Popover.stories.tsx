@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Popover } from './index';
-import type { PopoverProps } from './types';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Popover } from "./index";
+import type { PopoverProps } from "./types";
 
 const meta: Meta<PopoverProps> = {
-  title: 'Atoms/Popover',
+  title: "Atoms/Popover",
   component: Popover,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     placement: {
-      control: 'select',
-      options: ['top', 'right', 'bottom', 'left'],
+      control: "select",
+      options: ["top", "right", "bottom", "left"],
     },
     triggerType: {
-      control: 'select',
-      options: ['hover', 'click', 'none'],
+      control: "select",
+      options: ["hover", "click", "none"],
     },
   },
 };
@@ -81,7 +81,7 @@ export const UserProfile: Story = {
           </a>
         </p>
         <p className="mb-4 text-sm">
-          Open-source contributor. Building{' '}
+          Open-source contributor. Building{" "}
           <a
             href="#"
             className="text-blue-600 dark:text-blue-500 hover:underline"
@@ -117,7 +117,7 @@ export const ClickTrigger: Story = {
   args: {
     children: defaultTrigger,
     content: defaultContent,
-    triggerType: 'click',
+    triggerType: "click",
   },
 };
 
@@ -133,8 +133,8 @@ export const WithEventHandlers: Story = {
   args: {
     children: defaultTrigger,
     content: defaultContent,
-    onShow: () => console.log('Popover shown'),
-    onHide: () => console.log('Popover hidden'),
-    onToggle: () => console.log('Popover toggled'),
+    onShow: () => console.log("Popover shown"),
+    onHide: () => console.log("Popover hidden"),
+    onToggle: () => console.log("Popover toggled"),
   },
 };

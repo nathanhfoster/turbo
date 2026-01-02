@@ -6,10 +6,10 @@ const sendPostRequest = (
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
     if (authorization) {
-      xhr.setRequestHeader('Authorization', authorization);
+      xhr.setRequestHeader("Authorization", authorization);
     }
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {

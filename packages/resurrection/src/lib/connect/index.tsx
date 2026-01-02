@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   ComponentType,
@@ -6,7 +6,7 @@ import {
   memo,
   useRef,
   useMemo,
-} from 'react';
+} from "react";
 
 import {
   ComponentPropsType,
@@ -14,17 +14,17 @@ import {
   ConnectOptions,
   MergePropsReturnType,
   InferStateFromContext,
-} from './types';
+} from "./types";
 import {
   useEffectAfterChange,
   useEffectOnce,
   useMemoComponent,
-} from '../hooks';
-import defaultMergeProps from '../utils/defaultMergeProps';
-import createUseSelectorHook from '../hooks/createUseSelectorHook';
-import createUseDispatchHook from '../hooks/createUseDispatchHook';
-import bindActionCreator from '../utils/bindActionCreator';
-import { shallowEquals, isFunction } from '../utils';
+} from "../hooks";
+import defaultMergeProps from "../utils/defaultMergeProps";
+import createUseSelectorHook from "../hooks/createUseSelectorHook";
+import createUseDispatchHook from "../hooks/createUseDispatchHook";
+import bindActionCreator from "../utils/bindActionCreator";
+import { shallowEquals, isFunction } from "../utils";
 
 /**
  * connect HOC that maps state and dispatch to props with optimized memoization.
@@ -64,7 +64,7 @@ const connect = <
     WrappedComponent: ComponentType<P>,
   ): ComponentType<Omit<P, keyof MSTP | keyof MDTP>> => {
     const wrappedName =
-      WrappedComponent.displayName || WrappedComponent.name || 'Component';
+      WrappedComponent.displayName || WrappedComponent.name || "Component";
     const displayName = `Connect(${wrappedName})`;
 
     const ConnectFunction: React.FC<P & { forwardedRef?: React.Ref<any> }> = ({

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import throttle from '../utils/throttle';
-import { type DependencyList, useCallback, useEffect, useRef } from 'react';
+import throttle from "../utils/throttle";
+import { type DependencyList, useCallback, useEffect, useRef } from "react";
 
-import { GenericFunction } from '../types';
+import { GenericFunction } from "../types";
 
-import useWillUnmount from './useWillUnmount';
+import useWillUnmount from "./useWillUnmount";
 
 export interface ThrottleOptions {
   leading?: boolean | undefined;
@@ -28,7 +28,9 @@ const useThrottledCallback = <TCallback extends GenericFunction>(
   wait = 400,
   options: ThrottleOptions = defaultOptions,
 ): TCallback => {
-  const throttledFn = useRef<TCallback | null>(throttle<TCallback>(fn, wait, options));
+  const throttledFn = useRef<TCallback | null>(
+    throttle<TCallback>(fn, wait, options),
+  );
 
   useEffect(() => {
     throttledFn.current = throttle(fn, wait, options);

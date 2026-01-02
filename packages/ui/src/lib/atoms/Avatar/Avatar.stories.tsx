@@ -1,27 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Avatar from '.';
-import { AVATAR_SHAPES, AVATAR_SIZES } from './constants';
+import type { Meta, StoryObj } from "@storybook/react";
+import Avatar from ".";
+import { AVATAR_SHAPES, AVATAR_SIZES } from "./constants";
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Atoms/Avatar',
+  title: "Atoms/Avatar",
   component: Avatar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     size: {
-      control: 'select',
+      control: "select",
       options: Object.keys(AVATAR_SIZES),
     },
     shape: {
-      control: 'select',
+      control: "select",
       options: Object.keys(AVATAR_SHAPES),
     },
     status: {
-      control: 'select',
-      options: ['online', 'offline', 'away', 'busy'],
+      control: "select",
+      options: ["online", "offline", "away", "busy"],
     },
     statusPosition: {
-      control: 'select',
-      options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+      control: "select",
+      options: ["top-left", "top-right", "bottom-left", "bottom-right"],
     },
   },
 };
@@ -30,12 +30,12 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 const defaultImage =
-  'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
+  "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
 export const Default: Story = {
   args: {
     src: defaultImage,
-    alt: 'User avatar',
+    alt: "User avatar",
   },
 };
 
@@ -122,7 +122,7 @@ export const Bordered: Story = {
 
 export const DefaultAvatar: Story = {
   args: {
-    alt: 'Default avatar',
+    alt: "Default avatar",
   },
 };
 

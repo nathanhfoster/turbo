@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import BottomNavigation from '.';
-import { BOTTOM_NAVIGATION_VARIANTS } from './constants';
+import type { Meta, StoryObj } from "@storybook/react";
+import BottomNavigation from ".";
+import { BOTTOM_NAVIGATION_VARIANTS } from "./constants";
 
 const meta: Meta<typeof BottomNavigation> = {
-  title: 'Molecules/BottomNavigation',
+  title: "Molecules/BottomNavigation",
   component: BottomNavigation,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
+      control: "select",
       options: Object.keys(BOTTOM_NAVIGATION_VARIANTS),
     },
   },
@@ -21,7 +21,7 @@ export const Default: Story = {
   args: {
     data: [
       {
-        label: 'Home',
+        label: "Home",
         icon: (
           <svg
             className="w-5 h-5"
@@ -35,7 +35,7 @@ export const Default: Story = {
         active: true,
       },
       {
-        label: 'Search',
+        label: "Search",
         icon: (
           <svg
             className="w-5 h-5"
@@ -52,7 +52,7 @@ export const Default: Story = {
         ),
       },
       {
-        label: 'Settings',
+        label: "Settings",
         icon: (
           <svg
             className="w-5 h-5"
@@ -69,7 +69,7 @@ export const Default: Story = {
         ),
       },
       {
-        label: 'Profile',
+        label: "Profile",
         icon: (
           <svg
             className="w-5 h-5"
@@ -93,7 +93,7 @@ export const WithLinks: Story = {
   args: {
     data: [
       {
-        label: 'Home',
+        label: "Home",
         icon: (
           <svg
             className="w-5 h-5"
@@ -104,11 +104,11 @@ export const WithLinks: Story = {
             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
           </svg>
         ),
-        href: '#',
+        href: "#",
         active: true,
       },
       {
-        label: 'Search',
+        label: "Search",
         icon: (
           <svg
             className="w-5 h-5"
@@ -123,10 +123,10 @@ export const WithLinks: Story = {
             />
           </svg>
         ),
-        href: '#',
+        href: "#",
       },
       {
-        label: 'Settings',
+        label: "Settings",
         icon: (
           <svg
             className="w-5 h-5"
@@ -141,10 +141,10 @@ export const WithLinks: Story = {
             />
           </svg>
         ),
-        href: '#',
+        href: "#",
       },
       {
-        label: 'Profile',
+        label: "Profile",
         icon: (
           <svg
             className="w-5 h-5"
@@ -159,7 +159,7 @@ export const WithLinks: Story = {
             />
           </svg>
         ),
-        href: '#',
+        href: "#",
       },
     ],
   },
@@ -169,7 +169,7 @@ export const WithDisabledItems: Story = {
   args: {
     data: [
       {
-        label: 'Home',
+        label: "Home",
         icon: (
           <svg
             className="w-5 h-5"
@@ -183,7 +183,7 @@ export const WithDisabledItems: Story = {
         active: true,
       },
       {
-        label: 'Search',
+        label: "Search",
         icon: (
           <svg
             className="w-5 h-5"
@@ -201,7 +201,7 @@ export const WithDisabledItems: Story = {
         disabled: true,
       },
       {
-        label: 'Settings',
+        label: "Settings",
         icon: (
           <svg
             className="w-5 h-5"
@@ -218,7 +218,7 @@ export const WithDisabledItems: Story = {
         ),
       },
       {
-        label: 'Profile',
+        label: "Profile",
         icon: (
           <svg
             className="w-5 h-5"
@@ -240,10 +240,10 @@ export const WithDisabledItems: Story = {
 
 export const WithCustomVariant: Story = {
   args: {
-    variant: 'bordered',
+    variant: "bordered",
     data: [
       {
-        label: 'Home',
+        label: "Home",
         icon: (
           <svg
             className="w-5 h-5"
@@ -257,7 +257,7 @@ export const WithCustomVariant: Story = {
         active: true,
       },
       {
-        label: 'Search',
+        label: "Search",
         icon: (
           <svg
             className="w-5 h-5"
@@ -274,7 +274,7 @@ export const WithCustomVariant: Story = {
         ),
       },
       {
-        label: 'Settings',
+        label: "Settings",
         icon: (
           <svg
             className="w-5 h-5"
@@ -291,7 +291,7 @@ export const WithCustomVariant: Story = {
         ),
       },
       {
-        label: 'Profile',
+        label: "Profile",
         icon: (
           <svg
             className="w-5 h-5"

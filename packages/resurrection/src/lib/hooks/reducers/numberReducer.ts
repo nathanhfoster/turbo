@@ -1,10 +1,10 @@
-import { isFunction, isNumber } from '../../utils';
-import { Reducer } from 'react';
+import { isFunction, isNumber } from "../../utils";
+import { Reducer } from "react";
 
-import { ContextStoreActionCallback, PayloadActionType } from '../../types';
+import { ContextStoreActionCallback, PayloadActionType } from "../../types";
 
-export const NUMBER_REDUCER_DECREMENT = 'DECREMENT';
-export const NUMBER_REDUCER_INCREMENT = 'INCREMENT';
+export const NUMBER_REDUCER_DECREMENT = "DECREMENT";
+export const NUMBER_REDUCER_INCREMENT = "INCREMENT";
 
 const numberReducer: Reducer<
   number,

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { isFunction } from '../utils';
-import { useCallback, useRef, Dispatch, SetStateAction } from 'react';
-import usePropsThatChanged from './usePropsThatChanged';
-import useLazyMemo from './useLazyMemo';
-import getDerivedStateFromProps from '../utils/getDerivedStateFromProps';
-import useSetStateReducer, { StateCallback } from './useSetStateReducer';
-import useEffectAfterMount from './useEffectAfterMount';
+import { isFunction } from "../utils";
+import { useCallback, useRef, Dispatch, SetStateAction } from "react";
+import usePropsThatChanged from "./usePropsThatChanged";
+import useLazyMemo from "./useLazyMemo";
+import getDerivedStateFromProps from "../utils/getDerivedStateFromProps";
+import useSetStateReducer, { StateCallback } from "./useSetStateReducer";
+import useEffectAfterMount from "./useEffectAfterMount";
 
 import type {
   ContextStoreInitializer,
@@ -14,7 +14,7 @@ import type {
   ActionCreatorWithPayload,
   PayloadActionCreator,
   PayloadAction,
-} from '../types';
+} from "../types";
 
 /**
  * Augments React's useReducer() hook

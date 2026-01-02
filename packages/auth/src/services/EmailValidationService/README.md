@@ -10,19 +10,19 @@ The service is **ready to use immediately** - no API keys or configuration requi
 import {
   emailValidationService,
   VALIDATION_CHECKS,
-} from '@/domains/AuthDomain';
+} from "@/domains/AuthDomain";
 
 // Validate email syntax and check against disposable email blacklist
-const result = await emailValidationService.validate('user@example.com', [
+const result = await emailValidationService.validate("user@example.com", [
   VALIDATION_CHECKS.CHECK_BLACKLIST,
 ]);
 
 if (result.ok) {
   // Email is valid and not disposable
-  console.log('Email accepted!');
+  console.log("Email accepted!");
 } else {
   // Show error to user
-  console.log('Validation failed:', result.value?.errors);
+  console.log("Validation failed:", result.value?.errors);
 }
 ```
 
@@ -33,7 +33,7 @@ if (result.ok) {
 Validates email format using RFC 5322 compliant regex.
 
 ```typescript
-const isValid = emailValidationService.checkSyntax('user@example.com');
+const isValid = emailValidationService.checkSyntax("user@example.com");
 // Returns: true
 ```
 
@@ -51,10 +51,10 @@ const isValid = emailValidationService.checkSyntax('user@example.com');
 Checks email against 50K+ disposable email domains using **mailchecker** library.
 
 ```typescript
-const isLegit = emailValidationService.checkBlacklist('user@mailinator.com');
+const isLegit = emailValidationService.checkBlacklist("user@mailinator.com");
 // Returns: false (mailinator.com is blacklisted)
 
-const isLegit2 = emailValidationService.checkBlacklist('user@gmail.com');
+const isLegit2 = emailValidationService.checkBlacklist("user@gmail.com");
 // Returns: true (gmail.com is legitimate)
 ```
 
@@ -82,7 +82,7 @@ Verifies the email domain has valid DNS records (MX or A records).
 
 ```typescript
 // Only works on server-side (Next.js API routes, Server Components, Server Actions)
-const hasDNS = await emailValidationService.checkDomain('user@gmail.com');
+const hasDNS = await emailValidationService.checkDomain("user@gmail.com");
 // Returns: true (gmail.com has MX records)
 ```
 
@@ -108,7 +108,7 @@ ZeroBounce API integration is available but **NOT currently set up**.
    ```
 4. Use in validation:
    ```typescript
-   const result = await emailValidationService.validate('user@example.com', [
+   const result = await emailValidationService.validate("user@example.com", [
      VALIDATION_CHECKS.CHECK_ZEROBOUNCE,
    ]);
    ```
@@ -125,7 +125,7 @@ For most cases, use `CHECK_BLACKLIST` combined with syntax validation:
 import {
   emailValidationService,
   VALIDATION_CHECKS,
-} from '@/domains/AuthDomain';
+} from "@/domains/AuthDomain";
 
 async function validateUserEmail(email: string) {
   // This runs CHECK_SYNTAX automatically + CHECK_BLACKLIST
@@ -137,16 +137,16 @@ async function validateUserEmail(email: string) {
     // Handle validation failure
     const errors = result.value?.errors || [];
 
-    if (errors.includes('Invalid email syntax')) {
-      return 'Please enter a valid email address';
+    if (errors.includes("Invalid email syntax")) {
+      return "Please enter a valid email address";
     }
 
     if (
       errors.includes(
-        'Email domain is blacklisted (disposable/temporary email)',
+        "Email domain is blacklisted (disposable/temporary email)",
       )
     ) {
-      return 'Disposable email addresses are not allowed. Please use a permanent email address.';
+      return "Disposable email addresses are not allowed. Please use a permanent email address.";
     }
   }
 
@@ -163,7 +163,7 @@ Example integration with your existing registration flow:
 import {
   emailValidationService,
   VALIDATION_CHECKS,
-} from '@/domains/AuthDomain';
+} from "@/domains/AuthDomain";
 
 async function handleRegistration(formData) {
   // Validate email
@@ -176,7 +176,7 @@ async function handleRegistration(formData) {
     setFieldErrors((prev) => ({
       ...prev,
       email:
-        'Please use a permanent email address. Temporary email services are not allowed.',
+        "Please use a permanent email address. Temporary email services are not allowed.",
     }));
     return;
   }

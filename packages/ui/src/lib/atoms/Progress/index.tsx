@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import type { ProgressProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { ProgressProps } from "./types";
+import type { FC } from "react";
 import {
   PROGRESS_COLORS,
   PROGRESS_COLOR_STYLES,
@@ -8,7 +8,7 @@ import {
   PROGRESS_LABEL_POSITIONS,
   PROGRESS_SIZES,
   PROGRESS_SIZE_STYLES,
-} from './constants';
+} from "./constants";
 
 const Progress: FC<ProgressProps> = ({
   value,
@@ -29,7 +29,7 @@ const Progress: FC<ProgressProps> = ({
     const labelContent = (
       <span
         className={combineClassNames(
-          'text-sm font-medium',
+          "text-sm font-medium",
           PROGRESS_LABEL_COLOR_STYLES[color],
         )}
       >
@@ -41,8 +41,8 @@ const Progress: FC<ProgressProps> = ({
       return (
         <div
           className={combineClassNames(
-            'text-xs font-medium text-center p-0.5 leading-none rounded-full',
-            'text-blue-100 bg-blue-600',
+            "text-xs font-medium text-center p-0.5 leading-none rounded-full",
+            "text-blue-100 bg-blue-600",
           )}
           style={{ width: `${percentage}%` }}
         >
@@ -57,7 +57,7 @@ const Progress: FC<ProgressProps> = ({
         {showValue && (
           <span
             className={combineClassNames(
-              'text-sm font-medium',
+              "text-sm font-medium",
               PROGRESS_LABEL_COLOR_STYLES[color],
             )}
           >
@@ -74,7 +74,7 @@ const Progress: FC<ProgressProps> = ({
       <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
         <div
           className={combineClassNames(
-            'rounded-full',
+            "rounded-full",
             PROGRESS_SIZE_STYLES[size],
             PROGRESS_COLOR_STYLES[color],
           )}

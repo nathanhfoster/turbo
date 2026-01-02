@@ -1,5 +1,7 @@
-import { FC, Fragment, useTransition } from 'react';
-import { combineClassNames } from '../../../utils';
+"use client";
+
+import { FC, Fragment, useTransition } from "react";
+import { combineClassNames } from "../../../utils";
 
 export interface FilterDrawerProps {
   isOpen: boolean;
@@ -24,7 +26,7 @@ const FilterDrawer: FC<FilterDrawerProps> = ({
       {isOpen && (
         <div
           className={`fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-500 ${
-            isPending ? 'opacity-0' : 'opacity-100'
+            isPending ? "opacity-0" : "opacity-100"
           }`}
           onClick={onClose}
         />
@@ -32,15 +34,15 @@ const FilterDrawer: FC<FilterDrawerProps> = ({
 
       {/* Drawer */}
       <div
-        className={`fixed inset-0 overflow-hidden ${isOpen ? 'overflow-hidden' : ''}`}
+        className={`fixed inset-0 overflow-hidden ${isOpen ? "overflow-hidden" : ""}`}
       >
         <div className="absolute inset-0 overflow-hidden">
           <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
             {isOpen && (
               <div
                 className={combineClassNames(
-                  'pointer-events-auto w-screen max-w-md transform transition-transform duration-500',
-                  isPending ? 'translate-x-full' : 'translate-x-0',
+                  "pointer-events-auto w-screen max-w-md transform transition-transform duration-500",
+                  isPending ? "translate-x-full" : "translate-x-0",
                   className,
                 )}
               >

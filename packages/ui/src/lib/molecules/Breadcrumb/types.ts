@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
-import type { DataComponent } from '../../../types';
+import type { ReactNode } from "react";
+import type { DataComponent } from "../../../types";
 
-export type BreadcrumbVariant = 'default' | 'solid';
+export type BreadcrumbVariant = "default" | "solid";
 
 export interface BreadcrumbItem {
   label: string;

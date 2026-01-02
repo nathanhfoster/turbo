@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
-import { combineClassNames } from '../../../utils';
-import { GridItemProps } from './types';
+import { FC } from "react";
+import { combineClassNames } from "../../../utils";
+import { GridItemProps } from "./types";
 import {
   GRID_ITEM_BASE_CLASSES,
   GRID_ITEM_SPAN_CLASSES,
@@ -20,7 +20,7 @@ import {
   GRID_ITEM_LG_END_CLASSES,
   GRID_ITEM_XL_START_CLASSES,
   GRID_ITEM_XL_END_CLASSES,
-} from './constants';
+} from "./constants";
 
 export const GridItem: FC<GridItemProps> = ({
   children,

@@ -1,16 +1,16 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 export type AlertColor =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'dark';
+  | "default"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark";
 
-export type AlertVariant = 'default' | 'bordered' | 'with-list';
+export type AlertVariant = "default" | "bordered" | "with-list";
 
 export interface AlertProps {
   title?: string;

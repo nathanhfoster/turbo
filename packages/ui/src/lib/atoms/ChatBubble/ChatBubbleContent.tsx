@@ -1,7 +1,7 @@
-import { combineClassNames } from '../../../utils';
-import type { ChatBubbleContentProps } from './types';
-import type { FC } from 'react';
-import { CHAT_BUBBLE_MESSAGE_CLASSES } from './constants';
+import { combineClassNames } from "../../../utils";
+import type { ChatBubbleContentProps } from "./types";
+import type { FC } from "react";
+import { CHAT_BUBBLE_MESSAGE_CLASSES } from "./constants";
 
 const ChatBubbleContent: FC<ChatBubbleContentProps> = ({
   children,

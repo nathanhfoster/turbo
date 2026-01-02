@@ -1,16 +1,16 @@
-import { produce, setAutoFreeze, Draft } from 'immer';
-import { SetStateAction, Reducer } from 'react';
-import isFunction from '../isFunction';
+import { produce, setAutoFreeze, Draft } from "immer";
+import { SetStateAction, Reducer } from "react";
+import isFunction from "../isFunction";
 
-import { PayloadAction } from '../../types';
+import { PayloadAction } from "../../types";
 
 import {
   CreateSliceActions,
   CreateSliceProps,
   ReducerActionCreators,
   ThunkActions,
-} from './types';
-import type { ComponentPropsType } from '../../connect/types';
+} from "./types";
+import type { ComponentPropsType } from "../../connect/types";
 
 setAutoFreeze(false);
 // enableMapSet(); use this if you need to use Map and Set in immer
@@ -62,11 +62,11 @@ const createSlice = <
     }
 
     // Handle Partial state updates
-    if (!('type' in action)) {
+    if (!("type" in action)) {
       return { ...state, ...action };
     }
 
-    const [actionReducerName, actionType] = action.type.split('/');
+    const [actionReducerName, actionType] = action.type.split("/");
 
     const reducerActionFunction =
       props.actions![actionType] ?? props.extends?.module.actions![actionType];
@@ -75,7 +75,7 @@ const createSlice = <
       return produce(state, (draft: Draft<S & MS>) => {
         const result = reducerActionFunction(
           draft,
-          'payload' in action ? action.payload : undefined,
+          "payload" in action ? action.payload : undefined,
         );
         if (result !== undefined) {
           Object.assign(draft, result);

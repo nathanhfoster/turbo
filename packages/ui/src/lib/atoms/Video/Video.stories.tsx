@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Video from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Video from ".";
 
 const meta: Meta<typeof Video> = {
-  title: 'Atoms/Video',
+  title: "Atoms/Video",
   component: Video,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -12,8 +12,8 @@ type Story = StoryObj<typeof Video>;
 
 const defaultSources = [
   {
-    src: 'https://flowbite.com/docs/videos/flowbite.mp4',
-    type: 'video/mp4',
+    src: "https://flowbite.com/docs/videos/flowbite.mp4",
+    type: "video/mp4",
   },
 ];
 
@@ -41,15 +41,15 @@ export const Muted: Story = {
 export const CustomSize: Story = {
   args: {
     sources: defaultSources,
-    width: '384', // w-96
-    height: '216', // 16:9 aspect ratio
+    width: "384", // w-96
+    height: "216", // 16:9 aspect ratio
   },
 };
 
 export const Responsive: Story = {
   args: {
     sources: defaultSources,
-    className: 'w-full h-auto max-w-full',
+    className: "w-full h-auto max-w-full",
   },
 };
 
@@ -57,7 +57,7 @@ export const CustomStyles: Story = {
   args: {
     sources: defaultSources,
     className:
-      'w-full h-auto max-w-full border border-gray-200 rounded-lg dark:border-gray-700',
+      "w-full h-auto max-w-full border border-gray-200 rounded-lg dark:border-gray-700",
   },
 };
 

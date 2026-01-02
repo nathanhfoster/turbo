@@ -1,23 +1,23 @@
-import { render, screen } from '@testing-library/react';
-import Avatar from '.';
+import { render, screen } from "@testing-library/react";
+import Avatar from ".";
 
-describe('Avatar', () => {
+describe("Avatar", () => {
   const defaultImage =
-    'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
+    "https://flowbite.com/docs/images/people/profile-picture-5.jpg";
 
-  it('renders avatar with image', () => {
+  it("renders avatar with image", () => {
     render(<Avatar src={defaultImage} alt="Test avatar" />);
-    const img = screen.getByAltText('Test avatar');
+    const img = screen.getByAltText("Test avatar");
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', defaultImage);
+    expect(img).toHaveAttribute("src", defaultImage);
   });
 
-  it('renders default avatar when no image is provided', () => {
+  it("renders default avatar when no image is provided", () => {
     render(<Avatar alt="Default avatar" />);
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole("img")).toBeInTheDocument();
   });
 
-  it('renders with custom initials', () => {
+  it("renders with custom initials", () => {
     render(
       <Avatar>
         <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
@@ -27,10 +27,10 @@ describe('Avatar', () => {
         </div>
       </Avatar>,
     );
-    expect(screen.getByText('JL')).toBeInTheDocument();
+    expect(screen.getByText("JL")).toBeInTheDocument();
   });
 
-  it('renders with different sizes', () => {
+  it("renders with different sizes", () => {
     const { container } = render(
       <div>
         <Avatar size="xs" src={defaultImage} alt="Extra small" />
@@ -40,14 +40,14 @@ describe('Avatar', () => {
         <Avatar size="xl" src={defaultImage} alt="Extra large" />
       </div>,
     );
-    expect(container.querySelector('.w-6')).toBeInTheDocument();
-    expect(container.querySelector('.w-8')).toBeInTheDocument();
-    expect(container.querySelector('.w-10')).toBeInTheDocument();
-    expect(container.querySelector('.w-20')).toBeInTheDocument();
-    expect(container.querySelector('.w-36')).toBeInTheDocument();
+    expect(container.querySelector(".w-6")).toBeInTheDocument();
+    expect(container.querySelector(".w-8")).toBeInTheDocument();
+    expect(container.querySelector(".w-10")).toBeInTheDocument();
+    expect(container.querySelector(".w-20")).toBeInTheDocument();
+    expect(container.querySelector(".w-36")).toBeInTheDocument();
   });
 
-  it('renders with different shapes', () => {
+  it("renders with different shapes", () => {
     const { container } = render(
       <div>
         <Avatar shape="rounded" src={defaultImage} alt="Rounded" />
@@ -55,22 +55,22 @@ describe('Avatar', () => {
         <Avatar shape="rounded-sm" src={defaultImage} alt="Rounded small" />
       </div>,
     );
-    expect(container.querySelector('.rounded')).toBeInTheDocument();
-    expect(container.querySelector('.rounded-full')).toBeInTheDocument();
-    expect(container.querySelector('.rounded-sm')).toBeInTheDocument();
+    expect(container.querySelector(".rounded")).toBeInTheDocument();
+    expect(container.querySelector(".rounded-full")).toBeInTheDocument();
+    expect(container.querySelector(".rounded-sm")).toBeInTheDocument();
   });
 
-  it('renders with status indicator', () => {
+  it("renders with status indicator", () => {
     const { container } = render(
       <Avatar src={defaultImage} status="online" alt="Online user" />,
     );
-    expect(container.querySelector('.bg-green-400')).toBeInTheDocument();
+    expect(container.querySelector(".bg-green-400")).toBeInTheDocument();
   });
 
-  it('renders with border when bordered prop is true', () => {
+  it("renders with border when bordered prop is true", () => {
     const { container } = render(
       <Avatar src={defaultImage} bordered alt="Bordered avatar" />,
     );
-    expect(container.querySelector('.border-2')).toBeInTheDocument();
+    expect(container.querySelector(".border-2")).toBeInTheDocument();
   });
 });

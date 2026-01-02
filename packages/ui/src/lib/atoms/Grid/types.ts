@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export type GridCols = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
@@ -12,5 +12,5 @@ export interface GridProps {
   lg?: GridCols;
   xl?: GridCols;
   autoCols?: boolean;
-  autoFlow?: 'row' | 'column' | 'row-dense' | 'column-dense';
+  autoFlow?: "row" | "column" | "row-dense" | "column-dense";
 }

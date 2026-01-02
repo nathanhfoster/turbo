@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 export interface ChatBubbleProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ export interface ChatBubbleProps {
   sender?: string;
   timestamp?: string;
   status?: string;
-  variant?: 'default' | 'outline' | 'clean';
+  variant?: "default" | "outline" | "clean";
   isSender?: boolean;
 }
 

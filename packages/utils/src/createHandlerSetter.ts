@@ -1,8 +1,8 @@
-'use client';
-import { CallbackSetter, SomeCallback } from './types';
+"use client";
+import { CallbackSetter, SomeCallback } from "./types";
 /* eslint-disable react-hooks/rules-of-hooks */
-import { isFunction } from './utils';
-import { type RefObject, useRef } from 'react';
+import { isFunction } from "./utils";
+import { type RefObject, useRef } from "react";
 
 /**
  * Returns an array where the first item is the [ref](https://reactjs.org/docs/hooks-reference.html#useref) to a

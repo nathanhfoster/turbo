@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import type { InputProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { InputProps } from "./types";
+import type { FC } from "react";
 import {
   INPUT_BASE_CLASSES,
   INPUT_DISABLED_CLASSES,
@@ -11,7 +11,7 @@ import {
   INPUT_WITH_LEFT_ICON_CLASSES,
   INPUT_WITH_RIGHT_ICON_CLASSES,
   INPUT_WITH_BOTH_ICONS_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Input: FC<InputProps> = ({
   className,

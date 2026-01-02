@@ -1,6 +1,6 @@
-import { combineClassNames } from '../../../utils';
-import type { GalleryProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { GalleryProps } from "./types";
+import type { FC } from "react";
 import {
   GALLERY_BASE_CLASSES,
   GALLERY_IMAGE_CLASSES,
@@ -9,7 +9,7 @@ import {
   GALLERY_TAG_INACTIVE_CLASSES,
   GALLERY_TAGS_CONTAINER_CLASSES,
   GALLERY_COLUMN_CLASSES,
-} from './constants';
+} from "./constants";
 
 const Gallery: FC<GalleryProps> = ({
   images,
@@ -19,16 +19,16 @@ const Gallery: FC<GalleryProps> = ({
   imageClassName,
   containerClassName,
   onTagClick,
-  ImageComponent = 'img',
+  ImageComponent = "img",
 }) => {
-  const renderImage = (image: GalleryProps['images'][0]) => {
+  const renderImage = (image: GalleryProps["images"][0]) => {
     return (
       <ImageComponent
-        src={typeof image.src === 'string' ? image.src : image.src.src}
+        src={typeof image.src === "string" ? image.src : image.src.src}
         alt={image.alt}
         width={image.width || 500}
         height={image.height || 500}
-        loading={image.priority ? 'eager' : 'lazy'}
+        loading={image.priority ? "eager" : "lazy"}
         className={combineClassNames(GALLERY_IMAGE_CLASSES, imageClassName)}
       />
     );

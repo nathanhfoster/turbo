@@ -1,5 +1,5 @@
-import type { ReactNode, JSX } from 'react';
-import { TYPOGRAPHY_VARIANTS, TYPOGRAPHY_COLORS } from './constants';
+import type { ReactNode, JSX } from "react";
+import { TYPOGRAPHY_VARIANTS, TYPOGRAPHY_COLORS } from "./constants";
 
 export type TypographyVariant =
   (typeof TYPOGRAPHY_VARIANTS)[keyof typeof TYPOGRAPHY_VARIANTS];

@@ -1,6 +1,6 @@
-import type { TabProps } from './types';
-import { combineClassNames } from '../../../utils';
-import { getTabStyles } from './constants';
+import type { TabProps } from "./types";
+import { combineClassNames } from "../../../utils";
+import { getTabStyles } from "./constants";
 
 const Tab: React.FC<TabProps> = ({
   id,
@@ -9,9 +9,9 @@ const Tab: React.FC<TabProps> = ({
   isDisabled = false,
   icon,
   onClick,
-  variant = 'default',
+  variant = "default",
   fullWidth = false,
-  className = '',
+  className = "",
 }) => {
   return (
     <button

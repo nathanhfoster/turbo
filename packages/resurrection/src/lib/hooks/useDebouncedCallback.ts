@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { type DependencyList, useCallback, useEffect, useRef } from 'react';
+import { type DependencyList, useCallback, useEffect, useRef } from "react";
 
-import { GenericFunction } from '../types';
-import debounce, { type DebounceOptions } from '../utils/debounce';
+import { GenericFunction } from "../types";
+import debounce, { type DebounceOptions } from "../utils/debounce";
 
-import useWillUnmount from './useWillUnmount';
+import useWillUnmount from "./useWillUnmount";
 
 const defaultOptions: DebounceOptions = {
   leading: false,

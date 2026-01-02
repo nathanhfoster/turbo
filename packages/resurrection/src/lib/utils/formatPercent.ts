@@ -1,14 +1,14 @@
 const formatPercent = (inputValue: string, showPercentageSign = false) => {
   const nextValue = inputValue
-    .replace(',', '.')
-    .replace(/[^0-9.]/g, '')
+    .replace(",", ".")
+    .replace(/[^0-9.]/g, "")
     .trimLeft();
   const stringValue = nextValue.substring(0, 5);
-  const percentageDecorator = showPercentageSign ? '%' : '';
+  const percentageDecorator = showPercentageSign ? "%" : "";
   const percentValue = Number(parseFloat(stringValue));
 
   if (nextValue.length <= 0) {
-    return '';
+    return "";
   }
   if (percentValue < 10 && nextValue.length > 4) {
     return `${stringValue.substring(0, 4)}${percentageDecorator}`;

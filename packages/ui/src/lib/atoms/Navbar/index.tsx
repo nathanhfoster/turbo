@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { FC, useState } from 'react';
-import Button from '../Button';
-import Dropdown from '../Dropdown';
-import { combineClassNames } from '../../../utils';
-import type { NavbarProps } from './types';
+import { FC, useState } from "react";
+import Button from "../Button";
+import Dropdown from "../Dropdown";
+import { combineClassNames } from "../../../utils";
+import type { NavbarProps } from "./types";
 import {
   NAVBAR_BASE_CLASSES,
   NAVBAR_CONTAINER_CLASSES,
@@ -21,8 +21,8 @@ import {
   NAVBAR_USER_MENU_AVATAR_CLASSES,
   NAVBAR_USER_MENU_DROPDOWN_CLASSES,
   NAVBAR_USER_MENU_DROPDOWN_ITEM_CLASSES,
-} from './constants';
-import { useBooleanToggler } from '@nathanhfoster/resurrection';
+} from "./constants";
+import { useBooleanToggler } from "../../../utils";
 
 const Navbar: FC<NavbarProps> = ({
   brand,
@@ -56,7 +56,7 @@ const Navbar: FC<NavbarProps> = ({
         <Button
           variant="outline"
           className={NAVBAR_TOGGLE_BUTTON_CLASSES}
-          onClick={toggleIsMenuOpen}
+          onClick={() => toggleIsMenuOpen(undefined)}
           aria-controls="navbar-default"
           aria-expanded={isMenuOpen}
         >
@@ -82,7 +82,7 @@ const Navbar: FC<NavbarProps> = ({
         <div
           className={combineClassNames(
             NAVBAR_MENU_CLASSES,
-            isMenuOpen ? 'block' : 'hidden',
+            isMenuOpen ? "block" : "hidden",
           )}
           id="navbar-default"
         >
@@ -136,7 +136,7 @@ const Navbar: FC<NavbarProps> = ({
             <Button
               variant="outline"
               className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              onClick={toggleIsUserMenuOpen}
+              onClick={() => toggleIsUserMenuOpen(undefined)}
             >
               <span className="sr-only">Open user menu</span>
               {userMenu.avatar ? (

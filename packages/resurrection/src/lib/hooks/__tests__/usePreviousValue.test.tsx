@@ -1,16 +1,19 @@
-import { renderHook, act } from '@testing-library/react';
-import usePreviousValue from '../usePreviousValue';
+import { renderHook, act } from "@testing-library/react";
+import usePreviousValue from "../usePreviousValue";
 
-describe('usePreviousValue', () => {
-  it('should return undefined on first render', () => {
+describe("usePreviousValue", () => {
+  it("should return undefined on first render", () => {
     const { result } = renderHook(() => usePreviousValue(1));
     expect(result.current).toBeUndefined();
   });
 
-  it('should return previous value after update', () => {
-    const { result, rerender } = renderHook(({ value }) => usePreviousValue(value), {
-      initialProps: { value: 1 },
-    });
+  it("should return previous value after update", () => {
+    const { result, rerender } = renderHook(
+      ({ value }) => usePreviousValue(value),
+      {
+        initialProps: { value: 1 },
+      },
+    );
 
     // First render should be undefined
     expect(result.current).toBeUndefined();
@@ -32,27 +35,33 @@ describe('usePreviousValue', () => {
     expect(result.current).toBe(2);
   });
 
-  it('should work with different types', () => {
-    const { result, rerender } = renderHook(({ value }) => usePreviousValue(value), {
-      initialProps: { value: 'test' },
-    });
+  it("should work with different types", () => {
+    const { result, rerender } = renderHook(
+      ({ value }) => usePreviousValue(value),
+      {
+        initialProps: { value: "test" },
+      },
+    );
 
     expect(result.current).toBeUndefined();
 
     act(() => {
-      rerender({ value: 'new test' });
+      rerender({ value: "new test" });
     });
 
-    expect(result.current).toBe('test');
+    expect(result.current).toBe("test");
   });
 
-  it('should work with objects', () => {
+  it("should work with objects", () => {
     const obj1 = { id: 1 };
     const obj2 = { id: 2 };
 
-    const { result, rerender } = renderHook(({ value }) => usePreviousValue(value), {
-      initialProps: { value: obj1 },
-    });
+    const { result, rerender } = renderHook(
+      ({ value }) => usePreviousValue(value),
+      {
+        initialProps: { value: obj1 },
+      },
+    );
 
     expect(result.current).toBeUndefined();
 

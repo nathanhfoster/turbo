@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import type { TableProps } from './types';
-import { useStyles } from './styles';
-import { ReactNode } from 'react';
+import type { TableProps } from "./types";
+import { useStyles } from "./styles";
+import { ReactNode } from "react";
 
 const Table = <T extends object>({
   data,
@@ -10,7 +10,7 @@ const Table = <T extends object>({
   striped = false,
   hoverable = false,
   bordered = false,
-  className = '',
+  className = "",
   onRowClick,
 }: TableProps<T>) => {
   const { classes } = useStyles({

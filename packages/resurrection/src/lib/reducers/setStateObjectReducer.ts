@@ -1,7 +1,7 @@
-import type { SetStateAction } from 'react';
-import getDerivedStateFromProps from '../utils/getDerivedStateFromProps';
+import type { SetStateAction } from "react";
+import getDerivedStateFromProps from "../utils/getDerivedStateFromProps";
 
-import setStateReducer from './setStateReducer';
+import setStateReducer from "./setStateReducer";
 
 /**
  * Allows a functional component to have

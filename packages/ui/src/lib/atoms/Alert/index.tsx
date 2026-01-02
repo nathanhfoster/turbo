@@ -1,13 +1,13 @@
-import { combineClassNames } from '../../../utils';
-import type { AlertProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { AlertProps } from "./types";
+import type { FC } from "react";
 import {
   ALERT_BORDER_COLOR_STYLES,
   ALERT_COLORS,
   ALERT_COLOR_STYLES,
   ALERT_DISMISS_COLOR_STYLES,
   ALERT_VARIANTS,
-} from './constants';
+} from "./constants";
 
 const Alert: FC<AlertProps> = ({
   title,
@@ -35,8 +35,8 @@ const Alert: FC<AlertProps> = ({
     <div
       role="alert"
       className={combineClassNames(
-        'p-4 mb-4 text-sm rounded-lg',
-        variant === ALERT_VARIANTS.bordered && 'border',
+        "p-4 mb-4 text-sm rounded-lg",
+        variant === ALERT_VARIANTS.bordered && "border",
         ALERT_COLOR_STYLES[color],
         variant === ALERT_VARIANTS.bordered && ALERT_BORDER_COLOR_STYLES[color],
         className,
@@ -52,7 +52,7 @@ const Alert: FC<AlertProps> = ({
           <button
             type="button"
             className={combineClassNames(
-              'ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex items-center justify-center h-8 w-8',
+              "ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 inline-flex items-center justify-center h-8 w-8",
               ALERT_DISMISS_COLOR_STYLES[color],
             )}
             onClick={onDismiss}

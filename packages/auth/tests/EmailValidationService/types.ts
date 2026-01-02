@@ -1,7 +1,7 @@
 // Type definitions for test utilities
 // This file can be extended with additional types as needed
 
-import type { DnsCache } from '../../src/services/EmailValidationService/types';
+import type { DnsCache } from "../../src/services/EmailValidationService/types";
 
 export interface MockDnsValidator {
   errorMessage: string;
@@ -16,4 +16,3 @@ export interface MockDnsCache extends DnsCache {
   getStoredKeys: () => string[];
   setExpiredItem: (key: string, value: boolean) => void;
 }
-

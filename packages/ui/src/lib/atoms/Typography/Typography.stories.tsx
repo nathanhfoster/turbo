@@ -1,36 +1,36 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Typography from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Typography from ".";
 
 const meta: Meta<typeof Typography> = {
-  title: 'Atoms/Typography',
+  title: "Atoms/Typography",
   component: Typography,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
+      control: "select",
       options: [
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'body1',
-        'body2',
-        'caption',
-        'overline',
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "body1",
+        "body2",
+        "caption",
+        "overline",
       ],
     },
     color: {
-      control: 'select',
+      control: "select",
       options: [
-        'primary',
-        'secondary',
-        'error',
-        'warning',
-        'info',
-        'success',
-        'inherit',
+        "primary",
+        "secondary",
+        "error",
+        "warning",
+        "info",
+        "success",
+        "inherit",
       ],
     },
   },
@@ -41,7 +41,7 @@ type Story = StoryObj<typeof Typography>;
 
 export const Default: Story = {
   args: {
-    children: 'Typography Text',
+    children: "Typography Text",
   },
 };
 

@@ -1,4 +1,16 @@
 {
   "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 1000
+  "files.autoSaveDelay": 1000,
+  "terminal.integrated.defaultProfile.windows": "WSL",
+  "terminal.integrated.profiles.windows": {
+    "WSL": {
+      "path": "wsl.exe",
+      "args": ["-d", "Ubuntu"]
+    },
+    "Bash": {
+      "path": "wsl.exe",
+      "args": ["-d", "Ubuntu", "-e", "bash"]
+    }
+  },
+  "terminal.integrated.cwd": "${workspaceFolder}"
 }

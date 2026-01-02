@@ -1,19 +1,19 @@
-import { combineClassNames } from '../../../utils';
-import type { BadgeProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { BadgeProps } from "./types";
+import type { FC } from "react";
 import {
   BADGE_BORDER_COLORS,
   BADGE_COLORS,
   BADGE_DISMISS_COLORS,
   BADGE_SIZES,
   BADGE_VARIANTS,
-} from './constants';
+} from "./constants";
 
 const Badge: FC<BadgeProps> = ({
   children,
-  color = 'default',
-  size = 'xs',
-  variant = 'default',
+  color = "default",
+  size = "xs",
+  variant = "default",
   dismissible = false,
   onDismiss,
   className,
@@ -23,11 +23,11 @@ const Badge: FC<BadgeProps> = ({
   return (
     <span
       className={combineClassNames(
-        'inline-flex items-center font-medium',
+        "inline-flex items-center font-medium",
         BADGE_COLORS[color],
         BADGE_SIZES[size],
         BADGE_VARIANTS[variant],
-        variant === 'bordered' && BADGE_BORDER_COLORS[color],
+        variant === "bordered" && BADGE_BORDER_COLORS[color],
         className,
       )}
     >
@@ -38,7 +38,7 @@ const Badge: FC<BadgeProps> = ({
         <button
           type="button"
           className={combineClassNames(
-            'inline-flex items-center p-1 ms-2 text-sm bg-transparent rounded-xs',
+            "inline-flex items-center p-1 ms-2 text-sm bg-transparent rounded-xs",
             BADGE_DISMISS_COLORS[color],
           )}
           onClick={onDismiss}

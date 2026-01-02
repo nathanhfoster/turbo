@@ -26,7 +26,7 @@ yarn add resurrection
 First, define your state types and create a reducer using `createSlice`:
 
 ```typescript
-import { createSlice, Draft, ContextStoreInitializer } from 'resurrection';
+import { createSlice, Draft, ContextStoreInitializer } from "resurrection";
 
 interface AppState {
   users: User[];
@@ -41,7 +41,7 @@ interface User {
 }
 
 interface Settings {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   language: string;
   notifications: boolean;
 }
@@ -50,14 +50,16 @@ interface Settings {
 const initialState: AppState = {
   users: [],
   settings: {
-    theme: 'light',
-    language: 'en',
+    theme: "light",
+    language: "en",
     notifications: true,
   },
 };
 
 // Create initializer function
-export const getInitialState: ContextStoreInitializer<any, AppState> = (initialState) => {
+export const getInitialState: ContextStoreInitializer<any, AppState> = (
+  initialState,
+) => {
   return {
     ...appInitialState,
     ...initialState,
@@ -76,7 +78,10 @@ const UpdateUser = (state: Draft<AppState>, user: User) => {
   }
 };
 
-const UpdateSettings = (state: Draft<AppState>, settings: Partial<Settings>) => {
+const UpdateSettings = (
+  state: Draft<AppState>,
+  settings: Partial<Settings>,
+) => {
   state.settings = {
     ...state.settings,
     ...settings,
@@ -85,7 +90,7 @@ const UpdateSettings = (state: Draft<AppState>, settings: Partial<Settings>) => 
 
 // Create the reducer
 export const appSlice = createSlice({
-  name: 'App',
+  name: "App",
   initialState,
   actions: {
     SetUsers,

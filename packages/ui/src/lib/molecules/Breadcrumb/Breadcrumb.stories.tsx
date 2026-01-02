@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import Breadcrumb from '.';
+import type { Meta, StoryObj } from "@storybook/react";
+import Breadcrumb from ".";
 
 const meta = {
-  title: 'Molecules/Breadcrumb',
+  title: "Molecules/Breadcrumb",
   component: Breadcrumb,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Breadcrumb>;
 
 export default meta;
@@ -16,9 +16,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     data: [
-      { label: 'Home', href: '#' },
-      { label: 'Projects', href: '#' },
-      { label: 'Flowbite' },
+      { label: "Home", href: "#" },
+      { label: "Projects", href: "#" },
+      { label: "Flowbite" },
     ],
   },
 };
@@ -26,20 +26,20 @@ export const Default: Story = {
 export const Solid: Story = {
   args: {
     data: [
-      { label: 'Home', href: '#' },
-      { label: 'Templates', href: '#' },
-      { label: 'Flowbite' },
+      { label: "Home", href: "#" },
+      { label: "Templates", href: "#" },
+      { label: "Flowbite" },
     ],
-    variant: 'solid',
+    variant: "solid",
   },
 };
 
 export const CustomSeparator: Story = {
   args: {
     data: [
-      { label: 'Home', href: '#' },
-      { label: 'Projects', href: '#' },
-      { label: 'Flowbite' },
+      { label: "Home", href: "#" },
+      { label: "Projects", href: "#" },
+      { label: "Flowbite" },
     ],
     separator: <span className="mx-2 text-gray-400">/</span>,
   },
@@ -49,8 +49,8 @@ export const CustomIcons: Story = {
   args: {
     data: [
       {
-        label: 'Home',
-        href: '#',
+        label: "Home",
+        href: "#",
         icon: (
           <svg
             className="w-3 h-3 me-2.5"
@@ -64,8 +64,8 @@ export const CustomIcons: Story = {
         ),
       },
       {
-        label: 'Projects',
-        href: '#',
+        label: "Projects",
+        href: "#",
         icon: (
           <svg
             className="w-3 h-3 me-2.5"
@@ -79,7 +79,7 @@ export const CustomIcons: Story = {
         ),
       },
       {
-        label: 'Flowbite',
+        label: "Flowbite",
         icon: (
           <svg
             className="w-3 h-3 me-2.5"

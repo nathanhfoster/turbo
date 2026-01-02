@@ -1,5 +1,5 @@
-import isNil from './isNil';
-import isObject from './isObject';
+import isNil from "./isNil";
+import isObject from "./isObject";
 
 const isHtmlElement = (value: any): value is HTMLElement => {
   if (isNil(value)) return false;
@@ -13,10 +13,10 @@ const isHtmlElement = (value: any): value is HTMLElement => {
     //properties that all elements have (works on IE7)
     const element = value as Record<string, unknown>;
     return (
-      element?.['nodeType'] === 1 &&
+      element?.["nodeType"] === 1 &&
       isObject(element) &&
-      isObject(element?.['style']) &&
-      isObject(element?.['ownerDocument'])
+      isObject(element?.["style"]) &&
+      isObject(element?.["ownerDocument"])
     );
   }
 };

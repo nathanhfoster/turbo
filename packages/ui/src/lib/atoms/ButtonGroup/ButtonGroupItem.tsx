@@ -1,12 +1,12 @@
-import { combineClassNames } from '../../../utils';
-import type { ButtonGroupItemProps } from './types';
-import type { FC } from 'react';
+import { combineClassNames } from "../../../utils";
+import type { ButtonGroupItemProps } from "./types";
+import type { FC } from "react";
 import {
   BUTTON_GROUP_ITEM_BASE_CLASSES,
   BUTTON_GROUP_ITEM_STYLES,
   BUTTON_GROUP_ITEM_POSITION_CLASSES,
   BUTTON_GROUP_OUTLINE_STYLES,
-} from './constants';
+} from "./constants";
 
 const ButtonGroupItem: FC<ButtonGroupItemProps> = ({
   children,
@@ -15,7 +15,7 @@ const ButtonGroupItem: FC<ButtonGroupItemProps> = ({
   isLast,
   isActive,
   outline,
-  variant = 'default',
+  variant = "default",
   ...props
 }) => {
   const getPositionClasses = () => {

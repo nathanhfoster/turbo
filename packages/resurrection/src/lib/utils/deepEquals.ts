@@ -1,8 +1,8 @@
-import hasProp from './hasProp';
-import isArray from './isArray';
-import isDate from './isDate';
-import isDomElement from './isDomElement';
-import isObject from './isObject';
+import hasProp from "./hasProp";
+import isArray from "./isArray";
+import isDate from "./isDate";
+import isDomElement from "./isDomElement";
+import isObject from "./isObject";
 
 const keyList = Object.keys;
 
@@ -77,7 +77,7 @@ const deepEquals = <T = any>(a: T, b: T) => {
       if (key === undefined) continue;
 
       //@ts-expect-error React elements have $$typeof property that TypeScript doesn't know about
-      if (key === '_owner' && a.$$typeof) {
+      if (key === "_owner" && a.$$typeof) {
         // React-specific: avoid traversing React elements' _owner.
         //  _owner contains circular references
         // and is not needed when comparing the actual elements (and not their owners)
