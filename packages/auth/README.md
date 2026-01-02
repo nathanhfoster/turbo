@@ -1,4 +1,4 @@
-# @monkey-tilt/auth
+# @turbo/auth
 
 Cross-app authentication utilities and services for the MonkeyTilt platform.
 
