@@ -1,17 +1,31 @@
 {
-  "extends": "@nathanhfoster/typescript-config/react-library.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/common/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/types": ["./src/types"],
-      "@/constants": ["./src/constants"],
-      "@/@constants": ["./src/constants"]
+  "files": [],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+    "storybook-static",
+    ".next"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  ],
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "baseUrl": "."
+  }
 }

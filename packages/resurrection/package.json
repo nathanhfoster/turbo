@@ -1,0 +1,62 @@
+{
+  "name": "resurrection",
+  "version": "1.13.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "context",
+    "context api",
+    "context selector",
+    "use context selector",
+    "redux",
+    "redux toolkit",
+    "redux state management",
+    "redux state",
+    "redux store",
+    "redux provider",
+    "redux connect",
+    "redux thunk",
+    "redux middleware",
+    "redux reducer",
+    "redux action",
+    "redux slice",
+    "redux toolkit slice"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "pnpm build",
+    "version:patch": "npm version patch && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
+    "version:minor": "npm version minor && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
+    "version:major": "npm version major && git add . && git commit -m \"chore: bump version to $(node -p \"require('./package.json').version\")\"",
+    "publish": "npm publish",
+    "publish:patch": "pnpm run version:patch && git push && git push --tags && npm publish",
+    "publish:minor": "pnpm run version:minor && git push && git push --tags && npm publish",
+    "publish:major": "pnpm run version:major && git push && git push --tags && npm publish",
+    "preversion": "pnpm run build",
+    "postversion": "git push && git push --tags"
+  },
+  "peerDependencies": {
+    "immer": "^10.1.1",
+    "react": "^19.0.0",
+    "use-context-selector": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  }
+}
