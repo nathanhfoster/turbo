@@ -70,7 +70,12 @@ const Box = forwardRef<HTMLElement, BoxProps>(
 
 Box.displayName = "Box";
 
-// @ts-expect-error - HOC types are incompatible with Next.js 15's stricter typing
-const BoxWithTheme = withBaseTheme(withBaseTailwindProps(Box));
+// Compose HOCs with forwardRef component
+// Type assertion needed because forwardRef returns ForwardRefExoticComponent
+// which doesn't perfectly match ComponentType expected by HOCs
+const BoxWithTailwind = withBaseTailwindProps(
+  Box as unknown as React.ComponentType<BoxProps>
+);
+const BoxWithTheme = withBaseTheme(BoxWithTailwind);
 
-export default BoxWithTheme;
+export default BoxWithTheme as React.ComponentType<BoxProps>;
