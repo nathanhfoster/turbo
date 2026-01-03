@@ -48,8 +48,8 @@ export const COLOR_STYLES: Record<ComponentColor, InputColorStyles> = {
     focus: "focus:border-black focus:ring-black",
   },
   gray: {
-    border: "border-gray-500",
-    focus: "focus:border-gray-500 focus:ring-gray-500",
+    border: "border-neutral-500",
+    focus: "focus:border-neutral-500 focus:ring-neutral-500",
   },
 };
 

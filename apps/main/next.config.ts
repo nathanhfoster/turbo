@@ -81,7 +81,6 @@ const nextConfig: NextConfig = {
     "@nathanhfoster/resurrection",
     "@nathanhfoster/ui",
     "@nathanhfoster/utils",
-    "@nathanhfoster/theme",
   ],
   headers: async () => [
     {

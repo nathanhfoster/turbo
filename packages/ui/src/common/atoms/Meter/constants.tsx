@@ -45,7 +45,7 @@ export const getMeterThreshold = (
 
 export const METER_STYLES = {
   container: "flex items-center gap-2",
-  track: "overflow-hidden rounded-full bg-gray-200",
+  track: "overflow-hidden rounded-full bg-neutral-200",
   value: "text-sm font-medium",
 };
 

@@ -19,7 +19,6 @@
     "web-push": "^3.6.7",
     "@nathanhfoster/ui": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
-    "@nathanhfoster/theme": "workspace:*",
     "@nathanhfoster/utils": "workspace:*"
   },
   "devDependencies": {

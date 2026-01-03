@@ -48,7 +48,7 @@ export const BACKGROUND_COLOR_STYLES: Record<ComponentColor, string> = {
   white: "bg-white",
   black: "bg-black",
   inherit: "bg-inherit",
-  gray: "bg-gray-500",
+  gray: "bg-neutral-500",
 };
 
 export const COLOR_STYLES: Record<ComponentColor, string> = {
@@ -62,7 +62,7 @@ export const COLOR_STYLES: Record<ComponentColor, string> = {
   white: "text-white",
   black: "text-black",
   inherit: "text-inherit",
-  gray: "text-gray-500",
+  gray: "text-neutral-500",
 };
 
 export const DEFAULT_CONTAINER_STYLE = "container mx-auto px-4";

@@ -7,10 +7,14 @@ export const VARIANT_STYLES: Record<TabVariant, string> = {
   pills: "rounded-full",
 };
 
+/**
+ * Mobile-first tab styles with proper touch targets (minimum 44px height)
+ * Uses responsive spacing for better mobile experience
+ */
 export const BASE_STYLES =
-  "inline-flex items-center justify-center p-4 transition-colors duration-200 font-medium";
+  "inline-flex items-center justify-center px-3 py-2.5 sm:px-4 sm:py-3 min-h-[44px] transition-colors duration-200 font-medium";
 
-export const DISABLED_STYLES = "!text-gray-400 !cursor-not-allowed";
+export const DISABLED_STYLES = "!text-neutral-400 !cursor-not-allowed";
 
 export const getTabStyles = ({
   isActive,

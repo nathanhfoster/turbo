@@ -9,8 +9,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -25,8 +25,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -41,8 +41,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -57,8 +57,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -73,8 +73,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -89,8 +89,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -105,8 +105,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -121,8 +121,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-transparent",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -137,8 +137,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-transparent",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -153,8 +153,8 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
@@ -164,18 +164,18 @@ export const STEP_COLORS: Record<ComponentColor, StepperItemStatus> = {
   },
   gray: {
     active: {
-      text: "text-gray-500",
-      border: "border-gray-500",
+      text: "text-neutral-500",
+      border: "border-neutral-500",
       background: "bg-white",
     },
     inactive: {
-      text: "text-gray-500",
-      border: "border-gray-300",
+      text: "text-neutral-500",
+      border: "border-neutral-300",
       background: "bg-white",
     },
     completed: {
       text: "text-white",
-      background: "bg-gray-500",
+      background: "bg-neutral-500",
     },
   },
 };

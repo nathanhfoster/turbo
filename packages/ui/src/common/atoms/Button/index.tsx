@@ -26,6 +26,7 @@ const BaseButton = ({
   isActive = false,
   href,
   className = "",
+  rounded,
   ...props
 }: FinalButtonProps) => {
   const variantStyles = VARIANT_STYLES[variant as ComponentVariant];
@@ -34,7 +35,7 @@ const BaseButton = ({
   const isAnchor = !!href;
 
   const combinedClassName = combineClassNames(
-    BASE_STYLES,
+    BASE_STYLES, // Includes rounded-md by default
     variantStyles,
     !disabled &&
       variant === "contained" &&
@@ -59,7 +60,6 @@ const BaseButton = ({
     const linkProps = {
       disabled,
       className: combinedClassName,
-      color,
       size: size as TypographySizeProp,
       ...(props as AnchorProps),
       href,

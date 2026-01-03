@@ -1,13 +1,10 @@
 import type { LinkProps } from "./../Link/types";
 import type { BaseTailwindProps, ColoredComponent, Size } from "../types";
 
-export type ColorStyles = {
-  bg: string;
-  text: string;
-  hover: string;
-  active: string;
-  border: string;
-};
+/**
+ * ColorStyles type is now exported from centralized token utilities
+ * @see ../../../tokens/styleUtils
+ */
 
 export interface BaseButtonProps
   extends ColoredComponent,

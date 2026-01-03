@@ -123,7 +123,7 @@ export const TYPOGRAPHY_COLOR_STYLES: Record<ComponentColor, string> = {
   inherit: "text-inherit",
   white: "text-white",
   black: "text-black",
-  gray: "text-gray-500",
+  gray: "text-neutral-500",
 };
 
 export const VARIANT_DEFAULT_SIZES: Record<TypographyVariant, string> = {

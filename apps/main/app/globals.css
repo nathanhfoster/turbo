@@ -17,8 +17,8 @@
  */
 @theme {
   /* Override primary color for this app */
-  --color-primary: #FFE500;
-  --color-primary-dark: #E5CE00;
+  /* --color-primary: #FFFFFF;
+  --color-primary-dark: #E5CE00; */
 }
 
 @layer base {

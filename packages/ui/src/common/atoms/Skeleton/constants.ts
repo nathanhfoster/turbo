@@ -24,7 +24,7 @@ export const COLOR_STYLES: Record<ComponentColor, string> = {
   white: "bg-white/20",
   black: "bg-black/20",
   inherit: "bg-inherit/20",
-  gray: "bg-gray-200",
+  gray: "bg-neutral-200",
 };
 
 export const DEFAULT_ANIMATION = "pulse";
