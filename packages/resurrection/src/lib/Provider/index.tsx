@@ -62,5 +62,5 @@ export default Provider as <
   S extends Record<string, any>,
   I extends Record<string, any> = S,
 >(
-  props: ProviderProps<S, I>
+  props: ProviderProps<S, I>,
 ) => ReactNode;

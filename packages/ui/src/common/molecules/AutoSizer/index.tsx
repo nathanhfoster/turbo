@@ -5,12 +5,7 @@ import { AutoSizer, Size } from "react-virtualized";
 import Box from "../../atoms/Box";
 import type { AutoSizerProps } from "./types";
 
-const AutoSizerComponent = ({
-  children,
-  className,
-  _style,
-  ...props
-}) => {
+const AutoSizerComponent = ({ children, className, _style, ...props }) => {
   return (
     <Box fullWidth fullHeight className={className}>
       <AutoSizer {...props}>

@@ -30,7 +30,8 @@ const Box = forwardRef<HTMLElement, BoxProps>(
     },
     ref,
   ) => {
-    const Component = (VARIANTS[variant] ?? "div") as unknown as ComponentType<any>;
+    const Component = (VARIANTS[variant] ??
+      "div") as unknown as ComponentType<any>;
 
     const containerClasses = container
       ? typeof container === "string"
@@ -72,4 +73,4 @@ Box.displayName = "Box";
 // @ts-expect-error - HOC types are incompatible with Next.js 15's stricter typing
 const BoxWithTheme = withBaseTheme(withBaseTailwindProps(Box));
 
-export default BoxWithTheme as React.ComponentType<BoxProps>;
+export default BoxWithTheme as React.FC<BoxProps>;

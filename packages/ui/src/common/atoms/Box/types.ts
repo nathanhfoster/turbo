@@ -128,7 +128,10 @@ export interface SpanProps
 
 export interface ListProps
   extends Omit<BaseBoxProps, "onClick" | "children">,
-    Omit<React.HTMLAttributes<HTMLUListElement | HTMLOListElement>, "onClick" | "children"> {
+    Omit<
+      React.HTMLAttributes<HTMLUListElement | HTMLOListElement>,
+      "onClick" | "children"
+    > {
   variant: BoxListVariant;
   onClick?: React.MouseEventHandler<HTMLUListElement | HTMLOListElement>;
   children?: React.ReactNode;
@@ -145,7 +148,10 @@ export interface FormProps
 
 export interface DialogProps
   extends Omit<BaseBoxProps, "onClick" | "children">,
-    Omit<React.DialogHTMLAttributes<HTMLDialogElement>, "onClick" | "children"> {
+    Omit<
+      React.DialogHTMLAttributes<HTMLDialogElement>,
+      "onClick" | "children"
+    > {
   variant: BoxDialogVariant;
   onClick?: React.MouseEventHandler<HTMLDialogElement>;
   children?: React.ReactNode;

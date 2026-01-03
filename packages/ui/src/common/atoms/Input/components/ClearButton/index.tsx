@@ -4,11 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { CLEAR_BUTTON_POSITIONS } from "./constants";
 import type { ClearButtonProps } from "./types";
 
-const ClearButton = ({
-  onChange,
-  size = "md",
-  value,
-}) => {
+const ClearButton = ({ onChange, size = "md", value }) => {
   const handleClear = (e: React.MouseEvent) => {
     e.preventDefault();
     if (onChange) {

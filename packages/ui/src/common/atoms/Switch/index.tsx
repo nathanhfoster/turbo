@@ -4,13 +4,7 @@ import InputLabel from "../Input/components/Label";
 import Typography from "../Typography";
 import type { SwitchProps } from "./types";
 
-const Switch = ({
-  label,
-  name,
-  required,
-  disabled,
-  ...props
-}) => {
+const Switch = ({ label, name, required, disabled, ...props }) => {
   return (
     <>
       {label && <InputLabel name={name} label={label} required={required} />}
