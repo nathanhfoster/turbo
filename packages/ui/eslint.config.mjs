@@ -1,10 +1,9 @@
-import { config } from '@nathanhfoster/eslint-config/react-internal';
+import { config } from "@monkey-tilt/eslint-config/react-internal";
+import storybook from "eslint-plugin-storybook";
 
+/** @type {import("eslint").Linter.Config[]} */
 export default [
   ...config,
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    // Override or add rules here
-    rules: {},
-  },
+  // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+  ...storybook.configs["flat/recommended"],
 ];

@@ -1,21 +1,17 @@
 {
-  "extends": "@nathanhfoster/typescript-config/react-library.json",
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/*.spec.tsx",
-    "**/*.test.tsx"
-  ],
+  "extends": "@monkey-tilt/typescript-config/react-library.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "allowJs": false,
-    "resolveJsonModule": true,
-    "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "src",
-    "moduleResolution": "bundler"
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/common/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/types": ["./src/types"],
+      "@/constants": ["./src/constants"],
+      "@/@constants": ["./src/constants"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,18 +1,35 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from "@storybook/nextjs-vite";
+import { resolve } from "path";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)", "../src/**/*.mdx"],
+  stories: [
+    "../src/**/*.mdx",
+    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+  ],
   addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
+    "@chromatic-com/storybook",
+    "@storybook/addon-docs",
+    "@storybook/addon-a11y",
+    "@storybook/addon-vitest",
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: "@storybook/nextjs-vite",
     options: {},
   },
-  docs: {
-    autodocs: true,
+
+  async viteFinal(cfg) {
+    cfg.resolve = cfg.resolve || {};
+    cfg.resolve.alias = {
+      ...cfg.resolve.alias,
+      "@monkey-tilt/utils": resolve(__dirname, "../../utils/src"),
+      "@ui": resolve(__dirname, "../src"),
+    };
+
+    // 🔑 tell Vite to use the package PostCSS config
+    cfg.css ||= {};
+    cfg.css.postcss = resolve(__dirname, "../postcss.config.mjs");
+
+    return cfg;
   },
 };
 

@@ -1,0 +1,18 @@
+import { combineClassNames } from '@monkey-tilt/utils';
+import Typography from './../../../../atoms/Typography';
+import type { SortArrowProps } from './types';
+
+const SortArrow: React.FC<SortArrowProps> = ({ direction }) => {
+  return (
+    <Typography
+      className={combineClassNames(
+        'ml-2 inline-block font-bold text-gray-500 transition-transform duration-200',
+        direction === 'DESC' && 'rotate-180'
+      )}
+    >
+      ▲
+    </Typography>
+  );
+};
+
+export default SortArrow;
