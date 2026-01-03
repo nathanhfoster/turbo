@@ -73,4 +73,4 @@ Box.displayName = "Box";
 // @ts-expect-error - HOC types are incompatible with Next.js 15's stricter typing
 const BoxWithTheme = withBaseTheme(withBaseTailwindProps(Box));
 
-export default BoxWithTheme as React.FC<BoxProps>;
+export default BoxWithTheme;
