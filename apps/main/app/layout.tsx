@@ -1,20 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { InstallPromptProvider } from "@/core/pwa/contexts/InstallPromptContext";
-import manifest from "@/public/manifest.json";
+import { InstallPromptProvider } from "@nathanhfoster/pwa";
 import "./globals.css";
+
+const APP_NAME = "AgentNate - Portfolio & Consultancy";
+const APP_SHORT_NAME = "AgentNate";
+const APP_DESCRIPTION =
+  "Portfolio and consultancy services showcasing projects, blog posts, and professional services";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://agentnate.dev"),
-  manifest: "/manifest.json",
   title: {
-    default: manifest.name,
-    template: `%s | ${manifest.short_name}`,
+    default: APP_NAME,
+    template: `%s | ${APP_SHORT_NAME}`,
   },
-  description: manifest.description,
-  applicationName: manifest.name,
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
   appleWebApp: {
     capable: true,
-    title: manifest.short_name,
+    title: APP_SHORT_NAME,
     statusBarStyle: "black-translucent",
   },
   formatDetection: {
@@ -22,25 +25,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: manifest.name,
+    siteName: APP_NAME,
     title: {
-      default: manifest.name,
-      template: `%s | ${manifest.short_name}`,
+      default: APP_NAME,
+      template: `%s | ${APP_SHORT_NAME}`,
     },
-    description: manifest.description,
+    description: APP_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
     title: {
-      default: manifest.name,
-      template: `%s | ${manifest.short_name}`,
+      default: APP_NAME,
+      template: `%s | ${APP_SHORT_NAME}`,
     },
-    description: manifest.description,
+    description: APP_DESCRIPTION,
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: manifest.theme_color,
+  themeColor: "#FFE500",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

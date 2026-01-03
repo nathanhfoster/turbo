@@ -28,13 +28,13 @@
   --color-primary-200: #a5f3fc;
   --color-primary-300: #67e8f9;
   --color-primary-400: #22d3ee;
-  --color-primary-500: #06b6d4;
+  --color-primary-500: #0077c5;
   --color-primary-600: #0891b2;
   --color-primary-700: #0e7490;
   --color-primary-800: #155e75;
   --color-primary-900: #164e63;
   --color-primary-950: #083344;
-  --color-primary: #06b6d4; /* Default primary */
+  --color-primary: #0077c5; /* Default primary */
 
   /* Secondary Colors - Purple/Violet
         Represents: Creativity, Intelligence, Premium quality
@@ -44,13 +44,13 @@
   --color-secondary-200: #e9d5ff;
   --color-secondary-300: #d8b4fe;
   --color-secondary-400: #c084fc;
-  --color-secondary-500: #a855f7;
+  --color-secondary-500: #5dab2a;
   --color-secondary-600: #9333ea;
   --color-secondary-700: #7e22ce;
   --color-secondary-800: #6b21a8;
   --color-secondary-900: #581c87;
   --color-secondary-950: #3b0764;
-  --color-secondary: #a855f7; /* Default secondary */
+  --color-secondary: #5dab2a; /* Default secondary */
 
   /* Accent Colors - Emerald
         Represents: Success, growth, positive action
@@ -88,7 +88,7 @@
   --color-success: #10b981; /* Emerald-500 */
   --color-error: #ef4444; /* Red-500 */
   --color-warning: #f59e0b; /* Amber-500 */
-  --color-info: #06b6d4; /* Cyan-500 - matches primary */
+  --color-info: #0077c5; /* Primary - matches primary */
 
   /* Background Colors
         Optimized for dark mode portfolio aesthetic */
@@ -106,7 +106,7 @@
   /* Border Colors */
   --color-border-DEFAULT: #334155; /* Neutral-700 */
   --color-border-subtle: #1e293b; /* Neutral-800 */
-  --color-border-accent: #06b6d4; /* Primary */
+  --color-border-accent: #0077c5; /* Primary */
 
   /* Font Sizes with Line Heights
      Using a modular scale for consistent typography */
@@ -224,10 +224,10 @@
 
   /* Colored shadows for accent elements */
   --shadow-primary:
-    0 20px 25px -5px rgb(6 182 212 / 0.2), 0 8px 10px -6px rgb(6 182 212 / 0.2);
+    0 20px 25px -5px rgb(0 119 197 / 0.2), 0 8px 10px -6px rgb(0 119 197 / 0.2);
   --shadow-secondary:
-    0 20px 25px -5px rgb(168 85 247 / 0.2),
-    0 8px 10px -6px rgb(168 85 247 / 0.2);
+    0 20px 25px -5px rgb(93 171 42 / 0.2),
+    0 8px 10px -6px rgb(93 171 42 / 0.2);
   --shadow-accent:
     0 20px 25px -5px rgb(16 185 129 / 0.2),
     0 8px 10px -6px rgb(16 185 129 / 0.2);
@@ -260,20 +260,20 @@
      ============================================ */
 
   /* Brand gradients */
-  --gradient-primary: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  --gradient-secondary: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+  --gradient-primary: linear-gradient(135deg, #0077c5 0%, #0891b2 100%);
+  --gradient-secondary: linear-gradient(135deg, #5dab2a 0%, #7e22ce 100%);
   --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
 
   /* Mesh gradients for backgrounds */
   --gradient-mesh-1:
-    radial-gradient(at 0% 0%, #06b6d4 0%, transparent 50%),
-    radial-gradient(at 100% 0%, #a855f7 0%, transparent 50%),
+    radial-gradient(at 0% 0%, #0077c5 0%, transparent 50%),
+    radial-gradient(at 100% 0%, #5dab2a 0%, transparent 50%),
     radial-gradient(at 100% 100%, #10b981 0%, transparent 50%),
     radial-gradient(at 0% 100%, #0891b2 0%, transparent 50%);
 
   --gradient-mesh-subtle:
-    radial-gradient(at 0% 0%, rgb(6 182 212 / 0.1) 0%, transparent 50%),
-    radial-gradient(at 100% 100%, rgb(168 85 247 / 0.1) 0%, transparent 50%);
+    radial-gradient(at 0% 0%, rgb(0 119 197 / 0.1) 0%, transparent 50%),
+    radial-gradient(at 100% 100%, rgb(93 171 42 / 0.1) 0%, transparent 50%);
 
   /* Glass morphism effect */
   --gradient-glass: linear-gradient(
@@ -283,12 +283,12 @@
   );
 
   /* Text gradients */
-  --gradient-text-primary: linear-gradient(90deg, #06b6d4 0%, #22d3ee 100%);
-  --gradient-text-secondary: linear-gradient(90deg, #a855f7 0%, #c084fc 100%);
+  --gradient-text-primary: linear-gradient(90deg, #0077c5 0%, #22d3ee 100%);
+  --gradient-text-secondary: linear-gradient(90deg, #5dab2a 0%, #c084fc 100%);
   --gradient-text-rainbow: linear-gradient(
     90deg,
-    #06b6d4 0%,
-    #a855f7 50%,
+    #0077c5 0%,
+    #5dab2a 50%,
     #10b981 100%
   );
 

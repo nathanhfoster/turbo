@@ -6,27 +6,82 @@
     <title>Offline - AgentNate</title>
     <style>
       :root {
-        --primary: #FFE500;
-        --primary-dark: #E5CE00;
-        --background: #f5f7fa;
-        --container-bg: white;
-        --text-primary: #2d3748;
-        --text-secondary: #4a5568;
-        --accent: #FFE500;
-        --accent-hover: #E5CE00;
+        /* Primary Colors - Blue */
+        --color-primary: #0077c5;
+        --color-primary-600: #0891b2;
+        --color-primary-700: #0e7490;
 
-        --text-base: 1rem;
-        --text-xl: 1.25rem;
-        --text-2xl: 1.5rem;
-        --text-3xl: 2rem;
-        --text-4xl: 2.5rem;
+        /* Background Colors - Dark mode portfolio aesthetic */
+        --color-background-DEFAULT: #020617;
+        --color-background-elevated: #0f172a;
+        --color-background-subtle: #1e293b;
+        --color-background-muted: #334155;
+
+        /* Foreground/Text Colors */
+        --color-foreground-DEFAULT: #f8fafc;
+        --color-foreground-muted: #cbd5e1;
+        --color-foreground-subtle: #94a3b8;
+
+        /* Neutral Colors */
+        --color-neutral-50: #f8fafc;
+        --color-neutral-200: #e2e8f0;
+        --color-neutral-300: #cbd5e1;
+        --color-neutral-700: #334155;
+        --color-neutral-800: #1e293b;
+        --color-neutral-900: #0f172a;
+        --color-neutral-950: #020617;
+
+        /* Font Sizes */
+        --font-size-base: 1rem;
+        --font-size-xl: 1.25rem;
+        --font-size-2xl: 1.5rem;
+        --font-size-3xl: 1.875rem;
+        --font-size-4xl: 2.25rem;
+
+        /* Line Heights */
+        --font-size-base--line-height: 1.5rem;
+        --font-size-xl--line-height: 1.75rem;
+        --font-size-2xl--line-height: 2rem;
+
+        /* Spacing Scale */
+        --spacing-md: 1rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+
+        /* Border Radius */
+        --radius-xl: 0.75rem;
+        --radius-2xl: 1rem;
+
+        /* Shadows */
+        --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-primary: 0 20px 25px -5px rgb(0 119 197 / 0.2), 0 8px 10px -6px rgb(0 119 197 / 0.2);
+
+        /* Transitions */
+        --duration-fast: 150ms;
+        --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Legacy mappings for compatibility */
+        --primary: var(--color-primary);
+        --primary-dark: var(--color-primary-700);
+        --background: var(--color-background-DEFAULT);
+        --container-bg: var(--color-background-elevated);
+        --text-primary: var(--color-foreground-DEFAULT);
+        --text-secondary: var(--color-foreground-muted);
+        --accent: var(--color-primary);
+        --accent-hover: var(--color-primary-600);
+
+        --text-base: var(--font-size-base);
+        --text-xl: var(--font-size-xl);
+        --text-2xl: var(--font-size-2xl);
+        --text-3xl: var(--font-size-3xl);
+        --text-4xl: var(--font-size-4xl);
 
         --leading-tight: 1.25;
         --leading-normal: 1.5;
 
-        --spacing-4: 1rem;
-        --spacing-6: 1.5rem;
-        --spacing-8: 2rem;
+        --spacing-4: var(--spacing-md);
+        --spacing-6: var(--spacing-lg);
+        --spacing-8: var(--spacing-xl);
       }
 
       * {
@@ -46,19 +101,20 @@
           Cantarell,
           'Helvetica Neue',
           sans-serif;
-        background: linear-gradient(135deg, var(--background) 0%, #e2e8f0 100%);
+        background: linear-gradient(135deg, var(--color-background-DEFAULT) 0%, var(--color-background-subtle) 100%);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: var(--spacing-4);
+        padding: var(--spacing-md);
       }
 
       .offline-container {
-        background: var(--container-bg);
-        padding: var(--spacing-8);
-        border-radius: 16px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        background: var(--color-background-elevated);
+        padding: var(--spacing-xl);
+        border-radius: var(--radius-2xl);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--color-background-muted);
         text-align: center;
         width: 100%;
         max-width: 480px;
@@ -83,71 +139,82 @@
       }
 
       h1 {
-        color: var(--text-primary);
-        font-size: var(--text-2xl);
-        margin-bottom: var(--spacing-4);
+        color: var(--color-foreground-DEFAULT);
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--spacing-md);
         font-weight: 700;
-        line-height: var(--leading-tight);
+        line-height: var(--font-size-2xl--line-height);
       }
 
       p {
-        color: var(--text-secondary);
-        font-size: var(--text-base);
-        line-height: var(--leading-normal);
-        margin-bottom: var(--spacing-6);
+        color: var(--color-foreground-muted);
+        font-size: var(--font-size-base);
+        line-height: var(--font-size-base--line-height);
+        margin-bottom: var(--spacing-lg);
       }
 
       .btn {
         display: inline-block;
         padding: 0.875rem 2rem;
-        font-size: var(--text-base);
+        font-size: var(--font-size-base);
         font-weight: 600;
-        color: #000;
-        background-color: var(--accent);
+        color: var(--color-background-DEFAULT);
+        background-color: var(--color-primary);
         border: none;
-        border-radius: 8px;
+        border-radius: var(--radius-xl);
         text-decoration: none;
-        transition: all 0.2s ease;
+        transition: all var(--duration-fast) var(--ease-in-out);
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(255, 229, 0, 0.3);
+        box-shadow: var(--shadow-primary);
       }
 
       .btn:hover {
-        background-color: var(--accent-hover);
+        background-color: var(--color-primary-600);
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(255, 229, 0, 0.4);
+        box-shadow: var(--shadow-primary);
       }
 
       .btn:active {
         transform: translateY(0);
+        background-color: var(--color-primary-700);
       }
 
-      /* Dark mode */
-      @media (prefers-color-scheme: dark) {
+      /* Light mode override (design system is dark by default) */
+      @media (prefers-color-scheme: light) {
         :root {
-          --background: #1a202c;
-          --container-bg: #2d3748;
-          --text-primary: #f7fafc;
-          --text-secondary: #e2e8f0;
+          --color-background-DEFAULT: var(--color-neutral-50);
+          --color-background-elevated: #ffffff;
+          --color-background-subtle: var(--color-neutral-100);
+          --color-foreground-DEFAULT: var(--color-neutral-900);
+          --color-foreground-muted: var(--color-neutral-700);
         }
 
         body {
-          background: linear-gradient(135deg, var(--background) 0%, #2d3748 100%);
+          background: linear-gradient(135deg, var(--color-background-DEFAULT) 0%, var(--color-background-subtle) 100%);
+        }
+
+        .offline-container {
+          border-color: var(--color-neutral-200);
+        }
+
+        .btn {
+          color: #ffffff;
         }
       }
 
       /* Mobile adjustments */
       @media (max-width: 640px) {
         .offline-container {
-          padding: var(--spacing-6);
+          padding: var(--spacing-lg);
         }
 
         h1 {
-          font-size: var(--text-xl);
+          font-size: var(--font-size-xl);
+          line-height: var(--font-size-xl--line-height);
         }
 
         .icon {
-          font-size: var(--text-3xl);
+          font-size: var(--font-size-3xl);
         }
       }
     </style>
