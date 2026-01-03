@@ -83,18 +83,6 @@ const nextConfig: NextConfig = {
     "@nathanhfoster/utils",
     "@nathanhfoster/theme",
   ],
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
-    ],
-  },
   headers: async () => [
     {
       source: "/(.*)",

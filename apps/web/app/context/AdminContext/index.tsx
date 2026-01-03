@@ -33,7 +33,6 @@ export const AdminContextProvider = ({
   ...restOfProps
 }: AdminContextProviderProps) => {
   return (
-    // @ts-expect-error - Provider type is incompatible with Next.js 15's stricter typing
     <Provider<AdminContextState, AdminServerProps>
       {...restOfProps}
       StateContext={AdminStateContext}
