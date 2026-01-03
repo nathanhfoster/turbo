@@ -51,7 +51,7 @@ export const METER_STYLES = {
 
 export const DEFAULT_GET_LABEL = (percentage: number) => {
   return (
-    <Typography variant="caption" font="inter">
+    <Typography variant="caption" font="font-inter">
       {percentage.toFixed(0)}%
     </Typography>
   );

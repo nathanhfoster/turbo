@@ -53,6 +53,7 @@ export type TypographyWeight =
   | "extrabold"
   | "black";
 
+export type TypographyWeightProp = `font-${TypographyWeight}`;
 export type TypographyLineHeight =
   | "none"
   | "tight"
@@ -60,7 +61,9 @@ export type TypographyLineHeight =
   | "normal"
   | "relaxed"
   | "loose";
+export type TypographyLineHeightProp = `leading-${TypographyLineHeight}`;
 export type TypographyFonts = "sans" | "serif" | "mono" | "inter";
+export type TypographyFontProp = `font-${TypographyFonts}`;
 export type TypographyLineClamp = 1 | 2 | 3 | 4 | 5 | 6;
 export type TypographyLineClampProp = `line-clamp-${TypographyLineClamp}`;
 
@@ -81,11 +84,11 @@ export type TypographySizeProp = `text-${TypographySize}`;
 export interface BaseTypographyProps
   extends BaseTailwindProps,
     PickPartial<LinkProps, "href"> {
-  font?: TypographyFonts;
+  font?: TypographyFontProp;
   size?: TypographySizeProp;
   color?: ComponentColor | string;
-  weight?: TypographyWeight;
-  lineHeight?: TypographyLineHeight;
+  weight?: TypographyWeightProp;
+  lineHeight?: TypographyLineHeightProp;
   italic?: boolean;
   truncate?: boolean;
   ellipsis?: boolean;

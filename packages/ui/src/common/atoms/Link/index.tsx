@@ -1,8 +1,7 @@
 import Typography from "./../Typography";
 import withBaseTheme from "./../../hocs/withBaseTheme";
 import withForwardRef from "./../../hocs/withForwardRef";
-import React from "react";
-import { LinkProps } from "./types";
+import type { LinkProps } from "./types";
 
 const Link = ({ href, disabled, children, ...props }: LinkProps) => {
   return (

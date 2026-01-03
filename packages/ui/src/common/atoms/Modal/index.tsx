@@ -1,5 +1,6 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import { combineClassNames } from "@nathanhfoster/utils";
 import { useMemo } from "react";
@@ -19,14 +20,14 @@ const Modal = ({
   closeOnOutsideClick = true,
   closeOnEscape = true,
   ...props
-}) => {
+}: ModalProps) => {
   const handleEscape = (e: KeyboardEvent) => {
     if (closeOnEscape && e.key === "Escape") {
       onClose();
     }
   };
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
+  const handleBackdropClick = (e: MouseEvent) => {
     if (closeOnOutsideClick && e.target === e.currentTarget) {
       onClose();
     }

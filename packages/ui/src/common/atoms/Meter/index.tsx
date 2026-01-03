@@ -22,7 +22,7 @@ const Meter = ({
   height = 8,
   width = "100%",
   ...props
-}) => {
+}: MeterProps) => {
   const percentage = useMemo(
     () => Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100)),
     [value, min, max],

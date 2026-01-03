@@ -2,7 +2,7 @@ import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
 import { TAILWIND_SIZES } from "../../../constants";
 import { combineClassNames } from "@nathanhfoster/utils";
-import React from "react";
+import type React from "react";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import type { ComponentColor, ComponentVariant, Size } from "../types";
 import type { TypographySizeProp } from "../Typography/types";
@@ -76,5 +76,4 @@ const BaseButton = ({
   return <button {...buttonProps}>{children}</button>;
 };
 
-// @ts-expect-error - HOC type is incompatible with Next.js 15's stricter typing
 export default withForwardRef(withBaseTheme(withBaseTailwindProps(BaseButton)));

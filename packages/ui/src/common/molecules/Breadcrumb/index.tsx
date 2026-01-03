@@ -2,16 +2,15 @@ import Box from "./../../atoms/Box";
 import Typography from "./../../atoms/Typography";
 import { combineClassNames } from "@nathanhfoster/utils";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import React from "react";
 import Link from "../../atoms/Link";
-import { BreadcrumbProps } from "./types";
+import type { BreadcrumbProps } from "./types";
 
 const Breadcrumb = ({
   data = [],
   className,
   showChevron = true,
   size = "text-md",
-}) => {
+}: BreadcrumbProps) => {
   return (
     <Box
       variant="nav"

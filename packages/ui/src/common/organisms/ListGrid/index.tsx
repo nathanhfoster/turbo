@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import AutoSizerComponent from "../../molecules/AutoSizer";
 import {
   InfiniteLoader,
@@ -35,7 +35,7 @@ const ListGrid = <T extends object>({
   rowCount = data.length,
 }: ListGridProps<T>) => {
   const gridRef = useRef<VirtualizedGrid>(null);
-  const [currentWidth, setCurrentWidth] = React.useState(0);
+  const [currentWidth, setCurrentWidth] = useState(0);
 
   const throttledSetCurrentWidth = useThrottledCallback(
     setCurrentWidth,

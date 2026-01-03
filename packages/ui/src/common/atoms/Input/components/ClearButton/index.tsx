@@ -1,16 +1,17 @@
 "use client";
 
+import type { ChangeEvent, MouseEvent } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { CLEAR_BUTTON_POSITIONS } from "./constants";
 import type { ClearButtonProps } from "./types";
 
-const ClearButton = ({ onChange, size = "md", value }) => {
-  const handleClear = (e: React.MouseEvent) => {
+const ClearButton = ({ onChange, size = "md", value }: ClearButtonProps) => {
+  const handleClear = (e: MouseEvent) => {
     e.preventDefault();
     if (onChange) {
       onChange({
         target: { value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
+      } as ChangeEvent<HTMLInputElement>);
     }
   };
 

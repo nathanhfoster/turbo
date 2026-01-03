@@ -1,6 +1,5 @@
-import React from "react";
 import { combineClassNames } from "@nathanhfoster/utils";
-import { SkeletonProps } from "./types";
+import type { SkeletonProps } from "./types";
 import {
   VARIANTS,
   ANIMATION_STYLES,
@@ -24,7 +23,7 @@ const Skeleton = ({
   color = DEFAULT_COLOR,
   className,
   ...props
-}) => {
+}: SkeletonProps) => {
   const variantClasses = VARIANTS[variant];
   const animationClasses = ANIMATION_STYLES[animation];
   const colorClasses = COLOR_STYLES[color as ComponentColor] ?? color;

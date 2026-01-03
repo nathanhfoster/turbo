@@ -1,4 +1,3 @@
-import React from "react";
 import type { TabProps } from "./types";
 import { getTabStyles } from "./constants";
 import Button from "../Button";
@@ -17,7 +16,7 @@ const Tab = ({
   fullWidth = false,
   className = "",
   ...props
-}) => {
+}: TabProps) => {
   return (
     <Button
       onClick={() => !isDisabled && onClick(id)}

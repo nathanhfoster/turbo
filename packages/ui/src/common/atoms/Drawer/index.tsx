@@ -20,7 +20,7 @@ const Drawer = ({
   width = "w-80",
   height = "h-80",
   children,
-}) => {
+}: DrawerProps) => {
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       onClose();

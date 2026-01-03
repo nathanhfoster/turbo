@@ -4,8 +4,7 @@ import type { ColorStyles } from "./types";
 import { ComponentType } from "react";
 import { LinkProps } from "../Link/types";
 
-// @ts-expect-error - Link component type is incompatible with Next.js 15's stricter typing
-const Link = dynamic(() => import("../Link"));
+const Link = dynamic<LinkProps>(() => import("../Link"));
 
 export type ButtonVariant = "button" | "a";
 
@@ -18,8 +17,7 @@ export const BUTTON_VARIANT_MAPPING: ButtonComponentType = {
   button: "button" as unknown as ComponentType<
     React.ButtonHTMLAttributes<HTMLButtonElement>
   >,
-  // @ts-expect-error - Link component type is incompatible with Next.js 15's stricter typing
-  a: Link,
+  a: Link as ComponentType<LinkProps>,
 };
 
 export const VARIANT_STYLES: Record<ComponentVariant, string> = {

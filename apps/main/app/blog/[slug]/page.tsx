@@ -61,7 +61,6 @@ export default async function BlogPost({
         variant="a"
         href="/blog"
         className="mb-8 inline-flex items-center text-primary hover:underline"
-        component={Link}
       >
         ← Back to Blog
       </Typography>

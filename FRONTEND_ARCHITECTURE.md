@@ -1090,6 +1090,86 @@ When optimizing application performance:
 
 ---
 
+## Package Export Patterns
+
+### Explicit Exports for TypeScript Resolution
+
+**Problem:** TypeScript's module resolution can fail with deep `export *` chains, especially when:
+- Multiple levels of re-exports (`index.ts` → `lib/index.ts` → `hooks/index.ts`)
+- Default exports are re-exported as named exports
+- Package.json has `"development"` condition pointing to source while types point to dist
+
+**Solution:** Use explicit named exports instead of `export *` for better TypeScript resolution.
+
+**Pattern:**
+
+```typescript
+// ❌ AVOID: Deep export * chains that TypeScript may not resolve
+export * from "./hooks";
+export * from "./utils";
+
+// ✅ PREFER: Explicit named exports
+export {
+  useEffectAfterMount,
+  useLayoutEffectAfterMount,
+  useThrottledCallback,
+  // ... all other exports
+} from "./hooks";
+export {
+  combineClassNames,
+  // ... all other exports
+} from "./utils";
+```
+
+**When to Use Explicit Exports:**
+
+1. **Package entry points** (`packages/*/src/index.ts`) - Main exports that other packages import
+2. **Intermediate index files** (`packages/*/src/lib/index.ts`) - When re-exporting from subdirectories
+3. **Any export that consumers directly import** - If TypeScript can't resolve it, use explicit exports
+
+**When `export *` is Acceptable:**
+
+- Internal module organization within a single package
+- Type-only exports (`export type * from`)
+- Simple, single-level re-exports that don't cause resolution issues
+
+**Example Implementation:**
+
+```typescript
+// packages/resurrection/src/lib/index.ts
+// ✅ Explicit exports for all hooks
+export {
+  useBooleanToggler,
+  useDebouncedCallback,
+  useEffectAfterMount,
+  // ... all hooks explicitly listed
+} from "./hooks";
+
+// packages/resurrection/src/index.ts
+// ✅ Re-export commonly used items explicitly for safety
+export {
+  useEffectAfterMount,
+  useLayoutEffectAfterMount,
+  useThrottledCallback,
+} from "./lib";
+export * from "./lib"; // Still use export * for everything else
+```
+
+**Benefits:**
+
+- **Reliable TypeScript resolution** - TypeScript can always find the exports
+- **Better IDE support** - Autocomplete and IntelliSense work correctly
+- **Clearer API surface** - Explicit exports document what's available
+- **Easier debugging** - Import errors are more obvious
+
+**Apply This Pattern To:**
+
+- All `packages/*/src/index.ts` files (package entry points)
+- All `packages/*/src/lib/index.ts` or similar intermediate index files
+- Any file where TypeScript reports "has no exported member" errors
+
+---
+
 ## Key Takeaways for AI Tools
 
 When generating or modifying frontend code:
@@ -1105,13 +1185,14 @@ When generating or modifying frontend code:
 9. **Apply SOLID principles** - Single responsibility, proper abstractions
 10. **Avoid duplication** - Use shared utilities and design tokens
 11. **Export pattern** - Use `index.tsx` with function declarations and typed exports
-12. **Write tests** - Co-locate unit tests with components, use shared test utilities
-13. **Test framework-agnostic code** - Business logic in `packages/` should be framework-independent
-14. **Consider multi-zone architecture** - Code may run in Next.js (casino) or Solid Start (main)
-15. **Performance is critical** - Optimize for performance, especially when migrating to Solid Start
-16. **Use shared test utilities** - Leverage `packages/test-utils/` for common testing patterns
-17. **Cross-app features in packages/** - Features used by ALL apps go in `packages/[feature]/` (auth, analytics, error-handling)
-18. **App core in core/** - App-specific cross-domain features go in `apps/[app-name]/core/[feature]/`
-19. **Domain lib/** - Domain-specific utilities ONLY go in `apps/[app-name]/domains/[Domain]/lib/`
-20. **Top-down flow rule** - Types, hooks, and functions flow from packages/ → core/ → domain → component → subcomponent only. Never import lower-level code into higher levels
-21. **Hook naming** - Use `use[Domain]` for main hooks (e.g., `useUserProfile`, `useCashier`), not `use[Domain]State`
+12. **Explicit exports for packages** - Use explicit named exports in package entry points instead of `export *` to ensure TypeScript resolution works correctly
+13. **Write tests** - Co-locate unit tests with components, use shared test utilities
+14. **Test framework-agnostic code** - Business logic in `packages/` should be framework-independent
+15. **Consider multi-zone architecture** - Code may run in Next.js (casino) or Solid Start (main)
+16. **Performance is critical** - Optimize for performance, especially when migrating to Solid Start
+17. **Use shared test utilities** - Leverage `packages/test-utils/` for common testing patterns
+18. **Cross-app features in packages/** - Features used by ALL apps go in `packages/[feature]/` (auth, analytics, error-handling)
+19. **App core in core/** - App-specific cross-domain features go in `apps/[app-name]/core/[feature]/`
+20. **Domain lib/** - Domain-specific utilities ONLY go in `apps/[app-name]/domains/[Domain]/lib/`
+21. **Top-down flow rule** - Types, hooks, and functions flow from packages/ → core/ → domain → component → subcomponent only. Never import lower-level code into higher levels
+22. **Hook naming** - Use `use[Domain]` for main hooks (e.g., `useUserProfile`, `useCashier`), not `use[Domain]State`

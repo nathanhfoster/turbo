@@ -1,13 +1,11 @@
 import withForwardRef from "./../../hocs/withForwardRef";
 import { TAILWIND_SIZES } from "./../../../constants";
-import { combineClassNames } from "@nathanhfoster/utils";
-import React from "react";
-import { isString } from "@nathanhfoster/utils";
+import { combineClassNames, isString } from "@nathanhfoster/utils";
 import Box from "../Box";
 import type { ComponentColor } from "../types";
 import Typography from "../Typography";
 import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from "./constants";
-import { TextAreaProps } from "./types";
+import type { TextAreaProps } from "./types";
 
 const TextArea = ({
   label,
@@ -24,7 +22,7 @@ const TextArea = ({
   fullHeight = false,
   rows = 4,
   ...props
-}) => {
+}: TextAreaProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
 
   return (

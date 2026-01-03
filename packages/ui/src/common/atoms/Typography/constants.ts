@@ -2,7 +2,7 @@ import type { LinkProps } from "./../Link/types";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { ComponentColor } from "../types";
-import type { TypographyVariant, TypographyWeight } from "./types";
+import type { TypographyVariant,  TypographyWeightProp } from "./types";
 
 const Link = dynamic(() => import("next/link"));
 
@@ -157,34 +157,34 @@ export const VARIANT_DEFAULT_SIZES: Record<TypographyVariant, string> = {
 
 export const VARIANT_DEFAULT_WEIGHTS: Record<
   TypographyVariant,
-  TypographyWeight
+  TypographyWeightProp
 > = {
-  h1: "bold",
-  h2: "bold",
-  h3: "bold",
-  h4: "semibold",
-  h5: "medium",
-  h6: "normal",
-  body1: "normal",
-  body2: "normal",
-  subtitle1: "normal",
-  subtitle2: "normal",
-  caption: "normal",
-  overline: "normal",
-  p: "normal",
-  span: "normal",
-  a: "normal",
-  label: "normal",
-  li: "normal",
-  small: "normal",
-  strong: "bold",
-  em: "normal",
-  b: "bold",
-  blockquote: "normal",
-  code: "normal",
-  pre: "normal",
-  time: "normal",
-  address: "normal",
+  h1: "font-bold",
+  h2: "font-bold",
+  h3: "font-bold",
+  h4: "font-semibold",
+  h5: "font-medium",
+  h6: "font-normal",
+  body1: "font-normal",
+  body2: "font-normal",
+  subtitle1: "font-normal",
+  subtitle2: "font-normal",
+  caption: "font-normal",
+  overline: "font-normal",
+  p: "font-normal",
+  span: "font-normal",
+  a: "font-normal",
+  label: "font-normal",
+  li: "font-normal",
+  small: "font-normal",
+  strong: "font-bold",
+  em: "font-normal",
+  b: "font-bold",
+  blockquote: "font-normal",
+  code: "font-normal",
+  pre: "font-normal",
+  time: "font-normal",
+  address: "font-normal",
 };
 
 export const TYPOGRAPHY_DISABLED_STYLES = "opacity-50 cursor-not-allowed";

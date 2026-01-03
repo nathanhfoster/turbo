@@ -25,7 +25,10 @@
     ".": {
       "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "import": {
+        "development": "./src/index.ts",
+        "default": "./dist/index.js"
+      },
       "default": "./dist/index.js"
     }
   },

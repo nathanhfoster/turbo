@@ -1,5 +1,5 @@
 import Typography from "../Typography";
-import { CheckboxProps } from "./types";
+import type { CheckboxProps } from "./types";
 
 const Checkbox = ({ label, ...props }: CheckboxProps) => {
   if (!label) {

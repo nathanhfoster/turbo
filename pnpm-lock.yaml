@@ -27,6 +27,12 @@ importers:
       '@nathanhfoster/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
+      '@types/react':
+        specifier: 19.1.0
+        version: 19.1.0
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.1.1(@types/react@19.1.0)
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
@@ -388,7 +394,7 @@ importers:
         specifier: ^22.0.0
         version: 22.15.3
       '@types/react':
-        specifier: ^19.0.0
+        specifier: 19.1.0
         version: 19.1.0
       eslint:
         specifier: ^9.34.0

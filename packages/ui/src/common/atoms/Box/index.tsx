@@ -74,8 +74,8 @@ Box.displayName = "Box";
 // Type assertion needed because forwardRef returns ForwardRefExoticComponent
 // which doesn't perfectly match ComponentType expected by HOCs
 const BoxWithTailwind = withBaseTailwindProps(
-  Box as unknown as React.ComponentType<BoxProps>
+  Box as unknown as ComponentType<BoxProps>
 );
 const BoxWithTheme = withBaseTheme(BoxWithTailwind);
 
-export default BoxWithTheme as React.ComponentType<BoxProps>;
+export default BoxWithTheme as ComponentType<BoxProps>;

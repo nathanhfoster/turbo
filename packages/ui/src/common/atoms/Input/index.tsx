@@ -1,15 +1,13 @@
 import withForwardRef from "./../../hocs/withForwardRef";
 import { TAILWIND_SIZES } from "./../../../constants";
-import { combineClassNames } from "@nathanhfoster/utils";
-import React from "react";
-import { isString } from "@nathanhfoster/utils";
+import { combineClassNames, isString } from "@nathanhfoster/utils";
 import Box from "../Box";
 import type { ComponentColor } from "../types";
 import Typography from "../Typography";
 import ClearButton from "./components/ClearButton";
 import InputLabel from "./components/Label";
 import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from "./constants";
-import { InputProps } from "./types";
+import type { InputProps } from "./types";
 
 const Input = ({
   type = "text",
@@ -26,7 +24,7 @@ const Input = ({
   fullWidth = true,
   fullHeight = false,
   ...props
-}) => {
+}: InputProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
 
   return (

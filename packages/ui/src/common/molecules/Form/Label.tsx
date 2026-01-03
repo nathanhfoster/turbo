@@ -1,11 +1,10 @@
 import { combineClassNames } from "@nathanhfoster/utils";
 import dynamic from "next/dynamic";
-import React from "react";
 import type { FormLabelProps } from "./types";
 
 const Typography = dynamic(() => import("../../atoms/Typography"));
 
-const Label = ({ mb = "mb-1", className = "", children, ...props }) => {
+const Label = ({ mb = "mb-1", className = "", children, ...props }: FormLabelProps) => {
   return (
     <Typography
       variant="p"

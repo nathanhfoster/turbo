@@ -6,7 +6,7 @@ const FooterTypography = ({
   variant = "p",
   children,
   ...props
-}) => {
+}: FooterTypographyProps) => {
   return (
     <Typography color={color} variant={variant} {...props}>
       {children}

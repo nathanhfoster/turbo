@@ -37,5 +37,30 @@ export { default as useSetStateReducer } from "./hooks/useSetStateReducer";
 
 // Utility Functions
 export * from "./utils";
-export * from "./hooks";
+// Explicitly export all hooks for better TypeScript resolution
+export {
+  useBooleanToggler,
+  useDebouncedCallback,
+  useDerivedInitialStateFromProps,
+  useEffectAfterChange,
+  useEffectAfterMount,
+  useEffectOnce,
+  useEventListener,
+  useIntervalIndex,
+  useIsMounted,
+  useIsomorphicLayoutEffect,
+  useLayoutEffectAfterMount,
+  useLazyMemo,
+  useMemoComponent,
+  usePreviousValue,
+  usePropsThatChanged,
+  useReducerWithThunk,
+  useResize,
+  useThrottledCallback,
+  useTriggerRerender,
+  useWillUnmount,
+  useWindowSize,
+  useDispatch,
+  useNavigator,
+} from "./hooks";
 export * from "./reducers";

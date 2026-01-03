@@ -1,9 +1,8 @@
-import React from "react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import Box from "../Box";
 import Typography from "../Typography";
 import { combineClassNames } from "@nathanhfoster/utils";
-import { ErrorProps } from "./types";
+import type { ErrorProps } from "./types";
 import {
   ERROR_VARIANTS,
   ERROR_ICON_STYLES,
@@ -17,7 +16,7 @@ const Error = ({
   variant = "default",
   className = "",
   children,
-}) => {
+}: ErrorProps) => {
   const baseStyles = ERROR_VARIANTS[variant];
 
   return (

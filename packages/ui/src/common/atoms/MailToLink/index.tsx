@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import Link from "../Link";
 import type { MailToLinkProps } from "./types";
 
@@ -10,8 +10,8 @@ const MailToLink = ({
   children,
   color = "primary",
   ...props
-}) => {
-  const mailtoUrl = React.useMemo(() => {
+}: MailToLinkProps) => {
+  const mailtoUrl = useMemo(() => {
     const params = new URLSearchParams();
     if (subject) params.append("subject", subject);
     if (body) params.append("body", body);

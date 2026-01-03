@@ -2,7 +2,7 @@ import Link from "./../../../../atoms/Link";
 import { combineClassNames } from "@nathanhfoster/utils";
 import type { FooterLinkProps } from "./types";
 
-const FooterLink = ({ children, className, ...props }) => {
+const FooterLink = ({ children, className, ...props }: FooterLinkProps) => {
   return (
     <Link
       color="gray"

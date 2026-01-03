@@ -1,7 +1,7 @@
 import Box from "./../../atoms/Box";
 import Typography from "./../../atoms/Typography";
 import { combineClassNames } from "@nathanhfoster/utils";
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { STEP_COLORS } from "./constants";
 import type { StepperProps } from "./types";
 
@@ -13,7 +13,7 @@ const Stepper = ({
   inactiveColor = "inherit",
   completedColor = "inherit",
   orientation = "vertical",
-}) => {
+}: StepperProps) => {
   const activeColors = STEP_COLORS[color];
   const inactiveColors = STEP_COLORS[inactiveColor];
   const completedColors = STEP_COLORS[completedColor];

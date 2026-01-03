@@ -6,7 +6,7 @@ const Script = ({
   async = true,
   children,
   ...props
-}) => {
+}: ScriptProps) => {
   // For inline scripts with dangerouslySetInnerHTML, ensure async is set
   const scriptProps = {
     strategy,

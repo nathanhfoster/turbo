@@ -2,10 +2,10 @@
 
 import Box from "../../atoms/Box";
 import Typography from "../../atoms/Typography";
-import React, { useState } from "react";
+import { useState } from "react";
 import type { AccordionProps } from "./types";
 
-const Accordion = ({ data = [], allowMultiple = false, className }) => {
+const Accordion = ({ data = [], allowMultiple = false, className }: AccordionProps) => {
   const [openItems, setOpenItems] = useState<Set<string>>(
     new Set(data.filter((item) => item.defaultOpen).map((item) => item.id)),
   );

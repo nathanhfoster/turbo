@@ -12,7 +12,7 @@ const Portal = ({
   className,
   children,
   unmountDelay = 400, // Match the animation duration
-}) => {
+}: PortalProps) => {
   const getElementByIdCount = useRef(0);
   const [parentNode, setParentNode] = useState<HTMLElement | null>(null);
   const [shouldRender, setShouldRender] = useState(false);

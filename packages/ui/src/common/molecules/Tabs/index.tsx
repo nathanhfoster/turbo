@@ -19,7 +19,7 @@ const Tabs = ({
   variant = "default",
   color = "primary",
   fullWidth = false,
-}) => {
+}: TabsProps) => {
   const [activeTab, setActiveTab] = useState(initialActiveTab || data?.[0]?.id);
 
   const handleTabClick = (tabId: string) => {

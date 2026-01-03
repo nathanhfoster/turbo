@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 export interface Threshold {
   value: number;
@@ -14,8 +14,8 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   showValue?: boolean;
   thresholds?: Threshold[];
   label?:
-    | React.ReactNode
-    | ((percentage: number, threshold: Threshold) => React.ReactNode);
+    | ReactNode
+    | ((percentage: number, threshold: Threshold) => ReactNode);
   height?: string | number;
   width?: string | number;
 }

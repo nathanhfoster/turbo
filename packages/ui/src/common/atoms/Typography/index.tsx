@@ -1,6 +1,6 @@
 import withForwardRef from "./../../hocs/withForwardRef";
 import { combineClassNames } from "@nathanhfoster/utils";
-import React, { ComponentType } from "react";
+import type { ComponentType } from "react";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import type { ComponentColor } from "../types";
 import {
@@ -11,7 +11,7 @@ import {
   VARIANT_DEFAULT_SIZES,
   VARIANT_DEFAULT_WEIGHTS,
 } from "./constants";
-import { TypographyProps } from "./types";
+import type { TypographyProps } from "./types";
 
 const BaseTypography = ({
   font,
@@ -35,8 +35,8 @@ const BaseTypography = ({
   disabled = false,
   children,
   ...props
-}) => {
-  const defaultSize = VARIANT_DEFAULT_SIZES[variant] ?? "inherit";
+}: TypographyProps) => {
+  const defaultSize = VARIANT_DEFAULT_SIZES[variant] ?? "text-base";
   const sizeClass = size ?? defaultSize;
   const Component = TYPOGRAPHY_VARIANT_MAPPING[variant] as ComponentType<any>;
   const baseStyles = TYPOGRAPHY_VARIANT_STYLES[variant];
@@ -49,12 +49,12 @@ const BaseTypography = ({
       {...props}
       href={href}
       className={combineClassNames(
-        font && `font-${font}`,
+        font && font,
         baseStyles,
         colorStyle,
         sizeClass,
-        lineHeight && `leading-${lineHeight}`,
-        weightStyle && `font-${weightStyle}`,
+        lineHeight && lineHeight,
+        weightStyle && weightStyle,
         italic && "italic",
         truncate && "truncate",
         ellipsis && "ellipsis",

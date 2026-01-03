@@ -18,7 +18,7 @@ const Image = ({
   src,
   alt,
   ...props
-}) => {
+}: ImageProps) => {
   const wrapperClass = combineClassNames(
     className,
     fullWidth && "w-full",
