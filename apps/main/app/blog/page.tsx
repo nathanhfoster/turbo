@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts, getAllCategories } from "@/domains/Blog/lib/mdx";
 import { Box, Card, Typography, Button } from "@nathanhfoster/ui";
@@ -83,9 +84,11 @@ export default function BlogPage() {
                 className="group p-6 transition-all hover:border-primary"
               >
                 {post.image && (
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
+                    width={400}
+                    height={192}
                     className="mb-4 h-48 w-full rounded-lg object-cover"
                   />
                 )}

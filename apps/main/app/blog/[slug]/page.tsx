@@ -1,4 +1,5 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/domains/Blog/lib/mdx";
@@ -109,9 +110,11 @@ export default async function BlogPost({
         </Box>
 
         {post.image && (
-          <img
+          <Image
             src={post.image}
             alt={post.title}
+            width={1200}
+            height={384}
             className="mt-8 h-96 w-full rounded-lg object-cover"
           />
         )}
