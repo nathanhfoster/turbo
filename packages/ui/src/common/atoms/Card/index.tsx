@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import Box from '../Box';
 import {
   BASE_STYLES,

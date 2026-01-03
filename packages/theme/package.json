@@ -1,5 +1,5 @@
 {
-  "name": "@monkey-tilt/theme",
+  "name": "@nathanhfoster/theme",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,7 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts",
     "./tokens": "./src/tokens.ts",
-    "./tailwind": "./src/tailwind.ts",
-    "./panda": "./src/panda.ts"
+    "./tailwind": "./src/tailwind.ts"
   },
   "scripts": {
     "lint": "eslint .",
@@ -18,8 +17,8 @@
   },
   "devDependencies": {
     "eslint": "^9.34.0",
-    "@monkey-tilt/eslint-config": "workspace:*",
-    "@monkey-tilt/typescript-config": "workspace:*",
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
     "typescript": "5.9.2"
   }
 }

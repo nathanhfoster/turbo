@@ -1,5 +1,5 @@
 import React from 'react';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import withBaseTheme from './../../hocs/withBaseTheme';
 import withForwardRef from './../../hocs/withForwardRef';
 import type { ButtonGroupProps } from './types';

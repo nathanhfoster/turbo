@@ -1,10 +1,10 @@
-# @monkey-tilt/theme - CLAUDE.md
+# @nathanhfoster/theme - CLAUDE.md
 
-This file provides guidance to Claude Code when working with the MonkeyTilt theme package.
+This file provides guidance to Claude Code when working with the theme package.
 
 ## Package Purpose
 
-This package is the **single source of truth** for all design tokens across the MonkeyTilt platform. It provides:
+This package is the **single source of truth** for all design tokens across the platform. It provides:
 
 - Centralized design system tokens (colors, spacing, typography, etc.)
 - Framework-agnostic token definitions
@@ -30,12 +30,12 @@ packages/theme/
 ## Design Tokens Overview
 
 ### Primary Brand Color
-- **MonkeyTilt Yellow**: `#FFE500` - The signature yellow brand color
+- **Yellow**: `#FFE500` - The signature yellow brand color
 - Available as `colors.primary.DEFAULT` in tokens
 - Has variants: 10, 20, 30, 40, 50, 60
 
 ### Color System
-- **Primary**: MonkeyTilt Yellow with variants
+- **Primary**: Yellow with variants
 - **Secondary**: Purple palette (50-950)
 - **Neutral**: Gray scale (50-950)
 - **Semantic**: accent, error, success, warning, info
@@ -55,26 +55,13 @@ packages/theme/
 
 ## Usage Patterns
 
-### Tailwind CSS v3 (rewire-monkeytilt app)
-```js
-// tailwind.config.js
-const { theme, tailwindPlugins } = require('@monkey-tilt/theme/tailwind');
-
-module.exports = {
-  theme: {
-    extend: theme
-  },
-  plugins: tailwindPlugins
-};
-```
-
 ### Tailwind CSS v4 (ui package)
 ```css
 /* index.css */
 @import 'tailwindcss' source('.');
 
 @theme {
-  /* Copy values from @monkey-tilt/theme/tokens */
+  /* Copy values from @nathanhfoster/theme/tokens */
   --color-primary: #FFE500;
   /* ... other tokens ... */
 }
@@ -85,7 +72,7 @@ Note: Tailwind v4 uses CSS-first configuration, so tokens are manually synchroni
 ### Panda CSS (panda-ui package)
 ```ts
 // panda.config.ts
-import { pandaTheme, pandaBreakpoints } from '@monkey-tilt/theme/panda';
+import { pandaTheme, pandaBreakpoints } from '@nathanhfoster/theme/panda';
 
 export default defineConfig({
   theme: {
@@ -97,7 +84,7 @@ export default defineConfig({
 
 ### Direct Token Access
 ```ts
-import { colors, spacing, fontFamily } from '@monkey-tilt/theme/tokens';
+import { colors, spacing, fontFamily } from '@nathanhfoster/theme/tokens';
 
 // Use in components, styled-components, CSS-in-JS, etc.
 const primaryColor = colors.primary.DEFAULT; // '#FFE500'
@@ -124,9 +111,6 @@ const primaryColor = colors.primary.DEFAULT; // '#FFE500'
 
 Changing existing token values is a **breaking change** and affects all consuming packages:
 - `packages/ui` (Tailwind v4)
-- `packages/panda-ui` (Panda CSS)
-- `apps/rewire-monkeytilt` (Tailwind v3)
-- `apps/main` (SolidStart, may use theme in future)
 
 Always coordinate token changes across the team.
 
@@ -182,24 +166,23 @@ pnpm check-types   # Verify TypeScript types
 ## Dependencies
 
 This package has minimal dependencies:
-- `@monkey-tilt/eslint-config` - For linting
-- `@monkey-tilt/typescript-config` - For TypeScript configuration
+- `@nathanhfoster/eslint-config` - For linting
+- `@nathanhfoster/typescript-config` - For TypeScript configuration
 
 It intentionally has **no runtime dependencies** to keep it lightweight.
 
 ## Package Consumers
 
-Current packages using `@monkey-tilt/theme`:
+Current packages using `@nathanhfoster/theme`:
 - ✅ `packages/ui` - Tailwind v4 implementation
 - ✅ `packages/panda-ui` - Panda CSS implementation
-- ✅ `apps/rewire-monkeytilt` - Tailwind v3 implementation
 
 Future consumers:
 - `apps/main` - When SolidStart app needs shared theming
 
 ## Troubleshooting
 
-### "Cannot find module '@monkey-tilt/theme'"
+### "Cannot find module '@nathanhfoster/theme'"
 
 Run `pnpm install` from the monorepo root to link workspace packages.
 

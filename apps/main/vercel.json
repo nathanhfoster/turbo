@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd ../.. && pnpm turbo build --filter=@nathanhfoster/main",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/web/:path*",
+      "destination": "https://web.agentnate.dev/:path*"
+    }
+  ]
+}

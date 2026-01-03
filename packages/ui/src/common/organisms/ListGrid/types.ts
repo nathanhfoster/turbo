@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { GridCellProps, InfiniteLoaderProps } from 'react-virtualized';
 import type { DataComponent } from '../../../types';
-import type { PickPartial } from '@monkey-tilt/utils';
+import type { PickPartial } from '@nathanhfoster/utils';
 
 export interface ListGridProps<T extends object>
   extends DataComponent<T>,

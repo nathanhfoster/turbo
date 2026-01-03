@@ -1,5 +1,5 @@
 /**
- * MonkeyTilt Design System Types
+ * Design System Types
  *
  * Type definitions for all design tokens to ensure type safety
  * and consistent usage across the platform.

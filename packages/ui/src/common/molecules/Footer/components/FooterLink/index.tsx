@@ -1,5 +1,5 @@
 import Link from './../../../../atoms/Link';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import type { FooterLinkProps } from './types';
 
 const FooterLink: React.FC<FooterLinkProps> = ({ children, className, ...props }) => {

@@ -2,14 +2,14 @@
 
 import { useMemo } from 'react';
 import type { DrawerProps } from './types';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import Box from '../Box';
 import {
   DRAWER_POSITION_CLASSES,
   DRAWER_TRANSFORM_CLASSES,
   DRAWER_TRANSITION_DELAY,
 } from './constants';
-import { useEffectAfterMount } from '../../../hooks';
+import { useEffectAfterMount } from '@nathanhfoster/resurrection';
 import Portal from '../Portal';
 
 const Drawer: React.FC<DrawerProps> = ({

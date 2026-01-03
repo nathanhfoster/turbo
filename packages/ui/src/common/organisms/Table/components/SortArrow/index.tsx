@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import Typography from './../../../../atoms/Typography';
 import type { SortArrowProps } from './types';
 

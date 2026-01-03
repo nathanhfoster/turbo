@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import type { PortalProps } from './types';
-import { useIsomorphicLayoutEffect } from '../../../hooks';
+import { useIsomorphicLayoutEffect } from '@nathanhfoster/resurrection';
 import { DEFAULT_PORTAL_ID, GET_ELEMENT_BY_ID_LIMIT } from './constants';
 
 const Portal: React.FC<PortalProps> = ({

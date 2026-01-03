@@ -7,7 +7,7 @@ import { InfiniteLoader } from 'react-virtualized';
 import { TableProps } from './types';
 import Box from '../../atoms/Box';
 import { calculateColumnWidths } from './utils';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import SortArrow from './components/SortArrow';
 import Skeleton from '../../atoms/Skeleton';
 

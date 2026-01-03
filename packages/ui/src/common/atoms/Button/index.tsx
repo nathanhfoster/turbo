@@ -1,7 +1,7 @@
 import withBaseTheme from '../../hocs/withBaseTheme';
 import withForwardRef from '../../hocs/withForwardRef';
 import { TAILWIND_SIZES } from '../../../constants';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React from 'react';
 import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
 import type { ComponentColor, ComponentVariant, Size } from '../types';

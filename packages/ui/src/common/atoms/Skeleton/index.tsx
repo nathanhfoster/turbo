@@ -1,5 +1,5 @@
 import React from 'react';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { SkeletonProps } from './types';
 import {
   VARIANTS,

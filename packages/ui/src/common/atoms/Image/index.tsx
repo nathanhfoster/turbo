@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import NextImage from 'next/image';
 import type { ImageProps } from './types';
 

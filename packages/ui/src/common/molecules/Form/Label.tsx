@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import type { FormLabelProps } from './types';

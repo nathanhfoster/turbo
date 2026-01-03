@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React from 'react';
 import InputLabel from '../Input/components/Label';
 import Typography from '../Typography';

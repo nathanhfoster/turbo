@@ -1,10 +1,10 @@
-import { combineClassNames , isNil} from '@monkey-tilt/utils';
+import { combineClassNames , isNil} from '@nathanhfoster/utils';
 import { useMemo } from "react";
 import type { BaseTailwindProps } from "../atoms/types";
 
 const withBaseTailwindProps = <P extends BaseTailwindProps>(
   Component: React.ComponentType<P>
-): React.FC<P> => {
+): React.ComponentType<P> => {
   const componentName = Component.displayName || Component.name || "Component";
 
   const TailwindComponent: React.FC<P> = ({

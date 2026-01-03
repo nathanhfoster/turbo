@@ -14,10 +14,10 @@ export default function Home() {
           </Typography>
 
           <Box className="space-y-4">
-            <Button variant="primary" className="mx-2">
+            <Button variant="contained" color="primary" className="mx-2">
               Primary Button
             </Button>
-            <Button variant="secondary" className="mx-2">
+            <Button variant="outlined" color="secondary" className="mx-2">
               Secondary Button
             </Button>
           </Box>

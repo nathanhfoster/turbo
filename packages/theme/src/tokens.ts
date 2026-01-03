@@ -1,8 +1,8 @@
 /**
- * MonkeyTilt Design System Tokens
+ * Design System Tokens
  *
  * This is the single source of truth for all design tokens used across
- * the MonkeyTilt platform. These tokens are consumed by both Tailwind CSS
+ * the platform. These tokens are consumed by both Tailwind CSS
  * and Panda CSS implementations.
  */
 
@@ -27,10 +27,10 @@ import type {
 
 /**
  * Brand Colors
- * Primary: MonkeyTilt Yellow (#FFE500)
+ * Primary: Yellow (#FFE500)
  */
 export const colors: ColorSystem = {
-  // Primary brand color (MonkeyTilt Yellow)
+  // Primary brand color (Yellow)
   // Includes both custom variants (10-60) and standard scale (50-950)
   primary: {
     DEFAULT: '#FFE500',

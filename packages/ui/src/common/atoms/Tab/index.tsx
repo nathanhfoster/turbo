@@ -2,7 +2,7 @@ import React from 'react';
 import type { TabProps } from './types';
 import { getTabStyles } from './constants';
 import Button from '../Button';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import withForwardRef from '../../hocs/withForwardRef';
 
 const Tab: React.FC<TabProps> = ({

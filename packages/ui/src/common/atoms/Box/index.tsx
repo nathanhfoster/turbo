@@ -1,5 +1,5 @@
 import withBaseTheme from '../../hocs/withBaseTheme';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React, { ComponentType, forwardRef } from 'react';
 import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
 import type { ComponentColor } from '../types';
@@ -61,4 +61,6 @@ const Box = forwardRef<HTMLElement, BoxProps>(({
 
 Box.displayName = 'Box';
 
-export default withBaseTheme(withBaseTailwindProps(Box));
+const BoxWithTheme = withBaseTheme(withBaseTailwindProps(Box)) as React.FC<BoxProps>;
+
+export default BoxWithTheme;

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { TabsProps } from './types';
 import Tab from '../../atoms/Tab';
 import Box from './../../atoms/Box';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { TABS_BASE_STYLES, TABS_VARIANT_STYLES, TABS_COLOR_MAP } from './constants';
 
 const Tabs: React.FC<TabsProps> = ({

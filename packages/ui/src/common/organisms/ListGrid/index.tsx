@@ -12,7 +12,7 @@ import {
 import { ListGridProps } from './types';
 import Box from '../../atoms/Box';
 import Skeleton from '../../atoms/Skeleton';
-import { useLayoutEffectAfterMount, useThrottledCallback } from '../../../hooks';
+import { useLayoutEffectAfterMount, useThrottledCallback } from '@nathanhfoster/resurrection';
 import { THROTTLE_TIME } from './constants';
 
 const ListGrid = <T extends object>({

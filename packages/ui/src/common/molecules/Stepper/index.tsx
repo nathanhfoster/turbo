@@ -1,6 +1,6 @@
 import Box from './../../atoms/Box';
 import Typography from './../../atoms/Typography';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React, { useCallback, useMemo } from 'react';
 import { STEP_COLORS } from './constants';
 import type { StepperProps } from './types';

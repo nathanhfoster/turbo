@@ -460,9 +460,9 @@ Components organized by complexity level:
 
 ---
 
-## State Architecture (currently Redux)
+## State Architecture
 
-**Note:** The current implementation uses Redux, but the architecture is designed to be state-management agnostic. The Container/Presentation pattern with hooks abstraction layer makes it easier to migrate to TanStack Query/Store or other state management solutions in the future without major refactoring.
+**Note:** The current implementation uses a custom Redux-like state management library (@nathanhfoster/resurrection), but the architecture is designed to be state-management agnostic. The Container/Presentation pattern with hooks abstraction layer makes it easier to migrate to TanStack Query/Store or other state management solutions in the future without major refactoring.
 
 ### Container/Presentation Pattern with Hooks
 
@@ -799,10 +799,10 @@ apps/
   - Location: Co-located with components or in `tests/unit/`
   - Setup: `tests/unit/jest.setup.js` (mocks, polyfills, global config)
 
-- **Solid Start (apps/main):** Vitest with `@testing-library/solid`
-  - Test files: `*.test.{js,ts}` or `*.spec.{js,ts}`
+- **Next.js (apps/main):** Jest with `@testing-library/react`
+  - Test files: `*.test.{js,jsx,ts,tsx}` or `*.spec.{js,jsx,ts,tsx}`
   - Location: Co-located with components or in `tests/unit/`
-  - Setup: Framework-agnostic utilities from shared packages
+  - Setup: `tests/unit/jest.setup.js` (mocks, polyfills, global config)
 
 **Shared Testing Utilities:**
 
@@ -849,9 +849,9 @@ test('Registration flow in Next.js zone', async ({ page }) => {
   // Test Next.js app
 });
 
-// tests/e2e/main/performance-critical.spec.ts
-test('Performance-critical page in Solid Start zone', async ({ page }) => {
-  // Test Solid Start app
+// tests/e2e/main/portfolio.spec.ts
+test('Portfolio page in main app', async ({ page }) => {
+  // Test main app
 });
 
 // tests/e2e/integration/zone-navigation.spec.ts
@@ -870,25 +870,25 @@ test('Navigation between zones', async ({ page }) => {
 - React component lifecycle
 - Next.js API routes
 
-**apps/main (Solid Start):**
-- SolidJS reactivity testing
-- Server-side rendering (SSR) with Solid Start
-- Performance-critical page rendering
-- Solid Start routing
+**apps/main (Next.js):**
+- Server-side rendering tests
+- PWA functionality testing
+- MDX blog post rendering
+- Next.js App Router features
 
 #### Cross-Zone Testing
 
 **Navigation Testing:**
 - Verify seamless navigation between zones
 - Test shared authentication state
-- Validate shared state management synchronization (currently Redux)
+- Validate shared state management synchronization
 - Test shared design system components
 
 **Performance Testing:**
 - Measure and compare performance between zones
 - Track Core Web Vitals (LCP, FID, CLS)
 - Monitor bundle sizes and load times
-- Validate performance improvements from Solid Start migration
+- Optimize each app for its specific use case
 
 ### Horizontal Scalability Considerations
 
@@ -967,11 +967,11 @@ test('Critical pages load within threshold', async ({ page }) => {
 });
 ```
 
-**Solid Start Migration Testing:**
-- Compare performance metrics before/after migration
-- Test performance-critical pages migrated to Solid Start
+**Performance Optimization Testing:**
+- Compare performance metrics across iterations
+- Test performance-critical pages and optimizations
 - Validate performance improvements meet targets
-- Monitor regression in migrated pages
+- Monitor for performance regressions
 
 ### Framework-Agnostic Testing Patterns
 
@@ -987,35 +987,19 @@ export function createMockApiResponse<T>(data: T) {
 
 // packages/test-utils/src/render/react.tsx
 export function renderWithProviders(component: ReactElement) {
-  // React-specific render helper
-}
-
-// packages/test-utils/src/render/solid.tsx
-export function renderWithProviders(component: Component) {
-  // SolidJS-specific render helper
+  // React-specific render helper for Next.js apps
 }
 ```
 
 #### Component Testing Patterns
 
-**React/Next.js:**
+**React/Next.js (All Apps):**
 ```typescript
 import { render, screen } from '@testing-library/react';
 import { ComponentName } from './ComponentName';
 
 test('ComponentName renders correctly', () => {
   render(<ComponentName {...props} />);
-  expect(screen.getByText('Expected Text')).toBeInTheDocument();
-});
-```
-
-**SolidJS:**
-```typescript
-import { render, screen } from '@testing-library/solid';
-import { ComponentName } from './ComponentName';
-
-test('ComponentName renders correctly', () => {
-  render(() => <ComponentName {...props} />);
   expect(screen.getByText('Expected Text')).toBeInTheDocument();
 });
 ```
@@ -1049,16 +1033,16 @@ test('ComponentName renders correctly', () => {
 9. **Maintain test data generators** - use `tests/e2e/helpers/testData.js` pattern
 10. **Document test patterns** - keep test READMEs updated
 
-### Migration Testing Strategy
+### Performance Optimization Strategy
 
-When refactoring pages to Solid Start for performance:
+When optimizing application performance:
 
-1. **Baseline Performance:** Measure current performance in Next.js
-2. **Parallel Implementation:** Implement in Solid Start while maintaining Next.js version
-3. **A/B Testing:** Test both implementations in parallel
-4. **Performance Validation:** Verify Solid Start version meets/exceeds performance targets
-5. **Feature Parity:** Ensure all features work identically
-6. **Gradual Migration:** Migrate page by page with comprehensive testing
+1. **Baseline Metrics:** Measure current performance with Lighthouse and Core Web Vitals
+2. **Identify Bottlenecks:** Use profiling tools to find optimization opportunities
+3. **Implement Optimizations:** Apply performance improvements (code splitting, caching, lazy loading, etc.)
+4. **Performance Validation:** Verify optimizations meet/exceed performance targets
+5. **Feature Parity:** Ensure all features work identically after optimization
+6. **Iterative Approach:** Optimize incrementally with comprehensive testing
 
 ---
 

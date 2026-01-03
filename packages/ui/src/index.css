@@ -1,23 +1,32 @@
 /**
- * Global styles for the UI package
+ * Base Design System Theme
  *
- * Imports Tailwind CSS and configures it to scan the src directory for class usage.
- * This ensures that only the CSS classes actually used in the source code are included
- * in the final bundle, optimizing the CSS output size.
+ * This file provides the default design system tokens that can be overridden
+ * by applications in their own globals.css files.
  *
- * The source('.') configuration scans the current directory (packages/ui/src) where
- * this CSS file is located, ensuring Tailwind can find all component files in the monorepo.
+ * Design tokens are sourced from @nathanhfoster/theme package to maintain consistency
+ * across all applications.
  *
- * Design tokens are sourced from @monkey-tilt/theme package to maintain consistency
- * across all MonkeyTilt applications.
+ * Applications should import this file first, then import tailwindcss, then define
+ * their own @theme block to override any values.
  *
- * @see https://tailwindcss.com/docs/detecting-classes-in-source-files#setting-your-base-path
+ * Note: This file does NOT import tailwindcss - that must be done in the app's
+ * globals.css file. This ensures utilities are generated correctly.
+ *
+ * @example
+ * ```css
+ * @import '@nathanhfoster/ui/index.css';
+ * @import 'tailwindcss';
+ *
+ * @theme {
+ *   --color-primary: #custom-value;
+ * }
+ * ```
  */
-@import 'tailwindcss' source('.');
 
 @theme {
-  /* MonkeyTilt Design System Tokens */
-  /* Sourced from @monkey-tilt/theme package */
+  /* Design System Tokens */
+  /* Sourced from @nathanhfoster/theme package */
 
   /* Brand Colors */
   --color-primary: #FFE500;

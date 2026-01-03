@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import Box from '../Box';
 import Typography from '../Typography';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import type { MeterProps } from './types';
 import {
   METER_STYLES,
@@ -9,7 +9,7 @@ import {
   DEFAULT_THRESHOLDS,
   DEFAULT_GET_LABEL,
 } from './constants';
-import { isFunction } from '@monkey-tilt/utils';
+import { isFunction } from '@nathanhfoster/utils';
 
 const Meter: React.FC<MeterProps> = ({
   value,

@@ -1,0 +1,100 @@
+---
+title: "Building a Progressive Web App with Next.js 15"
+description: "A comprehensive guide to implementing PWA features in Next.js applications"
+date: "2026-01-02"
+author: "Nathan Foster"
+categories: ["Tutorial", "Web Development"]
+tags: ["Next.js", "PWA", "TypeScript", "Service Workers"]
+readingTime: "8 min read"
+---
+
+# Building a Progressive Web App with Next.js 15
+
+Progressive Web Apps (PWAs) combine the best of web and native applications. In this tutorial, I'll show you how to implement PWA features in a Next.js 15 application.
+
+## What is a PWA?
+
+A Progressive Web App is a web application that uses modern web capabilities to deliver an app-like experience to users. Key features include:
+
+- **Offline functionality** via service workers
+- **Installability** on devices
+- **Push notifications**
+- **Fast loading** with caching strategies
+- **Responsive design** across all devices
+
+## Setting Up next-pwa
+
+The easiest way to add PWA capabilities to Next.js is using the `next-pwa` library:
+
+```bash
+npm install next-pwa
+```
+
+Then configure it in your `next.config.ts`:
+
+```typescript
+import withPWA from 'next-pwa';
+
+const pwaConfig = {
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+};
+
+export default withPWA(pwaConfig)(nextConfig);
+```
+
+## Creating the Manifest
+
+The web app manifest is a JSON file that tells browsers about your PWA:
+
+```json
+{
+  "name": "My App",
+  "short_name": "App",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "icons": [...]
+}
+```
+
+## Service Worker Strategies
+
+Different caching strategies for different content types:
+
+- **NetworkFirst**: Blog posts (fresh content preferred)
+- **CacheFirst**: Images and static assets
+- **StaleWhileRevalidate**: API responses
+
+## Push Notifications
+
+Implement push notifications using the Web Push API:
+
+```typescript
+const subscription = await registration.pushManager.subscribe({
+  userVisibleOnly: true,
+  applicationServerKey: vapidPublicKey,
+});
+```
+
+## Offline Experience
+
+Create a beautiful offline fallback page that users see when they're disconnected.
+
+## Testing Your PWA
+
+Use Lighthouse to audit your PWA:
+
+```bash
+npm install -g lighthouse
+lighthouse https://yoursite.com --view
+```
+
+Aim for a PWA score of 90+!
+
+## Conclusion
+
+PWAs offer a powerful way to enhance user experience. With Next.js and next-pwa, implementing these features is straightforward.
+
+Check out the [source code](https://github.com/yourrepo) for this site to see a complete implementation!

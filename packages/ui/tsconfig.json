@@ -1,8 +1,10 @@
 {
-  "extends": "@monkey-tilt/typescript-config/react-library.json",
+  "extends": "@nathanhfoster/typescript-config/react-library.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "dist",
     "baseUrl": ".",
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/common/*"],

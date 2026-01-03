@@ -1,9 +1,9 @@
 'use client';
 
 import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { useMemo } from 'react';
-import { useIsomorphicLayoutEffect } from '../../../hooks';
+import { useIsomorphicLayoutEffect } from '@nathanhfoster/resurrection';
 import Box from '../Box';
 import Portal from '../Portal';
 import { MODAL_SIZE_CLASSES, MODAL_TRANSITION_DELAY } from './constants';

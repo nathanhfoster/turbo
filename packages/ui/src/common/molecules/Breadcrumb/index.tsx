@@ -1,6 +1,6 @@
 import Box from './../../atoms/Box';
 import Typography from './../../atoms/Typography';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import Link from '../../atoms/Link';

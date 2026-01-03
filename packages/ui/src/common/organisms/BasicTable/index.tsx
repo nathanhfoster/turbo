@@ -1,4 +1,4 @@
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import Box from '../../atoms/Box';
 import Card from '../../atoms/Card';
 import Typography from '../../atoms/Typography';

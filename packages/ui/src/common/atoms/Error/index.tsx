@@ -2,7 +2,7 @@ import React from 'react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Box from '../Box';
 import Typography from '../Typography';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { ErrorProps } from './types';
 import {
   ERROR_VARIANTS,

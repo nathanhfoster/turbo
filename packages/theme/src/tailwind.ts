@@ -1,12 +1,12 @@
 /**
  * Tailwind CSS Theme Configuration
  *
- * This module exports MonkeyTilt design tokens in Tailwind CSS format.
+ * This module exports design tokens in Tailwind CSS format.
  * Use this in your tailwind.config.js to ensure consistency with the design system.
  *
  * @example
  * ```js
- * import { theme } from '@monkey-tilt/theme/tailwind'
+ * import { theme } from '@nathanhfoster/theme/tailwind'
  *
  * export default {
  *   theme: {

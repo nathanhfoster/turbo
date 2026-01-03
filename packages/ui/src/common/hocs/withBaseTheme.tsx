@@ -1,10 +1,10 @@
 import type { ComposableComponent } from '../../types';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { useMemo } from 'react';
 
 const withBaseTheme = <P extends ComposableComponent>(
   Component: React.ComponentType<P>
-): React.FC<P> => {
+): React.ComponentType<P> => {
   const componentName = Component.displayName || Component.name || 'Component';
 
   const ThemedComponent: React.FC<P> = ({ className, ...props }) => {

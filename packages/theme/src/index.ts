@@ -1,14 +1,14 @@
 /**
- * @monkey-tilt/theme
+ * @nathanhfoster/theme
  *
- * MonkeyTilt Design System Theme Package
+ * Design System Theme Package
  *
  * This package provides a centralized design system with tokens that can be
  * consumed by both Tailwind CSS and Panda CSS implementations across the monorepo.
  *
  * @example Tailwind CSS
  * ```js
- * import { theme } from '@monkey-tilt/theme/tailwind'
+ * import { theme } from '@nathanhfoster/theme/tailwind'
  *
  * export default {
  *   theme: {
@@ -19,7 +19,7 @@
  *
  * @example Panda CSS
  * ```ts
- * import { pandaTheme } from '@monkey-tilt/theme/panda'
+ * import { pandaTheme } from '@nathanhfoster/theme/panda'
  *
  * export default defineConfig({
  *   theme: {
@@ -30,7 +30,7 @@
  *
  * @example Direct token access
  * ```ts
- * import { colors, spacing } from '@monkey-tilt/theme/tokens'
+ * import { colors, spacing } from '@nathanhfoster/theme/tokens'
  *
  * console.log(colors.primary.DEFAULT) // '#FFE500'
  * ```

@@ -1,4 +1,4 @@
-import { config } from "@monkey-tilt/eslint-config/react-internal";
+import { config } from "@nathanhfoster/eslint-config/react-internal";
 import storybook from "eslint-plugin-storybook";
 
 /** @type {import("eslint").Linter.Config[]} */

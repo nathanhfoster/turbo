@@ -21,7 +21,7 @@ const config: StorybookConfig = {
     cfg.resolve = cfg.resolve || {};
     cfg.resolve.alias = {
       ...cfg.resolve.alias,
-      "@monkey-tilt/utils": resolve(__dirname, "../../utils/src"),
+      "@nathanhfoster/utils": resolve(__dirname, "../../utils/src"),
       "@ui": resolve(__dirname, "../src"),
     };
 

@@ -1,5 +1,5 @@
 import Box from './../../atoms/Box';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import type { SectionProps } from './types';
 
 const Section: React.FC<SectionProps> = ({ className, children, ...props }) => {

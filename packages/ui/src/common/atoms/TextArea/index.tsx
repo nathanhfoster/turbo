@@ -1,8 +1,8 @@
 import withForwardRef from './../../hocs/withForwardRef';
 import { TAILWIND_SIZES } from './../../../constants';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React from 'react';
-import { isString } from '@monkey-tilt/utils';
+import { isString } from '@nathanhfoster/utils';
 import Box from '../Box';
 import type { ComponentColor } from '../types';
 import Typography from '../Typography';

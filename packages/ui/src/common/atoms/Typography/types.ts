@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { LinkProps, LinkProps as NextLinkProps } from 'next/link';
-import { PickPartial } from '@monkey-tilt/utils';
+import { PickPartial } from '@nathanhfoster/utils';
 import type { BaseTailwindProps, ComponentColor } from '../types';
 
 export type TypographyHeadingVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

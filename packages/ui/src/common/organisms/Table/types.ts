@@ -5,7 +5,7 @@ import type { ColumnProps as VirtualizedColumnProps, TableHeaderProps } from 're
 export type SortDirection = 'ASC' | 'DESC';
 import type { CSSProperties } from 'react';
 // import type { Column as VirtualizedColumn } from 'react-virtualized';
-import type { PickPartial } from '@monkey-tilt/utils';
+import type { PickPartial } from '@nathanhfoster/utils';
 import type { InfiniteLoaderProps } from 'react-virtualized';
 
 export interface TableColumn<T>

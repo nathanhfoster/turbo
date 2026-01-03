@@ -1,5 +1,5 @@
 import withForwardRef from './../../hocs/withForwardRef';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import React, { ComponentType } from 'react';
 import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
 import type { ComponentColor } from '../types';

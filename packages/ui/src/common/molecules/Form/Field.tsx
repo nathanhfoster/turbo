@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import type { FormFieldProps } from './types';
-import { combineClassNames } from '@monkey-tilt/utils';
+import { combineClassNames } from '@nathanhfoster/utils';
 import { FIELD_STYLES } from './constants';
 
 const Box = dynamic(() => import('../../atoms/Box'));

@@ -1,10 +1,10 @@
-# @monkey-tilt/theme
+# @nathanhfoster/theme
 
-MonkeyTilt Design System Theme Package - A unified source of truth for design tokens across Tailwind CSS and Panda CSS implementations.
+Design System Theme Package - A unified source of truth for design tokens across Tailwind CSS and Panda CSS implementations.
 
 ## Overview
 
-This package provides centralized design system tokens that ensure visual consistency across all MonkeyTilt applications and packages. It supports both:
+This package provides centralized design system tokens that ensure visual consistency across all applications and packages. It supports both:
 
 - **Tailwind CSS** (v3 and v4)
 - **Panda CSS**
@@ -12,7 +12,7 @@ This package provides centralized design system tokens that ensure visual consis
 ## Installation
 
 ```bash
-pnpm add @monkey-tilt/theme
+pnpm add @nathanhfoster/theme
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ pnpm add @monkey-tilt/theme
 
 ```js
 // tailwind.config.js
-const { theme, tailwindPlugins } = require('@monkey-tilt/theme/tailwind');
+const { theme, tailwindPlugins } = require('@nathanhfoster/theme/tailwind');
 
 module.exports = {
   theme: {
@@ -45,7 +45,7 @@ module.exports = {
 Use the `generateTailwindV4Theme()` helper to generate CSS variables:
 
 ```ts
-import { generateTailwindV4Theme } from '@monkey-tilt/theme/tailwind';
+import { generateTailwindV4Theme } from '@nathanhfoster/theme/tailwind';
 
 const themeCSS = generateTailwindV4Theme();
 ```
@@ -55,7 +55,7 @@ const themeCSS = generateTailwindV4Theme();
 ```ts
 // panda.config.ts
 import { defineConfig } from '@pandacss/dev';
-import { pandaTheme, pandaBreakpoints } from '@monkey-tilt/theme/panda';
+import { pandaTheme, pandaBreakpoints } from '@nathanhfoster/theme/panda';
 
 export default defineConfig({
   theme: {
@@ -70,7 +70,7 @@ export default defineConfig({
 You can also import tokens directly for use in JavaScript/TypeScript:
 
 ```ts
-import { colors, spacing, fontFamily } from '@monkey-tilt/theme/tokens';
+import { colors, spacing, fontFamily } from '@nathanhfoster/theme/tokens';
 
 // Use in styled components, CSS-in-JS, etc.
 const primaryColor = colors.primary.DEFAULT; // '#FFE500'
@@ -81,7 +81,7 @@ const mediumSpacing = spacing.md; // '1rem'
 
 ### Colors
 
-- **Primary**: MonkeyTilt Yellow (`#FFE500`) with variants (10-60)
+- **Primary**: Yellow (`#FFE500`) with variants (10-60)
 - **Secondary**: Purple palette (50-950)
 - **Neutral**: Gray scale (50-950)
 - **Semantic**: accent, error, success, warning, info
@@ -190,7 +190,7 @@ module.exports = {
 After:
 ```js
 // tailwind.config.js
-const { theme } = require('@monkey-tilt/theme/tailwind');
+const { theme } = require('@nathanhfoster/theme/tailwind');
 
 module.exports = {
   theme: {
@@ -220,7 +220,7 @@ export default defineConfig({
 After:
 ```ts
 // panda.config.ts
-import { pandaTheme } from '@monkey-tilt/theme/panda';
+import { pandaTheme } from '@nathanhfoster/theme/panda';
 
 export default defineConfig({
   theme: {

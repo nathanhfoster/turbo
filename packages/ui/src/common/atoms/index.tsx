@@ -1,5 +1,6 @@
-export * from "./Box";
+export { default as Box } from "./Box";
 export { default as Button } from "./Button";
+export { default as Card } from "./Card";
 export * from "./Checkbox";
 export * from "./Drawer";
 export * from "./Error";
@@ -13,5 +14,5 @@ export * from "./Skeleton";
 export * from "./Switch";
 export * from "./Tab";
 export * from "./TextArea";
-export * from "./Typography";
+export { default as Typography } from "./Typography";
 export * from "./types";

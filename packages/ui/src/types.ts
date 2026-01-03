@@ -11,7 +11,7 @@ import {
   IfVoid,
   IsAny,
   IsUnknownOrNonInferrable,
-} from '@monkey-tilt/utils';
+} from '@nathanhfoster/utils';
 
 /**
  * Represent a generic function.
