@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
-import { combineClassNames } from '@nathanhfoster/utils';
-import { useMemo } from 'react';
-import { useIsomorphicLayoutEffect } from '@nathanhfoster/resurrection';
-import Box from '../Box';
-import Portal from '../Portal';
-import { MODAL_SIZE_CLASSES, MODAL_TRANSITION_DELAY } from './constants';
-import type { ModalProps } from './types';
+import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
+import { combineClassNames } from "@nathanhfoster/utils";
+import { useMemo } from "react";
+import { useIsomorphicLayoutEffect } from "@nathanhfoster/resurrection";
+import Box from "../Box";
+import Portal from "../Portal";
+import { MODAL_SIZE_CLASSES, MODAL_TRANSITION_DELAY } from "./constants";
+import type { ModalProps } from "./types";
 
-const Modal: React.FC<ModalProps> = ({
+const Modal = ({
   className,
   open,
   onClose,
-  size = 'medium',
+  size = "medium",
   children,
   showBackdrop = true,
   closeOnOutsideClick = true,
@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({
   ...props
 }) => {
   const handleEscape = (e: KeyboardEvent) => {
-    if (closeOnEscape && e.key === 'Escape') {
+    if (closeOnEscape && e.key === "Escape") {
       onClose();
     }
   };
@@ -35,44 +35,46 @@ const Modal: React.FC<ModalProps> = ({
   useIsomorphicLayoutEffect(() => {
     if (open) {
       if (closeOnEscape) {
-        document.addEventListener('keydown', handleEscape);
+        document.addEventListener("keydown", handleEscape);
       }
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
       if (closeOnEscape) {
-        document.removeEventListener('keydown', handleEscape);
+        document.removeEventListener("keydown", handleEscape);
       }
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [open, onClose, closeOnEscape]);
 
   const backdropClasses = useMemo(() => {
     if (!showBackdrop) {
-      return 'fixed inset-0 z-50 flex items-center justify-center pointer-events-none';
+      return "fixed inset-0 z-50 flex items-center justify-center pointer-events-none";
     }
 
     return combineClassNames(
-      'fixed inset-0 z-50 flex items-center justify-center',
+      "fixed inset-0 z-50 flex items-center justify-center",
       open
-        ? 'bg-black/50 backdrop-blur-sm pointer-events-auto'
-        : 'bg-transparent pointer-events-none'
+        ? "bg-black/50 backdrop-blur-sm pointer-events-auto"
+        : "bg-transparent pointer-events-none",
     );
   }, [open, showBackdrop]);
 
   const modalClasses = useMemo(() => {
     return combineClassNames(
-      'relative bg-white rounded-lg shadow-lg [&:not([open])]:hidden',
+      "relative bg-white rounded-lg shadow-lg [&:not([open])]:hidden",
       MODAL_SIZE_CLASSES[size],
-      className
+      className,
     );
   }, [open, size, className]);
 
   const wrapperClasses = useMemo(() => {
     return combineClassNames(
-      'transition-all duration-400 ease-out origin-center',
-      open ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-2 scale-95 opacity-0'
+      "transition-all duration-400 ease-out origin-center",
+      open
+        ? "translate-y-0 scale-100 opacity-100"
+        : "translate-y-2 scale-95 opacity-0",
     );
   }, [open]);
 
@@ -80,10 +82,18 @@ const Modal: React.FC<ModalProps> = ({
     <Portal unmountDelay={MODAL_TRANSITION_DELAY}>
       <Box
         className={backdropClasses}
-        onClick={showBackdrop && closeOnOutsideClick ? handleBackdropClick : undefined}
+        onClick={
+          showBackdrop && closeOnOutsideClick ? handleBackdropClick : undefined
+        }
       >
         <Box className={wrapperClasses}>
-          <Box variant="dialog" role="dialog" className={modalClasses} open={open} {...props}>
+          <Box
+            variant="dialog"
+            role="dialog"
+            className={modalClasses}
+            open={open}
+            {...props}
+          >
             {children}
           </Box>
         </Box>

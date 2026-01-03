@@ -1,10 +1,10 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import type { FormButtonProps } from './types';
+import React from "react";
+import dynamic from "next/dynamic";
+import type { FormButtonProps } from "./types";
 
-const Button = dynamic(() => import('../../atoms/Button'));
+const Button = dynamic(() => import("../../atoms/Button"));
 
-const FormButton: React.FC<FormButtonProps> = ({ children, ...props }) => {
+const FormButton = ({ children, ...props }: FormButtonProps) => {
   return <Button {...props}>{children}</Button>;
 };
 

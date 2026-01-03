@@ -1,21 +1,21 @@
-import React from 'react';
-import type { TabProps } from './types';
-import { getTabStyles } from './constants';
-import Button from '../Button';
-import { combineClassNames } from '@nathanhfoster/utils';
-import withForwardRef from '../../hocs/withForwardRef';
+import React from "react";
+import type { TabProps } from "./types";
+import { getTabStyles } from "./constants";
+import Button from "../Button";
+import { combineClassNames } from "@nathanhfoster/utils";
+import withForwardRef from "../../hocs/withForwardRef";
 
-const Tab: React.FC<TabProps> = ({
+const Tab = ({
   id,
   label,
   isActive,
   isDisabled = false,
   icon,
   onClick,
-  variant = 'default',
-  color = 'primary',
+  variant = "default",
+  color = "primary",
   fullWidth = false,
-  className = '',
+  className = "",
   ...props
 }) => {
   return (
@@ -29,14 +29,14 @@ const Tab: React.FC<TabProps> = ({
           color,
           fullWidth,
         }),
-        className
+        className,
       )}
       disabled={isDisabled}
       type="button"
       role="tab"
       aria-selected={isActive}
       aria-disabled={isDisabled}
-      variant={isActive && variant === 'pills' ? 'contained' : 'text'}
+      variant={isActive && variant === "pills" ? "contained" : "text"}
       color={color}
       isActive={isActive}
       {...props}

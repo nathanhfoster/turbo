@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { AutoSizer, Size } from 'react-virtualized';
-import Box from '../../atoms/Box';
-import type { AutoSizerProps } from './types';
+import React from "react";
+import { AutoSizer, Size } from "react-virtualized";
+import Box from "../../atoms/Box";
+import type { AutoSizerProps } from "./types";
 
-const AutoSizerComponent: React.FC<AutoSizerProps> = ({
+const AutoSizerComponent = ({
   children,
   className,
   _style,

@@ -1,24 +1,24 @@
-import { combineClassNames } from '@nathanhfoster/utils';
-import Box from '../Box';
+import { combineClassNames } from "@nathanhfoster/utils";
+import Box from "../Box";
 import {
   BASE_STYLES,
   BORDER_STYLES,
   CARD_VARIANTS,
   HOVER_STYLES,
   PADDING_STYLES,
-} from './constants';
-import type { CardProps, CardVariant } from './types';
+} from "./constants";
+import type { CardProps, CardVariant } from "./types";
 
-const Card: React.FC<CardProps> = ({
+const Card = ({
   children,
   className,
   hoverable = false,
   bordered = true,
-  padding = 'md',
-  variant = 'default',
+  padding = "md",
+  variant = "default",
   boxVariant,
   ...props
-}) => {
+}: CardProps) => {
   const cardVariant = CARD_VARIANTS[variant as CardVariant];
 
   return (
@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
         padding && PADDING_STYLES[padding],
         hoverable && HOVER_STYLES,
         cardVariant,
-        className
+        className,
       )}
       {...props}
     >

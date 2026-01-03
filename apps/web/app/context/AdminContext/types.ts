@@ -1,4 +1,8 @@
-import type { ProviderProps, ContextStore, Ensure } from "@nathanhfoster/resurrection";
+import type {
+  ProviderProps,
+  ContextStore,
+  Ensure,
+} from "@nathanhfoster/resurrection";
 
 export interface AdminUser {
   id: string;

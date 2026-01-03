@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import { isFunction } from "../utils";
 import useReducerWithThunk from "../hooks/useReducerWithThunk";
 import setStateReducer from "../reducers/setStateReducer";
@@ -25,7 +25,7 @@ const Provider = <
     derivedStateFromProps as Partial<S>,
   );
 
-  const renderChildren = useMemo(() => {
+  const renderChildren: ReactNode = useMemo(() => {
     if (isFunction(children)) {
       return children({ state, dispatch, isPending });
     }
@@ -40,7 +40,9 @@ const Provider = <
   const StateContextProvider = StateContext.Provider;
 
   const stateProvider = (
-    <StateContextProvider value={state}>{renderChildren}</StateContextProvider>
+    <StateContextProvider value={state}>
+      {renderChildren as any}
+    </StateContextProvider>
   );
 
   if (!DispatchContext) {
@@ -56,4 +58,9 @@ const Provider = <
   );
 };
 
-export default Provider;
+export default Provider as <
+  S extends Record<string, any>,
+  I extends Record<string, any> = S,
+>(
+  props: ProviderProps<S, I>
+) => ReactNode;

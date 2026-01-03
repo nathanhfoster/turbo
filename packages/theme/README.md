@@ -21,13 +21,13 @@ pnpm add @nathanhfoster/theme
 
 ```js
 // tailwind.config.js
-const { theme, tailwindPlugins } = require('@nathanhfoster/theme/tailwind');
+const { theme, tailwindPlugins } = require("@nathanhfoster/theme/tailwind");
 
 module.exports = {
   theme: {
-    extend: theme
+    extend: theme,
   },
-  plugins: tailwindPlugins
+  plugins: tailwindPlugins,
 };
 ```
 
@@ -35,7 +35,7 @@ module.exports = {
 
 ```css
 /* index.css */
-@import 'tailwindcss' source('.');
+@import "tailwindcss" source(".");
 
 @theme {
   /* Import shared theme tokens */
@@ -45,7 +45,7 @@ module.exports = {
 Use the `generateTailwindV4Theme()` helper to generate CSS variables:
 
 ```ts
-import { generateTailwindV4Theme } from '@nathanhfoster/theme/tailwind';
+import { generateTailwindV4Theme } from "@nathanhfoster/theme/tailwind";
 
 const themeCSS = generateTailwindV4Theme();
 ```
@@ -54,14 +54,14 @@ const themeCSS = generateTailwindV4Theme();
 
 ```ts
 // panda.config.ts
-import { defineConfig } from '@pandacss/dev';
-import { pandaTheme, pandaBreakpoints } from '@nathanhfoster/theme/panda';
+import { defineConfig } from "@pandacss/dev";
+import { pandaTheme, pandaBreakpoints } from "@nathanhfoster/theme/panda";
 
 export default defineConfig({
   theme: {
     extend: pandaTheme,
-    breakpoints: pandaBreakpoints
-  }
+    breakpoints: pandaBreakpoints,
+  },
 });
 ```
 
@@ -70,7 +70,7 @@ export default defineConfig({
 You can also import tokens directly for use in JavaScript/TypeScript:
 
 ```ts
-import { colors, spacing, fontFamily } from '@nathanhfoster/theme/tokens';
+import { colors, spacing, fontFamily } from "@nathanhfoster/theme/tokens";
 
 // Use in styled components, CSS-in-JS, etc.
 const primaryColor = colors.primary.DEFAULT; // '#FFE500'
@@ -105,6 +105,7 @@ From `sm` (0.25rem) to `full` (9999px), plus custom numeric values.
 ### Shadows
 
 Specialized shadows including:
+
 - `rankShadow`
 - `gameCardAnimation`
 - `toast-card`
@@ -126,6 +127,7 @@ Specialized shadows including:
 ### Background Gradients
 
 Pre-defined gradients for various UI elements:
+
 - Interactive backgrounds
 - Casino/Sports lists
 - Model backgrounds
@@ -174,34 +176,37 @@ When adding new design tokens:
 ### Migrating from inline Tailwind config
 
 Before:
+
 ```js
 // tailwind.config.js
 module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#FFE500'
-      }
-    }
-  }
-}
+        primary: "#FFE500",
+      },
+    },
+  },
+};
 ```
 
 After:
+
 ```js
 // tailwind.config.js
-const { theme } = require('@nathanhfoster/theme/tailwind');
+const { theme } = require("@nathanhfoster/theme/tailwind");
 
 module.exports = {
   theme: {
-    extend: theme
-  }
-}
+    extend: theme,
+  },
+};
 ```
 
 ### Migrating from inline Panda config
 
 Before:
+
 ```ts
 // panda.config.ts
 export default defineConfig({
@@ -209,22 +214,23 @@ export default defineConfig({
     extend: {
       tokens: {
         colors: {
-          primary: { value: '#FFE500' }
-        }
-      }
-    }
-  }
-})
+          primary: { value: "#FFE500" },
+        },
+      },
+    },
+  },
+});
 ```
 
 After:
+
 ```ts
 // panda.config.ts
-import { pandaTheme } from '@nathanhfoster/theme/panda';
+import { pandaTheme } from "@nathanhfoster/theme/panda";
 
 export default defineConfig({
   theme: {
-    extend: pandaTheme
-  }
-})
+    extend: pandaTheme,
+  },
+});
 ```

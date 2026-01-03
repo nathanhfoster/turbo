@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 import type {
   ConnectedImageMapStateToProps,
   ConnectedImageMapDispatchToProps,
   ConnectedImageProps,
-} from './types';
+} from "./types";
 // import { DeviceStateContext } from '@/contexts/DeviceContext';
-import { connect, InferStateFromContext } from 'resurrection';
-import { BaseImage } from '../../';
+import { connect, InferStateFromContext } from "resurrection";
+import { BaseImage } from "../../";
 
 const ConnectedImage = connect<
   ConnectedImageMapStateToProps,
@@ -19,7 +19,7 @@ const ConnectedImage = connect<
       context: DeviceStateContext,
       mapStateToProps: (
         state: InferStateFromContext<typeof DeviceStateContext>,
-        props: ConnectedImageProps
+        props: ConnectedImageProps,
       ) => {
         let quality = props.quality;
 

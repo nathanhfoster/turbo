@@ -1,25 +1,29 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { getAllPosts, getPostBySlug } from '@/domains/Blog/lib/mdx';
-import { Box, Typography, Button } from '@nathanhfoster/ui';
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getAllPosts, getPostBySlug } from "@/domains/Blog/lib/mdx";
+import { Box, Typography, Button } from "@nathanhfoster/ui";
 
 // Generate static pages for all blog posts at build time
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map(post => ({ slug: post.slug }));
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 // Revalidate every hour (3600 seconds) for ISR
 export const revalidate = 3600;
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
-      title: 'Post Not Found',
+      title: "Post Not Found",
     };
   }
 
@@ -29,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: post.title,
       description: post.description,
-      type: 'article',
+      type: "article",
       publishedTime: post.date,
       authors: [post.author],
       images: post.image ? [post.image] : [],
@@ -37,7 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -60,10 +68,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       {/* Header */}
       <Box variant="header" className="mb-8">
         <Box className="mb-4 flex flex-wrap gap-2">
-          {post.categories.map(category => (
+          {post.categories.map((category) => (
             <Link
               key={category}
-              href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+              href={`/blog/category/${category.toLowerCase().replace(/\s+/g, "-")}`}
             >
               <Button
                 variant="contained"
@@ -77,7 +85,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           ))}
         </Box>
 
-        <Typography variant="h1" className="mb-4" size="text-5xl" weight="font-bold">
+        <Typography
+          variant="h1"
+          className="mb-4"
+          size="text-5xl"
+          weight="font-bold"
+        >
           {post.title}
         </Typography>
 
@@ -105,21 +118,29 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       </Box>
 
       {/* Content */}
-      <Box variant="article" className="prose prose-lg dark:prose-invert max-w-none">
+      <Box
+        variant="article"
+        className="prose prose-lg dark:prose-invert max-w-none"
+      >
         <MDXRemote source={post.content} />
       </Box>
 
       {/* Tags */}
       {post.tags.length > 0 && (
         <Box className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800">
-          <Typography variant="h3" className="mb-4" size="text-lg" weight="font-semibold">
+          <Typography
+            variant="h3"
+            className="mb-4"
+            size="text-lg"
+            weight="font-semibold"
+          >
             Tags
           </Typography>
           <Box className="flex flex-wrap gap-2">
-            {post.tags.map(tag => (
+            {post.tags.map((tag) => (
               <Link
                 key={tag}
-                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, '-')}`}
+                href={`/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 <Button
                   variant="outlined"

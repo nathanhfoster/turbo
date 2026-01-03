@@ -1,4 +1,4 @@
-import { ComposableComponent } from '../../../types';
+import { ComposableComponent } from "../../../types";
 
 export interface PortalProps extends ComposableComponent {
   id?: string;

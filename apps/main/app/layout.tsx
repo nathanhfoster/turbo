@@ -1,11 +1,11 @@
-import type { Metadata, Viewport } from 'next';
-import { InstallPromptProvider } from '@/core/pwa/contexts/InstallPromptContext';
-import manifest from '@/public/manifest.json';
-import './globals.css';
+import type { Metadata, Viewport } from "next";
+import { InstallPromptProvider } from "@/core/pwa/contexts/InstallPromptContext";
+import manifest from "@/public/manifest.json";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agentnate.dev'),
-  manifest: '/manifest.json',
+  metadataBase: new URL("https://agentnate.dev"),
+  manifest: "/manifest.json",
   title: {
     default: manifest.name,
     template: `%s | ${manifest.short_name}`,
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: manifest.short_name,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: "black-translucent",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
-    type: 'website',
+    type: "website",
     siteName: manifest.name,
     title: {
       default: manifest.name,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: manifest.description,
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: {
       default: manifest.name,
       template: `%s | ${manifest.short_name}`,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: manifest.theme_color,
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,

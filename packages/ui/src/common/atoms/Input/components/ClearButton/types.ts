@@ -1,3 +1,4 @@
-import type { InputProps } from '../../types';
+import type { InputProps } from "../../types";
 
-export interface ClearButtonProps extends Pick<InputProps, 'size' | 'value' | 'onChange'> {}
+export interface ClearButtonProps
+  extends Pick<InputProps, "size" | "value" | "onChange"> {}

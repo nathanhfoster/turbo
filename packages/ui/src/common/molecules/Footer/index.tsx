@@ -1,12 +1,20 @@
-import Box from './../../atoms/Box';
-import Typography from '../../atoms/Typography';
-import FooterLink from './components/FooterLink';
-import FooterTypography from './components/FooterTypography';
-import { COMPANY_LINKS, LEGAL_LINKS, RESOURCE_LINKS, SOCIAL_LINKS } from './constants';
+import Box from "./../../atoms/Box";
+import Typography from "../../atoms/Typography";
+import FooterLink from "./components/FooterLink";
+import FooterTypography from "./components/FooterTypography";
+import {
+  COMPANY_LINKS,
+  LEGAL_LINKS,
+  RESOURCE_LINKS,
+  SOCIAL_LINKS,
+} from "./constants";
 
 const Footer = () => {
   return (
-    <Box variant="footer" className="bg-[#0A0F1B] px-4 py-12 text-gray-400 md:px-8">
+    <Box
+      variant="footer"
+      className="bg-[#0A0F1B] px-4 py-12 text-gray-400 md:px-8"
+    >
       <Box className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-4">
         {/* Logo & Mission */}
         <Box>

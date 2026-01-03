@@ -1,50 +1,82 @@
-import type { ComposableComponent } from '../../types';
+import type { ComposableComponent } from "../../types";
 
-export type ComponentVariant = 'contained' | 'outlined' | 'text';
+export type ComponentVariant = "contained" | "outlined" | "text";
 
 export type ComponentColor =
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'error'
-  | 'success'
-  | 'warning'
-  | 'info'
-  | 'white'
-  | 'black'
-  | 'gray'
-  | 'inherit';
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "error"
+  | "success"
+  | "warning"
+  | "info"
+  | "white"
+  | "black"
+  | "gray"
+  | "inherit";
 
 export interface ColoredComponent {
   variant?: ComponentVariant;
   color?: ComponentColor;
 }
 
-export type ViewportSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+export type ViewportSize = "sm" | "md" | "lg" | "xl" | "2xl";
 
 export type Size =
-  | 'inherit'
-  | 'xs'
+  | "inherit"
+  | "xs"
   | ViewportSize
-  | '3xl'
-  | '4xl'
-  | '5xl'
-  | '6xl'
-  | '7xl'
-  | '8xl'
-  | '9xl';
+  | "3xl"
+  | "4xl"
+  | "5xl"
+  | "6xl"
+  | "7xl"
+  | "8xl"
+  | "9xl";
 
-export type BaseAlignment = 'start' | 'center' | 'end';
-export type AlignItems = BaseAlignment | 'stretch' | 'baseline';
-export type JustifyContent = BaseAlignment | 'between' | 'around' | 'evenly';
-export type JustifyItems = BaseAlignment | 'stretch';
-export type AlignSelf = 'auto' | AlignItems;
-export type Shadow = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'inner' | 'outline';
+export type BaseAlignment = "start" | "center" | "end";
+export type AlignItems = BaseAlignment | "stretch" | "baseline";
+export type JustifyContent = BaseAlignment | "between" | "around" | "evenly";
+export type JustifyItems = BaseAlignment | "stretch";
+export type AlignSelf = "auto" | AlignItems;
+export type Shadow =
+  | "none"
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "inner"
+  | "outline";
 export type ShadowProps = `shadow-${Shadow}`;
-export type Rounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
+export type Rounded =
+  | "none"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "full";
 export type RoundedProps = `rounded-${Rounded}`;
-export type AutoSize = 'auto' | 'min' | 'max' | 'fr';
-export type Order = 'first' | 'last' | 'none' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type AutoSize = "auto" | "min" | "max" | "fr";
+export type Order =
+  | "first"
+  | "last"
+  | "none"
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12;
 
 export type TailwindSpacingSize =
   | 0
@@ -81,13 +113,26 @@ export type TailwindSpacingSize =
   | 72
   | 80
   | 96
-  | 'px'
-  | 'auto';
+  | "px"
+  | "auto";
 
-export type GridContainer = 'grid' | 'inline-grid';
+export type GridContainer = "grid" | "inline-grid";
 
-export type GridSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 'full';
-export type GridStartEnd = GridSpan | 'auto';
+export type GridSpan =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | "full";
+export type GridStartEnd = GridSpan | "auto";
 export type GapSize =
   | 0
   | 1
@@ -107,56 +152,56 @@ export type GapSize =
   | 48
   | 56
   | 64
-  | 'px';
+  | "px";
 
 export type FlexDirection =
-  | 'row'
-  | 'row-reverse'
-  | 'col'
-  | 'col-reverse'
-  | 'wrap'
-  | 'wrap-reverse'
-  | 'nowrap'
-  | '1'
-  | 'auto'
-  | 'initial'
-  | 'none';
+  | "row"
+  | "row-reverse"
+  | "col"
+  | "col-reverse"
+  | "wrap"
+  | "wrap-reverse"
+  | "nowrap"
+  | "1"
+  | "auto"
+  | "initial"
+  | "none";
 
 export type Display =
-  | 'block'
-  | 'inline-block'
-  | 'inline'
-  | 'flex'
-  | 'inline-flex'
+  | "block"
+  | "inline-block"
+  | "inline"
+  | "flex"
+  | "inline-flex"
   | GridContainer
-  | 'table'
-  | 'table-caption'
-  | 'table-cell'
-  | 'table-column'
-  | 'table-column-group'
-  | 'table-footer-group'
-  | 'table-header-group'
-  | 'table-row-group'
-  | 'table-row'
-  | 'contents'
-  | 'list-item'
-  | 'hidden';
+  | "table"
+  | "table-caption"
+  | "table-cell"
+  | "table-column"
+  | "table-column-group"
+  | "table-footer-group"
+  | "table-header-group"
+  | "table-row-group"
+  | "table-row"
+  | "contents"
+  | "list-item"
+  | "hidden";
 
 export type TailwindSpacingPrefix =
-  | 'm'
-  | 'mx'
-  | 'my'
-  | 'mt'
-  | 'mr'
-  | 'mb'
-  | 'ml'
-  | 'p'
-  | 'px'
-  | 'py'
-  | 'pt'
-  | 'pr'
-  | 'pb'
-  | 'pl';
+  | "m"
+  | "mx"
+  | "my"
+  | "mt"
+  | "mr"
+  | "mb"
+  | "ml"
+  | "p"
+  | "px"
+  | "py"
+  | "pt"
+  | "pr"
+  | "pb"
+  | "pl";
 
 // Tailwind utility definitions remain unchanged
 export type TailwindUtilityClass<T extends string> =
@@ -165,7 +210,9 @@ export type TailwindUtilityClass<T extends string> =
 
 export type TailwindSpacingClass = TailwindUtilityClass<TailwindSpacingPrefix>;
 
-export type TailwindSpacingProps = Partial<Record<TailwindSpacingPrefix, TailwindSpacingClass>>;
+export type TailwindSpacingProps = Partial<
+  Record<TailwindSpacingPrefix, TailwindSpacingClass>
+>;
 
 export type BoxGap =
   | `gap-${TailwindSpacingSize}`
@@ -181,8 +228,8 @@ export type FlexDirectionProp = `flex-${FlexDirection}`;
 export type BoxGridColumns =
   // Grid Template Columns
   // Grid Template Columns and Rows
-  | `grid-cols-${GridSpan | 'none'}`
-  | `grid-rows-${GridSpan | 'none'}`
+  | `grid-cols-${GridSpan | "none"}`
+  | `grid-rows-${GridSpan | "none"}`
   | `grid-cols-${AutoSize}`
   | `grid-rows-${AutoSize}`
 
@@ -202,7 +249,7 @@ export type BoxGridColumns =
   | `content-${JustifyContent}`
 
   // Grid Auto Flow
-  | `grid-flow-${'row' | 'col' | 'row-dense' | 'col-dense'}`
+  | `grid-flow-${"row" | "col" | "row-dense" | "col-dense"}`
 
   // Ordering Grid Items
   | `order-${Order}`
@@ -215,7 +262,7 @@ export type BoxGridColumns =
   | `row-start-${GridStartEnd}`
   | `row-end-${GridStartEnd}`;
 
-export type DarkMode = 'light' | 'dark';
+export type DarkMode = "light" | "dark";
 
 export interface BaseTailwindProps
   extends TailwindSpacingProps,

@@ -1,9 +1,9 @@
-import Typography from './../../../../atoms/Typography';
-import type { FooterTypographyProps } from './types';
+import Typography from "./../../../../atoms/Typography";
+import type { FooterTypographyProps } from "./types";
 
-const FooterTypography: React.FC<FooterTypographyProps> = ({
-  color = 'white',
-  variant = 'p',
+const FooterTypography = ({
+  color = "white",
+  variant = "p",
   children,
   ...props
 }) => {

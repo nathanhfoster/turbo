@@ -1,18 +1,18 @@
-import withForwardRef from './../../hocs/withForwardRef';
-import { TAILWIND_SIZES } from './../../../constants';
-import { combineClassNames } from '@nathanhfoster/utils';
-import React from 'react';
-import { isString } from '@nathanhfoster/utils';
-import Box from '../Box';
-import type { ComponentColor } from '../types';
-import Typography from '../Typography';
-import ClearButton from './components/ClearButton';
-import InputLabel from './components/Label';
-import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from './constants';
-import { InputProps } from './types';
+import withForwardRef from "./../../hocs/withForwardRef";
+import { TAILWIND_SIZES } from "./../../../constants";
+import { combineClassNames } from "@nathanhfoster/utils";
+import React from "react";
+import { isString } from "@nathanhfoster/utils";
+import Box from "../Box";
+import type { ComponentColor } from "../types";
+import Typography from "../Typography";
+import ClearButton from "./components/ClearButton";
+import InputLabel from "./components/Label";
+import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from "./constants";
+import { InputProps } from "./types";
 
-const Input: React.FC<InputProps> = ({
-  type = 'text',
+const Input = ({
+  type = "text",
   label,
   name,
   placeholder,
@@ -20,14 +20,14 @@ const Input: React.FC<InputProps> = ({
   onChange,
   error = false,
   required = false,
-  size = 'md',
+  size = "md",
   className,
   color,
   fullWidth = true,
   fullHeight = false,
   ...props
 }) => {
-  const colorStyles = COLOR_STYLES[error ? 'error' : (color as ComponentColor)];
+  const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
 
   return (
     <Box fullWidth className="relative">
@@ -46,10 +46,10 @@ const Input: React.FC<InputProps> = ({
             colorStyles?.focus,
             colorStyles?.hover,
             TAILWIND_SIZES[size],
-            fullWidth && 'w-full',
-            fullHeight && 'h-full',
+            fullWidth && "w-full",
+            fullHeight && "h-full",
             className,
-            'pr-8'
+            "pr-8",
           )}
           required={required}
           {...props}

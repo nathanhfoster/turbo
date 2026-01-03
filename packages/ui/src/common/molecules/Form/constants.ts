@@ -1,1 +1,1 @@
-export const FIELD_STYLES = 'mb-4';
+export const FIELD_STYLES = "mb-4";

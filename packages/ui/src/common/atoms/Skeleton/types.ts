@@ -1,7 +1,7 @@
-import type { ComposableComponent,   } from '../../../types';
-import type { ComponentColor } from '../types';
+import type { ComposableComponent } from "../../../types";
+import type { ComponentColor } from "../types";
 
-export type SkeletonVariant = 'rectangular' | 'circular' | 'text';
+export type SkeletonVariant = "rectangular" | "circular" | "text";
 
 export interface SkeletonProps extends ComposableComponent {
   variant?: SkeletonVariant;
@@ -10,7 +10,7 @@ export interface SkeletonProps extends ComposableComponent {
   fullWidth?: boolean;
   fullHeight?: boolean;
   borderRadius?: string;
-  animation?: 'pulse' | 'wave' | 'none';
+  animation?: "pulse" | "wave" | "none";
   color?: ComponentColor | string;
   className?: string;
 }

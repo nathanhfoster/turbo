@@ -1,13 +1,13 @@
-import { combineClassNames , isNil} from '@nathanhfoster/utils';
+import { combineClassNames, isNil } from "@nathanhfoster/utils";
 import { useMemo } from "react";
 import type { BaseTailwindProps } from "../atoms/types";
 
 const withBaseTailwindProps = <P extends BaseTailwindProps>(
-  Component: React.ComponentType<P>
+  Component: React.ComponentType<P>,
 ): React.ComponentType<P> => {
   const componentName = Component.displayName || Component.name || "Component";
 
-  const TailwindComponent: React.FC<P> = ({
+  const TailwindComponent = ({
     fullWidth = false,
     fullHeight = false,
     grid,
@@ -90,7 +90,7 @@ const withBaseTailwindProps = <P extends BaseTailwindProps>(
         pb,
         pl,
         className,
-        darkBackgroundClass
+        darkBackgroundClass,
       );
     }, [
       fullWidth,

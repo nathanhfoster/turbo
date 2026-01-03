@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { serialize } from 'next-mdx-remote/serialize';
-import type { BlogPost, BlogPostWithContent } from '../model/types';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { serialize } from "next-mdx-remote/serialize";
+import type { BlogPost, BlogPostWithContent } from "../model/types";
 
-const postsDirectory = path.join(process.cwd(), 'app/blog/posts');
+const postsDirectory = path.join(process.cwd(), "app/blog/posts");
 
 /**
  * Get all blog posts sorted by date (newest first)
@@ -16,21 +16,21 @@ export function getAllPosts(): BlogPost[] {
     }
 
     const files = fs.readdirSync(postsDirectory);
-    const mdxFiles = files.filter(file => file.endsWith('.mdx'));
+    const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
 
     const posts = mdxFiles
-      .map(file => {
-        const slug = file.replace(/\.mdx$/, '');
+      .map((file) => {
+        const slug = file.replace(/\.mdx$/, "");
         const fullPath = path.join(postsDirectory, file);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data } = matter(fileContents);
 
         return {
           slug,
-          title: data.title || 'Untitled',
-          description: data.description || '',
+          title: data.title || "Untitled",
+          description: data.description || "",
           date: data.date || new Date().toISOString(),
-          author: data.author || 'Anonymous',
+          author: data.author || "Anonymous",
           categories: data.categories || [],
           tags: data.tags || [],
           image: data.image,
@@ -41,7 +41,7 @@ export function getAllPosts(): BlogPost[] {
 
     return posts;
   } catch (error) {
-    console.error('Error getting all posts:', error);
+    console.error("Error getting all posts:", error);
     return [];
   }
 }
@@ -49,7 +49,9 @@ export function getAllPosts(): BlogPost[] {
 /**
  * Get a single blog post by slug with MDX content
  */
-export async function getPostBySlug(slug: string): Promise<BlogPostWithContent | null> {
+export async function getPostBySlug(
+  slug: string,
+): Promise<BlogPostWithContent | null> {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
 
@@ -57,16 +59,16 @@ export async function getPostBySlug(slug: string): Promise<BlogPostWithContent |
       return null;
     }
 
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     const mdxSource = await serialize(content);
 
     return {
       slug,
-      title: data.title || 'Untitled',
-      description: data.description || '',
+      title: data.title || "Untitled",
+      description: data.description || "",
       date: data.date || new Date().toISOString(),
-      author: data.author || 'Anonymous',
+      author: data.author || "Anonymous",
       categories: data.categories || [],
       tags: data.tags || [],
       image: data.image,
@@ -84,8 +86,8 @@ export async function getPostBySlug(slug: string): Promise<BlogPostWithContent |
  */
 export function getPostsByCategory(category: string): BlogPost[] {
   const allPosts = getAllPosts();
-  return allPosts.filter(post =>
-    post.categories.some(cat => cat.toLowerCase() === category.toLowerCase())
+  return allPosts.filter((post) =>
+    post.categories.some((cat) => cat.toLowerCase() === category.toLowerCase()),
   );
 }
 
@@ -94,7 +96,9 @@ export function getPostsByCategory(category: string): BlogPost[] {
  */
 export function getPostsByTag(tag: string): BlogPost[] {
   const allPosts = getAllPosts();
-  return allPosts.filter(post => post.tags.some(t => t.toLowerCase() === tag.toLowerCase()));
+  return allPosts.filter((post) =>
+    post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),
+  );
 }
 
 /**
@@ -104,8 +108,8 @@ export function getAllCategories() {
   const allPosts = getAllPosts();
   const categoryMap = new Map<string, number>();
 
-  allPosts.forEach(post => {
-    post.categories.forEach(category => {
+  allPosts.forEach((post) => {
+    post.categories.forEach((category) => {
       const lowerCategory = category.toLowerCase();
       categoryMap.set(lowerCategory, (categoryMap.get(lowerCategory) || 0) + 1);
     });
@@ -114,7 +118,7 @@ export function getAllCategories() {
   return Array.from(categoryMap.entries())
     .map(([name, count]) => ({
       name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
+      slug: name.toLowerCase().replace(/\s+/g, "-"),
       count,
     }))
     .sort((a, b) => b.count - a.count);
@@ -127,8 +131,8 @@ export function getAllTags() {
   const allPosts = getAllPosts();
   const tagMap = new Map<string, number>();
 
-  allPosts.forEach(post => {
-    post.tags.forEach(tag => {
+  allPosts.forEach((post) => {
+    post.tags.forEach((tag) => {
       const lowerTag = tag.toLowerCase();
       tagMap.set(lowerTag, (tagMap.get(lowerTag) || 0) + 1);
     });
@@ -137,7 +141,7 @@ export function getAllTags() {
   return Array.from(tagMap.entries())
     .map(([name, count]) => ({
       name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
+      slug: name.toLowerCase().replace(/\s+/g, "-"),
       count,
     }))
     .sort((a, b) => b.count - a.count);

@@ -1,3 +1,3 @@
-import { nextJs } from '@nathanhfoster/eslint-config';
+import { nextJsConfig } from "@nathanhfoster/eslint-config/next-js";
 
-export default [...nextJs];
+export default nextJsConfig;

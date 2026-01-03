@@ -1,9 +1,9 @@
-import type { BaseBoxProps, BoxVariant } from '../Box/types';
-import type { Size } from '../types';
+import type { BaseBoxProps, BoxVariant } from "../Box/types";
+import type { Size } from "../types";
 
-export type CardVariant = 'default' | 'elevated' | 'flat' | 'bordered';
+export type CardVariant = "default" | "elevated" | "flat" | "bordered";
 
-export interface CardProps extends Omit<BaseBoxProps, 'variant' | 'padding'> {
+export interface CardProps extends Omit<BaseBoxProps, "variant" | "padding"> {
   /**
    * Card content
    */

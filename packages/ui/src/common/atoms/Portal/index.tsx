@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
-import type { PortalProps } from './types';
-import { useIsomorphicLayoutEffect } from '@nathanhfoster/resurrection';
-import { DEFAULT_PORTAL_ID, GET_ELEMENT_BY_ID_LIMIT } from './constants';
+import { useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import type { PortalProps } from "./types";
+import { useIsomorphicLayoutEffect } from "@nathanhfoster/resurrection";
+import { DEFAULT_PORTAL_ID, GET_ELEMENT_BY_ID_LIMIT } from "./constants";
 
-const Portal: React.FC<PortalProps> = ({
+const Portal = ({
   id = DEFAULT_PORTAL_ID,
   isOpen = true,
   className,
@@ -16,7 +16,9 @@ const Portal: React.FC<PortalProps> = ({
   const getElementByIdCount = useRef(0);
   const [parentNode, setParentNode] = useState<HTMLElement | null>(null);
   const [shouldRender, setShouldRender] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   useIsomorphicLayoutEffect(() => {
     if (!parentNode && getElementByIdCount.current < GET_ELEMENT_BY_ID_LIMIT) {

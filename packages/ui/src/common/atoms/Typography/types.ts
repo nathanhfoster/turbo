@@ -1,60 +1,66 @@
-import type React from 'react';
-import type { LinkProps, LinkProps as NextLinkProps } from 'next/link';
-import { PickPartial } from '@nathanhfoster/utils';
-import type { BaseTailwindProps, ComponentColor } from '../types';
+import type React from "react";
+import type { LinkProps, LinkProps as NextLinkProps } from "next/link";
+import { PickPartial } from "@nathanhfoster/utils";
+import type { BaseTailwindProps, ComponentColor } from "../types";
 
-export type TypographyHeadingVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+export type TypographyHeadingVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 export type TypographyParagraphVariant =
-  | 'p'
-  | 'body1'
-  | 'body2'
-  | 'subtitle1'
-  | 'subtitle2'
-  | 'caption'
-  | 'overline';
+  | "p"
+  | "body1"
+  | "body2"
+  | "subtitle1"
+  | "subtitle2"
+  | "caption"
+  | "overline";
 
-export type TypographySpanVariant = 'span' | 'small' | 'strong' | 'em' | 'b';
+export type TypographySpanVariant = "span" | "small" | "strong" | "em" | "b";
 
-export type TypographyLinkVariant = 'a';
+export type TypographyLinkVariant = "a";
 
-export type TypographyLabelVariant = 'label';
+export type TypographyLabelVariant = "label";
 
-export type TypographyListItemVariant = 'li';
+export type TypographyListItemVariant = "li";
 
-export type TypographyBlockquoteVariant = 'blockquote';
+export type TypographyBlockquoteVariant = "blockquote";
 
-export type TypographyCodeVariant = 'code' | 'pre';
+export type TypographyCodeVariant = "code" | "pre";
 
-export type TypographyTimeVariant = 'time';
+export type TypographyTimeVariant = "time";
 
-export type TypographyAddressVariant = 'address';
+export type TypographyAddressVariant = "address";
 
 export type TypographySize =
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | '2xl'
-  | '3xl'
-  | '4xl'
-  | '5xl'
-  | '6xl';
+  | "xs"
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "3xl"
+  | "4xl"
+  | "5xl"
+  | "6xl";
 
 export type TypographyWeight =
-  | 'thin'
-  | 'extralight'
-  | 'light'
-  | 'normal'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extrabold'
-  | 'black';
+  | "thin"
+  | "extralight"
+  | "light"
+  | "normal"
+  | "medium"
+  | "semibold"
+  | "bold"
+  | "extrabold"
+  | "black";
 
-export type TypographyLineHeight = 'none' | 'tight' | 'snug' | 'normal' | 'relaxed' | 'loose';
-export type TypographyFonts = 'sans' | 'serif' | 'mono' | 'inter';
+export type TypographyLineHeight =
+  | "none"
+  | "tight"
+  | "snug"
+  | "normal"
+  | "relaxed"
+  | "loose";
+export type TypographyFonts = "sans" | "serif" | "mono" | "inter";
 export type TypographyLineClamp = 1 | 2 | 3 | 4 | 5 | 6;
 export type TypographyLineClampProp = `line-clamp-${TypographyLineClamp}`;
 
@@ -72,7 +78,9 @@ export type TypographyVariant =
 
 export type TypographySizeProp = `text-${TypographySize}`;
 
-export interface BaseTypographyProps extends BaseTailwindProps, PickPartial<LinkProps, 'href'> {
+export interface BaseTypographyProps
+  extends BaseTailwindProps,
+    PickPartial<LinkProps, "href"> {
   font?: TypographyFonts;
   size?: TypographySizeProp;
   color?: ComponentColor | string;
@@ -94,53 +102,65 @@ export interface BaseTypographyProps extends BaseTailwindProps, PickPartial<Link
 
 export interface HeadingProps
   extends BaseTypographyProps,
-    Omit<React.HTMLAttributes<HTMLHeadingElement>, 'onClick'> {
+    Omit<React.HTMLAttributes<HTMLHeadingElement>, "onClick"> {
   variant: TypographyHeadingVariant;
 }
 
 export interface ParagraphProps
   extends BaseTypographyProps,
-    Omit<React.HTMLAttributes<HTMLParagraphElement>, 'onClick'> {
+    Omit<React.HTMLAttributes<HTMLParagraphElement>, "onClick"> {
   variant: TypographyParagraphVariant;
 }
 
-export interface SpanProps extends BaseTypographyProps, Omit<React.HTMLAttributes<HTMLSpanElement>, 'onClick'> {
+export interface SpanProps
+  extends BaseTypographyProps,
+    Omit<React.HTMLAttributes<HTMLSpanElement>, "onClick"> {
   variant?: TypographySpanVariant;
 }
 
-export interface AnchorProps extends BaseTypographyProps, Omit<NextLinkProps, 'onClick'> {
+export interface AnchorProps
+  extends BaseTypographyProps,
+    Omit<NextLinkProps, "onClick"> {
   variant: TypographyLinkVariant;
-  href: NextLinkProps['href'];
+  href: NextLinkProps["href"];
   children?: React.ReactNode;
 }
 
 export interface LabelProps
   extends BaseTypographyProps,
-    Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'onClick'> {
+    Omit<React.LabelHTMLAttributes<HTMLLabelElement>, "onClick"> {
   variant: TypographyLabelVariant;
   htmlFor?: string;
 }
 
-export interface ListItemProps extends BaseTypographyProps, Omit<React.LiHTMLAttributes<HTMLLIElement>, 'onClick'> {
+export interface ListItemProps
+  extends BaseTypographyProps,
+    Omit<React.LiHTMLAttributes<HTMLLIElement>, "onClick"> {
   variant: TypographyListItemVariant;
 }
 
 export interface BlockquoteProps
   extends BaseTypographyProps,
-    Omit<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, 'onClick'> {
+    Omit<React.BlockquoteHTMLAttributes<HTMLQuoteElement>, "onClick"> {
   variant: TypographyBlockquoteVariant;
 }
 
-export interface CodeProps extends BaseTypographyProps, Omit<React.HTMLAttributes<HTMLElement>, 'onClick'> {
+export interface CodeProps
+  extends BaseTypographyProps,
+    Omit<React.HTMLAttributes<HTMLElement>, "onClick"> {
   variant: TypographyCodeVariant;
 }
 
-export interface TimeProps extends BaseTypographyProps, Omit<React.HTMLAttributes<HTMLTimeElement>, 'onClick'> {
+export interface TimeProps
+  extends BaseTypographyProps,
+    Omit<React.HTMLAttributes<HTMLTimeElement>, "onClick"> {
   variant: TypographyTimeVariant;
-  dateTime?: HTMLTimeElement['dateTime'];
+  dateTime?: HTMLTimeElement["dateTime"];
 }
 
-export interface AddressProps extends BaseTypographyProps, Omit<React.HTMLAttributes<HTMLElement>, 'onClick'> {
+export interface AddressProps
+  extends BaseTypographyProps,
+    Omit<React.HTMLAttributes<HTMLElement>, "onClick"> {
   variant: TypographyAddressVariant;
 }
 

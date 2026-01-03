@@ -1,9 +1,11 @@
-import type { DialogHTMLAttributes, ReactNode, MouseEventHandler } from 'react';
-import type { BaseTailwindProps } from '../types';
+import type { DialogHTMLAttributes, ReactNode, MouseEventHandler } from "react";
+import type { BaseTailwindProps } from "../types";
 
-export type ModalSize = 'small' | 'medium' | 'large' | 'full';
+export type ModalSize = "small" | "medium" | "large" | "full";
 
-export interface ModalProps extends Omit<DialogHTMLAttributes<HTMLDialogElement>, 'onClick'>, Omit<BaseTailwindProps, 'onClick'> {
+export interface ModalProps
+  extends Omit<DialogHTMLAttributes<HTMLDialogElement>, "onClick">,
+    Omit<BaseTailwindProps, "onClick"> {
   /**
    * Function to handle modal close
    */

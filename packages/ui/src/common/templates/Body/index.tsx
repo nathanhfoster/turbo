@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
 // import CookieConsentModal from '@/contexts/DeviceContext/components/CookieConsentModal';
-import dynamic from 'next/dynamic';
-import GoogleTagManageIframe from './components/GoogleTagManageIframe';
-import { useShowFooter } from './hooks';
-import { BodyProps } from './types';
-const Footer = dynamic(() => import('../../molecules/Footer'));
+import dynamic from "next/dynamic";
+import GoogleTagManageIframe from "./components/GoogleTagManageIframe";
+import { useShowFooter } from "./hooks";
+import { BodyProps } from "./types";
+const Footer = dynamic(() => import("../../molecules/Footer"));
 
-const Body: React.FC<BodyProps> = ({ children, className = '' }) => {
+const Body = ({ children, className = "" }: BodyProps) => {
   const showFooter = useShowFooter();
 
   return (
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: 'window.dataLayer = window.dataLayer || [];',
+          __html: "window.dataLayer = window.dataLayer || [];",
         }}
       />
       <script

@@ -1,8 +1,8 @@
-import NextScript from 'next/script';
-import type { ScriptProps } from './types';
+import NextScript from "next/script";
+import type { ScriptProps } from "./types";
 
-const Script: React.FC<ScriptProps> = ({
-  strategy = 'afterInteractive',
+const Script = ({
+  strategy = "afterInteractive",
   async = true,
   children,
   ...props

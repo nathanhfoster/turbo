@@ -3,6 +3,7 @@
 ## Overview
 
 The frontend team has aligned on a unified architecture combining:
+
 - Storybook-driven design systems
 - TypeScript with Atomic Design
 - State management with Container/Presentation pattern (currently Redux, designed for future TanStack migration)
@@ -111,25 +112,27 @@ DEPENDENCY FLOW (Top-Down Only):
 
 ### Architecture Layers
 
-| Layer | Location | Purpose | Organization |
-|-------|----------|---------|--------------|
-| **UI Library** | `packages/ui/` | Generic reusable components | Atomic Design (atoms → templates) |
-| **Cross-App Features** | `packages/[feature]/` | Shared across all apps (auth, analytics, error-handling) | By feature |
-| **App Instance** | `apps/[app-name]/` | Individual Next.js app | By app |
-| **App Core** | `apps/[app-name]/core/` | App-specific cross-domain features | By feature |
-| **Domains** | `apps/[app-name]/domains/` | Business domains | FSD (by domain) |
-| **Domain Lib** | `apps/[app-name]/domains/[Domain]/lib/` | Domain-specific utilities | By domain |
-| **Domain UI** | `apps/[app-name]/domains/[Domain]/ui/` | Domain-specific components | By purpose/functionality |
-| **Pages** | `apps/[app-name]/app/` | Next.js routes | By route |
+| Layer                  | Location                                | Purpose                                                  | Organization                      |
+| ---------------------- | --------------------------------------- | -------------------------------------------------------- | --------------------------------- |
+| **UI Library**         | `packages/ui/`                          | Generic reusable components                              | Atomic Design (atoms → templates) |
+| **Cross-App Features** | `packages/[feature]/`                   | Shared across all apps (auth, analytics, error-handling) | By feature                        |
+| **App Instance**       | `apps/[app-name]/`                      | Individual Next.js app                                   | By app                            |
+| **App Core**           | `apps/[app-name]/core/`                 | App-specific cross-domain features                       | By feature                        |
+| **Domains**            | `apps/[app-name]/domains/`              | Business domains                                         | FSD (by domain)                   |
+| **Domain Lib**         | `apps/[app-name]/domains/[Domain]/lib/` | Domain-specific utilities                                | By domain                         |
+| **Domain UI**          | `apps/[app-name]/domains/[Domain]/ui/`  | Domain-specific components                               | By purpose/functionality          |
+| **Pages**              | `apps/[app-name]/app/`                  | Next.js routes                                           | By route                          |
 
 ### Where Atomic Design Applies
 
 **✅ Atomic Design (atoms/molecules/organisms/templates):**
+
 - **UI Library packages** (`packages/ui/src/common/`)
 - Generic, reusable components shared across applications
 - Organized by complexity level
 
 **❌ NOT Atomic Design:**
+
 - Domain components (`apps/[app-name]/domains/[Domain]/ui/`)
 - Cross-app features (`packages/auth/`, `packages/analytics/`, etc.)
 - App-specific features (`apps/[app-name]/core/`)
@@ -151,13 +154,16 @@ DEPENDENCY FLOW (Top-Down Only):
 ## Storybook Design System Hub
 
 ### Purpose
+
 Central documentation platform serving as the single source of truth for our design system.
 
 ### Architecture
+
 - **Multi-package architecture** supporting shared components across applications
 - **Co-located stories** with components for maintainability
 
 ### Add-ons & Tooling
+
 - `a11y` - Accessibility validation
 - `design-tokens` - Centralized design token management
 - `docs` - Enhanced documentation
@@ -166,6 +172,7 @@ Central documentation platform serving as the single source of truth for our des
 - **Chromatic** - Visual regression testing
 
 ### Automation
+
 - Automated story generation from components
 - Adoption tracking across projects
 - Visual regression testing pipeline
@@ -269,11 +276,11 @@ apps/[app-name]/
 
 **When to Use Each:**
 
-| Feature | Scope | Location | Example |
-|---------|-------|----------|---------|
-| Used by multiple apps | Cross-app | `packages/[feature]/` | Auth, Analytics, Error Handling |
-| Used by one app only | App-specific | `apps/[app-name]/core/[feature]/` | App-specific integrations, services |
-| Used by one domain only | Domain-specific | `apps/[app-name]/domains/[Domain]/lib/` | Domain utilities |
+| Feature                 | Scope           | Location                                | Example                             |
+| ----------------------- | --------------- | --------------------------------------- | ----------------------------------- |
+| Used by multiple apps   | Cross-app       | `packages/[feature]/`                   | Auth, Analytics, Error Handling     |
+| Used by one app only    | App-specific    | `apps/[app-name]/core/[feature]/`       | App-specific integrations, services |
+| Used by one domain only | Domain-specific | `apps/[app-name]/domains/[Domain]/lib/` | Domain utilities                    |
 
 **Rules:**
 
@@ -304,6 +311,7 @@ export function ComponentName(props: ComponentNameProps) {
 **Top-Down Flow Rule:** Both type composition and logical functions (hooks, utilities) must flow from top to bottom only. Higher levels (domain) can be used by lower levels (components, subcomponents), but never the reverse.
 
 **Type Hierarchy:**
+
 1. **Cross-app level** (`packages/[feature]/types/index.ts`) - Shared types across all apps
 2. **App core level** (`apps/[app-name]/core/[feature]/types/index.ts`) - App-specific shared types
 3. **Domain level** (`apps/[app-name]/domains/[Domain]/model/types.ts`) - Domain state types (can extend cross-app or core types)
@@ -311,6 +319,7 @@ export function ComponentName(props: ComponentNameProps) {
 5. **Subcomponent level** (`apps/[app-name]/domains/[Domain]/ui/[ComponentName]/components/[SubComponent]/types.ts`) - Extends/modifies component types
 
 **Function/Hook Hierarchy:**
+
 1. **Cross-app level** (`packages/[feature]/hooks/use[Feature].ts`) - Shared hooks across all apps
 2. **App core level** (`apps/[app-name]/core/[feature]/hooks/use[Feature].ts`) - App-specific shared hooks
 3. **Domain level** (`apps/[app-name]/domains/[Domain]/hooks/use[Domain].ts`) - Domain hooks (can use packages/ or core/)
@@ -328,33 +337,33 @@ export interface BaseUser {
 }
 
 // apps/[app-name]/domains/[Domain]/model/types.ts
-import type { BaseUser } from '@packages/auth/types';
+import type { BaseUser } from "@packages/auth/types";
 
 export interface User extends BaseUser {
   name: string;
-  role: 'admin' | 'user';
+  role: "admin" | "user";
 }
 
 // ✅ CORRECT: Component extends domain type
 // [Domain]/ui/UserProfile/types.ts
-import type { User } from '../../../model/types';
+import type { User } from "../../../model/types";
 
-export interface UserProfileProps extends Pick<User, 'id' | 'name' | 'email'> {
+export interface UserProfileProps extends Pick<User, "id" | "name" | "email"> {
   showRole?: boolean;
 }
 
 // ✅ CORRECT: Subcomponent extends component type
 // [Domain]/ui/UserProfile/components/UserAvatar/types.ts
-import type { UserProfileProps } from '../../types';
+import type { UserProfileProps } from "../../types";
 
-export interface UserAvatarProps extends Pick<UserProfileProps, 'id' | 'name'> {
-  size?: 'small' | 'medium' | 'large';
+export interface UserAvatarProps extends Pick<UserProfileProps, "id" | "name"> {
+  size?: "small" | "medium" | "large";
 }
 
 // ❌ INCORRECT: Domain type extending component type (bottom-up)
 // [Domain]/model/types.ts
-import type { UserProfileProps } from '../ui/UserProfile/types'; // ❌ Don't do this
-export interface User extends UserProfileProps { } // ❌ Don't do this
+import type { UserProfileProps } from "../ui/UserProfile/types"; // ❌ Don't do this
+export interface User extends UserProfileProps {} // ❌ Don't do this
 ```
 
 **Function/Hook Examples:**
@@ -368,7 +377,7 @@ export function useAuth() {
 }
 
 // apps/[app-name]/domains/[Domain]/hooks/useUserProfile.ts
-import { useAuth } from '@packages/auth/hooks/useAuth';
+import { useAuth } from "@packages/auth/hooks/useAuth";
 
 export function useUserProfile() {
   const { user, isAuthenticated } = useAuth(); // ✅ Using cross-app hook
@@ -378,7 +387,7 @@ export function useUserProfile() {
 
 // ✅ CORRECT: Component hook uses domain hook
 // [Domain]/ui/LoginForm/hooks/useLoginForm.ts
-import { useUserState } from '../../../hooks/useUserState';
+import { useUserState } from "../../../hooks/useUserState";
 
 export function useLoginForm() {
   const { user } = useUserState(); // ✅ Using domain hook
@@ -388,7 +397,7 @@ export function useLoginForm() {
 
 // ✅ CORRECT: Subcomponent hook uses component hook
 // [Domain]/ui/LoginForm/components/EmailInput/hooks/useEmailInput.ts
-import { useLoginForm } from '../../../hooks/useLoginForm';
+import { useLoginForm } from "../../../hooks/useLoginForm";
 
 export function useEmailInput() {
   const { handleSubmit } = useLoginForm(); // ✅ Using component hook
@@ -398,13 +407,14 @@ export function useEmailInput() {
 
 // ❌ INCORRECT: Domain hook using component hook (bottom-up)
 // [Domain]/hooks/useAuthState.ts
-import { useLoginForm } from '../ui/LoginForm/hooks/useLoginForm'; // ❌ Don't do this
+import { useLoginForm } from "../ui/LoginForm/hooks/useLoginForm"; // ❌ Don't do this
 export function useAuthState() {
   const { handleSubmit } = useLoginForm(); // ❌ Don't do this
 }
 ```
 
 **Allowed Utility Types:**
+
 - `Extend` / `&` - Add properties to base types
 - `Omit<T, K>` - Remove properties from base types
 - `Pick<T, K>` - Select specific properties from base types
@@ -413,6 +423,7 @@ export function useAuthState() {
 - `Readonly<T>` - Make all properties readonly
 
 **Rules:**
+
 - **Types flow downward only**: Page → Domain → Component → Subcomponent
   - Never import types from lower levels into higher levels
   - Page types can be extended by domain types
@@ -431,6 +442,7 @@ export function useAuthState() {
 ### Atomic Hierarchy
 
 Components organized by complexity level:
+
 - **Atoms** → Base building blocks (buttons, inputs, labels)
   - Keep atoms "dumb" - prop-only components, no business logic
 - **Molecules** → Simple combinations (form fields, search bars)
@@ -467,11 +479,13 @@ Components organized by complexity level:
 ### Container/Presentation Pattern with Hooks
 
 **Separation of Concerns:**
+
 - **Domain container** (`[Domain]/index.tsx`) - Orchestration layer, uses domain hooks, passes data to UI components
 - **Domain hooks** (`[Domain]/hooks/`) - Business logic, API calls, state management
 - **Presentation components** (`[Domain]/ui/[ComponentName]/`) - Pure UI rendering, no side effects, receive everything via props
 
 **Data Flow:**
+
 1. Domain container (`[Domain]/index.tsx`) calls domain hooks to get state and actions
 2. Domain hooks handle all state management (Redux, API calls, etc.)
 3. Domain container passes state and handlers as props to presentation components in `ui/`
@@ -482,6 +496,7 @@ Components organized by complexity level:
 **How the Domain Container Uses Hooks:**
 
 The domain container component (`[Domain]/index.tsx`) is responsible for:
+
 1. Calling domain hooks to get state and actions
 2. Passing all state and handlers as props to presentation components in `ui/`
 3. Acting as the bridge between state management and UI
@@ -497,7 +512,7 @@ import { fetchData, updateData } from '../model/[domain]Slice';
 
 export function use[Domain](props: [Domain]Props) {
   const dispatch = useDispatch();
-  
+
   // Get state from Redux (or TanStack Query/Store in future)
   const data = useSelector((state) => state.[domain].data);
   const isLoading = useSelector((state) => state.[domain].isLoading);
@@ -607,8 +622,8 @@ Presentation components in `ui/[ComponentName]/index.tsx` export the component a
 
 ```typescript
 // Internal usage within domain or direct composition
-import { ComponentName } from '@/domains/[Domain]/ui/ComponentName';
-import type { ComponentNameProps } from '@/domains/[Domain]/ui/ComponentName';
+import { ComponentName } from "@/domains/[Domain]/ui/ComponentName";
+import type { ComponentNameProps } from "@/domains/[Domain]/ui/ComponentName";
 ```
 
 **Note:** Typically, consumers should import the domain container, not individual UI components. UI components are primarily for internal domain composition or when direct presentation-only components are needed.
@@ -616,6 +631,7 @@ import type { ComponentNameProps } from '@/domains/[Domain]/ui/ComponentName';
 ### Constants and Utils Files
 
 **When to use `constants.ts`:**
+
 - Component-specific enums
 - Configuration values (limits, thresholds, default values)
 - Static data arrays/objects used only by this component
@@ -630,10 +646,10 @@ export const MIN_PASSWORD_LENGTH = 8;
 export const DEFAULT_TIMEOUT = 5000;
 
 export enum FormStatus {
-  IDLE = 'idle',
-  SUBMITTING = 'submitting',
-  SUCCESS = 'success',
-  ERROR = 'error',
+  IDLE = "idle",
+  SUBMITTING = "submitting",
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
 export const VALIDATION_RULES = {
@@ -642,13 +658,14 @@ export const VALIDATION_RULES = {
 } as const;
 
 export const DEFAULT_FORM_VALUES = {
-  name: '',
-  email: '',
-  phone: '',
+  name: "",
+  email: "",
+  phone: "",
 } as const;
 ```
 
 **When to use `utils.ts`:**
+
 - Pure helper functions specific to this component
 - Data transformation functions
 - Validation helpers
@@ -659,15 +676,17 @@ export const DEFAULT_FORM_VALUES = {
 
 ```typescript
 // utils.ts
-import type { FormData } from './types';
-import { VALIDATION_RULES } from './constants';
+import type { FormData } from "./types";
+import { VALIDATION_RULES } from "./constants";
 
 export function validateEmail(email: string): boolean {
   return VALIDATION_RULES.email.test(email);
 }
 
 export function formatPhoneNumber(phone: string): string {
-  return phone.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
+  return phone
+    .replace(/\D/g, "")
+    .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
 }
 
 export function calculateTotal(items: FormData[]): number {
@@ -675,11 +694,12 @@ export function calculateTotal(items: FormData[]): number {
 }
 
 export function sanitizeInput(input: string): string {
-  return input.trim().replace(/[<>]/g, '');
+  return input.trim().replace(/[<>]/g, "");
 }
 ```
 
 **Note:** Only create these files if the component has constants or utilities that are:
+
 - Specific to this component (not shared across components)
 - Used in multiple places within the component
 - Complex enough to warrant extraction
@@ -691,12 +711,14 @@ If constants/utils are simple and only used once, keep them inline. If they're s
 **Hook Naming:** Use `use[Domain]` for main domain hooks and `use[DomainAction]` for action-specific hooks.
 
 **Examples:**
+
 - `useUserProfile()` - Main domain hook for UserProfile domain
 - `useUpdateProfile()` - Action-specific hook for profile updates
 - `useCashier()` - Main domain hook for Cashier domain
 - `useDeposit()` - Action-specific hook for deposit actions
 
 **Rationale:**
+
 - Concise and follows React conventions (e.g., `useAuth`, not `useAuthState`)
 - Hooks already imply state management by nature
 - Matches industry standards (React Query: `useQuery`, Redux: `useSelector`)
@@ -706,18 +728,21 @@ If constants/utils are simple and only used once, keep them inline. If they're s
 The Container/Presentation pattern with hooks abstraction provides a clean migration path:
 
 **Current (Redux):**
+
 - Domain hooks encapsulate Redux dispatch/selectors
 - Domain container uses hooks and passes data to presentation components
 - Presentation components receive props from domain container
 - State management logic isolated in domain hooks
 
 **Future (TanStack Query/Store):**
+
 - Domain hooks can be updated to use TanStack Query for server state
 - TanStack Store for client state (replacing Redux)
 - Domain container and presentation components remain unchanged (same props interface)
 - Minimal refactoring required - only hook implementations change
 
 **Benefits of this architecture:**
+
 - **Abstraction layer** - State management details hidden from domain container and presentation components
 - **Easy migration** - Swap state management library without touching domain container or presentation layer
 - **Testability** - Mock domain hooks independently of state management implementation
@@ -807,6 +832,7 @@ apps/
 **Shared Testing Utilities:**
 
 Create shared test utilities in `packages/test-utils/` for:
+
 - Mock factories (API responses, state management state)
 - Test data generators
 - Custom render functions (React and SolidJS)
@@ -845,17 +871,17 @@ export function generateTestUser() {
 }
 
 // tests/e2e/casino/registration.spec.ts
-test('Registration flow in Next.js zone', async ({ page }) => {
+test("Registration flow in Next.js zone", async ({ page }) => {
   // Test Next.js app
 });
 
 // tests/e2e/main/portfolio.spec.ts
-test('Portfolio page in main app', async ({ page }) => {
+test("Portfolio page in main app", async ({ page }) => {
   // Test main app
 });
 
 // tests/e2e/integration/zone-navigation.spec.ts
-test('Navigation between zones', async ({ page }) => {
+test("Navigation between zones", async ({ page }) => {
   // Test cross-zone navigation
 });
 ```
@@ -865,12 +891,14 @@ test('Navigation between zones', async ({ page }) => {
 #### Zone-Specific Testing
 
 **apps/casino (Next.js):**
+
 - Server-side rendering tests
 - Next.js routing and middleware
 - React component lifecycle
 - Next.js API routes
 
 **apps/main (Next.js):**
+
 - Server-side rendering tests
 - PWA functionality testing
 - MDX blog post rendering
@@ -879,12 +907,14 @@ test('Navigation between zones', async ({ page }) => {
 #### Cross-Zone Testing
 
 **Navigation Testing:**
+
 - Verify seamless navigation between zones
 - Test shared authentication state
 - Validate shared state management synchronization
 - Test shared design system components
 
 **Performance Testing:**
+
 - Measure and compare performance between zones
 - Track Core Web Vitals (LCP, FID, CLS)
 - Monitor bundle sizes and load times
@@ -915,6 +945,7 @@ test('Navigation between zones', async ({ page }) => {
 ```
 
 **Test Distribution:**
+
 - Run unit tests in parallel across apps
 - Use Turbo's caching for unchanged code
 - Distribute E2E tests across multiple workers
@@ -923,12 +954,14 @@ test('Navigation between zones', async ({ page }) => {
 #### CI/CD Strategy
 
 **Test Pipeline:**
+
 1. **Unit Tests:** Run in parallel for all apps
 2. **Integration Tests:** Run after unit tests pass
 3. **E2E Tests:** Run against staging environment
 4. **Performance Tests:** Run on critical paths
 
 **Scalability:**
+
 - Use matrix builds for multiple app versions
 - Cache test dependencies and build artifacts
 - Run tests only for changed apps (Turbo filtering)
@@ -941,6 +974,7 @@ test('Navigation between zones', async ({ page }) => {
 Given performance is a high priority, implement comprehensive performance testing:
 
 **Metrics to Track:**
+
 - **Time to Interactive (TTI)** - Measure when app becomes interactive
 - **First Contentful Paint (FCP)** - Measure initial render time
 - **Largest Contentful Paint (LCP)** - Measure main content load
@@ -952,22 +986,23 @@ Given performance is a high priority, implement comprehensive performance testin
 
 ```typescript
 // tests/performance/lighthouse.spec.ts
-test('Lighthouse scores meet thresholds', async ({ page }) => {
+test("Lighthouse scores meet thresholds", async ({ page }) => {
   // Run Lighthouse audits
 });
 
 // tests/performance/bundle-size.spec.ts
-test('Bundle sizes within limits', () => {
+test("Bundle sizes within limits", () => {
   // Analyze bundle sizes
 });
 
 // tests/performance/load-time.spec.ts
-test('Critical pages load within threshold', async ({ page }) => {
+test("Critical pages load within threshold", async ({ page }) => {
   // Measure load times
 });
 ```
 
 **Performance Optimization Testing:**
+
 - Compare performance metrics across iterations
 - Test performance-critical pages and optimizations
 - Validate performance improvements meet targets
@@ -994,6 +1029,7 @@ export function renderWithProviders(component: ReactElement) {
 #### Component Testing Patterns
 
 **React/Next.js (All Apps):**
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import { ComponentName } from './ComponentName';
@@ -1079,4 +1115,3 @@ When generating or modifying frontend code:
 19. **Domain lib/** - Domain-specific utilities ONLY go in `apps/[app-name]/domains/[Domain]/lib/`
 20. **Top-down flow rule** - Types, hooks, and functions flow from packages/ → core/ → domain → component → subcomponent only. Never import lower-level code into higher levels
 21. **Hook naming** - Use `use[Domain]` for main hooks (e.g., `useUserProfile`, `useCashier`), not `use[Domain]State`
-

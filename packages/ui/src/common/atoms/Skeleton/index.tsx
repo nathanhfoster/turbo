@@ -1,6 +1,6 @@
-import React from 'react';
-import { combineClassNames } from '@nathanhfoster/utils';
-import { SkeletonProps } from './types';
+import React from "react";
+import { combineClassNames } from "@nathanhfoster/utils";
+import { SkeletonProps } from "./types";
 import {
   VARIANTS,
   ANIMATION_STYLES,
@@ -8,12 +8,12 @@ import {
   DEFAULT_ANIMATION,
   DEFAULT_VARIANT,
   DEFAULT_COLOR,
-} from './constants';
-import type { ComponentColor } from '../types';
-import withBaseTheme from '../../hocs/withBaseTheme';
-import withForwardRef from '../../hocs/withForwardRef';
+} from "./constants";
+import type { ComponentColor } from "../types";
+import withBaseTheme from "../../hocs/withBaseTheme";
+import withForwardRef from "../../hocs/withForwardRef";
 
-const Skeleton: React.FC<SkeletonProps> = ({
+const Skeleton = ({
   variant = DEFAULT_VARIANT,
   fullWidth,
   fullHeight,
@@ -33,12 +33,12 @@ const Skeleton: React.FC<SkeletonProps> = ({
     variantClasses,
     animationClasses,
     colorClasses,
-    fullWidth && 'w-full',
-    fullHeight && 'h-full',
+    fullWidth && "w-full",
+    fullHeight && "h-full",
     width,
     height,
     borderRadius,
-    className
+    className,
   );
 
   return <div className={baseClasses} {...props} />;

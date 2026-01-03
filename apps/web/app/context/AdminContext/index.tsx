@@ -1,6 +1,5 @@
 "use client";
 
-import { FC } from "react";
 import {
   createContextWithName,
   Provider,
@@ -8,7 +7,7 @@ import {
 } from "@nathanhfoster/resurrection";
 
 import { getAdminInitialState, adminInitialState, adminSlice } from "./reducer";
-import type { AdminContextProviderProps, AdminContextState } from "./types";
+import type { AdminContextProviderProps, AdminContextState, AdminServerProps } from "./types";
 
 export const adminContextActions = adminSlice.actions;
 
@@ -29,12 +28,13 @@ export const {
   useDispatch: useAdminDispatch,
 } = AdminContext;
 
-export const AdminContextProvider: FC<AdminContextProviderProps> = ({
+export const AdminContextProvider = ({
   children,
   ...restOfProps
-}) => {
+}: AdminContextProviderProps) => {
   return (
-    <Provider
+    // @ts-expect-error - Provider type is incompatible with Next.js 15's stricter typing
+    <Provider<AdminContextState, AdminServerProps>
       {...restOfProps}
       StateContext={AdminStateContext}
       reducer={adminSlice.reducer}

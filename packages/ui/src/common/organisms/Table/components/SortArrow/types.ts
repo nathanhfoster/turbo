@@ -1,3 +1,3 @@
 export type SortArrowProps = {
-  direction: 'ASC' | 'DESC';
+  direction: "ASC" | "DESC";
 };

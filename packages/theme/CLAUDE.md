@@ -30,11 +30,13 @@ packages/theme/
 ## Design Tokens Overview
 
 ### Primary Brand Color
+
 - **Yellow**: `#FFE500` - The signature yellow brand color
 - Available as `colors.primary.DEFAULT` in tokens
 - Has variants: 10, 20, 30, 40, 50, 60
 
 ### Color System
+
 - **Primary**: Yellow with variants
 - **Secondary**: Purple palette (50-950)
 - **Neutral**: Gray scale (50-950)
@@ -42,12 +44,14 @@ packages/theme/
 - **Background/Foreground**: Light and dark theme support
 
 ### Typography
+
 - **Fonts**: Volkhov, Inter, Staatliches, Rubik, Poppins, Dharma Gothic Bold
 - **Sizes**: Standard scale (xs-8xl) + custom numeric sizes (28, 32, 40, 56, 64)
 - **Line Heights**: 120%, 140%, 155%
 - **Letter Spacing**: 1.2px, 1.4px
 
 ### Layout
+
 - **Spacing**: Standard scale (xs-3xl) + custom values for precise control
 - **Breakpoints**: xs (460px), sm-3xl (640px-1920px)
 - **Border Radius**: sm-full + custom numeric values
@@ -56,13 +60,14 @@ packages/theme/
 ## Usage Patterns
 
 ### Tailwind CSS v4 (ui package)
+
 ```css
 /* index.css */
-@import 'tailwindcss' source('.');
+@import "tailwindcss" source(".");
 
 @theme {
   /* Copy values from @nathanhfoster/theme/tokens */
-  --color-primary: #FFE500;
+  --color-primary: #ffe500;
   /* ... other tokens ... */
 }
 ```
@@ -70,21 +75,23 @@ packages/theme/
 Note: Tailwind v4 uses CSS-first configuration, so tokens are manually synchronized.
 
 ### Panda CSS (panda-ui package)
+
 ```ts
 // panda.config.ts
-import { pandaTheme, pandaBreakpoints } from '@nathanhfoster/theme/panda';
+import { pandaTheme, pandaBreakpoints } from "@nathanhfoster/theme/panda";
 
 export default defineConfig({
   theme: {
     extend: pandaTheme,
-    breakpoints: pandaBreakpoints
-  }
+    breakpoints: pandaBreakpoints,
+  },
 });
 ```
 
 ### Direct Token Access
+
 ```ts
-import { colors, spacing, fontFamily } from '@nathanhfoster/theme/tokens';
+import { colors, spacing, fontFamily } from "@nathanhfoster/theme/tokens";
 
 // Use in components, styled-components, CSS-in-JS, etc.
 const primaryColor = colors.primary.DEFAULT; // '#FFE500'
@@ -110,6 +117,7 @@ const primaryColor = colors.primary.DEFAULT; // '#FFE500'
 ### Breaking Changes
 
 Changing existing token values is a **breaking change** and affects all consuming packages:
+
 - `packages/ui` (Tailwind v4)
 
 Always coordinate token changes across the team.
@@ -117,6 +125,7 @@ Always coordinate token changes across the team.
 ### Type Safety
 
 All tokens are exported with `as const` to provide literal type inference:
+
 ```ts
 const primary = colors.primary.DEFAULT; // Type: "#FFE500" (not string)
 ```
@@ -166,6 +175,7 @@ pnpm check-types   # Verify TypeScript types
 ## Dependencies
 
 This package has minimal dependencies:
+
 - `@nathanhfoster/eslint-config` - For linting
 - `@nathanhfoster/typescript-config` - For TypeScript configuration
 
@@ -174,10 +184,12 @@ It intentionally has **no runtime dependencies** to keep it lightweight.
 ## Package Consumers
 
 Current packages using `@nathanhfoster/theme`:
+
 - ✅ `packages/ui` - Tailwind v4 implementation
 - ✅ `packages/panda-ui` - Panda CSS implementation
 
 Future consumers:
+
 - `apps/main` - When SolidStart app needs shared theming
 
 ## Troubleshooting
@@ -209,6 +221,7 @@ Run `pnpm check-types` in the theme package to verify type definitions.
 ## Future Enhancements
 
 Potential improvements to consider:
+
 - [ ] Automated token documentation generation
 - [ ] Visual token browser/showcase
 - [ ] Dark mode color variants

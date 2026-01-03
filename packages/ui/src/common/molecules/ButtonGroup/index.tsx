@@ -1,14 +1,14 @@
-import React from 'react';
-import { combineClassNames } from '@nathanhfoster/utils';
-import withBaseTheme from './../../hocs/withBaseTheme';
-import withForwardRef from './../../hocs/withForwardRef';
-import type { ButtonGroupProps } from './types';
-import Box from './../../atoms/Box';
+import React from "react";
+import { combineClassNames } from "@nathanhfoster/utils";
+import withBaseTheme from "./../../hocs/withBaseTheme";
+import withForwardRef from "./../../hocs/withForwardRef";
+import type { ButtonGroupProps } from "./types";
+import Box from "./../../atoms/Box";
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({
-  display = 'flex',
+const ButtonGroup = ({
+  display = "flex",
   justify,
-  className = '',
+  className = "",
   children,
   ...buttonProps
 }) => {
@@ -26,10 +26,10 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
           ...child.props,
           className: combineClassNames(
             child.props.className,
-            'rounded-none',
-            isFirst && 'rounded-s-md',
-            !isFirst && !isFirst && 'border-l-0',
-            isLast && 'rounded-e-md'
+            "rounded-none",
+            isFirst && "rounded-s-md",
+            !isFirst && !isFirst && "border-l-0",
+            isLast && "rounded-e-md",
           ),
           ...buttonProps,
         });

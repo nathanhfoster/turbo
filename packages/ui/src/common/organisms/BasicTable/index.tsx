@@ -1,8 +1,8 @@
-import { combineClassNames } from '@nathanhfoster/utils';
-import Box from '../../atoms/Box';
-import Card from '../../atoms/Card';
-import Typography from '../../atoms/Typography';
-import type { BasicTableProps } from './types';
+import { combineClassNames } from "@nathanhfoster/utils";
+import Box from "../../atoms/Box";
+import Card from "../../atoms/Card";
+import Typography from "../../atoms/Typography";
+import type { BasicTableProps } from "./types";
 
 export const BasicTable = <T extends object>({
   data = [],
@@ -15,8 +15,8 @@ export const BasicTable = <T extends object>({
   return (
     <div
       className={combineClassNames(
-        'relative overflow-x-auto sm:rounded-lg sm:shadow-md',
-        className
+        "relative overflow-x-auto sm:rounded-lg sm:shadow-md",
+        className,
       )}
       style={style}
     >
@@ -25,7 +25,7 @@ export const BasicTable = <T extends object>({
         <table className="w-full text-left text-sm text-gray-500">
           <thead className="border-b border-gray-200 bg-gray-50 text-xs text-gray-700 uppercase">
             <tr>
-              {columns.map(column => {
+              {columns.map((column) => {
                 const columnStyle = {
                   width: column.width,
                   minWidth: column.minWidth,
@@ -38,10 +38,12 @@ export const BasicTable = <T extends object>({
                   <th
                     key={String(column.accessor)}
                     scope="col"
-                    className={combineClassNames('px-6 py-3', column.className)}
+                    className={combineClassNames("px-6 py-3", column.className)}
                     style={columnStyle}
                   >
-                    {column.renderHeader ? column.renderHeader() : column.header}
+                    {column.renderHeader
+                      ? column.renderHeader()
+                      : column.header}
                   </th>
                 );
               })}
@@ -52,12 +54,16 @@ export const BasicTable = <T extends object>({
               <tr
                 key={rowIndex}
                 className={combineClassNames(
-                  'border-b',
-                  striped ? (rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50') : 'bg-white',
-                  hoverable && 'hover:bg-gray-100' // Hover effect
+                  "border-b",
+                  striped
+                    ? rowIndex % 2 === 0
+                      ? "bg-white"
+                      : "bg-gray-50"
+                    : "bg-white",
+                  hoverable && "hover:bg-gray-100", // Hover effect
                 )}
               >
-                {columns.map(column => {
+                {columns.map((column) => {
                   const columnStyle = {
                     width: column.width,
                     minWidth: column.minWidth,
@@ -70,8 +76,8 @@ export const BasicTable = <T extends object>({
                     <td
                       key={String(column.accessor)}
                       className={combineClassNames(
-                        'px-6 py-4 whitespace-nowrap md:px-4 md:whitespace-normal',
-                        column.className
+                        "px-6 py-4 whitespace-nowrap md:px-4 md:whitespace-normal",
+                        column.className,
                       )}
                       style={columnStyle}
                     >
@@ -88,12 +94,20 @@ export const BasicTable = <T extends object>({
       </div>
 
       {/* Stacked layout for smaller screens */}
-      <Box display="flex" flexDirection="flex-col" gap="gap-2" className="sm:hidden">
+      <Box
+        display="flex"
+        flexDirection="flex-col"
+        gap="gap-2"
+        className="sm:hidden"
+      >
         {data.map((row, rowIndex) => (
           <Card key={rowIndex}>
-            {columns.map(column => (
+            {columns.map((column) => (
               <Box key={String(column.accessor)} mb="mb-2">
-                <Typography size="text-sm" className="block font-medium text-gray-500 uppercase">
+                <Typography
+                  size="text-sm"
+                  className="block font-medium text-gray-500 uppercase"
+                >
                   {column.header}
                 </Typography>
                 <Typography size="text-sm" className="block text-gray-700">

@@ -1,5 +1,5 @@
-import { DataComponent } from '../../../types';
-import { CSSProperties, ReactNode } from 'react';
+import { DataComponent } from "../../../types";
+import { CSSProperties, ReactNode } from "react";
 
 export interface Column<T> {
   /**

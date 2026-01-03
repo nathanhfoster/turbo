@@ -1,5 +1,5 @@
-import type { LinkProps } from './../Link/types';
-import type { BaseTailwindProps, ColoredComponent, Size } from '../types';
+import type { LinkProps } from "./../Link/types";
+import type { BaseTailwindProps, ColoredComponent, Size } from "../types";
 
 export type ColorStyles = {
   bg: string;
@@ -12,23 +12,26 @@ export type ColorStyles = {
 export interface BaseButtonProps
   extends ColoredComponent,
     BaseTailwindProps,
-    Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+    Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
   size?: Size;
   isActive?: boolean;
   children?: React.ReactNode;
   className?: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  onClick?: (
+    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => void;
 }
 
 export interface AnchorProps
-  extends Omit<LinkProps, 'onClick'>,
-    Omit<BaseButtonProps, 'color' | 'size'> {
-  href: LinkProps['href'];
+  extends Omit<LinkProps, "onClick" | "children">,
+    Omit<BaseButtonProps, "color" | "size" | "children"> {
+  href: LinkProps["href"];
+  children?: React.ReactNode;
 }
 
 export interface ButtonProps
   extends BaseButtonProps,
-    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color' | 'onClick'> {
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color" | "onClick"> {
   href?: string;
 }
 

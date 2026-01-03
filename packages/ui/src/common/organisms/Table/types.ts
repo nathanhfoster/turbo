@@ -1,30 +1,33 @@
-import { DataComponent } from '../../../types';
-import { ReactNode } from 'react';
-import type { ColumnProps as VirtualizedColumnProps, TableHeaderProps } from 'react-virtualized';
+import { DataComponent } from "../../../types";
+import { ReactNode } from "react";
+import type {
+  ColumnProps as VirtualizedColumnProps,
+  TableHeaderProps,
+} from "react-virtualized";
 
-export type SortDirection = 'ASC' | 'DESC';
-import type { CSSProperties } from 'react';
+export type SortDirection = "ASC" | "DESC";
+import type { CSSProperties } from "react";
 // import type { Column as VirtualizedColumn } from 'react-virtualized';
-import type { PickPartial } from '@nathanhfoster/utils';
-import type { InfiniteLoaderProps } from 'react-virtualized';
+import type { PickPartial } from "@nathanhfoster/utils";
+import type { InfiniteLoaderProps } from "react-virtualized";
 
 export interface TableColumn<T>
   extends Pick<
     VirtualizedColumnProps,
-    | 'cellDataGetter'
-    | 'cellRenderer'
-    | 'className'
-    | 'disableSort'
-    | 'flexGrow'
-    | 'flexShrink'
-    | 'label'
-    | 'minWidth'
-    | 'maxWidth'
+    | "cellDataGetter"
+    | "cellRenderer"
+    | "className"
+    | "disableSort"
+    | "flexGrow"
+    | "flexShrink"
+    | "label"
+    | "minWidth"
+    | "maxWidth"
   > {
   /**
    * Unique key for the column
    */
-  key: 'actions' | string;
+  key: "actions" | string;
   /**
    * Header label for the column
    */
@@ -59,7 +62,11 @@ export interface TableProps<T extends object>
   extends DataComponent<T>,
     PickPartial<
       InfiniteLoaderProps,
-      'isRowLoaded' | 'loadMoreRows' | 'rowCount' | 'threshold' | 'minimumBatchSize'
+      | "isRowLoaded"
+      | "loadMoreRows"
+      | "rowCount"
+      | "threshold"
+      | "minimumBatchSize"
     > {
   /**
    * Optional className for the table container
@@ -105,5 +112,9 @@ export interface TableProps<T extends object>
   /**
    * Function to call when a row is clicked
    */
-  onRowClick?: (props: { rowData: T; index: number; event: React.MouseEvent }) => void;
+  onRowClick?: (props: {
+    rowData: T;
+    index: number;
+    event: React.MouseEvent;
+  }) => void;
 }

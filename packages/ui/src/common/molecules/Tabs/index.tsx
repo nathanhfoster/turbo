@@ -1,19 +1,23 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { TabsProps } from './types';
-import Tab from '../../atoms/Tab';
-import Box from './../../atoms/Box';
-import { combineClassNames } from '@nathanhfoster/utils';
-import { TABS_BASE_STYLES, TABS_VARIANT_STYLES, TABS_COLOR_MAP } from './constants';
+import { useState } from "react";
+import type { TabsProps } from "./types";
+import Tab from "../../atoms/Tab";
+import Box from "./../../atoms/Box";
+import { combineClassNames } from "@nathanhfoster/utils";
+import {
+  TABS_BASE_STYLES,
+  TABS_VARIANT_STYLES,
+  TABS_COLOR_MAP,
+} from "./constants";
 
-const Tabs: React.FC<TabsProps> = ({
+const Tabs = ({
   data,
   activeTab: initialActiveTab,
   onTabChange,
-  className = '',
-  variant = 'default',
-  color = 'primary',
+  className = "",
+  variant = "default",
+  color = "primary",
   fullWidth = false,
 }) => {
   const [activeTab, setActiveTab] = useState(initialActiveTab || data?.[0]?.id);
@@ -24,10 +28,10 @@ const Tabs: React.FC<TabsProps> = ({
   };
 
   const getListItemStyles = (itemId: string) => {
-    if (variant !== 'underline') return fullWidth ? 'flex-1' : 'me-2';
+    if (variant !== "underline") return fullWidth ? "flex-1" : "me-2";
 
-    const baseStyles = fullWidth ? 'flex-1' : 'me-2';
-    const activeStyles = activeTab === itemId ? TABS_COLOR_MAP[color] : '';
+    const baseStyles = fullWidth ? "flex-1" : "me-2";
+    const activeStyles = activeTab === itemId ? TABS_COLOR_MAP[color] : "";
     return combineClassNames(baseStyles, activeStyles);
   };
 
@@ -36,9 +40,12 @@ const Tabs: React.FC<TabsProps> = ({
       <Box
         variant="ul"
         fullWidth={fullWidth}
-        className={combineClassNames(TABS_BASE_STYLES, TABS_VARIANT_STYLES[variant])}
+        className={combineClassNames(
+          TABS_BASE_STYLES,
+          TABS_VARIANT_STYLES[variant],
+        )}
       >
-        {data?.map(item => (
+        {data?.map((item) => (
           <li key={item.id} className={getListItemStyles(item.id)}>
             <Tab
               id={item.id}
@@ -55,10 +62,10 @@ const Tabs: React.FC<TabsProps> = ({
         ))}
       </Box>
       <Box mt="mt-4">
-        {data?.map(item => (
+        {data?.map((item) => (
           <Box
             key={item.id}
-            className={activeTab === item.id ? 'block' : 'hidden'}
+            className={activeTab === item.id ? "block" : "hidden"}
             role="tabpanel"
             aria-labelledby={`${item.id}-tab`}
           >

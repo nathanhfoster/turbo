@@ -67,10 +67,10 @@ const connect = <
       WrappedComponent.displayName || WrappedComponent.name || "Component";
     const displayName = `Connect(${wrappedName})`;
 
-    const ConnectFunction: React.FC<P & { forwardedRef?: React.Ref<any> }> = ({
+    const ConnectFunction = ({
       forwardedRef,
       ...props
-    }) => {
+    }: P & { forwardedRef?: React.Ref<any> }) => {
       const ownPropsRef = useRef<OWNP>(props as OWNP);
 
       // Map state using prepared selectors

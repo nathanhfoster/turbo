@@ -1,15 +1,15 @@
-import withForwardRef from './../../hocs/withForwardRef';
-import { TAILWIND_SIZES } from './../../../constants';
-import { combineClassNames } from '@nathanhfoster/utils';
-import React from 'react';
-import { isString } from '@nathanhfoster/utils';
-import Box from '../Box';
-import type { ComponentColor } from '../types';
-import Typography from '../Typography';
-import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from './constants';
-import { TextAreaProps } from './types';
+import withForwardRef from "./../../hocs/withForwardRef";
+import { TAILWIND_SIZES } from "./../../../constants";
+import { combineClassNames } from "@nathanhfoster/utils";
+import React from "react";
+import { isString } from "@nathanhfoster/utils";
+import Box from "../Box";
+import type { ComponentColor } from "../types";
+import Typography from "../Typography";
+import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from "./constants";
+import { TextAreaProps } from "./types";
 
-const TextArea: React.FC<TextAreaProps> = ({
+const TextArea = ({
   label,
   name,
   placeholder,
@@ -17,7 +17,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   onChange,
   error = false,
   required = false,
-  size = 'md',
+  size = "md",
   className,
   color,
   fullWidth = true,
@@ -25,7 +25,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   rows = 4,
   ...props
 }) => {
-  const colorStyles = COLOR_STYLES[error ? 'error' : (color as ComponentColor)];
+  const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
 
   return (
     <Box fullWidth className="relative">
@@ -48,9 +48,9 @@ const TextArea: React.FC<TextAreaProps> = ({
           colorStyles?.focus,
           colorStyles?.hover,
           TAILWIND_SIZES[size],
-          fullWidth && 'w-full',
-          fullHeight && 'h-full',
-          className
+          fullWidth && "w-full",
+          fullHeight && "h-full",
+          className,
         )}
         required={required}
         {...props}

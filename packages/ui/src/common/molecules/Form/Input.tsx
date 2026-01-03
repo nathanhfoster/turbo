@@ -1,10 +1,10 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import type { FormInputProps } from './types';
+import React from "react";
+import dynamic from "next/dynamic";
+import type { FormInputProps } from "./types";
 
-const Input = dynamic(() => import('../../atoms/Input'));
+const Input = dynamic(() => import("../../atoms/Input"));
 
-const FormInput: React.FC<FormInputProps> = props => {
+const FormInput = (props: FormInputProps) => {
   return <Input {...props} />;
 };
 

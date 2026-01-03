@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
-import React from 'react';
-import type { FormTextAreaProps } from './types';
+import dynamic from "next/dynamic";
+import React from "react";
+import type { FormTextAreaProps } from "./types";
 
-const TextArea = dynamic(() => import('../../atoms/TextArea'));
+const TextArea = dynamic(() => import("../../atoms/TextArea"));
 
-const FormTextArea: React.FC<FormTextAreaProps> = props => {
+const FormTextArea = (props: FormTextAreaProps) => {
   return <TextArea {...props} />;
 };
 

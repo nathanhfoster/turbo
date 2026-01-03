@@ -1,13 +1,20 @@
-import Link from './../../../../atoms/Link';
-import { combineClassNames } from '@nathanhfoster/utils';
-import type { FooterLinkProps } from './types';
+import Link from "./../../../../atoms/Link";
+import { combineClassNames } from "@nathanhfoster/utils";
+import type { FooterLinkProps } from "./types";
 
-const FooterLink: React.FC<FooterLinkProps> = ({ children, className, ...props }) => {
+const FooterLink = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
     <Link
       color="gray"
       underline
-      className={combineClassNames('hover:text-primary transition-colors', className)}
+      className={combineClassNames(
+        "hover:text-primary transition-colors",
+        className,
+      )}
       {...props}
     >
       {children}

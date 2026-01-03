@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import type { Size } from '../types';
+import { ReactNode } from "react";
+import type { Size } from "../types";
 
-export type DrawerPosition = 'left' | 'right' | 'top' | 'bottom';
+export type DrawerPosition = "left" | "right" | "top" | "bottom";
 
 export interface DrawerProps {
   /**

@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import type { DrawerProps } from './types';
-import { combineClassNames } from '@nathanhfoster/utils';
-import Box from '../Box';
+import { useMemo } from "react";
+import type { DrawerProps } from "./types";
+import { combineClassNames } from "@nathanhfoster/utils";
+import Box from "../Box";
 import {
   DRAWER_POSITION_CLASSES,
   DRAWER_TRANSFORM_CLASSES,
   DRAWER_TRANSITION_DELAY,
-} from './constants';
-import { useEffectAfterMount } from '@nathanhfoster/resurrection';
-import Portal from '../Portal';
+} from "./constants";
+import { useEffectAfterMount } from "@nathanhfoster/resurrection";
+import Portal from "../Portal";
 
-const Drawer: React.FC<DrawerProps> = ({
+const Drawer = ({
   className,
   isOpen,
   onClose,
-  position = 'left',
-  width = 'w-80',
-  height = 'h-80',
+  position = "left",
+  width = "w-80",
+  height = "h-80",
   children,
 }) => {
   const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === "Escape") {
       onClose();
     }
   };
@@ -37,13 +37,13 @@ const Drawer: React.FC<DrawerProps> = ({
   // Handle escape key press
   useEffectAfterMount(() => {
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -59,24 +59,30 @@ const Drawer: React.FC<DrawerProps> = ({
   return (
     <Portal unmountDelay={DRAWER_TRANSITION_DELAY}>
       <Box
-        bg={isOpen ? 'bg-black/50 opacity-100' : 'pointer-events-none bg-black/0 opacity-0'}
+        bg={
+          isOpen
+            ? "bg-black/50 opacity-100"
+            : "pointer-events-none bg-black/0 opacity-0"
+        }
         className={combineClassNames(
-          'fixed inset-0 z-51 flex items-center justify-center transition-all duration-400 ease-in-out',
-          !isOpen && 'invisible'
+          "fixed inset-0 z-51 flex items-center justify-center transition-all duration-400 ease-in-out",
+          !isOpen && "invisible",
         )}
         onClick={handleBackdropClick}
       >
         <Box
           variant="aside"
           bg="white"
-          fullHeight={position === 'left' || position === 'right'}
-          fullWidth={position === 'top' || position === 'bottom'}
+          fullHeight={position === "left" || position === "right"}
+          fullWidth={position === "top" || position === "bottom"}
           className={combineClassNames(
-            'fixed shadow-lg transition-transform duration-400 ease-out',
+            "fixed shadow-lg transition-transform duration-400 ease-out",
             DRAWER_POSITION_CLASSES[position],
             sizeClasses[position],
-            isOpen ? 'translate-x-0 translate-y-0' : DRAWER_TRANSFORM_CLASSES[position],
-            className
+            isOpen
+              ? "translate-x-0 translate-y-0"
+              : DRAWER_TRANSFORM_CLASSES[position],
+            className,
           )}
         >
           {children}

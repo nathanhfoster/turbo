@@ -1,4 +1,4 @@
-import type { DataComponent } from '../../../types';
+import type { DataComponent } from "../../../types";
 
 export interface AccordionItem {
   id: string;

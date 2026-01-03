@@ -156,7 +156,7 @@ describe("connect HOC", () => {
 
   it("should support pure component optimization", () => {
     const renderSpy = vi.fn();
-    const PureTestComponent: React.FC<TestComponentProps> = (props) => {
+    const PureTestComponent = (props: TestComponentProps) => {
       renderSpy();
       return <TestComponent {...props} />;
     };
@@ -376,7 +376,7 @@ describe("connect HOC", () => {
 
   it("should connect to multiple stores using mapStateToPropsOptions without infinite rerenders", () => {
     const renderSpy = vi.fn();
-    const PureTestComponent: React.FC<TestComponentProps> = (props) => {
+    const PureTestComponent = (props: TestComponentProps) => {
       renderSpy();
       return <TestComponent {...props} />;
     };

@@ -1,8 +1,8 @@
-import withForwardRef from './../../hocs/withForwardRef';
-import { combineClassNames } from '@nathanhfoster/utils';
-import React, { ComponentType } from 'react';
-import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
-import type { ComponentColor } from '../types';
+import withForwardRef from "./../../hocs/withForwardRef";
+import { combineClassNames } from "@nathanhfoster/utils";
+import React, { ComponentType } from "react";
+import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
+import type { ComponentColor } from "../types";
 import {
   TYPOGRAPHY_COLOR_STYLES,
   TYPOGRAPHY_DISABLED_STYLES,
@@ -10,17 +10,17 @@ import {
   TYPOGRAPHY_VARIANT_STYLES,
   VARIANT_DEFAULT_SIZES,
   VARIANT_DEFAULT_WEIGHTS,
-} from './constants';
-import { TypographyProps } from './types';
+} from "./constants";
+import { TypographyProps } from "./types";
 
-const BaseTypography: React.FC<TypographyProps> = ({
+const BaseTypography = ({
   font,
   href,
-  variant = href ? 'a' : 'span',
+  variant = href ? "a" : "span",
   italic = false,
   size,
-  color = 'inherit',
-  lineHeight = 'leading-normal',
+  color = "inherit",
+  lineHeight = "leading-normal",
   weight,
   truncate = false,
   ellipsis = false,
@@ -36,7 +36,7 @@ const BaseTypography: React.FC<TypographyProps> = ({
   children,
   ...props
 }) => {
-  const defaultSize = VARIANT_DEFAULT_SIZES[variant] ?? 'inherit';
+  const defaultSize = VARIANT_DEFAULT_SIZES[variant] ?? "inherit";
   const sizeClass = size ?? defaultSize;
   const Component = TYPOGRAPHY_VARIANT_MAPPING[variant] as ComponentType<any>;
   const baseStyles = TYPOGRAPHY_VARIANT_STYLES[variant];
@@ -55,18 +55,18 @@ const BaseTypography: React.FC<TypographyProps> = ({
         sizeClass,
         lineHeight && `leading-${lineHeight}`,
         weightStyle && `font-${weightStyle}`,
-        italic && 'italic',
-        truncate && 'truncate',
-        ellipsis && 'ellipsis',
-        whiteSpaceNoWrap && 'whitespace-nowrap',
-        noWrap && 'nowrap',
-        underline && (variant === 'a' ? 'hover:underline' : 'underline'),
-        capitalize && 'capitalize',
-        uppercase && 'uppercase',
-        center && 'text-center',
+        italic && "italic",
+        truncate && "truncate",
+        ellipsis && "ellipsis",
+        whiteSpaceNoWrap && "whitespace-nowrap",
+        noWrap && "nowrap",
+        underline && (variant === "a" ? "hover:underline" : "underline"),
+        capitalize && "capitalize",
+        uppercase && "uppercase",
+        center && "text-center",
         lineClamp && lineClamp,
         disabled && TYPOGRAPHY_DISABLED_STYLES,
-        className
+        className,
       )}
     >
       {children}

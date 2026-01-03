@@ -78,13 +78,13 @@ export interface FontSizeScale {
   base: FontSize;
   lg: FontSize;
   xl: FontSize;
-  '2xl': FontSize;
-  '3xl': FontSize;
-  '4xl': FontSize;
-  '5xl': FontSize;
-  '6xl': FontSize;
-  '7xl': FontSize;
-  '8xl': FontSize;
+  "2xl": FontSize;
+  "3xl": FontSize;
+  "4xl": FontSize;
+  "5xl": FontSize;
+  "6xl": FontSize;
+  "7xl": FontSize;
+  "8xl": FontSize;
   // Custom numeric sizes
   28: FontSize;
   32: FontSize;
@@ -102,7 +102,7 @@ export interface FontFamilySystem {
   staatliches: string[];
   rubik: string[];
   poppins: string[];
-  'dharma-gothic-bold': string[];
+  "dharma-gothic-bold": string[];
 }
 
 /**
@@ -134,8 +134,8 @@ export interface SpacingScale {
   md: string;
   lg: string;
   xl: string;
-  '2xl': string;
-  '3xl': string;
+  "2xl": string;
+  "3xl": string;
   // Custom numeric values
   4.5: string;
   15: string;
@@ -160,8 +160,8 @@ export interface BorderRadiusScale {
   md: string;
   lg: string;
   xl: string;
-  '2xl': string;
-  '3xl': string;
+  "2xl": string;
+  "3xl": string;
   full: string;
   // Custom numeric values
   10: string;
@@ -181,28 +181,28 @@ export interface BoxShadowSystem {
   [key: string]: string;
   rankShadow: string;
   gameCardAnimation: string;
-  'toast-card': string;
-  'search-input': string;
-  'dark-shadow': string;
-  'real-play': string;
+  "toast-card": string;
+  "search-input": string;
+  "dark-shadow": string;
+  "real-play": string;
 }
 
 /**
  * Background Image/Gradient System
  */
 export interface BackgroundImageSystem {
-  'interactive-BG': string;
-  'interactive-BGHover': string;
-  'casino-list': string;
-  'sports-list': string;
+  "interactive-BG": string;
+  "interactive-BGHover": string;
+  "casino-list": string;
+  "sports-list": string;
   modelBgBorderGradient: string;
   modelsYellowGradient: string;
   logoutYellowModelGradient: string;
-  'noise-right': string;
-  'gradient-conic': string;
-  'gradient-live-wins-left': string;
-  'gradient-live-wins-right': string;
-  'gradient-reply-feature': string;
+  "noise-right": string;
+  "gradient-conic": string;
+  "gradient-live-wins-left": string;
+  "gradient-live-wins-right": string;
+  "gradient-reply-feature": string;
 }
 
 /**
@@ -214,9 +214,9 @@ export interface BreakpointSystem {
   md: string;
   lg: string;
   xl: string;
-  '1xl': string;
-  '2xl': string;
-  '3xl': string;
+  "1xl": string;
+  "2xl": string;
+  "3xl": string;
 }
 
 /**
@@ -238,9 +238,9 @@ export interface ZIndexScale {
  * Animation Definitions
  */
 export interface AnimationSystem {
-  'spin-slow': string;
+  "spin-slow": string;
   fadeIn: string;
-  'marquee-on-overflow': string;
+  "marquee-on-overflow": string;
 }
 
 /**
@@ -264,8 +264,8 @@ export interface KeyframeSystem {
  * Aspect Ratio System
  */
 export interface AspectRatioSystem {
-  '4/3': string;
-  '3/4': string;
+  "4/3": string;
+  "3/4": string;
 }
 
 /**

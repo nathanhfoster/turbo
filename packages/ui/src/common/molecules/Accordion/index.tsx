@@ -1,18 +1,22 @@
-'use client';
+"use client";
 
-import Box from '../../atoms/Box';
-import Typography from '../../atoms/Typography';
-import React, { useState } from 'react';
-import type { AccordionProps } from './types';
+import Box from "../../atoms/Box";
+import Typography from "../../atoms/Typography";
+import React, { useState } from "react";
+import type { AccordionProps } from "./types";
 
-const Accordion: React.FC<AccordionProps> = ({ data = [], allowMultiple = false, className }) => {
+const Accordion = ({
+  data = [],
+  allowMultiple = false,
+  className,
+}) => {
   const [openItems, setOpenItems] = useState<Set<string>>(
-    new Set(data.filter(item => item.defaultOpen).map(item => item.id))
+    new Set(data.filter((item) => item.defaultOpen).map((item) => item.id)),
   );
 
   const handleToggle = (itemId: string) => {
     if (allowMultiple) {
-      setOpenItems(prev => {
+      setOpenItems((prev) => {
         const newSet = new Set(prev);
         if (newSet.has(itemId)) {
           newSet.delete(itemId);
@@ -22,13 +26,15 @@ const Accordion: React.FC<AccordionProps> = ({ data = [], allowMultiple = false,
         return newSet;
       });
     } else {
-      setOpenItems(prev => (prev.has(itemId) ? new Set() : new Set([itemId])));
+      setOpenItems((prev) =>
+        prev.has(itemId) ? new Set() : new Set([itemId]),
+      );
     }
   };
 
   return (
     <Box className={className}>
-      {data.map(item => (
+      {data.map((item) => (
         <Box
           key={item.id}
           variant="details"
@@ -42,7 +48,7 @@ const Accordion: React.FC<AccordionProps> = ({ data = [], allowMultiple = false,
             className="cursor-pointer list-none bg-gray-50 px-6 py-4 font-medium text-gray-800 transition-colors duration-200 hover:bg-gray-100"
             justify="justify-between"
             items="items-center"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               handleToggle(item.id);
             }}
@@ -50,7 +56,7 @@ const Accordion: React.FC<AccordionProps> = ({ data = [], allowMultiple = false,
             <Typography>{item.title}</Typography>
             <span
               className={`transform transition-transform duration-200 ${
-                openItems.has(item.id) ? 'rotate-180' : ''
+                openItems.has(item.id) ? "rotate-180" : ""
               }`}
             >
               ▼
@@ -61,8 +67,8 @@ const Accordion: React.FC<AccordionProps> = ({ data = [], allowMultiple = false,
             py="py-4"
             className={`transition-all duration-300 ${
               openItems.has(item.id)
-                ? 'max-h-none opacity-100'
-                : 'max-h-0 overflow-hidden py-0 opacity-0'
+                ? "max-h-none opacity-100"
+                : "max-h-0 overflow-hidden py-0 opacity-0"
             }`}
           >
             {item.content}

@@ -1,3 +1,5 @@
+"use client";
+
 import "./index.css";
 export * from "./common";
 // Re-export from resurrection instead of local duplicates

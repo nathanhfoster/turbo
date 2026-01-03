@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
-import type { DataComponent, ComposableComponent } from '../../../types';
-import type { TabVariant } from '../../atoms/Tab/types';
-import type { ComponentColor } from '../../atoms/types';
+import type { ReactNode } from "react";
+import type { DataComponent, ComposableComponent } from "../../../types";
+import type { TabVariant } from "../../atoms/Tab/types";
+import type { ComponentColor } from "../../atoms/types";
 
 export interface TabItem {
   id: string;

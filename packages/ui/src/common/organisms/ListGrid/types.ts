@@ -1,13 +1,17 @@
-import type { CSSProperties } from 'react';
-import type { GridCellProps, InfiniteLoaderProps } from 'react-virtualized';
-import type { DataComponent } from '../../../types';
-import type { PickPartial } from '@nathanhfoster/utils';
+import type { CSSProperties } from "react";
+import type { GridCellProps, InfiniteLoaderProps } from "react-virtualized";
+import type { DataComponent } from "../../../types";
+import type { PickPartial } from "@nathanhfoster/utils";
 
 export interface ListGridProps<T extends object>
   extends DataComponent<T>,
     PickPartial<
       InfiniteLoaderProps,
-      'isRowLoaded' | 'loadMoreRows' | 'rowCount' | 'threshold' | 'minimumBatchSize'
+      | "isRowLoaded"
+      | "loadMoreRows"
+      | "rowCount"
+      | "threshold"
+      | "minimumBatchSize"
     > {
   /** Optional className to apply to the root element */
   className?: string;

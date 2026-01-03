@@ -1,8 +1,8 @@
-import { combineClassNames } from '@nathanhfoster/utils';
-import NextImage from 'next/image';
-import type { ImageProps } from './types';
+import { combineClassNames } from "@nathanhfoster/utils";
+import NextImage from "next/image";
+import type { ImageProps } from "./types";
 
-const Image: React.FC<ImageProps> = ({
+const Image = ({
   className,
   responsive = false,
   fullHeight,
@@ -10,7 +10,7 @@ const Image: React.FC<ImageProps> = ({
   quality = 100,
   belowTheFold = false,
   priority = !belowTheFold,
-  loading = belowTheFold ? 'lazy' : priority ? 'eager' : undefined,
+  loading = belowTheFold ? "lazy" : priority ? "eager" : undefined,
   size,
   width = size,
   height = size,
@@ -21,13 +21,13 @@ const Image: React.FC<ImageProps> = ({
 }) => {
   const wrapperClass = combineClassNames(
     className,
-    fullWidth && 'w-full',
-    fullHeight && 'h-full',
-    responsive && 'aspect-[16/9]',
-    responsive && 'relative'
+    fullWidth && "w-full",
+    fullHeight && "h-full",
+    responsive && "aspect-[16/9]",
+    responsive && "relative",
   );
 
-  const imageClass = combineClassNames(responsive && 'object-cover');
+  const imageClass = combineClassNames(responsive && "object-cover");
 
   return (
     <div className={wrapperClass}>

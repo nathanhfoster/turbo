@@ -1,22 +1,25 @@
-'use client';
+"use client";
 
-import React, { useCallback, useRef } from 'react';
-import AutoSizerComponent from '../../molecules/AutoSizer';
+import React, { useCallback, useRef } from "react";
+import AutoSizerComponent from "../../molecules/AutoSizer";
 import {
   InfiniteLoader,
   Grid as VirtualizedGrid,
   Size,
   SectionRenderedParams,
   GridCellProps,
-} from 'react-virtualized';
-import { ListGridProps } from './types';
-import Box from '../../atoms/Box';
-import Skeleton from '../../atoms/Skeleton';
-import { useLayoutEffectAfterMount, useThrottledCallback } from '@nathanhfoster/resurrection';
-import { THROTTLE_TIME } from './constants';
+} from "react-virtualized";
+import { ListGridProps } from "./types";
+import Box from "../../atoms/Box";
+import Skeleton from "../../atoms/Skeleton";
+import {
+  useLayoutEffectAfterMount,
+  useThrottledCallback,
+} from "@nathanhfoster/resurrection";
+import { THROTTLE_TIME } from "./constants";
 
 const ListGrid = <T extends object>({
-  className = 'h-screen',
+  className = "h-screen",
   style,
   data = [],
   renderItem,
@@ -34,7 +37,11 @@ const ListGrid = <T extends object>({
   const gridRef = useRef<VirtualizedGrid>(null);
   const [currentWidth, setCurrentWidth] = React.useState(0);
 
-  const throttledSetCurrentWidth = useThrottledCallback(setCurrentWidth, [], THROTTLE_TIME);
+  const throttledSetCurrentWidth = useThrottledCallback(
+    setCurrentWidth,
+    [],
+    THROTTLE_TIME,
+  );
 
   // Force grid recalculation when key props change
   useLayoutEffectAfterMount(() => {
@@ -58,7 +65,7 @@ const ListGrid = <T extends object>({
           style={{
             ...style,
             padding: gap / 2,
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
           }}
         >
           {isLoaded && data[idx] ? (
@@ -69,7 +76,7 @@ const ListGrid = <T extends object>({
         </Box>
       );
     },
-    [columns, data, gap, isRowLoaded, renderItem, rowCount]
+    [columns, data, gap, isRowLoaded, renderItem, rowCount],
   );
 
   return (
@@ -88,7 +95,8 @@ const ListGrid = <T extends object>({
           // Use the minimum between requested columns and what can fit
           const colCount = Math.max(1, Math.min(columns, maxCols));
           // Calculate actual column width to fill the space
-          const columnWidth = (availableWidth - (colCount - 1) * gap) / colCount;
+          const columnWidth =
+            (availableWidth - (colCount - 1) * gap) / colCount;
           const gridRows = Math.ceil(rowCount / colCount);
 
           return (
@@ -100,7 +108,7 @@ const ListGrid = <T extends object>({
             >
               {({ onRowsRendered, registerChild }) => (
                 <VirtualizedGrid
-                  ref={ref => {
+                  ref={(ref) => {
                     registerChild(ref);
                     gridRef.current = ref;
                   }}
@@ -110,7 +118,8 @@ const ListGrid = <T extends object>({
                     columnStartIndex,
                     columnStopIndex,
                   }: SectionRenderedParams) => {
-                    const startIndex = rowStartIndex * colCount + columnStartIndex;
+                    const startIndex =
+                      rowStartIndex * colCount + columnStartIndex;
                     const stopIndex = rowStopIndex * colCount + columnStopIndex;
                     onRowsRendered({ startIndex, stopIndex });
                   }}

@@ -1,11 +1,11 @@
-import withBaseTheme from '../../hocs/withBaseTheme';
-import withForwardRef from '../../hocs/withForwardRef';
-import { TAILWIND_SIZES } from '../../../constants';
-import { combineClassNames } from '@nathanhfoster/utils';
-import React from 'react';
-import withBaseTailwindProps from '../../hocs/withBaseTailwindProps';
-import type { ComponentColor, ComponentVariant, Size } from '../types';
-import type { TypographySizeProp } from '../Typography/types';
+import withBaseTheme from "../../hocs/withBaseTheme";
+import withForwardRef from "../../hocs/withForwardRef";
+import { TAILWIND_SIZES } from "../../../constants";
+import { combineClassNames } from "@nathanhfoster/utils";
+import React from "react";
+import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
+import type { ComponentColor, ComponentVariant, Size } from "../types";
+import type { TypographySizeProp } from "../Typography/types";
 import {
   BASE_STYLES,
   BUTTON_VARIANT_MAPPING,
@@ -13,21 +13,21 @@ import {
   DISABLED_BG_STYLES,
   DISABLED_COMMON_STYLES,
   VARIANT_STYLES,
-} from './constants';
-import { AnchorProps, FinalButtonProps } from './types';
+} from "./constants";
+import { AnchorProps, FinalButtonProps } from "./types";
 
-const BaseButton: React.FC<FinalButtonProps> = ({
-  type = 'button',
-  variant = 'contained',
-  color = 'inherit',
-  size = 'md',
+const BaseButton = ({
+  type = "button",
+  variant = "contained",
+  color = "inherit",
+  size = "md",
   children,
   disabled = false,
   isActive = false,
   href,
-  className = '',
+  className = "",
   ...props
-}) => {
+}: FinalButtonProps) => {
   const variantStyles = VARIANT_STYLES[variant as ComponentVariant];
   const colorStyles = COLOR_STYLES[color as ComponentColor];
   const sizeStyles = TAILWIND_SIZES[size as Size];
@@ -37,21 +37,21 @@ const BaseButton: React.FC<FinalButtonProps> = ({
     BASE_STYLES,
     variantStyles,
     !disabled &&
-      variant === 'contained' &&
-      combineClassNames(colorStyles.bg, 'text-white', 'hover:brightness-92'),
+      variant === "contained" &&
+      combineClassNames(colorStyles.bg, "text-white", "hover:brightness-92"),
     !disabled &&
-      variant === 'outlined' &&
+      variant === "outlined" &&
       combineClassNames(
         colorStyles.border,
         colorStyles.text,
         colorStyles.hover,
-        isActive && colorStyles.bg
+        isActive && colorStyles.bg,
       ),
-    variant === 'text' && (isActive ? colorStyles.active : colorStyles.hover),
+    variant === "text" && (isActive ? colorStyles.active : colorStyles.hover),
     sizeStyles,
     disabled && DISABLED_COMMON_STYLES,
-    disabled && variant !== 'text' && DISABLED_BG_STYLES,
-    className
+    disabled && variant !== "text" && DISABLED_BG_STYLES,
+    className,
   );
 
   if (isAnchor) {
@@ -67,15 +67,14 @@ const BaseButton: React.FC<FinalButtonProps> = ({
     return <LinkComponent {...linkProps}>{children}</LinkComponent>;
   }
 
-  const ButtonComponent = BUTTON_VARIANT_MAPPING.button;
-  const buttonProps = {
+  const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
     type,
     disabled,
     className: combinedClassName,
     ...(props as React.ButtonHTMLAttributes<HTMLButtonElement>),
   };
-  return <ButtonComponent {...buttonProps}>{children}</ButtonComponent>;
+  return <button {...buttonProps}>{children}</button>;
 };
 
-
+// @ts-expect-error - HOC type is incompatible with Next.js 15's stricter typing
 export default withForwardRef(withBaseTheme(withBaseTailwindProps(BaseButton)));

@@ -135,7 +135,7 @@ importers:
         specifier: ^22.0.0
         version: 22.15.3
       '@types/react':
-        specifier: ^19.0.0
+        specifier: 19.1.0
         version: 19.1.0
       '@types/react-dom':
         specifier: ^19.0.0
@@ -343,7 +343,7 @@ importers:
         specifier: ^4.1.13
         version: 4.1.13
       '@types/react':
-        specifier: ^19.0.0
+        specifier: 19.1.0
         version: 19.1.0
       '@types/react-dom':
         specifier: ^19.0.0

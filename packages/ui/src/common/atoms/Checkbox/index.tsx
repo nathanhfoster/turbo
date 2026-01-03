@@ -1,7 +1,7 @@
-import Typography from '../Typography';
-import { CheckboxProps } from './types';
+import Typography from "../Typography";
+import { CheckboxProps } from "./types";
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, ...props }) => {
+const Checkbox = ({ label, ...props }: CheckboxProps) => {
   if (!label) {
     return <input type="checkbox" {...props} />;
   }
