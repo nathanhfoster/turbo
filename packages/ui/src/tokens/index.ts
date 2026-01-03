@@ -27,7 +27,6 @@ export const COLOR_TOKENS = {
   success: "success",
   warning: "warning",
   info: "info",
-  neutral: "neutral-500",
   inherit: "inherit",
   // Utility colors
   white: "white",

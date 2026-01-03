@@ -53,6 +53,14 @@ export function getBorderColor(color: ComponentColor): string {
 }
 
 /**
+ * Generate hover border color class
+ */
+export function getHoverBorderColor(color: ComponentColor): string {
+  const token = COLOR_TOKENS[color];
+  return token === "inherit" ? "hover:border-inherit" : `hover:border-${token}`;
+}
+
+/**
  * Generate hover background color class
  */
 export function getHoverBgColor(color: ComponentColor): string {
