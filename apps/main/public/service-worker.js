@@ -8,7 +8,7 @@ const OFFLINE_URL = "/offline.html";
 const PRECACHE_ASSETS = [
   "/",
   "/offline.html",
-  "/manifest.json",
+  "/manifest.webmanifest",
   "/icons/android/android-launchericon-192-192.png",
   "/icons/android/android-launchericon-512-512.png",
 ];

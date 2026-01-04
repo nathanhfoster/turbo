@@ -39,12 +39,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@nathanhfoster/cookies": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/utils": "workspace:*",
-    "immer": "^10.1.3",
     "react-virtualized": "^9.22.5",
-    "tailwindcss": "^4.1.13",
-    "use-context-selector": "^2.0.0"
+    "tailwindcss": "^4.1.13"
   },
   "peerDependencies": {
     "react": "^19.0.0",

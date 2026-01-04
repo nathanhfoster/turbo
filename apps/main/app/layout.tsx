@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import { InstallPromptProvider } from "@nathanhfoster/pwa";
-import { ThemeProvider, ThemeToggle, Box } from "@nathanhfoster/ui";
+import { ThemeProvider, Box } from "@nathanhfoster/ui";
 import { InstallButton } from "./components/InstallButton";
+import { SettingsMenu } from "./components/SettingsMenu";
 import "./globals.css";
 
 const APP_NAME = "AgentNate - Portfolio & Consultancy";
@@ -52,40 +54,40 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read theme from cookie on server side
+  const cookieStore = await cookies();
+  // Note: Using string literal instead of constant due to Next.js issue
+  const themeCookie = cookieStore.get("theme");
+
+  let initialTheme: "light" | "dark" = "light";
+  if (themeCookie?.value) {
+    try {
+      const parsed = JSON.parse(themeCookie.value);
+      if (parsed === "dark" || parsed === "light") {
+        initialTheme = parsed;
+      }
+    } catch (e) {
+      // If parsing fails, use default
+    }
+  }
+
   return (
-    <html lang="en" className="light" suppressHydrationWarning>
+    <html lang="en" className={initialTheme} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icons/ios/180.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('theme') || 
-                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                  document.documentElement.classList.remove('light', 'dark');
-                  document.documentElement.classList.add(theme);
-                } catch (e) {
-                  // Fallback if localStorage is not available
-                  document.documentElement.classList.add('light');
-                }
-              })();
-            `,
-          }}
-        />
       </head>
       <body>
-        <ThemeProvider>
+        <ThemeProvider initialTheme={initialTheme}>
           <InstallPromptProvider>
             <Box className="fixed top-4 right-4 z-50 flex flex-row gap-2 items-center">
               <InstallButton />
-              <ThemeToggle />
+              <SettingsMenu />
             </Box>
             {children}
           </InstallPromptProvider>

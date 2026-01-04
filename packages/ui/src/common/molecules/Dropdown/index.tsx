@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { createContext, useContext } from "@nathanhfoster/resurrection";
 import { combineClassNames } from "@nathanhfoster/utils";
-import Box from "../../atoms/Box";
 import type {
   DropdownProps,
   DropdownTriggerProps,
@@ -11,6 +11,10 @@ import type {
   DropdownLabelProps,
   DropdownDividerProps,
 } from "./types";
+
+const DropdownContext = createContext<{
+  close: () => void;
+}>({ close: () => {} });
 
 const Dropdown = ({
   tone = "solid",
@@ -21,6 +25,8 @@ const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const close = () => setIsOpen(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -49,25 +55,28 @@ const Dropdown = ({
   );
 
   return (
-    <Box
-      ref={containerRef as any}
-      className={combineClassNames("relative", className)}
-      {...props}
-    >
-      <Box onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
-        {triggerChildren}
-      </Box>
-      {isOpen && (
-        <Box
-          ref={dropdownRef as any}
-          className={combineClassNames(
-            "absolute z-50 mt-2 min-w-[12rem] bg-white rounded-md shadow-lg border border-gray-200 py-1",
-          )}
-        >
-          {contentChildren}
-        </Box>
-      )}
-    </Box>
+    <DropdownContext.Provider value={{ close }}>
+      <div
+        ref={containerRef}
+        className={combineClassNames("relative", className)}
+        {...props}
+      >
+        <div onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
+          {triggerChildren}
+        </div>
+        {isOpen && (
+          <div
+            ref={dropdownRef}
+            className={combineClassNames(
+              "absolute right-0 z-50 mt-2 min-w-[12rem] bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 py-1",
+            )}
+            style={{ top: "100%" }}
+          >
+            {contentChildren}
+          </div>
+        )}
+      </div>
+    </DropdownContext.Provider>
   );
 };
 
@@ -77,9 +86,9 @@ const DropdownTrigger = ({
   ...props
 }: DropdownTriggerProps) => {
   return (
-    <Box className={combineClassNames(className)} {...props}>
+    <div className={combineClassNames(className)} {...props}>
       {children}
-    </Box>
+    </div>
   );
 };
 
@@ -89,9 +98,9 @@ const DropdownContent = ({
   ...props
 }: DropdownContentProps) => {
   return (
-    <Box className={combineClassNames(className)} {...props}>
+    <div className={combineClassNames(className)} {...props}>
       {children}
-    </Box>
+    </div>
   );
 };
 
@@ -101,17 +110,26 @@ const DropdownItem = ({
   onClick,
   ...props
 }: DropdownItemProps) => {
+  const { close } = useContext(DropdownContext);
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+    close();
+  };
+
   return (
-    <Box
+    <div
       className={combineClassNames(
-        "px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer",
+        "px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer",
         className,
       )}
-      onClick={onClick}
+      onClick={handleClick}
       {...props}
     >
       {children}
-    </Box>
+    </div>
   );
 };
 
@@ -121,22 +139,25 @@ const DropdownLabel = ({
   ...props
 }: DropdownLabelProps) => {
   return (
-    <Box
+    <div
       className={combineClassNames(
-        "px-4 py-2 text-xs font-semibold text-gray-500 uppercase",
+        "px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase",
         className,
       )}
       {...props}
     >
       {children}
-    </Box>
+    </div>
   );
 };
 
 const DropdownDivider = ({ className, ...props }: DropdownDividerProps) => {
   return (
-    <Box
-      className={combineClassNames("border-t border-gray-200 my-1", className)}
+    <div
+      className={combineClassNames(
+        "border-t border-gray-200 dark:border-gray-700 my-1",
+        className,
+      )}
       {...props}
     />
   );
