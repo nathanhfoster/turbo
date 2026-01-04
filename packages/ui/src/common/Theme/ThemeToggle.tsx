@@ -3,10 +3,9 @@
 import { useTheme } from "./ThemeProvider";
 import { Button } from "../atoms";
 import { IconSun, IconMoon } from "../../icons";
-import type { ComponentProps } from "react";
+import type { ButtonProps } from "../atoms/Button/types";
 
-export interface ThemeToggleProps
-  extends Omit<ComponentProps<typeof Button>, "onClick" | "children"> {
+export interface ThemeToggleProps extends Omit<ButtonProps, "onClick" | "children" | "href"> {
   showLabel?: boolean;
   lightLabel?: string;
   darkLabel?: string;

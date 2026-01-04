@@ -1,5 +1,5 @@
-import { IDatabase } from '../interfaces/IDatabase'
-import { DatabaseConfig, ObjectStoreConfig, DatabaseError } from '../types'
+import { IDatabase } from '../interfaces/IDatabase.js'
+import { DatabaseConfig, ObjectStoreConfig, DatabaseError } from '../types/index.js'
 
 /**
  * IndexedDatabase implementation following Single Responsibility Principle

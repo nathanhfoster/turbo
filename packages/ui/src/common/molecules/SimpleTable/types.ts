@@ -35,17 +35,19 @@ export interface BaseTableProps extends BaseTailwindProps {
 	children?: ReactNode;
 }
 
-export interface TableProps extends BaseTableProps, HTMLAttributes<HTMLTableElement> {}
+export interface TableProps
+	extends Omit<BaseTableProps, "align" | "onClick">,
+		HTMLAttributes<HTMLTableElement> {}
 
 export interface TableRowProps
 	extends HTMLAttributes<HTMLTableRowElement>,
-		BaseTailwindProps {
+		Omit<BaseTailwindProps, "align" | "onClick"> {
 	children?: ReactNode;
 }
 
 export interface TableCellProps
 	extends HTMLAttributes<HTMLTableCellElement>,
-		BaseTailwindProps {
+		Omit<BaseTailwindProps, "align" | "onClick"> {
 	children?: ReactNode;
 	/**
 	 * Text alignment

@@ -39,3 +39,4 @@ const ButtonGroup = ({
 };
 
 export default withForwardRef(withBaseTheme(ButtonGroup));
+export type { ButtonGroupProps } from "./types";

@@ -17,9 +17,7 @@ export interface FormControlProps extends BaseTailwindProps {
 	className?: string;
 }
 
-export interface FormControlInputProps
-	extends React.InputHTMLAttributes<HTMLInputElement>,
-		BaseTailwindProps {
+export interface FormControlInputProps {
 	/**
 	 * Left icon element
 	 */
@@ -36,5 +34,9 @@ export interface FormControlInputProps
 	 * Additional className
 	 */
 	className?: string;
+	/**
+	 * Standard HTML input attributes
+	 */
+	[key: string]: any;
 }
 

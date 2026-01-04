@@ -1,8 +1,7 @@
-import { GetServerSidePropsContext, NextPageContext } from 'next/types'
+import type { GetServerSidePropsContext, NextPageContext } from 'next'
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
-import Nookies from 'nookies'
-import { ICookieManager } from '../interfaces/ICookieManager'
-import { CookieManagerConstructorArgs, CookieOptions } from '../types'
+import { ICookieManager } from '../interfaces/ICookieManager.js'
+import { CookieManagerConstructorArgs, CookieOptions } from '../types/index.js'
 
 /**
  * CookieManager implementation following Single Responsibility Principle
@@ -22,7 +21,7 @@ export class CookieManager<T> implements ICookieManager<T> {
 	getCookies(): Record<string, string> {
 		if (this.context) {
 			// Server-side
-			return Nookies.get(this.context)
+			return parseCookies(this.context)
 		} else {
 			// Client-side
 			return parseCookies()

@@ -52,7 +52,7 @@ const Dropdown = ({
 
 	return (
 		<Box
-			ref={containerRef}
+			ref={containerRef as any}
 			className={combineClassNames("relative", className)}
 			{...props}
 		>
@@ -64,7 +64,7 @@ const Dropdown = ({
 			</Box>
 			{isOpen && (
 				<Box
-					ref={dropdownRef}
+					ref={dropdownRef as any}
 					className={combineClassNames(
 						"absolute z-50 mt-2 min-w-[12rem] bg-white rounded-md shadow-lg border border-gray-200 py-1",
 					)}

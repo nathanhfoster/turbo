@@ -55,8 +55,8 @@ const FormControlInput = ({
 			)}
 			<Input
 				className={combineClassNames(
-					leftIcon && "pl-10",
-					rightIcon && "pr-10",
+					leftIcon ? "pl-10" : "",
+					rightIcon ? "pr-10" : "",
 					toneClasses,
 					className,
 				)}

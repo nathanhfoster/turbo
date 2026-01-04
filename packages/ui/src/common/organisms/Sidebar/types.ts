@@ -71,7 +71,7 @@ export interface SidebarNavSectionItemProps
 	href?: string;
 	active?: boolean;
 	as?: "button" | "a";
-	onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
+	onClick?: MouseEventHandler<HTMLElement>;
 	children?: ReactNode;
 	className?: string;
 }

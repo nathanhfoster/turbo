@@ -1,4 +1,4 @@
-import { CookieOptions } from '../types'
+import { CookieOptions } from '../types/index.js'
 
 /**
  * Cookie Manager interface following Dependency Inversion Principle

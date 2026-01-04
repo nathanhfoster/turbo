@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPageContext } from 'next/types'
+import type { GetServerSidePropsContext, NextPageContext } from 'next'
 
 export interface CookieOptions {
 	path?: string

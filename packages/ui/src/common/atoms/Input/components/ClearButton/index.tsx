@@ -15,11 +15,15 @@ const ClearButton = ({ onChange, size = "md", value }: ClearButtonProps) => {
     }
   };
 
+  const positionClass = size in CLEAR_BUTTON_POSITIONS
+    ? CLEAR_BUTTON_POSITIONS[size as keyof typeof CLEAR_BUTTON_POSITIONS]
+    : CLEAR_BUTTON_POSITIONS.md;
+
   return (
     <button
       type="button"
       onClick={handleClear}
-      className={`absolute right-2 flex h-4 w-4 items-center justify-center text-gray-400 hover:text-gray-600 focus:outline-none ${CLEAR_BUTTON_POSITIONS[size]} ${!value ? "invisible" : ""}`}
+      className={`absolute right-2 flex h-4 w-4 items-center justify-center text-gray-400 hover:text-gray-600 focus:outline-none ${positionClass} ${!value ? "invisible" : ""}`}
       aria-label="Clear input"
     >
       <XMarkIcon className="h-4 w-4" />

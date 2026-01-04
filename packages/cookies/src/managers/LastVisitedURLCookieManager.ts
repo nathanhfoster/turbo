@@ -1,5 +1,5 @@
-import { GetServerSidePropsContext, NextPageContext } from 'next/types'
-import { CookieManager } from '../implementations/CookieManager'
+import type { GetServerSidePropsContext, NextPageContext } from 'next'
+import { CookieManager } from '../implementations/CookieManager.js'
 
 /**
  * LastVisitedURLCookieManager following Open/Closed Principle

@@ -2,7 +2,7 @@ import withForwardRef from "./../../hocs/withForwardRef";
 import { TAILWIND_SIZES } from "./../../../constants";
 import { combineClassNames, isString } from "@nathanhfoster/utils";
 import Box from "../Box";
-import type { ComponentColor } from "../types";
+import type { ComponentColor, Size } from "../types";
 import Typography from "../Typography";
 import { BASE_STYLES, COLOR_STYLES, ERROR_STYLES } from "./constants";
 import type { TextAreaProps } from "./types";
@@ -25,9 +25,10 @@ const TextArea = ({
 }: TextAreaProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
   // Use size directly if provided, otherwise fallback to lookup for backward compatibility
-  const sizeStyles = typeof size === "string" && size.includes(" ") 
-    ? size 
-    : TAILWIND_SIZES[(size as Size) || "md"];
+  const sizeKey = (size as Size) || "md";
+  const sizeStyles = typeof size === "string" && size.includes(" ")
+    ? size
+    : (sizeKey in TAILWIND_SIZES ? TAILWIND_SIZES[sizeKey as keyof typeof TAILWIND_SIZES] : TAILWIND_SIZES.md);
 
   return (
     <Box fullWidth className="relative">

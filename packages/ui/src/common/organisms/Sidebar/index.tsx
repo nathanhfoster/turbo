@@ -187,23 +187,23 @@ const SidebarNavSectionItem = ({
 			: "a";
 	const isLink = as === "a" && href && !hasChildren;
 
-	return (
-		<Component
-			href={isLink ? href : undefined}
-			onClick={onClick}
-			className={combineClassNames(
+	return React.createElement(
+		Component,
+		{
+			...(isLink ? { href } : {}),
+			onClick,
+			className: combineClassNames(
 				"flex items-center px-2 py-2 rounded-md transition-colors",
 				active
 					? "bg-blue-100 text-blue-700"
 					: "text-gray-700 hover:bg-gray-100",
 				className,
-			)}
-			{...props}
-		>
-			{icon && <span className="mr-2">{icon}</span>}
-			{label && <span>{label}</span>}
-			{children}
-		</Component>
+			),
+			...props,
+		} as any,
+		icon && <span className="mr-2">{icon}</span>,
+		label && <span>{label}</span>,
+		children,
 	);
 };
 
@@ -222,20 +222,7 @@ const SidebarFooter = ({ className, children, ...props }: SidebarFooterProps) =>
 };
 
 // Assign sub-components with proper typing
-const SidebarWithSubComponents = Sidebar as typeof Sidebar & {
-	Head: typeof SidebarHead & {
-		Logo: typeof SidebarHeadLogo;
-		Title: typeof SidebarHeadTitle;
-		Toggle: typeof SidebarHeadToggle;
-	};
-	Nav: typeof SidebarNav & {
-		Section: typeof SidebarNavSection & {
-			Title: typeof SidebarNavSectionTitle;
-			Item: typeof SidebarNavSectionItem;
-		};
-	};
-	Footer: typeof SidebarFooter;
-};
+const SidebarWithSubComponents = Sidebar as any;
 
 SidebarWithSubComponents.Head = SidebarHead;
 SidebarWithSubComponents.Head.Logo = SidebarHeadLogo;

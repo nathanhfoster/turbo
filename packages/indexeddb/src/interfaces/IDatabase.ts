@@ -1,4 +1,4 @@
-import { DatabaseConfig, ObjectStoreConfig, DatabaseError } from '../types'
+import { DatabaseConfig, ObjectStoreConfig, DatabaseError } from '../types/index.js'
 
 /**
  * Database interface following Dependency Inversion Principle

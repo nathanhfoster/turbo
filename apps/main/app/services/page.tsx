@@ -165,8 +165,10 @@ export default function ServicesPage() {
               className="hover:shadow-lg transition-all border-2 border-primary/20 hover:border-primary group"
             >
               <Box className="mb-4 flex items-center gap-3">
-                <Box className="rounded-lg bg-primary/10 p-2 group-hover:bg-primary transition-colors">
-                  <IconComponent className="h-6 w-6 text-primary group-hover:text-black transition-colors" />
+                <Box className="rounded-lg bg-primary/10 p-2 group-hover:bg-primary transition-colors flex items-center justify-center">
+                  <Box className="h-6 w-6 text-primary group-hover:text-black transition-colors">
+                    <IconComponent />
+                  </Box>
                 </Box>
                 <Typography
                   variant="h3"

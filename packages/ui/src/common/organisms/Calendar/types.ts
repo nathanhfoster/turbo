@@ -4,7 +4,7 @@ export type CalendarSize = "sm" | "md" | "lg" | "xl";
 export type CalendarRadius = "none" | "sm" | "md" | "lg" | "xl" | "full";
 export type CalendarShadow = "none" | "sm" | "md" | "lg" | "xl" | "2xl";
 
-export interface CalendarProps extends BaseTailwindProps {
+export interface CalendarProps extends Omit<BaseTailwindProps, "shadow"> {
 	/**
 	 * Whether to show borders
 	 * @default true

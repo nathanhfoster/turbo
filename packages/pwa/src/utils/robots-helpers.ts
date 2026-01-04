@@ -20,18 +20,33 @@ export interface RobotsConfig {
  * Create a Next.js robots route handler
  */
 export function createRobots(config: RobotsConfig): MetadataRoute.Robots {
+	const defaultRules: MetadataRoute.Robots["rules"] = [
+		{
+			userAgent: "*",
+			allow: "/",
+			disallow: ["/api/", "/private/"],
+		},
+	];
+
+	// Filter and ensure all rules have a userAgent (required by MetadataRoute.Robots)
+	const rules: MetadataRoute.Robots["rules"] =
+		config.rules
+			?.filter((rule): rule is typeof rule & { userAgent: string | string[] } =>
+				rule.userAgent !== undefined
+			)
+			.map((rule) => ({
+				userAgent: rule.userAgent,
+				...(rule.allow && { allow: rule.allow }),
+				...(rule.disallow && { disallow: rule.disallow }),
+				...(rule.crawlDelay !== undefined && { crawlDelay: rule.crawlDelay }),
+			})) || defaultRules;
+
 	return {
-		rules: config.rules || [
-			{
-				userAgent: "*",
-				allow: "/",
-				disallow: ["/api/", "/private/"],
-			},
-		],
+		rules,
 		...(config.sitemap && {
 			sitemap: Array.isArray(config.sitemap) ? config.sitemap : [config.sitemap],
 		}),
-	}
+	};
 }
 
 

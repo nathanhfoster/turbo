@@ -43,7 +43,7 @@ const InputGroupButton = ({
 		<Button
 			variant={tone === "transparent" ? "text" : "outlined"}
 			className={combineClassNames(toneClasses, className)}
-			onClick={onClick}
+			onClick={onClick as any}
 			{...props}
 		>
 			{children}

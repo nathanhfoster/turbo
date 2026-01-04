@@ -1,5 +1,5 @@
-import { IndexedDatabase } from '../implementations/IndexedDatabase'
-import { DatabaseConfig, ObjectStoreConfig } from '../types'
+import { IndexedDatabase } from '../implementations/IndexedDatabase.js'
+import { DatabaseConfig, ObjectStoreConfig } from '../types/index.js'
 
 /**
  * Factory function to create and initialize a database with object stores
@@ -42,7 +42,7 @@ export async function createDatabase(
 
 					// Create indexes if provided
 					if (storeConfig.indexes) {
-						storeConfig.indexes.forEach((index) => {
+						storeConfig.indexes.forEach((index: { name: string; keyPath: string | string[]; unique?: boolean }) => {
 							objectStore.createIndex(index.name, index.keyPath, {
 								unique: index.unique || false,
 							})

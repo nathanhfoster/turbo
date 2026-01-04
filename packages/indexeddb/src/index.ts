@@ -1,14 +1,14 @@
 // Interfaces
-export * from './interfaces/IDatabase'
-export * from './interfaces/IRepository'
+export * from './interfaces/IDatabase.js'
+export * from './interfaces/IRepository.js'
 
 // Implementations
-export { IndexedDatabase } from './implementations/IndexedDatabase'
-export { BaseRepository } from './repositories/BaseRepository'
+export { IndexedDatabase } from './implementations/IndexedDatabase.js'
+export { BaseRepository } from './repositories/BaseRepository.js'
 
 // Factories
-export { createDatabase } from './factories/createDatabase'
+export { createDatabase } from './factories/createDatabase.js'
 
 // Types
-export * from './types'
+export * from './types/index.js'
 

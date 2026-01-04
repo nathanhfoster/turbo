@@ -37,7 +37,7 @@ const Box = forwardRef<HTMLElement, BoxProps>(
       ? typeof container === "string" && container.includes(" ")
         ? container
         : typeof container === "string"
-        ? CONTAINER_STYLES[container as Size] || container
+        ? (container in CONTAINER_STYLES ? CONTAINER_STYLES[container as keyof typeof CONTAINER_STYLES] : container)
         : DEFAULT_CONTAINER_STYLE
       : "";
 

@@ -1,5 +1,5 @@
-import { IDatabase } from '../interfaces/IDatabase'
-import { IRepository } from '../interfaces/IRepository'
+import { IDatabase } from '../interfaces/IDatabase.js'
+import { IRepository } from '../interfaces/IRepository.js'
 
 /**
  * Base repository implementation following Open/Closed Principle

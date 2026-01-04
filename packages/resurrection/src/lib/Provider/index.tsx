@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from "react";
+import { useMemo, type ReactNode, type JSX } from "react";
 import { isFunction } from "../utils";
 import useReducerWithThunk from "../hooks/useReducerWithThunk";
 import setStateReducer from "../reducers/setStateReducer";
@@ -63,4 +63,4 @@ export default Provider as <
   I extends Record<string, any> = S,
 >(
   props: ProviderProps<S, I>,
-) => ReactNode;
+) => JSX.Element;

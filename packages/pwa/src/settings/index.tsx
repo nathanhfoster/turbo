@@ -16,31 +16,26 @@ import type {
 // Dynamic imports for code splitting using Next.js dynamic
 // Next.js resolves .tsx files without extensions, but TypeScript requires them
 const InstallApp = dynamic<InstallAppProps>(
-  // @ts-expect-error - Next.js handles module resolution at build time
   () => import("./components/InstallApp").then((mod) => mod.InstallApp),
   { ssr: false }
 );
 
 const Notifications = dynamic<NotificationsProps>(
-  // @ts-expect-error - Next.js handles module resolution at build time
   () => import("./components/Notifications").then((mod) => mod.Notifications),
   { ssr: false }
 );
 
 const Permissions = dynamic<PermissionsProps>(
-  // @ts-expect-error - Next.js handles module resolution at build time
   () => import("./components/Permissions").then((mod) => mod.Permissions),
   { ssr: false }
 );
 
 const ServiceWorker = dynamic<ServiceWorkerProps>(
-  // @ts-expect-error - Next.js handles module resolution at build time
   () => import("./components/ServiceWorker").then((mod) => mod.ServiceWorker),
   { ssr: false }
 );
 
 const Storage = dynamic<StorageProps>(
-  // @ts-expect-error - Next.js handles module resolution at build time
   () => import("./components/Storage").then((mod) => mod.Storage),
   { ssr: false }
 );

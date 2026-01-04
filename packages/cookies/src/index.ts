@@ -1,13 +1,13 @@
 // Interfaces
-export * from './interfaces/ICookieManager'
+export * from './interfaces/ICookieManager.js'
 
 // Implementations
-export { CookieManager } from './implementations/CookieManager'
+export { CookieManager } from './implementations/CookieManager.js'
 
 // Managers
-export { LastVisitedURLCookieManager } from './managers/LastVisitedURLCookieManager'
+export { LastVisitedURLCookieManager } from './managers/LastVisitedURLCookieManager.js'
 
 // Types
-export * from './types'
+export * from './types/index.js'
 
 

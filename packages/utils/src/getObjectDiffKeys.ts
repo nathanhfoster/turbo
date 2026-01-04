@@ -4,7 +4,7 @@ const getObjectDiffKeys = (
 	originalObject: Record<string, any>,
 	updatedObject: Record<string, any>,
 ): string[] => {
-	const diff = pickBy(updatedObject, (v, k) => !isEqual(originalObject[k], v))
+	const diff = pickBy(updatedObject, (v: any, k: string) => !isEqual(originalObject[k], v))
 
 	let keys = Object.keys(diff)
 
