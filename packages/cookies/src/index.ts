@@ -9,3 +9,6 @@ export { LastVisitedURLCookieManager } from "./managers/LastVisitedURLCookieMana
 
 // Types
 export * from "./types/index.js";
+
+// Utility functions (client-safe)
+export * from "./utils.js";

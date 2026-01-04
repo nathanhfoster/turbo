@@ -16,7 +16,17 @@
     },
     "test": {
       "dependsOn": ["^build"],
+      "outputs": ["coverage/**", "test-results/**", "playwright-report/**"]
+    },
+    "test:unit": {
+      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
+    },
+    "test:e2e": {
+      "dependsOn": ["^build"],
+      "outputs": ["test-results/**", "playwright-report/**"],
+      "cache": false,
+      "env": ["PLAYWRIGHT_TEST_BASE_URL"]
     },
     "dev": {
       "cache": false,

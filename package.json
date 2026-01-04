@@ -8,7 +8,9 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:e2e": "turbo run test:e2e"
   },
   "dependencies": {
     "autoprefixer": "^10.4.21",

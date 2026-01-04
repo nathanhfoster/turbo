@@ -57,7 +57,7 @@ const Drawer = ({
   }, [width, height]);
 
   return (
-    <Portal unmountDelay={DRAWER_TRANSITION_DELAY}>
+    <Portal isOpen={isOpen} unmountDelay={DRAWER_TRANSITION_DELAY}>
       <Box
         bg={
           isOpen
@@ -65,14 +65,14 @@ const Drawer = ({
             : "pointer-events-none bg-black/0 opacity-0"
         }
         className={combineClassNames(
-          "fixed inset-0 z-51 flex items-center justify-center transition-all duration-400 ease-in-out",
+          "fixed inset-0 z-[60] flex items-center justify-center transition-all duration-400 ease-in-out",
           !isOpen && "invisible",
         )}
         onClick={handleBackdropClick}
       >
         <Box
           variant="aside"
-          bg="white"
+          bg="white dark:bg-gray-900"
           fullHeight={position === "left" || position === "right"}
           fullWidth={position === "top" || position === "bottom"}
           className={combineClassNames(

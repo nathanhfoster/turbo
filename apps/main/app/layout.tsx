@@ -1,9 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { InstallPromptProvider } from "@nathanhfoster/pwa";
-import { ThemeProvider, Box } from "@nathanhfoster/ui";
-import { InstallButton } from "./components/InstallButton";
-import { SettingsMenu } from "./components/SettingsMenu";
+import {
+  DeviceContextProvider,
+  KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
+  KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
+  KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
+  KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES,
+  KEY_COOKIE_HAS_SCROLLED,
+} from "@nathanhfoster/pwa/device";
+import { CookieManager } from "@nathanhfoster/cookies";
+import { ThemeProvider } from "@nathanhfoster/ui";
+import { Navbar } from "./components/Navbar";
 import "./globals.css";
 
 const APP_NAME = "AgentNate - Portfolio & Consultancy";
@@ -59,22 +67,24 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Read theme from cookie on server side
-  const cookieStore = await cookies();
-  // Note: Using string literal instead of constant due to Next.js issue
-  const themeCookie = cookieStore.get("theme");
+  // Get cookies using individual CookieManager instances
+  const themeCookieManager = new CookieManager<"light" | "dark">({ name: "theme" });
+  const initialTheme = themeCookieManager.getObject() || "light";
 
-  let initialTheme: "light" | "dark" = "light";
-  if (themeCookie?.value) {
-    try {
-      const parsed = JSON.parse(themeCookie.value);
-      if (parsed === "dark" || parsed === "light") {
-        initialTheme = parsed;
-      }
-    } catch (e) {
-      // If parsing fails, use default
-    }
-  }
+  const hasScrolledManager = new CookieManager<boolean>({ name: KEY_COOKIE_HAS_SCROLLED });
+  const hasScrolled = hasScrolledManager.getObject() === true;
+
+  const userAgent = (await headers()).get("user-agent") || "";
+
+  const necessaryManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_NECESSARY });
+  const analyticsManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS });
+  const marketingManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_MARKETING });
+  const preferencesManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES });
+
+  const necessary = necessaryManager.getObject() !== false;
+  const analytics = analyticsManager.getObject() !== false;
+  const marketing = marketingManager.getObject() !== false;
+  const preferences = preferencesManager.getObject() !== false;
 
   return (
     <html lang="en" className={initialTheme} suppressHydrationWarning>
@@ -82,14 +92,24 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icons/ios/180.png" />
       </head>
-      <body>
+      <body id="portal-root">
         <ThemeProvider initialTheme={initialTheme}>
           <InstallPromptProvider>
-            <Box className="fixed top-4 right-4 z-50 flex flex-row gap-2 items-center">
-              <InstallButton />
-              <SettingsMenu />
-            </Box>
-            {children}
+            <DeviceContextProvider
+              initialState={{
+                userAgent,
+                hasScrolled,
+                cookieSettings: {
+                  necessary,
+                  analytics,
+                  marketing,
+                  preferences,
+                },
+              }}
+            >
+              <Navbar />
+              <main className="pt-16 pb-16 md:pb-0">{children}</main>
+            </DeviceContextProvider>
           </InstallPromptProvider>
         </ThemeProvider>
       </body>

@@ -49,6 +49,10 @@
     "./settings/page": {
       "types": "./src/settings/page.tsx",
       "default": "./src/settings/page.tsx"
+    },
+    "./device": {
+      "types": "./src/providers/DeviceContextProvider/index.tsx",
+      "default": "./src/providers/DeviceContextProvider/index.tsx"
     }
   },
   "scripts": {
@@ -56,6 +60,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@nathanhfoster/cookies": "workspace:*",
+    "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/ui": "workspace:*"
   },
   "peerDependencies": {

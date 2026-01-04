@@ -8,7 +8,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "npx playwright test",
+    "test:unit": "echo 'No unit tests configured yet'",
+    "test:e2e": "npx playwright test",
+    "test:e2e:ui": "npx playwright test --ui",
+    "test:e2e:headed": "npx playwright test --headed",
+    "test:e2e:debug": "npx playwright test --debug",
+    "test:e2e:install": "npx playwright install --with-deps chromium"
   },
   "dependencies": {
     "next": "16.1.1",
@@ -17,12 +24,14 @@
     "next-mdx-remote": "^5.0.0",
     "gray-matter": "^4.0.3",
     "web-push": "^3.6.7",
-    "@nathanhfoster/ui": "workspace:*",
+    "@nathanhfoster/cookies": "workspace:*",
     "@nathanhfoster/pwa": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
+    "@nathanhfoster/ui": "workspace:*",
     "@nathanhfoster/utils": "workspace:*"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "@types/node": "22.10.5",
     "@types/react": "19.2.3",
     "@types/react-dom": "19.2.3",

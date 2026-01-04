@@ -18,7 +18,8 @@
     "build": "tsc --noEmit",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "test:unit": "jest"
   },
   "dependencies": {
     "@nathanhfoster/utils": "workspace:*",
