@@ -49,4 +49,3 @@ export function Storage({
     </Card>
   );
 }
-

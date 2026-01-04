@@ -19,10 +19,10 @@
 
 ```css
 /* Import base design tokens */
-@import '@nathanhfoster/ui/index.css';
+@import "@nathanhfoster/ui/index.css";
 
 /* Import Tailwind */
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Optional: Override tokens for this app */
 @theme {
@@ -34,7 +34,7 @@
 ### 2. Use Components
 
 ```tsx
-import { Button, Input, Card } from '@nathanhfoster/ui';
+import { Button, Input, Card } from "@nathanhfoster/ui";
 
 function MyApp() {
   return (
@@ -108,11 +108,11 @@ Then extend token system (optional):
 
 ```typescript
 // In your app
-import { COLOR_TOKENS } from '@nathanhfoster/ui/tokens';
+import { COLOR_TOKENS } from "@nathanhfoster/ui/tokens";
 
 const APP_COLOR_TOKENS = {
   ...COLOR_TOKENS,
-  brand: 'brand',
+  brand: "brand",
 };
 ```
 
@@ -122,15 +122,15 @@ Create a wrapper component in your app:
 
 ```tsx
 // apps/your-app/components/Button.tsx
-import { Button as BaseButton } from '@nathanhfoster/ui';
-import type { ComponentProps } from 'react';
+import { Button as BaseButton } from "@nathanhfoster/ui";
+import type { ComponentProps } from "react";
 
 export function Button(props: ComponentProps<typeof BaseButton>) {
   return (
     <BaseButton
-      variant="outlined"  // Your app's default
-      color="primary"     // Your app's default
-      {...props}          // Allow overrides
+      variant="outlined" // Your app's default
+      color="primary" // Your app's default
+      {...props} // Allow overrides
     />
   );
 }
@@ -169,33 +169,43 @@ Or use Tailwind's `dark:` variant:
 ### Colors
 
 ```typescript
-"primary"    // --color-primary
-"secondary"  // --color-secondary
-"accent"     // --color-accent
-"error"      // --color-error
-"success"    // --color-success
-"warning"    // --color-warning
-"info"       // --color-info
-"white"      // white
-"black"      // black
-"gray"       // neutral-500
-"inherit"    // inherit
+"primary"; // --color-primary
+"secondary"; // --color-secondary
+"accent"; // --color-accent
+"error"; // --color-error
+"success"; // --color-success
+"warning"; // --color-warning
+"info"; // --color-info
+"white"; // white
+"black"; // black
+"gray"; // neutral-500
+"inherit"; // inherit
 ```
 
 ### Sizes
 
 ```typescript
-"xs"  | "sm"  | "md"  | "lg"  | "xl"  |
-"2xl" | "3xl" | "4xl" | "5xl" | "6xl" |
-"7xl" | "8xl" | "9xl"
+"xs" |
+  "sm" |
+  "md" |
+  "lg" |
+  "xl" |
+  "2xl" |
+  "3xl" |
+  "4xl" |
+  "5xl" |
+  "6xl" |
+  "7xl" |
+  "8xl" |
+  "9xl";
 ```
 
 ### Variants
 
 ```typescript
-"contained"  // Filled background
-"outlined"   // Border with transparent background
-"text"       // No border or background
+"contained"; // Filled background
+"outlined"; // Border with transparent background
+"text"; // No border or background
 ```
 
 ## Component Props
@@ -204,8 +214,8 @@ All components share common props:
 
 ```typescript
 interface CommonProps {
-  color?: ComponentColor;     // "primary" | "secondary" | ...
-  size?: Size;                // "xs" | "sm" | "md" | ...
+  color?: ComponentColor; // "primary" | "secondary" | ...
+  size?: Size; // "xs" | "sm" | "md" | ...
   variant?: ComponentVariant; // "contained" | "outlined" | "text"
   disabled?: boolean;
   className?: string;
@@ -216,8 +226,8 @@ interface CommonProps {
 
 ```tsx
 <Button
-  type="button"        // button | submit | reset
-  href="/path"         // Renders as <a> if provided
+  type="button" // button | submit | reset
+  href="/path" // Renders as <a> if provided
   isActive={false}
 >
   Label
@@ -228,7 +238,7 @@ interface CommonProps {
 
 ```tsx
 <Input
-  type="text"          // text | email | password | ...
+  type="text" // text | email | password | ...
   placeholder="..."
   error="Error message"
   label="Field Label"
@@ -239,8 +249,8 @@ interface CommonProps {
 
 ```tsx
 <Card
-  variant="elevated"   // default | elevated | flat | bordered
-  hover={true}         // Enable hover effect
+  variant="elevated" // default | elevated | flat | bordered
+  hover={true} // Enable hover effect
 >
   Content
 </Card>
@@ -306,12 +316,12 @@ const MyComponent = ({ color = "primary", size = "md" }) => {
 
 ```css
 /* ❌ Wrong import order */
-@import 'tailwindcss';
-@import '@nathanhfoster/ui/index.css';
+@import "tailwindcss";
+@import "@nathanhfoster/ui/index.css";
 
 /* ✅ Correct import order */
-@import '@nathanhfoster/ui/index.css';
-@import 'tailwindcss';
+@import "@nathanhfoster/ui/index.css";
+@import "tailwindcss";
 
 @theme {
   /* Your overrides */
@@ -324,10 +334,10 @@ const MyComponent = ({ color = "primary", size = "md" }) => {
 
 ```typescript
 // ❌ Wrong
-import type { ColorStyles } from './types';
+import type { ColorStyles } from "./types";
 
 // ✅ Correct
-import type { ColorStyles } from '@nathanhfoster/ui/tokens/styleUtils';
+import type { ColorStyles } from "@nathanhfoster/ui/tokens/styleUtils";
 ```
 
 ### Token Not Updating

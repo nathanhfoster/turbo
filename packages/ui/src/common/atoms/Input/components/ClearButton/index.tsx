@@ -15,9 +15,10 @@ const ClearButton = ({ onChange, size = "md", value }: ClearButtonProps) => {
     }
   };
 
-  const positionClass = size in CLEAR_BUTTON_POSITIONS
-    ? CLEAR_BUTTON_POSITIONS[size as keyof typeof CLEAR_BUTTON_POSITIONS]
-    : CLEAR_BUTTON_POSITIONS.md;
+  const positionClass =
+    size in CLEAR_BUTTON_POSITIONS
+      ? CLEAR_BUTTON_POSITIONS[size as keyof typeof CLEAR_BUTTON_POSITIONS]
+      : CLEAR_BUTTON_POSITIONS.md;
 
   return (
     <button

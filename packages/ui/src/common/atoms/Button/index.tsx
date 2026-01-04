@@ -32,9 +32,10 @@ const BaseButton = ({
   const variantStyles = VARIANT_STYLES[variant as ComponentVariant];
   const colorStyles = COLOR_STYLES[color as ComponentColor];
   // Use size directly if provided, otherwise fallback to lookup for backward compatibility
-  const sizeStyles = typeof size === "string" && size.includes(" ") 
-    ? size 
-    : TAILWIND_SIZES[(size as Size) || "md"];
+  const sizeStyles =
+    typeof size === "string" && size.includes(" ")
+      ? size
+      : TAILWIND_SIZES[(size as Size) || "md"];
   const isAnchor = !!href;
 
   const combinedClassName = combineClassNames(

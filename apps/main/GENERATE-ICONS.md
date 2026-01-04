@@ -3,9 +3,11 @@
 ## Using RealFaviconGenerator.net
 
 ### Step 1: Visit the Website
+
 Go to: **https://realfavicongenerator.net/**
 
 ### Step 2: Upload Your Logo
+
 1. Click "Select your Favicon image"
 2. Upload your logo file (PNG, SVG, or JPG)
 3. Minimum size: 260x260px (recommended: 512x512px or higher)
@@ -13,11 +15,13 @@ Go to: **https://realfavicongenerator.net/**
 ### Step 3: Configure Platform-Specific Settings
 
 #### **iOS Web App Settings**
+
 - **Background color**: `#FFE500` (your brand yellow)
 - **Margin**: 10% (recommended for breathing room)
 - **Dedicated picture**: Use the same logo or create iOS-specific version
 
 #### **Android Chrome Settings**
+
 - **Theme color**: `#FFE500`
 - **App name**: `AgentNate`
 - **Manifest name**: `AgentNate - Portfolio & Consultancy`
@@ -25,10 +29,12 @@ Go to: **https://realfavicongenerator.net/**
 - **Margin**: 10%
 
 #### **Windows Metro Settings** (Optional)
+
 - **Background color**: `#FFE500`
 - **Tile color**: Match your theme
 
 #### **macOS Safari Settings** (Optional)
+
 - **Theme color**: `#FFE500`
 - **Pinned tab color**: `#000000` (black) or `#2d3748` (dark gray)
 
@@ -102,23 +108,23 @@ If you want to add PWA screenshots (shown in app stores):
 
 If you already have generated icons in a different format, create this mapping:
 
-| Generated File | Copy To |
-|----------------|---------|
-| `android-chrome-48x48.png` | `/icons/android/android-launchericon-48-48.png` |
-| `android-chrome-72x72.png` | `/icons/android/android-launchericon-72-72.png` |
-| `android-chrome-96x96.png` | `/icons/android/android-launchericon-96-96.png` |
-| `android-chrome-144x144.png` | `/icons/android/android-launchericon-144-144.png` |
-| `android-chrome-192x192.png` | `/icons/android/android-launchericon-192-192.png` |
-| `android-chrome-512x512.png` | `/icons/android/android-launchericon-512-512.png` |
-| `apple-touch-icon-57x57.png` | `/icons/ios/57.png` |
-| `apple-touch-icon-60x60.png` | `/icons/ios/60.png` |
-| `apple-touch-icon-72x72.png` | `/icons/ios/72.png` |
-| `apple-touch-icon-76x76.png` | `/icons/ios/76.png` |
-| `apple-touch-icon-114x114.png` | `/icons/ios/114.png` |
-| `apple-touch-icon-120x120.png` | `/icons/ios/120.png` |
-| `apple-touch-icon-144x144.png` | `/icons/ios/144.png` |
-| `apple-touch-icon-152x152.png` | `/icons/ios/152.png` |
-| `apple-touch-icon-180x180.png` | `/icons/ios/180.png` |
+| Generated File                 | Copy To                                           |
+| ------------------------------ | ------------------------------------------------- |
+| `android-chrome-48x48.png`     | `/icons/android/android-launchericon-48-48.png`   |
+| `android-chrome-72x72.png`     | `/icons/android/android-launchericon-72-72.png`   |
+| `android-chrome-96x96.png`     | `/icons/android/android-launchericon-96-96.png`   |
+| `android-chrome-144x144.png`   | `/icons/android/android-launchericon-144-144.png` |
+| `android-chrome-192x192.png`   | `/icons/android/android-launchericon-192-192.png` |
+| `android-chrome-512x512.png`   | `/icons/android/android-launchericon-512-512.png` |
+| `apple-touch-icon-57x57.png`   | `/icons/ios/57.png`                               |
+| `apple-touch-icon-60x60.png`   | `/icons/ios/60.png`                               |
+| `apple-touch-icon-72x72.png`   | `/icons/ios/72.png`                               |
+| `apple-touch-icon-76x76.png`   | `/icons/ios/76.png`                               |
+| `apple-touch-icon-114x114.png` | `/icons/ios/114.png`                              |
+| `apple-touch-icon-120x120.png` | `/icons/ios/120.png`                              |
+| `apple-touch-icon-144x144.png` | `/icons/ios/144.png`                              |
+| `apple-touch-icon-152x152.png` | `/icons/ios/152.png`                              |
+| `apple-touch-icon-180x180.png` | `/icons/ios/180.png`                              |
 
 ## Brand Colors Reference
 

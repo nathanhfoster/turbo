@@ -5,7 +5,14 @@ const BASE_URL = "https://agentnate.dev";
 const MAX_URLS_PER_SITEMAP = 50000; // Google's limit
 
 // Static routes
-const STATIC_ROUTES = ["", "/newsletter", "/portfolio", "/services", "/settings", "/sitemap-view"];
+const STATIC_ROUTES = [
+  "",
+  "/newsletter",
+  "/portfolio",
+  "/services",
+  "/settings",
+  "/sitemap-view",
+];
 
 /**
  * Generate sitemap IDs based on total number of URLs
@@ -22,9 +29,9 @@ export async function generateSitemaps() {
 /**
  * Generate individual sitemap based on ID
  */
-export default async function sitemap(
-  props: { id: Promise<string> },
-): Promise<MetadataRoute.Sitemap> {
+export default async function sitemap(props: {
+  id: Promise<string>;
+}): Promise<MetadataRoute.Sitemap> {
   const id = await props.id;
   const sitemapIndex = parseInt(id, 10);
 
@@ -61,7 +68,8 @@ export default async function sitemap(
   // Calculate the correct start index accounting for static routes in sitemap 0
   const staticRoutesCount = STATIC_ROUTES.length;
   const startIndex = sitemapIndex * MAX_URLS_PER_SITEMAP - staticRoutesCount;
-  const endIndex = (sitemapIndex + 1) * MAX_URLS_PER_SITEMAP - staticRoutesCount;
+  const endIndex =
+    (sitemapIndex + 1) * MAX_URLS_PER_SITEMAP - staticRoutesCount;
   const newsletterPostsForSitemap = posts.slice(startIndex, endIndex);
   const newsletterPosts = newsletterPostsForSitemap.map((post) => ({
     url: `${BASE_URL}/newsletter/${post.slug}`,

@@ -23,7 +23,9 @@ const Switch = ({ label, name, required, disabled, ...props }: SwitchProps) => {
         <div
           className={combineClassNames(
             "peer h-6 w-11 rounded-full bg-neutral-200 after:absolute after:top-0 after:left-0 after:h-6 after:w-6 after:rounded-full after:border after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-neutral-800",
-            disabled ? "peer-checked:bg-neutral-300" : "peer-checked:bg-primary",
+            disabled
+              ? "peer-checked:bg-neutral-300"
+              : "peer-checked:bg-primary",
           )}
         ></div>
       </Typography>

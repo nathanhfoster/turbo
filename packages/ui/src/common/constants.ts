@@ -50,4 +50,3 @@ export const THEME_TRANSITION = {
   timing: TRANSITION_TIMING.easeInOut,
   property: "color, background-color, border-color",
 } as const;
-

@@ -1095,6 +1095,7 @@ When optimizing application performance:
 ### Explicit Exports for TypeScript Resolution
 
 **Problem:** TypeScript's module resolution can fail with deep `export *` chains, especially when:
+
 - Multiple levels of re-exports (`index.ts` → `lib/index.ts` → `hooks/index.ts`)
 - Default exports are re-exported as named exports
 - Package.json has `"development"` condition pointing to source while types point to dist

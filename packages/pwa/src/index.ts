@@ -20,7 +20,10 @@
  */
 
 // Providers
-export { InstallPromptProvider, useInstallPrompt } from "./providers/InstallPromptProvider";
+export {
+  InstallPromptProvider,
+  useInstallPrompt,
+} from "./providers/InstallPromptProvider";
 
 // Hooks
 export {

@@ -4,7 +4,7 @@ import { Settings } from "./index";
 
 /**
  * Next.js page component for PWA settings
- * 
+ *
  * @example
  * ```tsx
  * // In app/settings/page.tsx
@@ -14,4 +14,3 @@ import { Settings } from "./index";
 export default function SettingsPage() {
   return <Settings />;
 }
-

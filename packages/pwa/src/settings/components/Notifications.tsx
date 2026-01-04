@@ -14,7 +14,8 @@ export function Notifications({
   renderButton,
 }: NotificationsProps) {
   const { pushNotification } = useInstallPrompt();
-  const { permission, requestPermission, unsubscribeFromPush } = pushNotification;
+  const { permission, requestPermission, unsubscribeFromPush } =
+    pushNotification;
 
   const handlePermissionRequest = async () => {
     await handleNotificationPermissionRequest(permission, requestPermission);
@@ -66,4 +67,3 @@ export function Notifications({
     </Card>
   );
 }
-

@@ -13,9 +13,7 @@ export interface MeterProps extends HTMLAttributes<HTMLDivElement> {
   min?: number;
   showValue?: boolean;
   thresholds?: Threshold[];
-  label?:
-    | ReactNode
-    | ((percentage: number, threshold: Threshold) => ReactNode);
+  label?: ReactNode | ((percentage: number, threshold: Threshold) => ReactNode);
   height?: string | number;
   width?: string | number;
 }

@@ -5,7 +5,11 @@ import Typography from "../../atoms/Typography";
 import { useState } from "react";
 import type { AccordionProps } from "./types";
 
-const Accordion = ({ data = [], allowMultiple = false, className }: AccordionProps) => {
+const Accordion = ({
+  data = [],
+  allowMultiple = false,
+  className,
+}: AccordionProps) => {
   const [openItems, setOpenItems] = useState<Set<string>>(
     new Set(data.filter((item) => item.defaultOpen).map((item) => item.id)),
   );

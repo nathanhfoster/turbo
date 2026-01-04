@@ -2,8 +2,7 @@ import { Box, Card, Typography } from "@nathanhfoster/ui";
 
 export const metadata = {
   title: "Portfolio",
-  description:
-    "Showcase of projects, case studies, and applications",
+  description: "Showcase of projects, case studies, and applications",
 };
 
 export default function PortfolioPage() {
@@ -63,4 +62,3 @@ export default function PortfolioPage() {
     </Box>
   );
 }
-

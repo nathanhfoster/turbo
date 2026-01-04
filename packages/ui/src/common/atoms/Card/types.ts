@@ -4,7 +4,7 @@ import type { LinkProps } from "../Link/types";
 
 export type CardVariant = "default" | "elevated" | "flat" | "bordered";
 
-export type CardPaddingProp = 
+export type CardPaddingProp =
   | `p-${Size}`
   | `p-${Size} sm:p-${Size}`
   | `p-${Size} sm:p-${Size} md:p-${Size}`
@@ -18,7 +18,8 @@ export type CardPaddingProp =
   | string
   | false;
 
-export interface BaseCardProps extends Omit<BaseBoxProps, "variant" | "padding"> {
+export interface BaseCardProps
+  extends Omit<BaseBoxProps, "variant" | "padding"> {
   /**
    * Card content
    */
@@ -54,7 +55,9 @@ export interface BaseCardProps extends Omit<BaseBoxProps, "variant" | "padding">
   onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-export interface CardWithHrefProps extends BaseCardProps, Omit<LinkProps, "children"> {
+export interface CardWithHrefProps
+  extends BaseCardProps,
+    Omit<LinkProps, "children"> {
   /**
    * URL to navigate to when card is clicked
    * When provided, card renders as a link

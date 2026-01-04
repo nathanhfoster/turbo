@@ -13,8 +13,7 @@ import {
 
 export const metadata = {
   title: "Services",
-  description:
-    "Consultancy services for web applications and architecture",
+  description: "Consultancy services for web applications and architecture",
 };
 
 const services = [
@@ -146,11 +145,12 @@ export default function ServicesPage() {
           variant="p"
           className="mx-auto max-w-3xl text-lg text-gray-700 dark:text-gray-300"
         >
-          A visionary software engineer on the vanguard of AI-powered web development, 
-          with nearly a decade of experience architecting high-performance, scalable platforms. 
-          Expert in React, Next.js, TypeScript, monorepo architectures, and AI-enhanced development 
-          workflows. Principal Front-End Engineer with proven track record building platforms 
-          handling 50M+ monthly users.
+          A visionary software engineer on the vanguard of AI-powered web
+          development, with nearly a decade of experience architecting
+          high-performance, scalable platforms. Expert in React, Next.js,
+          TypeScript, monorepo architectures, and AI-enhanced development
+          workflows. Principal Front-End Engineer with proven track record
+          building platforms handling 50M+ monthly users.
         </Typography>
       </Box>
 
@@ -220,10 +220,7 @@ export default function ServicesPage() {
           development, architecture guidance, or team training, I'm here to
           help.
         </Typography>
-        <Typography
-          variant="p"
-          className="text-gray-600 dark:text-gray-400"
-        >
+        <Typography variant="p" className="text-gray-600 dark:text-gray-400">
           Contact me to discuss your project requirements and how we can work
           together.
         </Typography>
@@ -231,4 +228,3 @@ export default function ServicesPage() {
     </Box>
   );
 }
-

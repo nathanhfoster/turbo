@@ -200,7 +200,7 @@ const className = combineClassNames(
   BASE_STYLES,
   colorStyles.bg,
   colorStyles.text,
-  colorStyles.hover
+  colorStyles.hover,
 );
 ```
 
@@ -223,8 +223,8 @@ In your app's `globals.css`:
 
 ```css
 /* Import UI library tokens first */
-@import '@nathanhfoster/ui/index.css';
-@import 'tailwindcss';
+@import "@nathanhfoster/ui/index.css";
+@import "tailwindcss";
 
 /* Override specific tokens */
 @theme {
@@ -287,6 +287,7 @@ export const COLOR_STYLES = generateInputColorStylesMapping();
 ```
 
 **Benefits:**
+
 - ✅ 90% less code
 - ✅ Centralized logic
 - ✅ Consistent across components
@@ -296,11 +297,13 @@ export const COLOR_STYLES = generateInputColorStylesMapping();
 ### Step-by-Step Migration
 
 1. **Import utilities:**
+
    ```typescript
    import { generateColorStylesMapping } from "../../../tokens/styleUtils";
    ```
 
 2. **Replace hardcoded styles:**
+
    ```typescript
    // Before
    export const COLOR_STYLES: Record<ComponentColor, ColorStyles> = {
@@ -313,6 +316,7 @@ export const COLOR_STYLES = generateInputColorStylesMapping();
    ```
 
 3. **Update type imports:**
+
    ```typescript
    // Before
    import type { ColorStyles } from "./types";
@@ -366,6 +370,7 @@ apps/
 ```
 
 Each app can:
+
 - ✅ Override any token independently
 - ✅ Use all UI components
 - ✅ Maintain consistent component APIs
@@ -374,23 +379,25 @@ Each app can:
 ### Example: App-Specific Theming
 
 **apps/main/app/globals.css:**
+
 ```css
-@import '@nathanhfoster/ui/index.css';
-@import 'tailwindcss';
+@import "@nathanhfoster/ui/index.css";
+@import "tailwindcss";
 
 @theme {
-  --color-primary: #3b82f6;  /* Blue theme */
+  --color-primary: #3b82f6; /* Blue theme */
   --color-secondary: #8b5cf6;
 }
 ```
 
 **apps/casino/app/globals.css:**
+
 ```css
-@import '@nathanhfoster/ui/index.css';
-@import 'tailwindcss';
+@import "@nathanhfoster/ui/index.css";
+@import "tailwindcss";
 
 @theme {
-  --color-primary: #f59e0b;  /* Gold theme */
+  --color-primary: #f59e0b; /* Gold theme */
   --color-secondary: #ef4444;
 }
 ```
@@ -405,10 +412,10 @@ Components should expose sensible defaults via props:
 
 ```typescript
 interface ButtonProps {
-  variant?: "contained" | "outlined" | "text";  // Default: "contained"
-  color?: ComponentColor;                        // Default: "primary"
-  size?: Size;                                   // Default: "md"
-  disabled?: boolean;                            // Default: false
+  variant?: "contained" | "outlined" | "text"; // Default: "contained"
+  color?: ComponentColor; // Default: "primary"
+  size?: Size; // Default: "md"
+  disabled?: boolean; // Default: false
 }
 ```
 
@@ -514,10 +521,11 @@ export const AllVariants: Story = {
 **Problem:** Changed token in globals.css but component doesn't update
 
 **Solution:** Ensure import order is correct:
+
 ```css
 /* Correct order */
-@import '@nathanhfoster/ui/index.css';  /* Base tokens */
-@import 'tailwindcss';                  /* Tailwind */
+@import "@nathanhfoster/ui/index.css"; /* Base tokens */
+@import "tailwindcss"; /* Tailwind */
 
 @theme {
   /* Your overrides */
@@ -529,6 +537,7 @@ export const AllVariants: Story = {
 **Problem:** Custom style not applying to component
 
 **Solution:** Check if you're using token utilities:
+
 ```typescript
 // ❌ Wrong - Hardcoded
 const styles = "bg-blue-500";
@@ -543,6 +552,7 @@ const styles = getBgColor("primary");
 **Problem:** TypeScript errors about missing ColorStyles type
 
 **Solution:** Import from centralized location:
+
 ```typescript
 // ❌ Wrong
 import type { ColorStyles } from "./types";

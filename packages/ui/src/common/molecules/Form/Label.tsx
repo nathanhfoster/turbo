@@ -4,7 +4,12 @@ import type { FormLabelProps } from "./types";
 
 const Typography = dynamic(() => import("../../atoms/Typography"));
 
-const Label = ({ mb = "mb-1", className = "", children, ...props }: FormLabelProps) => {
+const Label = ({
+  mb = "mb-1",
+  className = "",
+  children,
+  ...props
+}: FormLabelProps) => {
   return (
     <Typography
       variant="p"

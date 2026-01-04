@@ -27,9 +27,10 @@ const Input = ({
 }: InputProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
   // Use size directly if provided, otherwise fallback to lookup for backward compatibility
-  const sizeStyles = typeof size === "string" && size.includes(" ") 
-    ? size 
-    : TAILWIND_SIZES[(size as Size) || "md"];
+  const sizeStyles =
+    typeof size === "string" && size.includes(" ")
+      ? size
+      : TAILWIND_SIZES[(size as Size) || "md"];
 
   return (
     <Box fullWidth className="relative">
@@ -56,10 +57,14 @@ const Input = ({
           required={required}
           {...props}
         />
-        <ClearButton 
-          onChange={onChange} 
-          size={typeof size === "string" && !size.includes(" ") ? (size as Size) : "md"} 
-          value={value} 
+        <ClearButton
+          onChange={onChange}
+          size={
+            typeof size === "string" && !size.includes(" ")
+              ? (size as Size)
+              : "md"
+          }
+          value={value}
         />
       </div>
       {isString(error) && (

@@ -63,4 +63,3 @@ export function getAllSitemapData(): SitemapData[] {
 
   return sitemaps;
 }
-

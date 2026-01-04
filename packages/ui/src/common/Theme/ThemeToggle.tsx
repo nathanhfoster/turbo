@@ -5,7 +5,8 @@ import { Button } from "../atoms";
 import { IconSun, IconMoon } from "../../icons";
 import type { ButtonProps } from "../atoms/Button/types";
 
-export interface ThemeToggleProps extends Omit<ButtonProps, "onClick" | "children" | "href"> {
+export interface ThemeToggleProps
+  extends Omit<ButtonProps, "onClick" | "children" | "href"> {
   showLabel?: boolean;
   lightLabel?: string;
   darkLabel?: string;
@@ -46,4 +47,3 @@ export function ThemeToggle({
     </Button>
   );
 }
-

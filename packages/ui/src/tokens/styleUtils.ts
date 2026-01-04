@@ -98,7 +98,7 @@ export function getFocusRingColor(color: ComponentColor): string {
  */
 export function createColorStyles(
   color: ComponentColor,
-  variant: ComponentVariant = "contained"
+  variant: ComponentVariant = "contained",
 ): ColorStyles {
   switch (variant) {
     case "contained":
@@ -145,7 +145,7 @@ export function createColorStyles(
  * Used in constants.ts files
  */
 export function generateColorStylesMapping(
-  variant: ComponentVariant = "contained"
+  variant: ComponentVariant = "contained",
 ): Record<ComponentColor, ColorStyles> {
   const colors: ComponentColor[] = [
     "primary",
@@ -166,7 +166,7 @@ export function generateColorStylesMapping(
       acc[color] = createColorStyles(color, variant);
       return acc;
     },
-    {} as Record<ComponentColor, ColorStyles>
+    {} as Record<ComponentColor, ColorStyles>,
   );
 }
 
@@ -183,7 +183,7 @@ export interface InputColorStyles {
  * Generate input color styles
  */
 export function createInputColorStyles(
-  color: ComponentColor
+  color: ComponentColor,
 ): InputColorStyles {
   return {
     border: getBorderColor(color),
@@ -218,7 +218,7 @@ export function generateInputColorStylesMapping(): Record<
       acc[color] = createInputColorStyles(color);
       return acc;
     },
-    {} as Record<ComponentColor, InputColorStyles>
+    {} as Record<ComponentColor, InputColorStyles>,
   );
 }
 

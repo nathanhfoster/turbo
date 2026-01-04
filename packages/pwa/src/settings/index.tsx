@@ -17,27 +17,27 @@ import type {
 // Next.js resolves .tsx files without extensions, but TypeScript requires them
 const InstallApp = dynamic<InstallAppProps>(
   () => import("./components/InstallApp").then((mod) => mod.InstallApp),
-  { ssr: false }
+  { ssr: false },
 );
 
 const Notifications = dynamic<NotificationsProps>(
   () => import("./components/Notifications").then((mod) => mod.Notifications),
-  { ssr: false }
+  { ssr: false },
 );
 
 const Permissions = dynamic<PermissionsProps>(
   () => import("./components/Permissions").then((mod) => mod.Permissions),
-  { ssr: false }
+  { ssr: false },
 );
 
 const ServiceWorker = dynamic<ServiceWorkerProps>(
   () => import("./components/ServiceWorker").then((mod) => mod.ServiceWorker),
-  { ssr: false }
+  { ssr: false },
 );
 
 const Storage = dynamic<StorageProps>(
   () => import("./components/Storage").then((mod) => mod.Storage),
-  { ssr: false }
+  { ssr: false },
 );
 
 // Loading fallback component
@@ -93,7 +93,10 @@ export function Settings({
         )}
         {showStorage && (
           <Suspense fallback={<ComponentLoader />}>
-            <Storage renderButton={renderStorage} onClearCookies={onClearCookies} />
+            <Storage
+              renderButton={renderStorage}
+              onClearCookies={onClearCookies}
+            />
           </Suspense>
         )}
         {showNotifications && (
@@ -141,4 +144,3 @@ export {
   showAlert,
   reloadPage,
 } from "./utils";
-

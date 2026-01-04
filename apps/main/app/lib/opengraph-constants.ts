@@ -28,4 +28,3 @@ export const BACKGROUND_ELEVATED = NEUTRAL_900;
 // Foreground Colors
 export const FOREGROUND_DEFAULT = NEUTRAL_50;
 export const FOREGROUND_MUTED = NEUTRAL_300;
-

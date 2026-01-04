@@ -6,7 +6,10 @@ const Section = ({ className, children, ...props }: SectionProps) => {
   return (
     <Box
       variant="section"
-      className={combineClassNames(className, "mx-auto p-4 sm:p-6 lg:p-8 xl:p-12")}
+      className={combineClassNames(
+        className,
+        "mx-auto p-4 sm:p-6 lg:p-8 xl:p-12",
+      )}
       {...props}
     >
       {children}

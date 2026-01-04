@@ -2,7 +2,7 @@ import type { LinkProps } from "./../Link/types";
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { ComponentColor } from "../types";
-import type { TypographyVariant,  TypographyWeightProp } from "./types";
+import type { TypographyVariant, TypographyWeightProp } from "./types";
 import { TRANSITION_STYLES } from "../../../tokens/styleUtils";
 
 const Link = dynamic(() => import("next/link"));

@@ -32,8 +32,12 @@ export default function SitemapViewPage() {
         >
           Visual sitemap of all pages and newsletter posts
         </Typography>
-        <Typography variant="p" className="mb-6 text-lg text-gray-700 dark:text-gray-300">
-          Total URLs: {totalUrls.toLocaleString()} across {sitemaps.length} sitemap
+        <Typography
+          variant="p"
+          className="mb-6 text-lg text-gray-700 dark:text-gray-300"
+        >
+          Total URLs: {totalUrls.toLocaleString()} across {sitemaps.length}{" "}
+          sitemap
           {sitemaps.length !== 1 ? "s" : ""}
         </Typography>
         <Box className="flex flex-wrap justify-center gap-3">
@@ -62,14 +66,13 @@ export default function SitemapViewPage() {
       {sitemaps.map((sitemap) => (
         <Card key={sitemap.id} className="mb-8 p-6" hoverable>
           <Box className="mb-6 flex items-center justify-between">
-            <Typography
-              variant="h2"
-              size="text-3xl"
-              weight="font-bold"
-            >
+            <Typography variant="h2" size="text-3xl" weight="font-bold">
               Sitemap {sitemap.id}
             </Typography>
-            <Typography variant="p" className="text-lg text-gray-600 dark:text-gray-400">
+            <Typography
+              variant="p"
+              className="text-lg text-gray-600 dark:text-gray-400"
+            >
               {sitemap.count.toLocaleString()} URLs
             </Typography>
           </Box>
@@ -84,7 +87,8 @@ export default function SitemapViewPage() {
                   weight="font-semibold"
                   className="mb-4"
                 >
-                  Static Routes ({sitemap.entries.filter((e) => e.type === "static").length})
+                  Static Routes (
+                  {sitemap.entries.filter((e) => e.type === "static").length})
                 </Typography>
                 <Box className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {sitemap.entries
@@ -116,7 +120,8 @@ export default function SitemapViewPage() {
             )}
 
             {/* Newsletter Posts Section */}
-            {sitemap.entries.filter((e) => e.type === "newsletter").length > 0 && (
+            {sitemap.entries.filter((e) => e.type === "newsletter").length >
+              0 && (
               <Box>
                 <Typography
                   variant="h3"
@@ -124,7 +129,12 @@ export default function SitemapViewPage() {
                   weight="font-semibold"
                   className="mb-4"
                 >
-                  Newsletter Posts ({sitemap.entries.filter((e) => e.type === "newsletter").length})
+                  Newsletter Posts (
+                  {
+                    sitemap.entries.filter((e) => e.type === "newsletter")
+                      .length
+                  }
+                  )
                 </Typography>
                 <Box className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {sitemap.entries
@@ -147,7 +157,8 @@ export default function SitemapViewPage() {
                           variant="p"
                           className="text-sm text-gray-600 dark:text-gray-400"
                         >
-                          {new Date(entry.lastModified).toLocaleDateString()} • Priority: {entry.priority}
+                          {new Date(entry.lastModified).toLocaleDateString()} •
+                          Priority: {entry.priority}
                         </Typography>
                       </Card>
                     ))}
@@ -160,4 +171,3 @@ export default function SitemapViewPage() {
     </Box>
   );
 }
-

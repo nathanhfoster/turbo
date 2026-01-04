@@ -38,7 +38,8 @@ export const BUTTON_VARIANT_MAPPING: ButtonComponentType = {
  * Variant-specific styles
  * Uses centralized variant styles from tokens
  */
-export const VARIANT_STYLES: Record<ComponentVariant, string> = VARIANT_BASE_STYLES;
+export const VARIANT_STYLES: Record<ComponentVariant, string> =
+  VARIANT_BASE_STYLES;
 
 /**
  * Color styles for contained variant

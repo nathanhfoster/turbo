@@ -26,9 +26,12 @@ const TextArea = ({
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
   // Use size directly if provided, otherwise fallback to lookup for backward compatibility
   const sizeKey = (size as Size) || "md";
-  const sizeStyles = typeof size === "string" && size.includes(" ")
-    ? size
-    : (sizeKey in TAILWIND_SIZES ? TAILWIND_SIZES[sizeKey as keyof typeof TAILWIND_SIZES] : TAILWIND_SIZES.md);
+  const sizeStyles =
+    typeof size === "string" && size.includes(" ")
+      ? size
+      : sizeKey in TAILWIND_SIZES
+        ? TAILWIND_SIZES[sizeKey as keyof typeof TAILWIND_SIZES]
+        : TAILWIND_SIZES.md;
 
   return (
     <Box fullWidth className="relative">

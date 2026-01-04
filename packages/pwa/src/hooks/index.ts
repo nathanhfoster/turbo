@@ -25,7 +25,8 @@ export function useServiceWorkerUpdate(): ServiceWorkerUpdateState {
 
     const registerSW = async () => {
       try {
-        const registration = await navigator.serviceWorker.register("/service-worker.js");
+        const registration =
+          await navigator.serviceWorker.register("/service-worker.js");
 
         // Check for waiting worker
         if (registration.waiting) {

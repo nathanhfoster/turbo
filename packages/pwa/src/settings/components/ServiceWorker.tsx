@@ -14,7 +14,8 @@ export function ServiceWorker({
   renderButton,
 }: ServiceWorkerProps) {
   const { serviceWorker } = useInstallPrompt();
-  const { waitingWorker, activateUpdate, unregisterServiceWorkers } = serviceWorker;
+  const { waitingWorker, activateUpdate, unregisterServiceWorkers } =
+    serviceWorker;
 
   const handleUnregisterServiceWorkers = () => {
     if (confirmAction(MESSAGES.serviceWorker.confirmUnregister)) {
@@ -66,9 +67,12 @@ export function ServiceWorker({
         {MESSAGES.serviceWorker.description}
       </Typography>
       {renderButton
-        ? renderButton({ waitingWorker, activateUpdate, unregisterServiceWorkers })
+        ? renderButton({
+            waitingWorker,
+            activateUpdate,
+            unregisterServiceWorkers,
+          })
         : defaultButtons}
     </Card>
   );
 }
-

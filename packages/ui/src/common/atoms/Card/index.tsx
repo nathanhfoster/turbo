@@ -40,7 +40,14 @@ const Card = ({
 
   if (isLink) {
     // Exclude Card-specific props when rendering as Link
-    const { padding: _, variant: __, hoverable: ___, bordered: ____, href: _____, ...linkProps } = props as CardProps & { 
+    const {
+      padding: _,
+      variant: __,
+      hoverable: ___,
+      bordered: ____,
+      href: _____,
+      ...linkProps
+    } = props as CardProps & {
       padding?: CardPaddingProp;
       variant?: CardVariant;
       hoverable?: boolean;
@@ -53,7 +60,10 @@ const Card = ({
         href={href}
         onClick={onClick}
         className={cardClassName}
-        {...(linkProps as Omit<LinkProps, "href" | "children" | "onClick" | "className">)}
+        {...(linkProps as Omit<
+          LinkProps,
+          "href" | "children" | "onClick" | "className"
+        >)}
       >
         {children}
       </Link>
@@ -61,7 +71,14 @@ const Card = ({
   }
 
   // Exclude Card-specific props from props spread since Box doesn't accept them
-  const { padding: _, variant: __, hoverable: ___, bordered: ____, href: _____, ...boxProps } = props as CardProps & { 
+  const {
+    padding: _,
+    variant: __,
+    hoverable: ___,
+    bordered: ____,
+    href: _____,
+    ...boxProps
+  } = props as CardProps & {
     padding?: CardPaddingProp;
     variant?: CardVariant;
     hoverable?: boolean;

@@ -19,7 +19,7 @@ export async function clearIndexedDB(): Promise<void> {
         if (db.name) {
           return indexedDB.deleteDatabase(db.name);
         }
-      })
+      }),
     );
   } catch (error) {
     console.error("Error clearing IndexedDB:", error);
@@ -32,7 +32,7 @@ export async function clearIndexedDB(): Promise<void> {
  * Optionally accepts a callback to clear cookies
  */
 export async function clearAllStorage(
-  onClearCookies?: () => void
+  onClearCookies?: () => void,
 ): Promise<void> {
   localStorage.clear();
   sessionStorage.clear();
@@ -64,7 +64,7 @@ export async function resetNotificationPermission(): Promise<void> {
  * Query a browser permission
  */
 export async function queryPermission(
-  name: PermissionName
+  name: PermissionName,
 ): Promise<PermissionStatus | null> {
   if (typeof window === "undefined" || !("permissions" in navigator)) {
     return null;
@@ -106,7 +106,7 @@ export async function resetAllPermissions(): Promise<void> {
  */
 export async function handleNotificationPermissionRequest(
   currentPermission: NotificationPermission,
-  requestPermission: () => Promise<NotificationPermission>
+  requestPermission: () => Promise<NotificationPermission>,
 ): Promise<NotificationPermission> {
   if (currentPermission === "denied") {
     alert(MESSAGES.notifications.denied);
@@ -136,4 +136,3 @@ export function showAlert(message: string): void {
 export function reloadPage(): void {
   window.location.reload();
 }
-

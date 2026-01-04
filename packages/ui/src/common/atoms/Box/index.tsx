@@ -37,8 +37,10 @@ const Box = forwardRef<HTMLElement, BoxProps>(
       ? typeof container === "string" && container.includes(" ")
         ? container
         : typeof container === "string"
-        ? (container in CONTAINER_STYLES ? CONTAINER_STYLES[container as keyof typeof CONTAINER_STYLES] : container)
-        : DEFAULT_CONTAINER_STYLE
+          ? container in CONTAINER_STYLES
+            ? CONTAINER_STYLES[container as keyof typeof CONTAINER_STYLES]
+            : container
+          : DEFAULT_CONTAINER_STYLE
       : "";
 
     const backgroundColorClasses =
@@ -76,7 +78,7 @@ Box.displayName = "Box";
 // Type assertion needed because forwardRef returns ForwardRefExoticComponent
 // which doesn't perfectly match ComponentType expected by HOCs
 const BoxWithTailwind = withBaseTailwindProps(
-  Box as unknown as ComponentType<BoxProps>
+  Box as unknown as ComponentType<BoxProps>,
 );
 const BoxWithTheme = withBaseTheme(BoxWithTailwind);
 

@@ -4,18 +4,18 @@
  */
 
 export interface ServiceWorkerConfig {
-	cacheName: string
-	offlineUrl: string
-	precacheAssets: string[]
+  cacheName: string;
+  offlineUrl: string;
+  precacheAssets: string[];
 }
 
 /**
  * Generate service worker code from configuration
  */
 export function generateServiceWorker(config: ServiceWorkerConfig): string {
-	const { cacheName, offlineUrl, precacheAssets } = config
+  const { cacheName, offlineUrl, precacheAssets } = config;
 
-	return `// Service Worker for Progressive Web App
+  return `// Service Worker for Progressive Web App
 // Auto-generated service worker
 
 const CACHE_NAME = "${cacheName}";
@@ -204,27 +204,27 @@ self.addEventListener("message", (event) => {
     self.skipWaiting();
   }
 });
-`
+`;
 }
 
 /**
  * Register service worker in the browser
  */
-export function registerServiceWorker(swPath: string = "/service-worker.js"): void {
-	if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
-		return
-	}
+export function registerServiceWorker(
+  swPath: string = "/service-worker.js",
+): void {
+  if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
+    return;
+  }
 
-	window.addEventListener("load", () => {
-		navigator.serviceWorker
-			.register(swPath)
-			.then((registration) => {
-				console.log("Service Worker registered:", registration.scope)
-			})
-			.catch((error) => {
-				console.error("Service Worker registration failed:", error)
-			})
-	})
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register(swPath)
+      .then((registration) => {
+        console.log("Service Worker registered:", registration.scope);
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
 }
-
-

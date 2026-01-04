@@ -4,32 +4,32 @@
  */
 
 export interface OfflineHTMLConfig {
-	appName: string
-	primaryColor?: string
-	primaryColor600?: string
-	primaryColor700?: string
-	backgroundDefault?: string
-	backgroundElevated?: string
-	foregroundDefault?: string
-	foregroundMuted?: string
+  appName: string;
+  primaryColor?: string;
+  primaryColor600?: string;
+  primaryColor700?: string;
+  backgroundDefault?: string;
+  backgroundElevated?: string;
+  foregroundDefault?: string;
+  foregroundMuted?: string;
 }
 
 /**
  * Generate offline HTML page
  */
 export function generateOfflineHTML(config: OfflineHTMLConfig): string {
-	const {
-		appName,
-		primaryColor = "#0077c5",
-		primaryColor600 = "#0891b2",
-		primaryColor700 = "#0e7490",
-		backgroundDefault = "#020617",
-		backgroundElevated = "#0f172a",
-		foregroundDefault = "#f8fafc",
-		foregroundMuted = "#cbd5e1",
-	} = config
+  const {
+    appName,
+    primaryColor = "#0077c5",
+    primaryColor600 = "#0891b2",
+    primaryColor700 = "#0e7490",
+    backgroundDefault = "#020617",
+    backgroundElevated = "#0f172a",
+    foregroundDefault = "#f8fafc",
+    foregroundMuted = "#cbd5e1",
+  } = config;
 
-	return `<!doctype html>
+  return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -236,7 +236,5 @@ export function generateOfflineHTML(config: OfflineHTMLConfig): string {
     </div>
   </body>
 </html>
-`
+`;
 }
-
-

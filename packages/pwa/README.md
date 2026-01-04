@@ -28,15 +28,13 @@ This package is part of the monorepo and is referenced via workspace protocol:
 
 ```tsx
 // app/layout.tsx (Next.js)
-import { InstallPromptProvider } from '@nathanhfoster/pwa';
+import { InstallPromptProvider } from "@nathanhfoster/pwa";
 
 export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <InstallPromptProvider>
-          {children}
-        </InstallPromptProvider>
+        <InstallPromptProvider>{children}</InstallPromptProvider>
       </body>
     </html>
   );
@@ -46,9 +44,9 @@ export default function RootLayout({ children }) {
 ### 2. Use PWA features in your components
 
 ```tsx
-'use client';
+"use client";
 
-import { useInstallPrompt } from '@nathanhfoster/pwa';
+import { useInstallPrompt } from "@nathanhfoster/pwa";
 
 export function InstallButton() {
   const { installPrompt, serviceWorker, pushNotification } = useInstallPrompt();
@@ -57,9 +55,7 @@ export function InstallButton() {
     <div>
       {/* Install PWA */}
       {installPrompt.deferredPrompt && (
-        <button onClick={installPrompt.handleInstallClick}>
-          Install App
-        </button>
+        <button onClick={installPrompt.handleInstallClick}>Install App</button>
       )}
 
       {/* Update Service Worker */}
@@ -85,9 +81,7 @@ export function InstallButton() {
 Context provider that manages PWA state.
 
 ```tsx
-<InstallPromptProvider>
-  {children}
-</InstallPromptProvider>
+<InstallPromptProvider>{children}</InstallPromptProvider>
 ```
 
 ### useInstallPrompt()
@@ -99,6 +93,7 @@ const { serviceWorker, installPrompt, pushNotification } = useInstallPrompt();
 ```
 
 Returns:
+
 - `serviceWorker` - Service worker management
 - `installPrompt` - PWA install prompt handling
 - `pushNotification` - Push notification management
@@ -153,7 +148,7 @@ import {
   useServiceWorkerUpdate,
   useInstallPromptHandler,
   usePushNotification,
-} from '@nathanhfoster/pwa/hooks';
+} from "@nathanhfoster/pwa/hooks";
 
 const serviceWorker = useServiceWorkerUpdate();
 const installPrompt = useInstallPromptHandler();
@@ -188,7 +183,7 @@ import type {
   PushNotificationState,
   PushNotificationPayload,
   InstallPromptContextValue,
-} from '@nathanhfoster/pwa';
+} from "@nathanhfoster/pwa";
 ```
 
 ## Architecture

@@ -71,6 +71,7 @@ export const ERROR_STYLES = "absolute mt-1";
 ```
 
 **Problems:**
+
 - ❌ Duplicate color logic (repeated across all colors)
 - ❌ Hardcoded for every color variant
 - ❌ Not using centralized utilities
@@ -119,6 +120,7 @@ export type { InputColorStyles };
 ```
 
 **Benefits:**
+
 - ✅ Reduced from 66 lines to 30 lines
 - ✅ No duplicate color logic
 - ✅ Uses centralized utilities
@@ -137,7 +139,8 @@ import type { CardVariant } from "./types";
 
 export const BASE_STYLES = "rounded-lg bg-white";
 export const BORDER_STYLES = "border border-neutral-200";
-export const HOVER_STYLES = "transition-all hover:shadow-md hover:cursor-pointer";
+export const HOVER_STYLES =
+  "transition-all hover:shadow-md hover:cursor-pointer";
 
 export const PADDING_STYLES: Record<Size, string> = {
   inherit: "p-inherit",
@@ -165,6 +168,7 @@ export const CARD_VARIANTS: Record<CardVariant, string> = {
 ```
 
 **Problems:**
+
 - ❌ Hardcoded `bg-white` instead of using semantic tokens
 - ❌ Hardcoded `border-neutral-200`
 - ❌ Duplicate padding definitions (could be centralized)
@@ -217,6 +221,7 @@ export const CARD_VARIANTS: Record<CardVariant, string> = {
 ```
 
 **Benefits:**
+
 - ✅ Uses semantic tokens (`bg-background-elevated` instead of `bg-white`)
 - ✅ Uses semantic border tokens
 - ✅ Centralized padding (no duplication)
@@ -248,6 +253,7 @@ export const TYPOGRAPHY_DISABLED_STYLES = "opacity-50 cursor-not-allowed";
 ```
 
 **Problems:**
+
 - ❌ Hardcoded `text-white`, `text-black`
 - ❌ Doesn't use semantic foreground tokens
 - ❌ Duplicate color logic
@@ -286,11 +292,17 @@ export const TYPOGRAPHY_COLOR_STYLES: Record<ComponentColor, string> = {
 /**
  * Or use a generator function
  */
-export function generateTypographyColorStyles(): Record<ComponentColor, string> {
-  return Object.keys(COLOR_TOKENS).reduce((acc, color) => {
-    acc[color as ComponentColor] = getTextColor(color as ComponentColor);
-    return acc;
-  }, {} as Record<ComponentColor, string>);
+export function generateTypographyColorStyles(): Record<
+  ComponentColor,
+  string
+> {
+  return Object.keys(COLOR_TOKENS).reduce(
+    (acc, color) => {
+      acc[color as ComponentColor] = getTextColor(color as ComponentColor);
+      return acc;
+    },
+    {} as Record<ComponentColor, string>,
+  );
 }
 
 /**
@@ -300,6 +312,7 @@ export const TYPOGRAPHY_DISABLED_STYLES = DISABLED_STYLES.common;
 ```
 
 **Benefits:**
+
 - ✅ Uses centralized utility functions
 - ✅ Can generate styles dynamically
 - ✅ Consistent with other components
@@ -318,6 +331,7 @@ When migrating a component, follow these steps:
 ### 2. Update constants.ts
 
 - [ ] Import token utilities
+
   ```typescript
   import {
     generateColorStylesMapping,
@@ -327,6 +341,7 @@ When migrating a component, follow these steps:
   ```
 
 - [ ] Replace color style definitions
+
   ```typescript
   // Before
   export const COLOR_STYLES = { primary: {...}, secondary: {...} };
@@ -336,6 +351,7 @@ When migrating a component, follow these steps:
   ```
 
 - [ ] Replace size definitions with centralized utilities
+
   ```typescript
   // Before
   export const PADDING_STYLES = { xs: "p-2", sm: "p-3", ... };
@@ -346,6 +362,7 @@ When migrating a component, follow these steps:
   ```
 
 - [ ] Use semantic tokens for backgrounds/borders
+
   ```typescript
   // Before
   export const BASE_STYLES = "bg-white border-gray-200";
@@ -406,7 +423,11 @@ export const COLOR_STYLES = generateInputColorStylesMapping();
 If you need component-specific color behavior:
 
 ```typescript
-import { createColorStyles, getTextColor, getBgColor } from "../../../tokens/styleUtils";
+import {
+  createColorStyles,
+  getTextColor,
+  getBgColor,
+} from "../../../tokens/styleUtils";
 import type { ComponentColor } from "../types";
 
 // Custom color styles for a specific component
@@ -482,6 +503,7 @@ After migrating components:
 ## Questions?
 
 Refer to:
+
 - [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) - Full architecture guide
 - [/FRONTEND_ARCHITECTURE.md](/FRONTEND_ARCHITECTURE.md) - Overall architecture
 - Token utilities source code in `packages/ui/src/tokens/`

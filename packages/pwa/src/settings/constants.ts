@@ -34,7 +34,8 @@ export const MESSAGES = {
     description: "Manage service worker updates and registration",
     updateAvailable: "Update Available - Click to Install",
     unregister: "Unregister Service Worker",
-    confirmUnregister: "Are you sure you want to unregister all service workers?",
+    confirmUnregister:
+      "Are you sure you want to unregister all service workers?",
   },
   notifications: {
     title: "Notifications",
@@ -50,7 +51,8 @@ export const MESSAGES = {
     button: "Reset All Permissions",
     confirm:
       "Are you sure you want to reset all browser permissions? This will clear all site permissions including notifications, camera, microphone, and location access.",
-    success: "All permissions have been reset. You may need to refresh the page to see the changes.",
+    success:
+      "All permissions have been reset. You may need to refresh the page to see the changes.",
     error: "There was an error resetting permissions. Please try again.",
     notSupported: {
       camera: "Camera permission not supported",
@@ -77,4 +79,3 @@ export const PERMISSION_NAMES = {
   microphone: "microphone" as PermissionName,
   geolocation: "geolocation" as PermissionName,
 } as const;
-
