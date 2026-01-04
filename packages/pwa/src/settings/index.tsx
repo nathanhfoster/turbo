@@ -1,12 +1,58 @@
 "use client";
 
-import { InstallApp } from "./components/InstallApp";
-import { Notifications } from "./components/Notifications";
-import { Permissions } from "./components/Permissions";
-import { ServiceWorker } from "./components/ServiceWorker";
-import { Storage } from "./components/Storage";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import { Box, Typography } from "@nathanhfoster/ui";
 import { DEFAULT_CLASSES, MESSAGES } from "./constants";
 import type { SettingsProps } from "./types";
+import type {
+  InstallAppProps,
+  NotificationsProps,
+  PermissionsProps,
+  ServiceWorkerProps,
+  StorageProps,
+} from "./types";
+
+// Dynamic imports for code splitting using Next.js dynamic
+// Next.js resolves .tsx files without extensions, but TypeScript requires them
+const InstallApp = dynamic<InstallAppProps>(
+  // @ts-expect-error - Next.js handles module resolution at build time
+  () => import("./components/InstallApp").then((mod) => mod.InstallApp),
+  { ssr: false }
+);
+
+const Notifications = dynamic<NotificationsProps>(
+  // @ts-expect-error - Next.js handles module resolution at build time
+  () => import("./components/Notifications").then((mod) => mod.Notifications),
+  { ssr: false }
+);
+
+const Permissions = dynamic<PermissionsProps>(
+  // @ts-expect-error - Next.js handles module resolution at build time
+  () => import("./components/Permissions").then((mod) => mod.Permissions),
+  { ssr: false }
+);
+
+const ServiceWorker = dynamic<ServiceWorkerProps>(
+  // @ts-expect-error - Next.js handles module resolution at build time
+  () => import("./components/ServiceWorker").then((mod) => mod.ServiceWorker),
+  { ssr: false }
+);
+
+const Storage = dynamic<StorageProps>(
+  // @ts-expect-error - Next.js handles module resolution at build time
+  () => import("./components/Storage").then((mod) => mod.Storage),
+  { ssr: false }
+);
+
+// Loading fallback component
+const ComponentLoader = () => (
+  <Box className="animate-pulse rounded-lg border border-gray-200 bg-gray-100 p-6 dark:border-gray-700 dark:bg-gray-800">
+    <Box className="mb-2 h-6 w-32 rounded bg-gray-300 dark:bg-gray-600" />
+    <Box className="mb-4 h-4 w-full rounded bg-gray-300 dark:bg-gray-600" />
+    <Box className="h-10 w-24 rounded bg-gray-300 dark:bg-gray-600" />
+  </Box>
+);
 
 export function Settings({
   className = "",
@@ -25,24 +71,43 @@ export function Settings({
   renderStorage,
 }: SettingsProps) {
   return (
-    <div className={className || DEFAULT_CLASSES.settingsContainer}>
-      <h1 className={titleClassName || DEFAULT_CLASSES.settingsTitle}>
+    <Box className={className || DEFAULT_CLASSES.settingsContainer}>
+      <Typography
+        variant="h1"
+        className={titleClassName || DEFAULT_CLASSES.settingsTitle}
+        size="text-3xl"
+        weight="font-bold"
+      >
         {MESSAGES.settings.title}
-      </h1>
-      <div className={gridClassName || DEFAULT_CLASSES.settingsGrid}>
-        {showInstallApp && <InstallApp renderButton={renderInstallApp} />}
-        {showServiceWorker && (
-          <ServiceWorker renderButton={renderServiceWorker} />
+      </Typography>
+      <Box className={gridClassName || DEFAULT_CLASSES.settingsGrid}>
+        {showInstallApp && (
+          <Suspense fallback={<ComponentLoader />}>
+            <InstallApp renderButton={renderInstallApp} />
+          </Suspense>
         )}
-        {showPermissions && <Permissions renderButton={renderPermissions} />}
+        {showServiceWorker && (
+          <Suspense fallback={<ComponentLoader />}>
+            <ServiceWorker renderButton={renderServiceWorker} />
+          </Suspense>
+        )}
+        {showPermissions && (
+          <Suspense fallback={<ComponentLoader />}>
+            <Permissions renderButton={renderPermissions} />
+          </Suspense>
+        )}
         {showStorage && (
-          <Storage renderButton={renderStorage} onClearCookies={onClearCookies} />
+          <Suspense fallback={<ComponentLoader />}>
+            <Storage renderButton={renderStorage} onClearCookies={onClearCookies} />
+          </Suspense>
         )}
         {showNotifications && (
-          <Notifications renderButton={renderNotifications} />
+          <Suspense fallback={<ComponentLoader />}>
+            <Notifications renderButton={renderNotifications} />
+          </Suspense>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

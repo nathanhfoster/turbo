@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, ButtonGroup, Card, Typography } from "@nathanhfoster/ui";
 import { useInstallPrompt } from "../../providers/InstallPromptProvider";
 import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import { confirmAction } from "../utils";
@@ -28,36 +29,46 @@ export function ServiceWorker({
   };
 
   const defaultButtons = (
-    <div className={DEFAULT_CLASSES.buttonGroup}>
+    <ButtonGroup className={DEFAULT_CLASSES.buttonGroup}>
       {waitingWorker && (
-        <button
+        <Button
           onClick={handleServiceWorkerUpdate}
-          className={buttonClassName || DEFAULT_CLASSES.button.success}
+          variant="contained"
+          color="success"
+          className={buttonClassName}
         >
           {MESSAGES.serviceWorker.updateAvailable}
-        </button>
+        </Button>
       )}
-      <button
+      <Button
         onClick={handleUnregisterServiceWorkers}
-        className={buttonClassName || DEFAULT_CLASSES.button.primary}
+        variant="contained"
+        color="primary"
+        className={buttonClassName}
       >
         {MESSAGES.serviceWorker.unregister}
-      </button>
-    </div>
+      </Button>
+    </ButtonGroup>
   );
 
   return (
-    <div className={className || DEFAULT_CLASSES.container}>
-      <h3 className={titleClassName || DEFAULT_CLASSES.title}>
+    <Card className={className || DEFAULT_CLASSES.container}>
+      <Typography
+        variant="h3"
+        className={titleClassName || DEFAULT_CLASSES.title}
+      >
         {MESSAGES.serviceWorker.title}
-      </h3>
-      <p className={descriptionClassName || DEFAULT_CLASSES.description}>
+      </Typography>
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
         {MESSAGES.serviceWorker.description}
-      </p>
+      </Typography>
       {renderButton
         ? renderButton({ waitingWorker, activateUpdate, unregisterServiceWorkers })
         : defaultButtons}
-    </div>
+    </Card>
   );
 }
 

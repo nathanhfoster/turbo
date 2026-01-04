@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import type { ComponentColor } from "../types";
 import type { TypographyVariant,  TypographyWeightProp } from "./types";
+import { TRANSITION_STYLES } from "../../../tokens/styleUtils";
 
 const Link = dynamic(() => import("next/link"));
 
@@ -83,33 +84,35 @@ export const TYPOGRAPHY_VARIANT_MAPPING: Record<
   >,
 };
 
+const BASE_TRANSITION = TRANSITION_STYLES.colors;
+
 export const TYPOGRAPHY_VARIANT_STYLES: Record<TypographyVariant, string> = {
-  h1: "",
-  h2: "",
-  h3: "",
-  h4: "",
-  h5: "",
-  h6: "",
-  body1: "",
-  body2: "",
-  subtitle1: "",
-  subtitle2: "",
-  caption: "",
-  overline: "uppercase tracking-wide",
-  p: "",
-  span: "",
-  a: "",
-  label: "",
-  li: "",
-  small: "",
-  strong: "",
-  em: "italic",
-  b: "",
-  blockquote: "border-l-4 pl-4",
-  code: "font-mono",
-  pre: "font-mono whitespace-pre",
-  time: "",
-  address: "",
+  h1: BASE_TRANSITION,
+  h2: BASE_TRANSITION,
+  h3: BASE_TRANSITION,
+  h4: BASE_TRANSITION,
+  h5: BASE_TRANSITION,
+  h6: BASE_TRANSITION,
+  body1: BASE_TRANSITION,
+  body2: BASE_TRANSITION,
+  subtitle1: BASE_TRANSITION,
+  subtitle2: BASE_TRANSITION,
+  caption: BASE_TRANSITION,
+  overline: `uppercase tracking-wide ${BASE_TRANSITION}`,
+  p: BASE_TRANSITION,
+  span: BASE_TRANSITION,
+  a: BASE_TRANSITION,
+  label: BASE_TRANSITION,
+  li: BASE_TRANSITION,
+  small: BASE_TRANSITION,
+  strong: BASE_TRANSITION,
+  em: `italic ${BASE_TRANSITION}`,
+  b: BASE_TRANSITION,
+  blockquote: `border-l-4 pl-4 ${BASE_TRANSITION}`,
+  code: `font-mono ${BASE_TRANSITION}`,
+  pre: `font-mono whitespace-pre ${BASE_TRANSITION}`,
+  time: BASE_TRANSITION,
+  address: BASE_TRANSITION,
 };
 
 export const TYPOGRAPHY_COLOR_STYLES: Record<ComponentColor, string> = {

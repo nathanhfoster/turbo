@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, Card, Typography } from "@nathanhfoster/ui";
 import { useInstallPrompt } from "../../providers/InstallPromptProvider";
 import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import type { InstallAppProps } from "../types";
@@ -15,31 +16,39 @@ export function InstallApp({
   const { deferredPrompt, handleInstallClick } = installPrompt;
 
   const defaultButton = (
-    <button
+    <Button
       onClick={handleInstallClick}
       disabled={!deferredPrompt}
-      className={buttonClassName || DEFAULT_CLASSES.button.primary}
+      variant="contained"
+      color="primary"
+      className={buttonClassName}
     >
       {deferredPrompt
         ? MESSAGES.installApp.buttonReady
         : MESSAGES.installApp.buttonNotReady}
-    </button>
+    </Button>
   );
 
   return (
-    <div className={className || DEFAULT_CLASSES.container}>
-      <h3 className={titleClassName || DEFAULT_CLASSES.title}>
+    <Card className={className || DEFAULT_CLASSES.container}>
+      <Typography
+        variant="h3"
+        className={titleClassName || DEFAULT_CLASSES.title}
+      >
         {MESSAGES.installApp.title}
-      </h3>
-      <p className={descriptionClassName || DEFAULT_CLASSES.description}>
+      </Typography>
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
         {deferredPrompt
           ? MESSAGES.installApp.ready
           : MESSAGES.installApp.notReady}
-      </p>
+      </Typography>
       {renderButton
         ? renderButton({ deferredPrompt, handleInstallClick })
         : defaultButton}
-    </div>
+    </Card>
   );
 }
 

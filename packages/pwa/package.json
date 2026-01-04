@@ -55,6 +55,9 @@
     "lint": "eslint .",
     "check-types": "tsc --noEmit"
   },
+  "dependencies": {
+    "@nathanhfoster/ui": "workspace:*"
+  },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

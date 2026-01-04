@@ -37,7 +37,7 @@ export default function Home() {
           >
             <Typography
               variant="h3"
-              className="mb-2 group-hover:text-primary transition-colors"
+              className="mb-2 group-hover:text-primary"
               size="text-xl"
               weight="font-semibold"
             >
@@ -59,7 +59,7 @@ export default function Home() {
           >
             <Typography
               variant="h3"
-              className="mb-2 group-hover:text-primary transition-colors"
+              className="mb-2 group-hover:text-primary"
               size="text-xl"
               weight="font-semibold"
             >
@@ -73,14 +73,14 @@ export default function Home() {
             </Typography>
           </Card>
           <Card
-            href="/contact"
+            href="/services"
             padding="p-5 sm:p-6 md:p-8"
             hoverable
             className="hover:shadow-lg transition-all hover:border-primary group"
           >
             <Typography
               variant="h3"
-              className="mb-2 group-hover:text-primary transition-colors"
+              className="mb-2 group-hover:text-primary"
               size="text-xl"
               weight="font-semibold"
             >

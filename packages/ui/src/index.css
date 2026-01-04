@@ -87,25 +87,27 @@
         Contextual colors for specific UI states */
   --color-success: #10b981; /* Emerald-500 */
   --color-error: #ef4444; /* Red-500 */
-  --color-warning: #f59e0b; /* Amber-500 */
+  --color-warning: #ef4444; /* Red-500 */
   --color-info: #0077c5; /* Primary - matches primary */
 
   /* Background Colors
-        Optimized for dark mode portfolio aesthetic */
-  --color-background-DEFAULT: #020617; /* Neutral-950 */
-  --color-background-elevated: #0f172a; /* Neutral-900 */
-  --color-background-subtle: #1e293b; /* Neutral-800 */
-  --color-background-muted: #334155; /* Neutral-700 */
+        Light mode defaults */
+  --color-background-DEFAULT: #ffffff; /* White */
+  --color-background-elevated: #f8fafc; /* Neutral-50 */
+  --color-background-subtle: #f1f5f9; /* Neutral-100 */
+  --color-background-muted: #e2e8f0; /* Neutral-200 */
 
-  /* Foreground/Text Colors */
-  --color-foreground-DEFAULT: #f8fafc; /* Neutral-50 */
-  --color-foreground-muted: #cbd5e1; /* Neutral-300 */
-  --color-foreground-subtle: #94a3b8; /* Neutral-400 */
-  --color-foreground-inverted: #0f172a; /* Neutral-900 */
+  /* Foreground/Text Colors
+        Light mode defaults */
+  --color-foreground-DEFAULT: #0f172a; /* Neutral-900 */
+  --color-foreground-muted: #475569; /* Neutral-600 */
+  --color-foreground-subtle: #64748b; /* Neutral-500 */
+  --color-foreground-inverted: #f8fafc; /* Neutral-50 */
 
-  /* Border Colors */
-  --color-border-DEFAULT: #334155; /* Neutral-700 */
-  --color-border-subtle: #1e293b; /* Neutral-800 */
+  /* Border Colors
+        Light mode defaults */
+  --color-border-DEFAULT: #e2e8f0; /* Neutral-200 */
+  --color-border-subtle: #cbd5e1; /* Neutral-300 */
   --color-border-accent: #0077c5; /* Primary */
 
   /* Font Sizes with Line Heights
@@ -358,6 +360,76 @@
   --container-maxWidth-lg: 1024px;
   --container-maxWidth-xl: 1280px;
   --container-maxWidth-2xl: 1536px;
+}
+
+/* ============================================
+   BASE LAYER STYLES
+   ============================================ */
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: var(--color-background-DEFAULT);
+    color: var(--color-foreground-DEFAULT);
+    transition: background-color var(--duration-normal) var(--ease-in-out),
+      color var(--duration-normal) var(--ease-in-out);
+  }
+
+  /* Ensure all text elements transition smoothly on theme change */
+  /* Using longhand properties to avoid conflicts with component-level transitions */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  a,
+  li,
+  label,
+  small,
+  strong,
+  em,
+  b,
+  blockquote,
+  code,
+  pre,
+  time,
+  address {
+    transition-property: color;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-in-out);
+  }
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+
+.dark {
+  /* Background Colors
+        Dark mode portfolio aesthetic */
+  --color-background-DEFAULT: #020617; /* Neutral-950 */
+  --color-background-elevated: #0f172a; /* Neutral-900 */
+  --color-background-subtle: #1e293b; /* Neutral-800 */
+  --color-background-muted: #334155; /* Neutral-700 */
+
+  /* Foreground/Text Colors
+        Dark mode */
+  --color-foreground-DEFAULT: #f8fafc; /* Neutral-50 */
+  --color-foreground-muted: #cbd5e1; /* Neutral-300 */
+  --color-foreground-subtle: #94a3b8; /* Neutral-400 */
+  --color-foreground-inverted: #0f172a; /* Neutral-900 */
+
+  /* Border Colors
+        Dark mode */
+  --color-border-DEFAULT: #334155; /* Neutral-700 */
+  --color-border-subtle: #1e293b; /* Neutral-800 */
+  --color-border-accent: #0077c5; /* Primary */
 }
 
 /* ============================================

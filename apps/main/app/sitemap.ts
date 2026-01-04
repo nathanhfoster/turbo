@@ -5,7 +5,7 @@ const BASE_URL = "https://agentnate.dev";
 const MAX_URLS_PER_SITEMAP = 50000; // Google's limit
 
 // Static routes
-const STATIC_ROUTES = ["", "/newsletter", "/portfolio", "/contact", "/services"];
+const STATIC_ROUTES = ["", "/newsletter", "/portfolio", "/services", "/settings", "/sitemap-view"];
 
 /**
  * Generate sitemap IDs based on total number of URLs

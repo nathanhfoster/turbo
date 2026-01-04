@@ -244,13 +244,16 @@ export const DISABLED_STYLES = {
 
 /**
  * Common transition styles
+ * Uses CSS custom properties from index.css for consistency
  */
 export const TRANSITION_STYLES = {
   colors: "transition-colors duration-300 ease-in-out",
   all: "transition-all duration-300 ease-in-out",
   fast: "transition-all duration-150 ease-in-out",
   slow: "transition-all duration-500 ease-in-out",
-};
+  // Theme-specific transitions using CSS custom properties
+  theme: `transition-[color,background-color,border-color] duration-[var(--duration-normal)] ease-[var(--ease-in-out)]`,
+} as const;
 
 /**
  * Common focus styles

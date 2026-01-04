@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, Card, Typography } from "@nathanhfoster/ui";
 import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import { confirmAction, clearAllStorage, reloadPage } from "../utils";
 import type { StorageProps } from "../types";
@@ -20,24 +21,32 @@ export function Storage({
   };
 
   const defaultButton = (
-    <button
+    <Button
       onClick={clearStorage}
-      className={buttonClassName || DEFAULT_CLASSES.button.danger}
+      variant="contained"
+      color="warning"
+      className={buttonClassName}
     >
       {MESSAGES.storage.button}
-    </button>
+    </Button>
   );
 
   return (
-    <div className={className || DEFAULT_CLASSES.container}>
-      <h3 className={titleClassName || DEFAULT_CLASSES.title}>
+    <Card className={className || DEFAULT_CLASSES.container}>
+      <Typography
+        variant="h3"
+        className={titleClassName || DEFAULT_CLASSES.title}
+      >
         {MESSAGES.storage.title}
-      </h3>
-      <p className={descriptionClassName || DEFAULT_CLASSES.description}>
+      </Typography>
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
         {MESSAGES.storage.description}
-      </p>
+      </Typography>
       {renderButton ? renderButton({ clearStorage }) : defaultButton}
-    </div>
+    </Card>
   );
 }
 

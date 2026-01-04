@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, ButtonGroup, Card, Typography } from "@nathanhfoster/ui";
 import { useInstallPrompt } from "../../providers/InstallPromptProvider";
 import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import { handleNotificationPermissionRequest } from "../utils";
@@ -20,39 +21,49 @@ export function Notifications({
   };
 
   const defaultButtons = (
-    <div className={DEFAULT_CLASSES.buttonRow}>
-      <button
+    <ButtonGroup className={DEFAULT_CLASSES.buttonRow}>
+      <Button
         onClick={handlePermissionRequest}
         disabled={permission === "granted"}
-        className={buttonClassName || DEFAULT_CLASSES.button.primary}
+        variant="contained"
+        color="primary"
+        className={buttonClassName}
       >
         {permission === "granted"
           ? MESSAGES.notifications.enabled
           : MESSAGES.notifications.enable}
-      </button>
+      </Button>
       {permission === "granted" && (
-        <button
+        <Button
           onClick={unsubscribeFromPush}
-          className={buttonClassName || DEFAULT_CLASSES.button.danger}
+          variant="contained"
+          color="error"
+          className={buttonClassName}
         >
           {MESSAGES.notifications.disable}
-        </button>
+        </Button>
       )}
-    </div>
+    </ButtonGroup>
   );
 
   return (
-    <div className={className || DEFAULT_CLASSES.container}>
-      <h3 className={titleClassName || DEFAULT_CLASSES.title}>
+    <Card className={className || DEFAULT_CLASSES.container}>
+      <Typography
+        variant="h3"
+        className={titleClassName || DEFAULT_CLASSES.title}
+      >
         {MESSAGES.notifications.title}
-      </h3>
-      <p className={descriptionClassName || DEFAULT_CLASSES.description}>
+      </Typography>
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
         {MESSAGES.notifications.description}
-      </p>
+      </Typography>
       {renderButton
         ? renderButton({ permission, requestPermission, unsubscribeFromPush })
         : defaultButtons}
-    </div>
+    </Card>
   );
 }
 

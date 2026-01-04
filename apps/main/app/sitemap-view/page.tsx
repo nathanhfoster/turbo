@@ -1,10 +1,10 @@
-import { Box, Card, Typography } from "@nathanhfoster/ui";
+import { Box, Card, Typography, Button } from "@nathanhfoster/ui";
 import Link from "next/link";
 import { getAllSitemapData } from "./utils";
 import { BASE_URL } from "./constants";
 
 export const metadata = {
-  title: "Sitemap - AgentNate",
+  title: "Sitemap",
   description: "Visual sitemap of all pages and newsletter posts",
 };
 
@@ -17,24 +17,31 @@ export default function SitemapViewPage() {
 
   return (
     <Box className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <Box className="mb-8">
+      <Box className="mb-12 text-center">
         <Typography
           variant="h1"
           className="mb-4"
-          size="text-4xl"
+          size="text-5xl"
           weight="font-bold"
         >
           Sitemap
         </Typography>
-        <Typography variant="p" className="text-lg text-gray-600 dark:text-gray-400">
+        <Typography
+          variant="p"
+          className="mb-8 text-xl text-gray-600 dark:text-gray-400"
+        >
+          Visual sitemap of all pages and newsletter posts
+        </Typography>
+        <Typography variant="p" className="mb-6 text-lg text-gray-700 dark:text-gray-300">
           Total URLs: {totalUrls.toLocaleString()} across {sitemaps.length} sitemap
           {sitemaps.length !== 1 ? "s" : ""}
         </Typography>
-        <Box className="mt-4 flex gap-4">
+        <Box className="flex flex-wrap justify-center gap-3">
           <Link
             href="/sitemap.xml"
-            className="text-primary hover:underline"
             target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md border-2 border-primary px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-black focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             View XML Sitemap Index
           </Link>
@@ -42,8 +49,9 @@ export default function SitemapViewPage() {
             <Link
               key={sitemap.id}
               href={`/sitemap/${sitemap.id}.xml`}
-              className="text-primary hover:underline"
               target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-md border-2 border-primary px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-black focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               Sitemap {sitemap.id}.xml
             </Link>
@@ -52,54 +60,56 @@ export default function SitemapViewPage() {
       </Box>
 
       {sitemaps.map((sitemap) => (
-        <Card key={sitemap.id} className="mb-8 p-6">
-          <Box className="mb-4 flex items-center justify-between">
+        <Card key={sitemap.id} className="mb-8 p-6" hoverable>
+          <Box className="mb-6 flex items-center justify-between">
             <Typography
               variant="h2"
-              size="text-2xl"
-              weight="font-semibold"
+              size="text-3xl"
+              weight="font-bold"
             >
               Sitemap {sitemap.id}
             </Typography>
-            <Typography variant="p" className="text-gray-600 dark:text-gray-400">
+            <Typography variant="p" className="text-lg text-gray-600 dark:text-gray-400">
               {sitemap.count.toLocaleString()} URLs
             </Typography>
           </Box>
 
-          <Box className="space-y-4">
+          <Box className="space-y-6">
             {/* Static Routes Section */}
             {sitemap.id === 0 && (
               <Box>
                 <Typography
                   variant="h3"
-                  size="text-lg"
+                  size="text-xl"
                   weight="font-semibold"
-                  className="mb-3"
+                  className="mb-4"
                 >
                   Static Routes ({sitemap.entries.filter((e) => e.type === "static").length})
                 </Typography>
-                <Box className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                <Box className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {sitemap.entries
                     .filter((entry) => entry.type === "static")
                     .map((entry) => (
-                      <Link
+                      <Card
                         key={entry.url}
                         href={entry.url}
-                        className="rounded-lg border border-gray-200 p-3 transition-colors hover:border-primary hover:bg-primary/10 dark:border-gray-700"
+                        padding="p-4"
+                        hoverable
+                        className="hover:border-primary group"
                       >
                         <Typography
                           variant="p"
-                          className="font-medium text-primary"
+                          className="mb-2 font-semibold text-primary group-hover:text-primary transition-colors"
                         >
                           {entry.url.replace(BASE_URL, "") || "/"}
                         </Typography>
                         <Typography
                           variant="p"
-                          className="mt-1 text-xs text-gray-500 dark:text-gray-400"
+                          className="text-sm text-gray-600 dark:text-gray-400"
                         >
                           Priority: {entry.priority} • {entry.changeFrequency}
                         </Typography>
-                      </Link>
+                      </Card>
                     ))}
                 </Box>
               </Box>
@@ -110,34 +120,36 @@ export default function SitemapViewPage() {
               <Box>
                 <Typography
                   variant="h3"
-                  size="text-lg"
+                  size="text-xl"
                   weight="font-semibold"
-                  className="mb-3"
+                  className="mb-4"
                 >
                   Newsletter Posts ({sitemap.entries.filter((e) => e.type === "newsletter").length})
                 </Typography>
-                <Box className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                <Box className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {sitemap.entries
                     .filter((entry) => entry.type === "newsletter")
                     .map((entry) => (
-                      <Link
+                      <Card
                         key={entry.url}
                         href={entry.url}
-                        className="rounded-lg border border-gray-200 p-3 transition-colors hover:border-primary hover:bg-primary/10 dark:border-gray-700"
+                        padding="p-4"
+                        hoverable
+                        className="hover:border-primary group"
                       >
                         <Typography
                           variant="p"
-                          className="font-medium text-primary"
+                          className="mb-2 font-semibold text-primary group-hover:text-primary transition-colors"
                         >
                           {entry.url.replace(BASE_URL, "")}
                         </Typography>
                         <Typography
                           variant="p"
-                          className="mt-1 text-xs text-gray-500 dark:text-gray-400"
+                          className="text-sm text-gray-600 dark:text-gray-400"
                         >
                           {new Date(entry.lastModified).toLocaleDateString()} • Priority: {entry.priority}
                         </Typography>
-                      </Link>
+                      </Card>
                     ))}
                 </Box>
               </Box>

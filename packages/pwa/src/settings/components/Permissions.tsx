@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, Card, Typography } from "@nathanhfoster/ui";
 import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import { confirmAction, resetAllPermissions, showAlert } from "../utils";
 import type { PermissionsProps } from "../types";
@@ -24,24 +25,32 @@ export function Permissions({
   };
 
   const defaultButton = (
-    <button
+    <Button
       onClick={resetPermissions}
-      className={buttonClassName || DEFAULT_CLASSES.button.warning}
+      variant="contained"
+      color="warning"
+      className={buttonClassName}
     >
       {MESSAGES.permissions.button}
-    </button>
+    </Button>
   );
 
   return (
-    <div className={className || DEFAULT_CLASSES.container}>
-      <h3 className={titleClassName || DEFAULT_CLASSES.title}>
+    <Card className={className || DEFAULT_CLASSES.container}>
+      <Typography
+        variant="h3"
+        className={titleClassName || DEFAULT_CLASSES.title}
+      >
         {MESSAGES.permissions.title}
-      </h3>
-      <p className={descriptionClassName || DEFAULT_CLASSES.description}>
+      </Typography>
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
         {MESSAGES.permissions.description}
-      </p>
+      </Typography>
       {renderButton ? renderButton({ resetPermissions }) : defaultButton}
-    </div>
+    </Card>
   );
 }
 

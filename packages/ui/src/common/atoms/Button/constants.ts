@@ -42,10 +42,87 @@ export const VARIANT_STYLES: Record<ComponentVariant, string> = VARIANT_BASE_STY
 
 /**
  * Color styles for contained variant
- * Generated from centralized style utilities
+ * Static mapping ensures Tailwind recognizes the classes
  */
-export const COLOR_STYLES: Record<ComponentColor, ColorStyles> =
-  generateColorStylesMapping("contained");
+export const COLOR_STYLES: Record<ComponentColor, ColorStyles> = {
+  primary: {
+    bg: "bg-primary",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-primary hover:brightness-90",
+    active: "bg-primary",
+    border: "border-transparent",
+  },
+  secondary: {
+    bg: "bg-secondary",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-secondary hover:brightness-90",
+    active: "bg-secondary",
+    border: "border-transparent",
+  },
+  accent: {
+    bg: "bg-accent",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-accent hover:brightness-90",
+    active: "bg-accent",
+    border: "border-transparent",
+  },
+  error: {
+    bg: "bg-error",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-error hover:brightness-90",
+    active: "bg-error",
+    border: "border-transparent",
+  },
+  success: {
+    bg: "bg-success",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-success hover:brightness-90",
+    active: "bg-success",
+    border: "border-transparent",
+  },
+  warning: {
+    bg: "bg-warning",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-warning hover:brightness-90",
+    active: "bg-warning",
+    border: "border-transparent",
+  },
+  info: {
+    bg: "bg-info",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-info hover:brightness-90",
+    active: "bg-info",
+    border: "border-transparent",
+  },
+  white: {
+    bg: "bg-white",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-white hover:brightness-90",
+    active: "bg-white",
+    border: "border-transparent",
+  },
+  black: {
+    bg: "bg-black",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-black hover:brightness-90",
+    active: "bg-black",
+    border: "border-transparent",
+  },
+  gray: {
+    bg: "bg-neutral-500",
+    text: "text-foreground-inverted",
+    hover: "hover:bg-neutral-500 hover:brightness-90",
+    active: "bg-neutral-500",
+    border: "border-transparent",
+  },
+  inherit: {
+    bg: "bg-inherit",
+    text: "text-inherit",
+    hover: "hover:bg-inherit hover:text-inherit",
+    active: "text-inherit",
+    border: "border-inherit",
+  },
+};
 
 /**
  * Color styles for outlined variant
