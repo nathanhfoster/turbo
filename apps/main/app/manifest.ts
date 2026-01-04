@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
+import { createManifest } from "@nathanhfoster/pwa/utils";
 
 export default function manifest(): MetadataRoute.Manifest {
-  return {
+  const baseManifest = createManifest<MetadataRoute.Manifest>({
     name: "AgentNate - Portfolio & Consultancy",
     short_name: "AgentNate",
     description:
-      "Portfolio and consultancy services showcasing projects, blog posts, and professional services",
+      "Portfolio and consultancy services showcasing projects, newsletter posts, and professional services",
     id: "nf-portfolio",
     start_url: "/?source=pwa",
     display: "standalone",
@@ -197,6 +198,25 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/icons/windows11/StoreLogo.scale-100.png",
         sizes: "50x50",
         type: "image/png",
+      },
+    ],
+  });
+
+  return {
+    ...baseManifest,
+    shortcuts: [
+      {
+        name: "Newsletter",
+        short_name: "Newsletter",
+        description: "Read the latest newsletter posts",
+        url: "/newsletter",
+        icons: [
+          {
+            src: "/icons/android/android-launchericon-192-192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+        ],
       },
     ],
   };

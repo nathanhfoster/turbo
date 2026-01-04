@@ -5,7 +5,7 @@ import "./globals.css";
 const APP_NAME = "AgentNate - Portfolio & Consultancy";
 const APP_SHORT_NAME = "AgentNate";
 const APP_DESCRIPTION =
-  "Portfolio and consultancy services showcasing projects, blog posts, and professional services";
+  "Portfolio and consultancy services showcasing projects, newsletter posts, and professional services";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://agentnate.dev"),
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFE500",
+  themeColor: "#0077c5",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

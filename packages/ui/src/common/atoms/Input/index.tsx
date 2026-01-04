@@ -2,7 +2,7 @@ import withForwardRef from "./../../hocs/withForwardRef";
 import { TAILWIND_SIZES } from "./../../../constants";
 import { combineClassNames, isString } from "@nathanhfoster/utils";
 import Box from "../Box";
-import type { ComponentColor } from "../types";
+import type { ComponentColor, Size } from "../types";
 import Typography from "../Typography";
 import ClearButton from "./components/ClearButton";
 import InputLabel from "./components/Label";
@@ -18,7 +18,7 @@ const Input = ({
   onChange,
   error = false,
   required = false,
-  size = "md",
+  size = "px-4 py-2.5 text-base min-h-[44px]",
   className,
   color,
   fullWidth = true,
@@ -26,6 +26,10 @@ const Input = ({
   ...props
 }: InputProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
+  // Use size directly if provided, otherwise fallback to lookup for backward compatibility
+  const sizeStyles = typeof size === "string" && size.includes(" ") 
+    ? size 
+    : TAILWIND_SIZES[(size as Size) || "md"];
 
   return (
     <Box fullWidth className="relative">
@@ -43,7 +47,7 @@ const Input = ({
             colorStyles?.border,
             colorStyles?.focus,
             colorStyles?.hover,
-            TAILWIND_SIZES[size],
+            sizeStyles,
             fullWidth && "w-full",
             fullHeight && "h-full",
             className,
@@ -52,7 +56,11 @@ const Input = ({
           required={required}
           {...props}
         />
-        <ClearButton onChange={onChange} size={size} value={value} />
+        <ClearButton 
+          onChange={onChange} 
+          size={typeof size === "string" && !size.includes(" ") ? (size as Size) : "md"} 
+          value={value} 
+        />
       </div>
       {isString(error) && (
         <Typography variant="p" color="error" className={ERROR_STYLES}>

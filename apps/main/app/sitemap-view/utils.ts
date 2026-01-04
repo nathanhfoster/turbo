@@ -27,31 +27,31 @@ export function getAllSitemapData(): SitemapData[] {
       entries.push(...staticRoutes);
     }
 
-    // Blog posts
+    // Newsletter posts
     if (i === 0) {
       const availableSlots = MAX_URLS_PER_SITEMAP - STATIC_ROUTES.length;
-      const blogPostsForSitemap = posts.slice(0, availableSlots);
-      const blogPosts = blogPostsForSitemap.map((post) => ({
-        url: `${BASE_URL}/blog/${post.slug}`,
+      const newsletterPostsForSitemap = posts.slice(0, availableSlots);
+      const newsletterPosts = newsletterPostsForSitemap.map((post) => ({
+        url: `${BASE_URL}/newsletter/${post.slug}`,
         lastModified: new Date(post.date).toISOString(),
         changeFrequency: "monthly",
         priority: 0.6,
-        type: "blog" as const,
+        type: "newsletter" as const,
       }));
-      entries.push(...blogPosts);
+      entries.push(...newsletterPosts);
     } else {
       const staticRoutesCount = STATIC_ROUTES.length;
       const startIndex = i * MAX_URLS_PER_SITEMAP - staticRoutesCount;
       const endIndex = (i + 1) * MAX_URLS_PER_SITEMAP - staticRoutesCount;
-      const blogPostsForSitemap = posts.slice(startIndex, endIndex);
-      const blogPosts = blogPostsForSitemap.map((post) => ({
-        url: `${BASE_URL}/blog/${post.slug}`,
+      const newsletterPostsForSitemap = posts.slice(startIndex, endIndex);
+      const newsletterPosts = newsletterPostsForSitemap.map((post) => ({
+        url: `${BASE_URL}/newsletter/${post.slug}`,
         lastModified: new Date(post.date).toISOString(),
         changeFrequency: "monthly",
         priority: 0.6,
-        type: "blog" as const,
+        type: "newsletter" as const,
       }));
-      entries.push(...blogPosts);
+      entries.push(...newsletterPosts);
     }
 
     sitemaps.push({

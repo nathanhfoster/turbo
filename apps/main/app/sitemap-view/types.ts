@@ -7,7 +7,7 @@ export interface SitemapEntry {
   lastModified: string;
   changeFrequency: string;
   priority: number;
-  type: "static" | "blog";
+  type: "static" | "newsletter";
 }
 
 export interface SitemapData {

@@ -28,58 +28,38 @@ export default function Home() {
           Full-stack developer and technical consultant specializing in modern
           web applications, PWAs, and scalable architectures.
         </Typography>
-
-        <Box className="flex flex-wrap justify-center gap-4">
-          <Button
-            href="/blog"
-            variant="contained"
-            color="primary"
-            size="lg"
-            className="px-8"
-          >
-            Read Blog
-          </Button>
-          <Button
-            href="/portfolio"
-            variant="outlined"
-            color="primary"
-            size="lg"
-            className="px-8"
-          >
-            View Portfolio
-          </Button>
-          <Button
-            href="/contact"
-            variant="outlined"
-            size="lg"
-            className="px-8 border-gray-300 hover:border-primary dark:border-gray-700"
-          >
-            Get in Touch
-          </Button>
-        </Box>
-
         <Box className="mt-16 grid gap-8 md:grid-cols-3">
-          <Card padding="md">
+          <Card
+            href="/newsletter"
+            padding="p-5 sm:p-6 md:p-8"
+            hoverable
+            className="hover:shadow-lg transition-all hover:border-primary group"
+          >
             <Typography
               variant="h3"
-              className="mb-2"
+              className="mb-2 group-hover:text-primary transition-colors"
               size="text-xl"
               weight="font-semibold"
             >
-              Blog
+              Newsletter
             </Typography>
             <Typography
               variant="p"
-              className="text-gray-600 dark:text-gray-400"
+              className="text-gray-600 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
             >
               Technical insights, tutorials, and thoughts on modern web
               development
             </Typography>
           </Card>
-          <Card padding="md">
+          <Card
+            href="/portfolio"
+            padding="p-5 sm:p-6 md:p-8"
+            hoverable
+            className="hover:shadow-lg transition-all hover:border-primary group"
+          >
             <Typography
               variant="h3"
-              className="mb-2"
+              className="mb-2 group-hover:text-primary transition-colors"
               size="text-xl"
               weight="font-semibold"
             >
@@ -87,15 +67,20 @@ export default function Home() {
             </Typography>
             <Typography
               variant="p"
-              className="text-gray-600 dark:text-gray-400"
+              className="text-gray-600 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
             >
               Showcase of projects, case studies, and applications
             </Typography>
           </Card>
-          <Card padding="md">
+          <Card
+            href="/contact"
+            padding="p-5 sm:p-6 md:p-8"
+            hoverable
+            className="hover:shadow-lg transition-all hover:border-primary group"
+          >
             <Typography
               variant="h3"
-              className="mb-2"
+              className="mb-2 group-hover:text-primary transition-colors"
               size="text-xl"
               weight="font-semibold"
             >
@@ -103,7 +88,7 @@ export default function Home() {
             </Typography>
             <Typography
               variant="p"
-              className="text-gray-600 dark:text-gray-400"
+              className="text-gray-600 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
             >
               Consultancy services for web applications and architecture
             </Typography>

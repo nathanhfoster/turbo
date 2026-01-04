@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
+import { createRobots } from "@nathanhfoster/pwa/utils";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://agentnate.dev";
-
-  return {
+  return createRobots({
+    baseUrl: "https://agentnate.dev",
     rules: [
       {
         userAgent: "*",
@@ -11,6 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/private/"],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-  };
+    sitemap: "https://agentnate.dev/sitemap.xml",
+  });
 }

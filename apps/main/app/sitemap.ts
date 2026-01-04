@@ -5,7 +5,7 @@ const BASE_URL = "https://agentnate.dev";
 const MAX_URLS_PER_SITEMAP = 50000; // Google's limit
 
 // Static routes
-const STATIC_ROUTES = ["", "/blog", "/portfolio", "/contact", "/services"];
+const STATIC_ROUTES = ["", "/newsletter", "/portfolio", "/contact", "/services"];
 
 /**
  * Generate sitemap IDs based on total number of URLs
@@ -42,35 +42,35 @@ export default async function sitemap(
     allUrls.push(...staticRoutes);
   }
 
-  // Calculate blog posts range for this sitemap
+  // Calculate newsletter posts range for this sitemap
   if (sitemapIndex === 0) {
-    // First sitemap: static routes + remaining slots for blog posts
+    // First sitemap: static routes + remaining slots for newsletter posts
     const availableSlots = MAX_URLS_PER_SITEMAP - STATIC_ROUTES.length;
-    const blogPostsForSitemap = posts.slice(0, availableSlots);
-    const blogPosts = blogPostsForSitemap.map((post) => ({
-      url: `${BASE_URL}/blog/${post.slug}`,
+    const newsletterPostsForSitemap = posts.slice(0, availableSlots);
+    const newsletterPosts = newsletterPostsForSitemap.map((post) => ({
+      url: `${BASE_URL}/newsletter/${post.slug}`,
       lastModified: new Date(post.date).toISOString(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     }));
-    allUrls.push(...blogPosts);
+    allUrls.push(...newsletterPosts);
     return allUrls;
   }
 
-  // Subsequent sitemaps: only blog posts
+  // Subsequent sitemaps: only newsletter posts
   // Calculate the correct start index accounting for static routes in sitemap 0
   const staticRoutesCount = STATIC_ROUTES.length;
   const startIndex = sitemapIndex * MAX_URLS_PER_SITEMAP - staticRoutesCount;
   const endIndex = (sitemapIndex + 1) * MAX_URLS_PER_SITEMAP - staticRoutesCount;
-  const blogPostsForSitemap = posts.slice(startIndex, endIndex);
-  const blogPosts = blogPostsForSitemap.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
+  const newsletterPostsForSitemap = posts.slice(startIndex, endIndex);
+  const newsletterPosts = newsletterPostsForSitemap.map((post) => ({
+    url: `${BASE_URL}/newsletter/${post.slug}`,
     lastModified: new Date(post.date).toISOString(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  allUrls.push(...blogPosts);
+  allUrls.push(...newsletterPosts);
 
   return allUrls;
 }

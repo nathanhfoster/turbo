@@ -40,4 +40,33 @@ export type {
 } from "./types";
 
 // Utils
-export { urlBase64ToUint8Array } from "./utils";
+export {
+  urlBase64ToUint8Array,
+  generateServiceWorker,
+  registerServiceWorker,
+  generateOfflineHTML,
+  createManifest,
+  createRobots,
+} from "./utils";
+export type { ServiceWorkerConfig } from "./utils/service-worker";
+export type { OfflineHTMLConfig } from "./utils/offline-html";
+export type { ManifestConfig, ManifestIcon } from "./utils/manifest-helpers";
+export type { RobotsConfig } from "./utils/robots-helpers";
+
+// Settings
+export {
+  Settings,
+  InstallApp,
+  ServiceWorker,
+  Notifications,
+  Permissions,
+  Storage,
+} from "./settings";
+export type {
+  SettingsProps,
+  InstallAppProps,
+  ServiceWorkerProps,
+  NotificationsProps,
+  PermissionsProps,
+  StorageProps,
+} from "./settings";

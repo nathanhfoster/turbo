@@ -16,6 +16,17 @@ const nextConfig: NextConfig = {
       ],
     },
   ],
+  // Multi-zone architecture: proxy /astralpoet routes to astralpoet app
+  rewrites: async () => {
+    const astralpoetUrl =
+      process.env.ASTRALPOET_URL || "http://localhost:3002";
+    return [
+      {
+        source: "/astralpoet/:path*",
+        destination: `${astralpoetUrl}/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

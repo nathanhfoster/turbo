@@ -20,7 +20,7 @@ const BaseButton = ({
   type = "button",
   variant = "contained",
   color = "inherit",
-  size = "md",
+  size = "px-4 py-2.5 text-base min-h-[44px] sm:px-5 sm:py-3",
   children,
   disabled = false,
   isActive = false,
@@ -31,7 +31,10 @@ const BaseButton = ({
 }: FinalButtonProps) => {
   const variantStyles = VARIANT_STYLES[variant as ComponentVariant];
   const colorStyles = COLOR_STYLES[color as ComponentColor];
-  const sizeStyles = TAILWIND_SIZES[size as Size];
+  // Use size directly if provided, otherwise fallback to lookup for backward compatibility
+  const sizeStyles = typeof size === "string" && size.includes(" ") 
+    ? size 
+    : TAILWIND_SIZES[(size as Size) || "md"];
   const isAnchor = !!href;
 
   const combinedClassName = combineClassNames(

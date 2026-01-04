@@ -48,6 +48,10 @@
     "lint": "eslint .",
     "check-types": "tsc --noEmit"
   },
+  "dependencies": {
+    "date-fns": "^3.0.0",
+    "lodash-es": "^4.17.21"
+  },
   "devDependencies": {
     "@nathanhfoster/eslint-config": "workspace:*",
     "@nathanhfoster/typescript-config": "workspace:*",

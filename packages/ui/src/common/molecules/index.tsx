@@ -1,8 +1,17 @@
 export * from "./Accordion";
 export * from "./AutoSizer";
+export { Badge } from "./Badge";
+export type { BadgeProps } from "./Badge";
+export * from "./BottomNavigation";
 export * from "./Breadcrumb";
 export * from "./ButtonGroup";
+export { Chip } from "./Chip";
+export type { ChipProps } from "./Chip";
+export { default as Dropdown } from "./Dropdown";
 export * from "./Footer";
 export * from "./Form";
+export { default as FormControl } from "./FormControl";
+export { default as InputGroup } from "./InputGroup";
+export { default as SimpleTable } from "./SimpleTable";
 export * from "./Stepper";
 export * from "./Tabs";

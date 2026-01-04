@@ -5,7 +5,7 @@ import { BASE_URL } from "./constants";
 
 export const metadata = {
   title: "Sitemap - AgentNate",
-  description: "Visual sitemap of all pages and blog posts",
+  description: "Visual sitemap of all pages and newsletter posts",
 };
 
 // Revalidate every hour (3600 seconds) for ISR
@@ -105,8 +105,8 @@ export default function SitemapViewPage() {
               </Box>
             )}
 
-            {/* Blog Posts Section */}
-            {sitemap.entries.filter((e) => e.type === "blog").length > 0 && (
+            {/* Newsletter Posts Section */}
+            {sitemap.entries.filter((e) => e.type === "newsletter").length > 0 && (
               <Box>
                 <Typography
                   variant="h3"
@@ -114,11 +114,11 @@ export default function SitemapViewPage() {
                   weight="font-semibold"
                   className="mb-3"
                 >
-                  Blog Posts ({sitemap.entries.filter((e) => e.type === "blog").length})
+                  Newsletter Posts ({sitemap.entries.filter((e) => e.type === "newsletter").length})
                 </Typography>
                 <Box className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                   {sitemap.entries
-                    .filter((entry) => entry.type === "blog")
+                    .filter((entry) => entry.type === "newsletter")
                     .map((entry) => (
                       <Link
                         key={entry.url}

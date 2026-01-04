@@ -34,6 +34,8 @@ export type BoxVariant =
   | BoxDetailsVariant
   | BoxDetailsSummaryVariant;
 
+export type BoxContainerProp = string | boolean;
+
 export interface BaseBoxProps extends BaseTailwindProps {
   position?: string;
   overflow?: string;
@@ -42,7 +44,12 @@ export interface BaseBoxProps extends BaseTailwindProps {
   border?: string;
   opacity?: string;
   zIndex?: string;
-  container?: boolean | Size;
+  /**
+   * Container size - accepts full Tailwind class string
+   * Examples: "container mx-auto px-4 max-w-screen-md", "container mx-auto px-4"
+   * Can also be boolean for default container styles
+   */
+  container?: BoxContainerProp;
   style?: React.CSSProperties;
 }
 

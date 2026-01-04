@@ -34,8 +34,10 @@ const Box = forwardRef<HTMLElement, BoxProps>(
       "div") as unknown as ComponentType<any>;
 
     const containerClasses = container
-      ? typeof container === "string"
-        ? CONTAINER_STYLES[container]
+      ? typeof container === "string" && container.includes(" ")
+        ? container
+        : typeof container === "string"
+        ? CONTAINER_STYLES[container as Size] || container
         : DEFAULT_CONTAINER_STYLE
       : "";
 

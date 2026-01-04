@@ -6,11 +6,17 @@ import type { BaseTailwindProps, ColoredComponent, Size } from "../types";
  * @see ../../../tokens/styleUtils
  */
 
+export type ButtonSizeProp = string;
+
 export interface BaseButtonProps
   extends ColoredComponent,
     BaseTailwindProps,
     Pick<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
-  size?: Size;
+  /**
+   * Button size - accepts full Tailwind class string
+   * Examples: "px-4 py-2.5 text-base min-h-[44px]", "px-5 py-3 text-lg min-h-[48px]"
+   */
+  size?: ButtonSizeProp;
   isActive?: boolean;
   children?: React.ReactNode;
   className?: string;

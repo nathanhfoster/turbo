@@ -15,7 +15,7 @@ const TextArea = ({
   onChange,
   error = false,
   required = false,
-  size = "md",
+  size = "px-4 py-2.5 text-base min-h-[44px]",
   className,
   color,
   fullWidth = true,
@@ -24,6 +24,10 @@ const TextArea = ({
   ...props
 }: TextAreaProps) => {
   const colorStyles = COLOR_STYLES[error ? "error" : (color as ComponentColor)];
+  // Use size directly if provided, otherwise fallback to lookup for backward compatibility
+  const sizeStyles = typeof size === "string" && size.includes(" ") 
+    ? size 
+    : TAILWIND_SIZES[(size as Size) || "md"];
 
   return (
     <Box fullWidth className="relative">
@@ -45,7 +49,7 @@ const TextArea = ({
           colorStyles?.border,
           colorStyles?.focus,
           colorStyles?.hover,
-          TAILWIND_SIZES[size],
+          sizeStyles,
           fullWidth && "w-full",
           fullHeight && "h-full",
           className,
