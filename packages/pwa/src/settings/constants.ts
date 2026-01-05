@@ -5,8 +5,8 @@
 // Default CSS classes
 export const DEFAULT_CLASSES = {
   container: "p-4 border rounded-lg",
-  title: "text-lg font-semibold mb-2 text-gray-900 dark:text-white",
-  description: "text-sm text-gray-600 dark:text-gray-400 mb-4",
+  title: "text-lg font-semibold mb-2 text-foreground",
+  description: "text-sm text-foreground-muted mb-4",
   button: {
     primary: "px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50",
     success: "px-4 py-2 bg-green-500 text-white rounded",
@@ -83,4 +83,5 @@ export const PERMISSION_NAMES = {
   microphone: "microphone" as PermissionName,
   geolocation: "geolocation" as PermissionName,
 } as const;
+
 
