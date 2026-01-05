@@ -1,5 +1,5 @@
 export const MENU_ITEM_CLASSES =
-  "hover:text-primary transition-colors cursor-pointer";
+  "text-foreground hover:text-primary transition-colors cursor-pointer";
 
 export const DEFAULT_MENU_ITEMS = [
   {

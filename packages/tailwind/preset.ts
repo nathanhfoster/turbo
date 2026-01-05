@@ -26,16 +26,9 @@ const preset: Config = {
     "left-0",
     "right-0",
     "z-50",
-    // Navbar background and styling
-    "bg-white",
     "shadow-sm",
-    "border-gray-200",
     "border-b",
     "border-t",
-    "dark:bg-gray-900",
-    "dark:bg-gray-800",
-    "dark:border-gray-800",
-    "dark:border-gray-700",
     // Navbar transform utilities for scroll animations
     "translate-y-0",
     "-translate-y-full",
@@ -45,20 +38,15 @@ const preset: Config = {
     // Footer background and styling
     "border-t",
     "mt-auto",
-    // Card background and styling
+    // Card background and styling - using semantic tokens
     "rounded-lg",
-    "!bg-white",
-    "dark:!bg-gray-800",
+    "bg-background",
+    "text-foreground",
     "border",
-    "border-neutral-200",
-    "dark:border-gray-700",
-    // Card text colors for contrast
-    "text-gray-900",
-    "text-gray-600",
-    "text-gray-400",
-    "dark:text-white",
-    "dark:text-gray-100",
-    "dark:text-gray-400",
+    "border-border",
+    // Card text colors for contrast - using semantic tokens
+    "text-foreground-muted",
+    "text-foreground-subtle",
     // Modal width utilities
     "max-w-sm",
     "max-w-md",
@@ -92,6 +80,32 @@ const preset: Config = {
     "dark:text-error-300",
     "dark:text-warning-300",
     "dark:text-info-300",
+    // Drawer background and styling
+    "bg-background",
+    "text-foreground",
+    "shadow-lg",
+    "transition-transform",
+    "duration-400",
+    "ease-out",
+    // Drawer transform classes
+    "-translate-x-full",
+    "translate-x-full",
+    "-translate-y-full",
+    "translate-y-full",
+    "translate-x-0",
+    "translate-y-0",
+    // Drawer size classes
+    "w-80",
+    "h-80",
+    "h-full",
+    "w-full",
+    // Drawer positioning
+    "left-0",
+    "right-0",
+    "top-0",
+    "bottom-0",
+    "fixed",
+    "z-[60]",
   ],
   theme: {
     extend: {
@@ -103,6 +117,26 @@ const preset: Config = {
         error: "var(--color-error)",
         warning: "var(--color-warning)",
         info: "var(--color-info)",
+        // Semantic background colors - automatically switch in dark mode
+        background: {
+          DEFAULT: "var(--color-background-DEFAULT)",
+          elevated: "var(--color-background-elevated)",
+          subtle: "var(--color-background-subtle)",
+          muted: "var(--color-background-muted)",
+        },
+        // Semantic foreground/text colors - automatically contrast in dark mode
+        foreground: {
+          DEFAULT: "var(--color-foreground-DEFAULT)",
+          muted: "var(--color-foreground-muted)",
+          subtle: "var(--color-foreground-subtle)",
+          inverted: "var(--color-foreground-inverted)",
+        },
+        // Semantic border colors - automatically switch in dark mode
+        border: {
+          DEFAULT: "var(--color-border-DEFAULT)",
+          subtle: "var(--color-border-subtle)",
+          accent: "var(--color-border-accent)",
+        },
       },
     },
   },

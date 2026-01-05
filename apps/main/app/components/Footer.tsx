@@ -36,7 +36,7 @@ export default function Footer() {
   return (
     <Box
       variant="footer"
-      className="w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto"
+      className="w-full border-t border-border mt-auto"
     >
       <Box className="mx-auto max-w-7xl px-4 py-8 md:px-6 lg:px-8">
         <Box className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -45,7 +45,7 @@ export default function Footer() {
             <Typography className="text-xl font-bold text-primary">
               AgentNate
             </Typography>
-            <Typography className="text-sm text-gray-600 dark:text-gray-400">
+            <Typography className="text-sm text-foreground-muted">
               Full-stack developer and technical consultant specializing in modern web applications, PWAs, and scalable architectures.
             </Typography>
             {/* Social Links */}
@@ -56,7 +56,7 @@ export default function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className="text-foreground-muted hover:text-primary transition-colors"
                   aria-label={label}
                 >
                   <Box className="w-6 h-6">
@@ -69,7 +69,7 @@ export default function Footer() {
 
           {/* Navigation Links */}
           <Box className="flex flex-col gap-4 md:col-span-2">
-            <Typography className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+            <Typography className="text-sm font-semibold text-foreground">
               Quick Links
             </Typography>
             <Box className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -77,7 +77,7 @@ export default function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className="text-sm text-foreground-muted hover:text-primary transition-colors"
                 >
                   {label}
                 </Link>
@@ -87,8 +87,8 @@ export default function Footer() {
         </Box>
 
         {/* Copyright */}
-        <Box className="mt-8 border-t border-gray-200 dark:border-gray-800 pt-6">
-          <Typography className="text-center text-sm text-gray-600 dark:text-gray-400">
+        <Box className="mt-8 border-t border-border pt-6">
+          <Typography className="text-center text-sm text-foreground-muted">
             &copy; {currentYear} Nathan Foster. All rights reserved.
           </Typography>
         </Box>

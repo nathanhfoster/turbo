@@ -21,12 +21,13 @@ const NavbarContainer = ({
   const isVisible = useScrollDirection();
 
   // Explicitly define all class combinations for Tailwind v4 scanning
+  // Using semantic tokens that automatically switch in dark mode
   // Top navbar classes
-  const topClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50 fixed right-0 left-0 top-0 border-b border-gray-200 dark:border-gray-800";
+  const topClasses = "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 top-0 border-b border-border";
   // Bottom navbar classes
-  const bottomClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50 fixed right-0 left-0 bottom-0 border-t border-gray-200 dark:border-gray-800";
+  const bottomClasses = "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 bottom-0 border-t border-border";
   // Static navbar base classes
-  const staticClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50";
+  const staticClasses = "w-full bg-background text-foreground shadow-sm z-50";
 
   const baseClasses = fixed
     ? (position === "top" ? topClasses : bottomClasses)
@@ -69,9 +70,7 @@ const TopNavbar = ({
         <Box className="h-16 relative flex items-center justify-between">
           <Box className="flex items-center gap-4 flex-1 min-w-0">
             {logo}
-            <Box className="hidden md:flex items-center">
-              {children}
-            </Box>
+            {children}
           </Box>
           <Box className="flex-shrink-0 w-10 flex items-center justify-end">
             <Box className="md:hidden">

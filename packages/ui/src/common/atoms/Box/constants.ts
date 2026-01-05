@@ -66,3 +66,13 @@ export const COLOR_STYLES: Record<ComponentColor, string> = {
 };
 
 export const DEFAULT_CONTAINER_STYLE = "container mx-auto px-4";
+
+/**
+ * Default theme styles for semantic variants
+ * These are applied automatically but can be overridden via className prop
+ */
+export const VARIANT_DEFAULT_STYLES: Partial<Record<BoxVariant, string>> = {
+  nav: "bg-background text-foreground",
+  footer: "bg-background text-foreground",
+  aside: "bg-background text-foreground",
+};

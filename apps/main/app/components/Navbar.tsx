@@ -42,7 +42,7 @@ export function Navbar() {
           menuItems: NAV_ITEMS,
         }}
       >
-        <Box className="hidden md:flex gap-1">
+        <Box className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map(({ label, href }) => (
             <Link
               key={href}
@@ -50,7 +50,7 @@ export function Navbar() {
               className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                 pathname === href
                   ? "text-primary"
-                  : "text-gray-700 dark:text-gray-300 hover:text-primary"
+                  : "text-foreground hover:text-primary"
               }`}
             >
               {label}
@@ -67,7 +67,7 @@ export function Navbar() {
               className={`flex flex-col items-center justify-center px-3 py-2 text-xs font-medium transition-colors ${
                 pathname === href
                   ? "text-primary"
-                  : "text-gray-700 dark:text-gray-300"
+                  : "text-foreground"
               }`}
             >
               {Icon && (

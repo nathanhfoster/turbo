@@ -9,6 +9,7 @@ import {
   CONTAINER_STYLES,
   DEFAULT_CONTAINER_STYLE,
   VARIANTS,
+  VARIANT_DEFAULT_STYLES,
 } from "./constants";
 import { BoxProps } from "./types";
 
@@ -48,6 +49,10 @@ const Box = forwardRef<HTMLElement, BoxProps>(
 
     const colorClasses = COLOR_STYLES[color as ComponentColor] ?? color;
 
+    // Get default theme styles for semantic variants (nav, footer, etc.)
+    // These can be overridden by className prop
+    const variantDefaultStyles = VARIANT_DEFAULT_STYLES[variant] ?? "";
+
     const baseClasses = combineClassNames(
       containerClasses,
       position,
@@ -57,6 +62,7 @@ const Box = forwardRef<HTMLElement, BoxProps>(
       border,
       opacity,
       zIndex,
+      variantDefaultStyles, // Apply variant defaults before className to allow override
       className,
     );
 

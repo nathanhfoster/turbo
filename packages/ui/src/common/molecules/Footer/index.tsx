@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <Box
       variant="footer"
-      className="bg-[#0A0F1B] px-4 py-12 text-gray-400 md:px-8"
+      className="px-4 py-12 md:px-8"
     >
       <Box className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-4">
         {/* Logo & Mission */}
@@ -21,7 +21,7 @@ const Footer = () => {
           <FooterTypography variant="h2" color="primary">
             Local Impact
           </FooterTypography>
-          <FooterTypography variant="p" color="gray-400">
+          <FooterTypography variant="p" color="foreground-muted">
             Making local impact visible and measurable.
           </FooterTypography>
           <Box className="mt-6 flex space-x-4">
@@ -76,8 +76,8 @@ const Footer = () => {
         </Box>
       </Box>
 
-      <Box className="mt-12 border-t border-gray-700 pt-6 text-center">
-        <FooterTypography variant="p" color="gray-400">
+      <Box className="mt-12 border-t border-border pt-6 text-center">
+        <FooterTypography variant="p" color="foreground-muted">
           © {new Date().getFullYear()} Local Impact. All rights reserved.
         </FooterTypography>
       </Box>
