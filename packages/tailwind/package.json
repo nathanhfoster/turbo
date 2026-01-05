@@ -1,0 +1,15 @@
+{
+  "name": "@nathanhfoster/tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./preset.ts",
+  "types": "./preset.ts",
+  "exports": {
+    ".": "./preset.ts"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.13",
+    "typescript": "5.9.2"
+  }
+}
+

@@ -1,1 +1,20 @@
+/**
+ * Import the base design system from the UI package first.
+ * This provides all default design tokens via @theme block.
+ */
 @import "@nathanhfoster/ui/index.css";
+
+/**
+ * Import Tailwind CSS to ensure app content is scanned and utilities are generated.
+ * The UI package's @theme will be used as base, and can be overridden below.
+ */
+@import "tailwindcss";
+
+/**
+ * Override design system tokens for this application.
+ * These values will override the defaults from the UI package.
+ */
+@theme {
+  /* Override primary color for this app */
+  /* --color-primary: #custom-value; */
+}

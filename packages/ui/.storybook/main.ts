@@ -26,9 +26,9 @@ const config: StorybookConfig = {
       "@ui": resolve(__dirname, "../src"),
     };
 
-    // 🔑 tell Vite to use the package PostCSS config
+    // 🔑 tell Vite to use the root PostCSS config (matches production)
     cfg.css ||= {};
-    cfg.css.postcss = resolve(__dirname, "../postcss.config.mjs");
+    cfg.css.postcss = resolve(__dirname, "../../../postcss.config.mjs");
 
     // Ensure proper module resolution for Storybook
     cfg.optimizeDeps = cfg.optimizeDeps || {};
