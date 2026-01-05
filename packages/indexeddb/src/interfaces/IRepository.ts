@@ -33,3 +33,4 @@ export interface IRepository<T> {
    */
   deleteAll(): Promise<void>;
 }
+

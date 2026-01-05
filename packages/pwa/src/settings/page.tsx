@@ -14,3 +14,4 @@ import { Settings } from "./index";
 export default function SettingsPage() {
   return <Settings />;
 }
+
