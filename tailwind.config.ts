@@ -23,6 +23,9 @@ const config: Config = {
 
     // UI stories (for Storybook if using root PostCSS)
     "./packages/ui/src/**/*.stories.{ts,tsx,js,jsx,mdx}",
+
+    // PWA package (contains CookieConsentModal and other components)
+    "./packages/pwa/src/**/*.{ts,tsx,js,jsx,mdx}",
   ],
 };
 

@@ -12,9 +12,10 @@
 
 /**
  * Explicitly tell Tailwind v4 where to scan for classes using @source directive.
- * This ensures classes from the UI package are detected even if config loading has issues.
+ * This ensures classes from packages are detected even if config loading has issues.
  */
 @source "../../../packages/ui/src/**/*.{ts,tsx,js,jsx,mdx}";
+@source "../../../packages/pwa/src/**/*.{ts,tsx,js,jsx,mdx}";
 @source "../**/*.{ts,tsx,js,jsx,mdx}";
 @source "../../domains/**/*.{ts,tsx,js,jsx,mdx}";
 @source "../../core/**/*.{ts,tsx,js,jsx,mdx}";

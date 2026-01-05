@@ -64,7 +64,7 @@ const Modal = ({
 
   const modalClasses = useMemo(() => {
     return combineClassNames(
-      "relative bg-white rounded-lg shadow-lg [&:not([open])]:hidden",
+      "relative rounded-lg shadow-lg [&:not([open])]:hidden bg-white dark:bg-gray-900",
       MODAL_SIZE_CLASSES[size],
       className,
     );

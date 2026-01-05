@@ -111,9 +111,15 @@ export function createColorStyles(
       };
 
     case "outlined":
+      // For outlined buttons, use a lighter shade in dark mode for better contrast
+      const outlinedTextColor = color === "inherit" 
+        ? "text-inherit" 
+        : color === "white" || color === "black" || color === "gray"
+          ? getTextColor(color) // Keep as-is for utility colors
+          : `${getTextColor(color)} dark:text-${COLOR_TOKENS[color]}-300`;
       return {
         bg: "bg-transparent",
-        text: getTextColor(color),
+        text: outlinedTextColor,
         hover: `${getHoverBgColor(color)} ${color === "inherit" ? "hover:text-inherit" : "hover:text-foreground-inverted"}`,
         active: getBgColor(color),
         border: getBorderColor(color),

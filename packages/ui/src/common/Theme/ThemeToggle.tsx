@@ -33,16 +33,13 @@ export function ThemeToggle({
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       {...props}
     >
-      {isDark ? (
-        <>
-          <IconSun />
-          {showLabel && <span className="ml-2">{lightLabel}</span>}
-        </>
+      {showLabel ? (
+        <div className="flex items-center gap-2">
+          {isDark ? <IconSun /> : <IconMoon />}
+          <span>{isDark ? lightLabel : darkLabel}</span>
+        </div>
       ) : (
-        <>
-          <IconMoon />
-          {showLabel && <span className="ml-2">{darkLabel}</span>}
-        </>
+        isDark ? <IconSun /> : <IconMoon />
       )}
     </Button>
   );
