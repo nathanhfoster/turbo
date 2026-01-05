@@ -11,6 +11,7 @@ import {
   IconBriefcase,
   IconEnvelopeOpen,
   IconSliders,
+  ThemeToggle,
 } from "@nathanhfoster/ui";
 
 const NAV_ITEMS = [
@@ -41,6 +42,7 @@ export function Navbar() {
         menuProps={{
           menuItems: NAV_ITEMS,
         }}
+        rightContent={<ThemeToggle variant="text" size="md" />}
       >
         <Box className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map(({ label, href }) => (

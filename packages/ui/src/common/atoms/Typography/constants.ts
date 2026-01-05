@@ -109,8 +109,8 @@ export const TYPOGRAPHY_VARIANT_STYLES: Record<TypographyVariant, string> = {
   em: `italic ${BASE_TRANSITION}`,
   b: BASE_TRANSITION,
   blockquote: `border-l-4 pl-4 ${BASE_TRANSITION}`,
-  code: `font-mono ${BASE_TRANSITION}`,
-  pre: `font-mono whitespace-pre ${BASE_TRANSITION}`,
+  code: `font-mono bg-background-elevated border border-border-subtle rounded px-1.5 py-0.5 ${BASE_TRANSITION}`,
+  pre: `font-mono whitespace-pre bg-background-elevated border border-border-subtle rounded-lg p-4 overflow-x-auto block ${BASE_TRANSITION}`,
   time: BASE_TRANSITION,
   address: BASE_TRANSITION,
 };

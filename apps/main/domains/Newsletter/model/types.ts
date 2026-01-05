@@ -11,7 +11,7 @@ export interface NewsletterPost {
 }
 
 export interface NewsletterPostWithContent extends NewsletterPost {
-  content: string; // Raw MDX content string for RSC MDXRemote
+  content: string; // HTML content string for RichText component
 }
 
 export interface NewsletterCategory {

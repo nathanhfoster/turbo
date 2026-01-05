@@ -1,0 +1,41 @@
+{
+  "name": "@nathanhfoster/openai",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OpenAI integration utilities for content generation",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./prompts/blogs": {
+      "types": "./src/prompts/blogs/index.ts",
+      "default": "./src/prompts/blogs/index.ts"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nathanhfoster/utils": "workspace:*",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.34.0",
+    "typescript": "5.9.2"
+  },
+  "keywords": [
+    "openai",
+    "ai",
+    "content-generation",
+    "chatgpt",
+    "gpt"
+  ]
+}
+

@@ -53,6 +53,10 @@
     "./device": {
       "types": "./src/providers/DeviceContextProvider/index.tsx",
       "default": "./src/providers/DeviceContextProvider/index.tsx"
+    },
+    "./gtm": {
+      "types": "./src/utils/gtm/index.ts",
+      "default": "./src/utils/gtm/index.ts"
     }
   },
   "scripts": {

@@ -43,6 +43,7 @@
     "@nathanhfoster/cookies": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/utils": "workspace:*",
+    "html-react-parser": "^5.2.5",
     "react-virtualized": "^9.22.5",
     "tailwindcss": "^4.1.13"
   },

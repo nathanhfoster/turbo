@@ -65,6 +65,7 @@ const TopNavbar = ({
   children,
   logo,
   menuProps,
+  rightContent,
   className,
   ...props
 }: TopNavbarProps) => {
@@ -76,7 +77,8 @@ const TopNavbar = ({
             {logo}
             {children}
           </Box>
-          <Box className="flex-shrink-0 w-10 flex items-center justify-end">
+          <Box className="flex-shrink-0 flex items-center gap-2 justify-end">
+            {rightContent}
             <Box className="md:hidden">
               <HamburgerMenu position="right" {...menuProps} />
             </Box>

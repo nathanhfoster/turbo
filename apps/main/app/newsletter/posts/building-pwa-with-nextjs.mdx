@@ -5,32 +5,56 @@ date: "2026-01-02"
 author: "Nathan Foster"
 categories: ["Tutorial", "Web Development"]
 tags: ["Next.js", "PWA", "TypeScript", "Service Workers"]
-readingTime: "8 min read"
+readingTime: "12 min read"
 ---
 
 # Building a Progressive Web App with Next.js 15
 
-Progressive Web Apps (PWAs) combine the best of web and native applications. In this tutorial, I'll show you how to implement PWA features in a Next.js 15 application.
+Progressive Web Apps (PWAs) combine the best of web and native applications, offering users an app-like experience directly in their browser. In this comprehensive tutorial, I'll show you how to implement PWA features in a Next.js 15 application, covering everything from basic setup to advanced caching strategies.
 
 ## What is a PWA?
 
-A Progressive Web App is a web application that uses modern web capabilities to deliver an app-like experience to users. Key features include:
+A Progressive Web App is a web application that uses modern web capabilities to deliver an app-like experience to users. Unlike traditional web apps, PWAs can work offline, be installed on devices, and provide native-like interactions.
 
-- **Offline functionality** via service workers
-- **Installability** on devices
-- **Push notifications**
-- **Fast loading** with caching strategies
-- **Responsive design** across all devices
+### Key Features of PWAs
+
+PWAs are characterized by several key features:
+
+- **Offline functionality** via service workers that cache content and API responses
+- **Installability** on devices through web app manifests
+- **Push notifications** to re-engage users with timely updates
+- **Fast loading** with intelligent caching strategies
+- **Responsive design** that works across all device sizes
+- **Secure connections** via HTTPS requirement
+- **App-like navigation** with smooth transitions and gestures
+
+### Why PWAs Matter
+
+PWAs bridge the gap between web and native applications. They offer several advantages:
+
+- **No app store approval process** - deploy updates instantly
+- **Smaller footprint** - no need to download large native apps
+- **Cross-platform** - one codebase works everywhere
+- **Discoverable** - found through search engines
+- **Linkable** - shareable via URLs
 
 ## Setting Up next-pwa
 
-The easiest way to add PWA capabilities to Next.js is using the `next-pwa` library:
+The easiest way to add PWA capabilities to Next.js is using the `next-pwa` library, which handles service worker generation and configuration automatically.
+
+### Installation
+
+First, install the necessary dependencies:
 
 ```bash
 npm install next-pwa
+# or
+pnpm add next-pwa
 ```
 
-Then configure it in your `next.config.ts`:
+### Configuration
+
+Configure PWA in your `next.config.ts`:
 
 ```typescript
 import withPWA from 'next-pwa';
@@ -40,6 +64,133 @@ const pwaConfig = {
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/fonts\.(?:gstatic|googleapis)\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts',
+        expiration: {
+          maxEntries: 4,
+          maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-font-assets',
+        expiration: {
+          maxEntries: 4,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-image-assets',
+        expiration: {
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\/_next\/image\?url=.+$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'next-image',
+        expiration: {
+          maxEntries: 64,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:mp3|wav|ogg)$/i,
+      handler: 'CacheFirst',
+      options: {
+        rangeRequests: true,
+        cacheName: 'static-audio-assets',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:mp4)$/i,
+      handler: 'CacheFirst',
+      options: {
+        rangeRequests: true,
+        cacheName: 'static-video-assets',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:js)$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-js-assets',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:css|less)$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'static-style-assets',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\/_next\/data\/.+\/.+\.json$/i,
+      handler: 'StaleWhileRevalidate',
+      options: {
+        cacheName: 'next-data',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+      },
+    },
+    {
+      urlPattern: /\/api\/.*$/i,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'apis',
+        expiration: {
+          maxEntries: 16,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+        networkTimeoutSeconds: 10,
+      },
+    },
+    {
+      urlPattern: ({ request }) => request.destination === 'document',
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'pages',
+        expiration: {
+          maxEntries: 32,
+          maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        },
+        networkTimeoutSeconds: 10,
+      },
+    },
+  ],
 };
 
 export default withPWA(pwaConfig)(nextConfig);
@@ -47,54 +198,261 @@ export default withPWA(pwaConfig)(nextConfig);
 
 ## Creating the Manifest
 
-The web app manifest is a JSON file that tells browsers about your PWA:
+The web app manifest is a JSON file that tells browsers about your PWA, enabling installation and customizing the app experience.
+
+### Basic Manifest Structure
+
+Create a `manifest.json` in your `public` directory:
 
 ```json
 {
-  "name": "My App",
-  "short_name": "App",
+  "name": "My Portfolio & Consultancy",
+  "short_name": "Portfolio",
+  "description": "Technical insights, tutorials, and consultancy services",
+  "start_url": "/",
   "display": "standalone",
+  "background_color": "#ffffff",
   "theme_color": "#000000",
-  "icons": [...]
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["business", "productivity", "education"],
+  "shortcuts": [
+    {
+      "name": "Newsletter",
+      "short_name": "News",
+      "description": "Read latest newsletter posts",
+      "url": "/newsletter",
+      "icons": [{ "src": "/icons/newsletter.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Portfolio",
+      "short_name": "Work",
+      "description": "View portfolio projects",
+      "url": "/portfolio",
+      "icons": [{ "src": "/icons/portfolio.png", "sizes": "96x96" }]
+    }
+  ]
 }
+```
+
+### Linking the Manifest
+
+Add the manifest link to your root layout:
+
+```tsx
+<link rel="manifest" href="/manifest.json" />
 ```
 
 ## Service Worker Strategies
 
-Different caching strategies for different content types:
+Different content types require different caching strategies. Here's when to use each:
 
-- **NetworkFirst**: Newsletter posts (fresh content preferred)
-- **CacheFirst**: Images and static assets
-- **StaleWhileRevalidate**: API responses
+### NetworkFirst Strategy
+
+Use for content that should be fresh but can fall back to cache:
+
+- API responses that change frequently
+- User-generated content
+- Real-time data
+
+### CacheFirst Strategy
+
+Use for static assets that rarely change:
+
+- Images and media files
+- Font files
+- Third-party libraries
+
+### StaleWhileRevalidate Strategy
+
+Use for content that can be slightly stale but should update in the background:
+
+- Static pages
+- CSS and JavaScript files
+- Next.js data files
 
 ## Push Notifications
 
-Implement push notifications using the Web Push API:
+Implement push notifications using the Web Push API to re-engage users with timely updates.
+
+### Generating VAPID Keys
+
+First, generate VAPID keys for your application:
+
+```bash
+npx web-push generate-vapid-keys
+```
+
+This will output a public and private key. Store these in your environment variables.
+
+### Subscribing to Notifications
+
+Create a component to handle subscription:
 
 ```typescript
-const subscription = await registration.pushManager.subscribe({
-  userVisibleOnly: true,
-  applicationServerKey: vapidPublicKey,
-});
+'use client';
+
+import { useState } from 'react';
+
+export function NotificationSubscription() {
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const subscribeToNotifications = async () => {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      try {
+        const registration = await navigator.serviceWorker.ready;
+        const subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+        });
+
+        // Send subscription to your server
+        await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(subscription),
+        });
+
+        setIsSubscribed(true);
+      } catch (error) {
+        console.error('Error subscribing to notifications:', error);
+      }
+    }
+  };
+
+  return (
+    <button onClick={subscribeToNotifications} disabled={isSubscribed}>
+      {isSubscribed ? 'Subscribed' : 'Enable Notifications'}
+    </button>
+  );
+}
 ```
 
 ## Offline Experience
 
-Create a beautiful offline fallback page that users see when they're disconnected.
+Create a beautiful offline fallback page that users see when they're disconnected. This enhances the user experience and maintains engagement even without connectivity.
+
+### Offline Page Component
+
+Create an offline page component:
+
+```tsx
+export default function OfflinePage() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1>You're Offline</h1>
+      <p>Don't worry, you can still browse cached content!</p>
+      <button onClick={() => window.location.reload()}>
+        Try Again
+      </button>
+    </div>
+  );
+}
+```
 
 ## Testing Your PWA
 
-Use Lighthouse to audit your PWA:
+Use Lighthouse to audit your PWA and ensure it meets all requirements:
 
 ```bash
 npm install -g lighthouse
 lighthouse https://yoursite.com --view
 ```
 
-Aim for a PWA score of 90+!
+### PWA Checklist
+
+Aim for a PWA score of 90+ by ensuring:
+
+- ✅ Fast and reliable (loads quickly, works offline)
+- ✅ Installable (has manifest, service worker)
+- ✅ Engaging (responsive, works on all devices)
+- ✅ Safe (served over HTTPS)
+
+## Advanced Caching Strategies
+
+For more complex applications, consider implementing:
+
+- **Background sync** for queuing actions when offline
+- **Periodic background sync** for updating content in the background
+- **Cache versioning** for managing cache updates
+- **Cache size limits** to prevent storage issues
+
+## Performance Considerations
+
+PWAs should be fast and efficient:
+
+- Keep service worker file size small
+- Use appropriate cache expiration times
+- Implement cache size limits
+- Monitor cache usage and performance
 
 ## Conclusion
 
-PWAs offer a powerful way to enhance user experience. With Next.js and next-pwa, implementing these features is straightforward.
+PWAs offer a powerful way to enhance user experience, combining the reach of the web with the engagement of native apps. With Next.js 15 and next-pwa, implementing these features is straightforward, and the benefits are significant.
 
-Check out the [source code](https://github.com/yourrepo) for this site to see a complete implementation!
+The key to a successful PWA is understanding your users' needs and implementing caching strategies that balance freshness with performance. Start with the basics, test thoroughly, and iterate based on user feedback.
+
+Ready to build your own PWA? Check out the [source code](https://github.com/yourrepo) for this site to see a complete implementation, or reach out if you need help implementing PWA features in your Next.js application!

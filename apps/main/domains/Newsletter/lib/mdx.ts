@@ -1,12 +1,13 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { marked } from "marked";
 import type { NewsletterPost, NewsletterPostWithContent } from "../model/types";
 
 const postsDirectory = path.join(process.cwd(), "app/newsletter/posts");
 
 /**
- * Get all blog posts sorted by date (newest first)
+ * Get all newsletter posts sorted by date (newest first)
  */
 export function getAllPosts(): NewsletterPost[] {
   try {
@@ -46,7 +47,7 @@ export function getAllPosts(): NewsletterPost[] {
 }
 
 /**
- * Get a single blog post by slug with MDX content
+ * Get a single newsletter post by slug with HTML content
  */
 export async function getPostBySlug(
   slug: string,
@@ -61,6 +62,14 @@ export async function getPostBySlug(
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
+    // Convert markdown to HTML using marked
+    let htmlContent = await marked.parse(content);
+    const htmlString = typeof htmlContent === "string" ? htmlContent : String(htmlContent);
+
+    // Remove the first H1 tag since the title is already displayed in the page header
+    // This prevents duplicate titles
+    const contentWithoutFirstH1 = htmlString.replace(/<h1[^>]*>.*?<\/h1>/is, "").trim();
+
     return {
       slug,
       title: data.title || "Untitled",
@@ -71,7 +80,7 @@ export async function getPostBySlug(
       tags: data.tags || [],
       image: data.image,
       readingTime: data.readingTime,
-      content: content, // Pass raw content string for RSC MDXRemote
+      content: contentWithoutFirstH1,
     };
   } catch (error) {
     console.error(`Error getting post ${slug}:`, error);
@@ -143,4 +152,71 @@ export function getAllTags() {
       count,
     }))
     .sort((a, b) => b.count - a.count);
+}
+
+/**
+ * Get next and previous posts based on date order
+ */
+export function getAdjacentPosts(
+  currentSlug: string,
+): { next: NewsletterPost | null; previous: NewsletterPost | null } {
+  const allPosts = getAllPosts();
+  const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
+
+  if (currentIndex === -1) {
+    return { next: null, previous: null };
+  }
+
+  return {
+    next: currentIndex > 0 ? allPosts[currentIndex - 1] ?? null : null,
+    previous:
+      currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] ?? null : null,
+  };
+}
+
+/**
+ * Get related posts based on categories and tags
+ * Returns up to 3 related posts, prioritizing same categories, then same tags
+ */
+export function getRelatedPosts(
+  currentSlug: string,
+  limit: number = 3,
+): NewsletterPost[] {
+  const allPosts = getAllPosts();
+  const currentPost = allPosts.find((post) => post.slug === currentSlug);
+
+  if (!currentPost) {
+    return [];
+  }
+
+  // Score posts based on shared categories and tags
+  const scoredPosts = allPosts
+    .filter((post) => post.slug !== currentSlug)
+    .map((post) => {
+      let score = 0;
+
+      // Higher weight for shared categories
+      const sharedCategories = post.categories.filter((cat) =>
+        currentPost.categories.some(
+          (currentCat) => currentCat.toLowerCase() === cat.toLowerCase(),
+        ),
+      );
+      score += sharedCategories.length * 3;
+
+      // Lower weight for shared tags
+      const sharedTags = post.tags.filter((tag) =>
+        currentPost.tags.some(
+          (currentTag) => currentTag.toLowerCase() === tag.toLowerCase(),
+        ),
+      );
+      score += sharedTags.length;
+
+      return { post, score };
+    })
+    .filter((item) => item.score > 0) // Only include posts with some relation
+    .sort((a, b) => b.score - a.score) // Sort by score descending
+    .slice(0, limit)
+    .map((item) => item.post);
+
+  return scoredPosts;
 }

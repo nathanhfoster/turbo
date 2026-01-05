@@ -13,6 +13,7 @@ export interface NavbarContainerProps {
 export interface TopNavbarProps extends Omit<NavbarContainerProps, "position"> {
   logo?: React.ReactNode;
   menuProps?: Partial<HamburgerMenuProps>;
+  rightContent?: React.ReactNode;
 }
 
 export interface BottomNavbarProps extends Omit<NavbarContainerProps, "position"> {}

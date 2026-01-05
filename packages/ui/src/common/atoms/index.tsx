@@ -16,6 +16,8 @@ export * from "./Modal";
 export { default as Modal } from "./Modal";
 export { default as Overlay } from "./Overlay";
 export * from "./Portal";
+export { default as RichText } from "./RichText";
+export * from "./RichText/types";
 export { default as Skeleton } from "./Skeleton";
 export * from "./Skeleton/types";
 export * from "./Switch";

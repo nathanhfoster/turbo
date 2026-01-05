@@ -13,6 +13,10 @@
       "types": "./dist/cache.d.ts",
       "default": "./dist/cache.js"
     },
+    "./memoryCache": {
+      "types": "./dist/memoryCache/index.d.ts",
+      "default": "./dist/memoryCache/index.js"
+    },
     "./types": {
       "types": "./dist/types/index.d.ts",
       "default": "./dist/types/index.js"

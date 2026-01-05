@@ -1,9 +1,13 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/domains/Newsletter/lib/mdx";
-import { Box, Typography, Button } from "@nathanhfoster/ui";
+import {
+  getAllPosts,
+  getPostBySlug,
+  getAdjacentPosts,
+  getRelatedPosts,
+} from "@/domains/Newsletter/lib/mdx";
+import { Box, Typography, Button, RichText } from "@nathanhfoster/ui";
 
 // Generate static pages for all newsletter posts at build time
 export async function generateStaticParams() {
@@ -54,6 +58,9 @@ export default async function NewsletterPost({
     notFound();
   }
 
+  const { next, previous } = getAdjacentPosts(slug);
+  const relatedPosts = getRelatedPosts(slug, 3);
+
   return (
     <Box className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Back link */}
@@ -94,7 +101,7 @@ export default async function NewsletterPost({
           {post.title}
         </Typography>
 
-        <Box className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+        <Box className="flex items-center gap-4 text-foreground-muted">
           <Typography variant="span">By {post.author}</Typography>
           <Typography variant="span">•</Typography>
           <Typography variant="time" dateTime={post.date}>
@@ -120,19 +127,18 @@ export default async function NewsletterPost({
       </Box>
 
       {/* Content */}
-      <Box
-        variant="article"
-        className="prose prose-lg dark:prose-invert max-w-none text-foreground"
-      >
-        <MDXRemote source={post.content} />
+      <Box variant="article">
+        <RichText size="lg" variant="spacious">
+          {post.content}
+        </RichText>
       </Box>
 
       {/* Tags */}
       {post.tags.length > 0 && (
-        <Box className="mt-12 border-t border-gray-200 pt-8 dark:border-gray-800">
+        <Box className="mt-12 border-t border-border pt-8">
           <Typography
             variant="h3"
-            className="mb-4"
+            className="mb-4 text-foreground"
             size="text-lg"
             weight="font-semibold"
           >
@@ -147,10 +153,121 @@ export default async function NewsletterPost({
                 <Button
                   variant="outlined"
                   size="sm"
-                  className="rounded-full border-gray-300 hover:border-primary hover:bg-primary hover:text-black dark:border-gray-700"
+                  className="rounded-full border-border hover:border-primary hover:bg-primary hover:text-foreground-inverted"
                 >
                   #{tag}
                 </Button>
+              </Link>
+            ))}
+          </Box>
+        </Box>
+      )}
+
+      {/* Navigation */}
+      {(next || previous) && (
+        <Box className="mt-12 border-t border-border pt-8">
+          <Box className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {previous && (
+              <Link href={`/newsletter/${previous.slug}`}>
+                <Box className="group rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-background-elevated">
+                  <Typography
+                    variant="span"
+                    className="mb-2 block text-sm text-foreground-muted"
+                  >
+                    ← Previous
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    className="text-foreground group-hover:text-primary"
+                    size="text-lg"
+                    weight="font-semibold"
+                  >
+                    {previous.title}
+                  </Typography>
+                </Box>
+              </Link>
+            )}
+            {next && (
+              <Link
+                href={`/newsletter/${next.slug}`}
+                className={previous ? "" : "md:col-start-2"}
+              >
+                <Box className="group rounded-lg border border-border p-4 transition-colors hover:border-primary hover:bg-background-elevated text-right md:text-left">
+                  <Typography
+                    variant="span"
+                    className="mb-2 block text-sm text-foreground-muted"
+                  >
+                    Next →
+                  </Typography>
+                  <Typography
+                    variant="h4"
+                    className="text-foreground group-hover:text-primary"
+                    size="text-lg"
+                    weight="font-semibold"
+                  >
+                    {next.title}
+                  </Typography>
+                </Box>
+              </Link>
+            )}
+          </Box>
+        </Box>
+      )}
+
+      {/* Related Posts */}
+      {relatedPosts.length > 0 && (
+        <Box className="mt-12 border-t border-border pt-8">
+          <Typography
+            variant="h3"
+            className="mb-6 text-foreground"
+            size="text-2xl"
+            weight="font-bold"
+          >
+            Related Posts
+          </Typography>
+          <Box className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {relatedPosts.map((relatedPost) => (
+              <Link key={relatedPost.slug} href={`/newsletter/${relatedPost.slug}`}>
+                <Box className="group h-full rounded-lg border border-border bg-background p-6 transition-all hover:border-primary hover:shadow-md">
+                  {relatedPost.image && (
+                    <Image
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
+                      width={400}
+                      height={200}
+                      className="mb-4 h-48 w-full rounded-lg object-cover"
+                    />
+                  )}
+                  <Typography
+                    variant="h4"
+                    className="mb-2 text-foreground group-hover:text-primary"
+                    size="text-lg"
+                    weight="font-semibold"
+                  >
+                    {relatedPost.title}
+                  </Typography>
+                  {relatedPost.description && (
+                    <Typography
+                      variant="p"
+                      className="text-foreground-muted"
+                      size="text-sm"
+                    >
+                      {relatedPost.description}
+                    </Typography>
+                  )}
+                  <Box className="mt-4 flex flex-wrap gap-2">
+                    {relatedPost.categories.slice(0, 2).map((category) => (
+                      <Button
+                        key={category}
+                        variant="outlined"
+                        size="sm"
+                        className="rounded-full border-border text-xs"
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </Box>
+                </Box>
               </Link>
             ))}
           </Box>
