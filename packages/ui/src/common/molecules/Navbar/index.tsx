@@ -44,6 +44,10 @@ const NavbarContainer = ({
   return (
     <Box
       variant="nav"
+      style={{
+        backgroundColor: "var(--color-background-DEFAULT)",
+        color: "var(--color-foreground-DEFAULT)",
+      }}
       className={combineClassNames(
         baseClasses,
         transitionClasses,
