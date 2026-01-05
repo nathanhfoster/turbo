@@ -10,6 +10,8 @@ import {
   BASE_STYLES,
   BUTTON_VARIANT_MAPPING,
   COLOR_STYLES,
+  COLOR_STYLES_OUTLINED,
+  COLOR_STYLES_TEXT,
   DISABLED_BG_STYLES,
   DISABLED_COMMON_STYLES,
   VARIANT_STYLES,
@@ -30,7 +32,13 @@ const BaseButton = ({
   ...props
 }: FinalButtonProps) => {
   const variantStyles = VARIANT_STYLES[variant as ComponentVariant];
-  const colorStyles = COLOR_STYLES[color as ComponentColor];
+  // Use the correct color styles based on variant
+  const colorStyles =
+    variant === "outlined"
+      ? COLOR_STYLES_OUTLINED[color as ComponentColor]
+      : variant === "text"
+        ? COLOR_STYLES_TEXT[color as ComponentColor]
+        : COLOR_STYLES[color as ComponentColor];
   // Use size directly if provided, otherwise fallback to lookup for backward compatibility
   const sizeStyles =
     typeof size === "string" && size.includes(" ")

@@ -16,6 +16,4 @@ export interface SidebarMapDispatchToProps {
 	exportEntries: typeof EntriesActions.exportEntries
 }
 export interface SidebarConnectedProps
-	extends SidebarMapStateToProps,
-		SidebarMapDispatchToProps,
-		SidebarProps {}
+	extends SidebarMapStateToProps, SidebarMapDispatchToProps, SidebarProps {}

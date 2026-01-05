@@ -6,12 +6,13 @@ import { connect } from '@/packages/ui'
 
 export interface EntryListProps {}
 
-export interface CalenderMapStateToProps
-	extends Pick<EntriesContextState, 'entries'> {}
+export interface CalenderMapStateToProps extends Pick<
+	EntriesContextState,
+	'entries'
+> {}
 
 export interface EntryListConnectedProps
-	extends EntryListProps,
-		CalenderMapStateToProps {}
+	extends EntryListProps, CalenderMapStateToProps {}
 
 const EntryList: FC<EntryListConnectedProps> = ({ entries }) => {
 	const router = useRouter()

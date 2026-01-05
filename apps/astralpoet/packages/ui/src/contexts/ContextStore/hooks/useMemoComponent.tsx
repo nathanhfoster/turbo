@@ -1,4 +1,4 @@
-import { ComponentType, MutableRefObject, useMemo, useRef } from 'react'
+import React, { ComponentType, MutableRefObject, useMemo, useRef } from 'react'
 import { isFunction } from '@packages/utils/src'
 import usePreviousValue from '../../../hooks/usePreviousValue'
 import { ComponentPropsType, EqualityFunctionType } from '../connect/types'
@@ -11,8 +11,8 @@ export interface useMemoComponentOptions<P extends ComponentPropsType> {
 }
 
 export type useMemoComponentType = <P extends ComponentPropsType>(
-	options: useMemoComponentOptions<P>,
-) => JSX.Element | null
+ options: useMemoComponentOptions<P>,
+) => React.ReactElement | null
 
 /**
  * Hook that controls the reference of a component to only update when it's previous and next props differ

@@ -44,6 +44,10 @@
     "./throttle": {
       "types": "./dist/throttle.d.ts",
       "default": "./dist/throttle.js"
+    },
+    "./copyToClipboard": {
+      "types": "./dist/copyToClipboard.d.ts",
+      "default": "./dist/copyToClipboard.js"
     }
   },
   "scripts": {

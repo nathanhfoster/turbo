@@ -137,7 +137,7 @@ const connect = <
 
 		if (forwardRef) {
 			const ForwaredComponent = reactForwardRef<any, P>((props, ref) => (
-				<Connect {...props} forwardedRef={ref} />
+				<Connect {...(props as P)} forwardedRef={ref} />
 			))
 
 			ForwaredComponent.displayName = displayName

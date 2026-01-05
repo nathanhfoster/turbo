@@ -57,6 +57,29 @@ export default function PortfolioPage() {
               IndexedDB storage, and beautiful UI
             </Typography>
           </Card>
+          <Card
+            padding="p-5 sm:p-6 md:p-8"
+            hoverable
+            className="hover:shadow-lg transition-all border-2 border-primary/20 hover:border-primary group"
+          >
+            <a href="/resume" className="block h-full w-full">
+              <Typography
+                variant="h3"
+                className="mb-2 group-hover:text-primary transition-colors"
+                size="text-xl"
+                weight="font-semibold"
+              >
+                AI Resume Builder
+              </Typography>
+              <Typography
+                variant="p"
+                className="text-gray-600 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
+              >
+                AI-powered resume builder with inline editing, job-specific
+                customization, and offline support
+              </Typography>
+            </a>
+          </Card>
         </Box>
       </Box>
     </Box>

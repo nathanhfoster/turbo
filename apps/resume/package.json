@@ -1,0 +1,39 @@
+{
+  "name": "@nathanhfoster/resume",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack --port 3003",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nathanhfoster/cookies": "workspace:*",
+    "@nathanhfoster/pwa": "workspace:*",
+    "@nathanhfoster/resurrection": "workspace:*",
+    "@nathanhfoster/ui": "workspace:*",
+    "@nathanhfoster/utils": "workspace:*",
+    "@nathanhfoster/indexeddb": "workspace:*",
+    "@nathanhfoster/openai": "workspace:*",
+    "html-react-parser": "^5.2.5",
+    "mammoth": "^1.8.0",
+    "pdfjs-dist": "^4.0.379",
+    "next": "16.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@nathanhfoster/eslint-config": "workspace:*",
+    "@nathanhfoster/typescript-config": "workspace:*",
+    "@types/node": "22.10.5",
+    "@types/react": "19.2.3",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.18.0",
+    "eslint-config-next": "16.1.1",
+    "typescript": "5.9.2"
+  }
+}
+

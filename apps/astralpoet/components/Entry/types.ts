@@ -11,6 +11,4 @@ export interface EntryOwnProps {
 }
 
 export interface EntryConnectedProps
-	extends EntryOwnProps,
-		EntryMapStateToProps,
-		EntryMapDispatchToProps {}
+	extends EntryOwnProps, EntryMapStateToProps, EntryMapDispatchToProps {}

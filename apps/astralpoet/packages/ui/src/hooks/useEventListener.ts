@@ -8,7 +8,7 @@ const useEventListener = (
 	handler: (event: any) => any,
 	element = isClientSide() ? window : undefined,
 ) => {
-	const savedHandler = useRef<Function>()
+	const savedHandler = useRef<Function | undefined>(undefined)
 
 	useEffect(() => {
 		savedHandler.current = handler

@@ -12,6 +12,7 @@ export interface EllipsisOwnProps {
 }
 
 export interface EllipsisConnectedProps
-	extends EllipsisMapStateToProps,
+	extends
+		EllipsisMapStateToProps,
 		EllipsisMapDispatchToProps,
 		EllipsisOwnProps {}

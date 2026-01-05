@@ -17,9 +17,7 @@ interface TableMapDispatchToProps {
 interface TableProps {}
 
 interface TableConnectedProps
-	extends TableMapStateToProps,
-		TableMapDispatchToProps,
-		TableProps {}
+	extends TableMapStateToProps, TableMapDispatchToProps, TableProps {}
 
 const TablePage: NextPage<TableConnectedProps> = ({ entries }) => {
 	const router = useRouter()

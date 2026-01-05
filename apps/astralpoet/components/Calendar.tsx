@@ -9,12 +9,13 @@ import { connect } from '@/packages/ui'
 
 export interface CalendarProps extends RewindCalendarProps {}
 
-export interface CalenderMapStateToProps
-	extends Pick<EntriesContextState, 'entries'> {}
+export interface CalenderMapStateToProps extends Pick<
+	EntriesContextState,
+	'entries'
+> {}
 
 export interface CalendarConnectedProps
-	extends CalendarProps,
-		CalenderMapStateToProps {}
+	extends CalendarProps, CalenderMapStateToProps {}
 
 const Calendar: FC<CalendarConnectedProps> = ({
 	onChange,

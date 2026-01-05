@@ -121,9 +121,9 @@ export function createColorStyles(
       return {
         bg: "bg-transparent",
         text: outlinedTextColor,
-        hover: `${getHoverBgColor(color)} ${color === "inherit" ? "hover:text-inherit" : "hover:text-foreground-inverted"}`,
+        hover: `${getHoverBgColor(color)} ${color === "inherit" ? "hover:text-inherit" : "hover:text-foreground-inverted"} hover:border-opacity-100`,
         active: getBgColor(color),
-        border: getBorderColor(color),
+        border: `${getBorderColor(color)} border-opacity-60 dark:border-opacity-70`, // Visible border with opacity for better visibility
         focus: getFocusBorderColor(color),
       };
 
@@ -233,7 +233,7 @@ export function generateInputColorStylesMapping(): Record<
  * Variant-specific base styles
  */
 export const VARIANT_BASE_STYLES: Record<ComponentVariant, string> = {
-  outlined: "border-1 bg-transparent",
+  outlined: "border-2 bg-transparent", // More pronounced border for visibility
   contained: "border-1",
   text: "border-0 bg-transparent",
 };

@@ -17,8 +17,10 @@ import connect from '@/packages/ui/src/contexts/ContextStore/connect'
 import { NextPageWithLayout } from '@/packages/ui/src/types'
 import { getValidDate } from '@/packages/utils/src'
 
-interface CalendarMapStateToProps
-	extends Pick<EntriesContextState, 'entries'> {}
+interface CalendarMapStateToProps extends Pick<
+	EntriesContextState,
+	'entries'
+> {}
 
 interface CalendarMapDispatchToProps {
 	setEntry: typeof EntriesActions.setEntry
@@ -27,9 +29,7 @@ interface CalendarMapDispatchToProps {
 interface CalendarProps {}
 
 interface CalendarConnectedProps
-	extends CalendarMapStateToProps,
-		CalendarMapDispatchToProps,
-		CalendarProps {}
+	extends CalendarMapStateToProps, CalendarMapDispatchToProps, CalendarProps {}
 
 const CalendarPage: NextPageWithLayout<CalendarConnectedProps> = ({
 	setEntry,

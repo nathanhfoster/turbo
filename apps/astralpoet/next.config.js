@@ -17,6 +17,7 @@ const nextConfig = {
 	publicRuntimeConfig: {
 		version,
 	},
+	transpilePackages: ['@nathanhfoster/utils'],
 }
 
 module.exports = withPWA(withBundleAnalyzer(nextConfig))

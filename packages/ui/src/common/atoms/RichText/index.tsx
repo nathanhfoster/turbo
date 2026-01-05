@@ -35,3 +35,4 @@ const RichText: React.FC<RichTextProps> = ({
 
 export default withForwardRef(withBaseTheme(withBaseTailwindProps(RichText)));
 
+

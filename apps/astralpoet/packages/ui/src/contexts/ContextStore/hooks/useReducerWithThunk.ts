@@ -1,11 +1,13 @@
 import {
 	Dispatch,
 	Reducer,
-	ReducerAction,
 	ReducerState,
 	useCallback,
 	useRef,
 } from 'react'
+
+// ReducerAction was removed in React 19, derive it from the reducer type
+type ReducerAction<R extends Reducer<any, any>> = Parameters<R>[1]
 import { isFunction } from '@packages/utils/src'
 import useEffectAfterMount from '../../../hooks/useEffectAfterMount'
 import { ThunkAction } from '../types'

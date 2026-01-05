@@ -20,7 +20,8 @@ interface ViewEntryPageMapStateToProps {
 interface ViewEntryPageMapDispatchToProps {}
 
 interface ViewEntryPageConnectedProps
-	extends ViewEntryPageMapStateToProps,
+	extends
+		ViewEntryPageMapStateToProps,
 		ViewEntryPageMapDispatchToProps,
 		ViewEntryPageProps {}
 
