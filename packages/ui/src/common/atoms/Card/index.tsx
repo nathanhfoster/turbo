@@ -56,17 +56,22 @@ const Card = ({
     };
 
     return (
-      <Link
-        href={href}
-        onClick={onClick}
+      <Box
+        variant={boxVariant}
         className={cardClassName}
-        {...(linkProps as Omit<
-          LinkProps,
-          "href" | "children" | "onClick" | "className"
-        >)}
       >
-        {children}
-      </Link>
+        <Link
+          href={href}
+          onClick={onClick}
+          className="block h-full w-full"
+          {...(linkProps as Omit<
+            LinkProps,
+            "href" | "children" | "onClick" | "className"
+          >)}
+        >
+          {children}
+        </Link>
+      </Box>
     );
   }
 

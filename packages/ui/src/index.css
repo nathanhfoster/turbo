@@ -377,40 +377,13 @@
     transition: background-color var(--duration-normal) var(--ease-in-out),
       color var(--duration-normal) var(--ease-in-out);
   }
-
-  /* Ensure all text elements transition smoothly on theme change */
-  /* Using longhand properties to avoid conflicts with component-level transitions */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  span,
-  a,
-  li,
-  label,
-  small,
-  strong,
-  em,
-  b,
-  blockquote,
-  code,
-  pre,
-  time,
-  address {
-    transition-property: color;
-    transition-duration: var(--duration-normal);
-    transition-timing-function: var(--ease-in-out);
-  }
 }
 
 /* ============================================
    DARK MODE OVERRIDES
    ============================================ */
 
-.dark {
+html.dark {
   /* Background Colors
         Dark mode portfolio aesthetic */
   --color-background-DEFAULT: #020617; /* Neutral-950 */
@@ -556,4 +529,5 @@
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
   }
+
 }

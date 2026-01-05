@@ -11,14 +11,6 @@
 @import 'tailwindcss';
 
 /**
- * Configure content sources for Tailwind v4 scanning
- */
-@source "../../packages/ui/src/**/*.{js,ts,jsx,tsx,mdx}";
-@source "./app/**/*.{js,ts,jsx,tsx,mdx}";
-@source "./domains/**/*.{js,ts,jsx,tsx,mdx}";
-@source "./core/**/*.{js,ts,jsx,tsx,mdx}";
-
-/**
  * Override design system tokens for this application.
  * These values will override the defaults from the UI package.
  */
@@ -45,93 +37,4 @@
       color: white !important;
     }
   }
-
-  /* Force positioning utilities for navbar - Tailwind v4 not generating these from string variables */
-  .fixed {
-    position: fixed;
-  }
-
-  .bottom-0 {
-    bottom: 0;
-  }
-
-  .top-0 {
-    top: 0;
-  }
-
-  .left-0 {
-    left: 0;
-  }
-
-  .right-0 {
-    right: 0;
-  }
-
-  .z-50 {
-    z-index: 50;
-  }
-
-  .bg-white {
-    background-color: #ffffff;
-  }
-
-  .shadow-sm {
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  }
-
-  .border-gray-200 {
-    border-color: var(--color-gray-200);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .dark\:bg-gray-900 {
-      background-color: var(--color-neutral-900);
-    }
-
-    .dark\:border-gray-800 {
-      border-color: var(--color-neutral-800);
-    }
-  }
-
-  /* Transform utilities for navbar scroll animations */
-  .translate-y-0 {
-    transform: translateY(0);
-  }
-
-  .-translate-y-full {
-    transform: translateY(-100%);
-  }
-
-  .translate-y-full {
-    transform: translateY(100%);
-  }
-
-  .transition-transform {
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-  }
-
-  .duration-300 {
-    transition-duration: 300ms;
-  }
-}
-
-/* Transform utilities for navbar scroll animations - outside @layer to ensure they're included */
-.translate-y-0 {
-  transform: translateY(0) !important;
-}
-
-.-translate-y-full {
-  transform: translateY(-100%) !important;
-}
-
-.translate-y-full {
-  transform: translateY(100%) !important;
-}
-
-.transition-transform {
-  transition-property: transform !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-duration: 300ms !important;
 }

@@ -15,4 +15,3 @@ const GoogleTagManageIframe = () => {
 
 export default GoogleTagManageIframe;
 
-

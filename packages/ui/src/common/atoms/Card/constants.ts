@@ -2,10 +2,12 @@ import type { Size } from "../types";
 import type { CardVariant } from "./types";
 /**
  * Mobile-first card base styles using theme radius token
+ * bg-white is applied first, then dark:bg-gray-800 only when dark class is present
+ * Using !bg-white to ensure it takes precedence over any CSS variables
  */
-export const BASE_STYLES = "rounded-lg bg-white";
+export const BASE_STYLES = "rounded-lg !bg-white dark:!bg-gray-800";
 
-export const BORDER_STYLES = "border border-neutral-200";
+export const BORDER_STYLES = "border border-neutral-200 dark:border-gray-700";
 
 export const HOVER_STYLES =
   "transition-all hover:shadow-md hover:cursor-pointer";

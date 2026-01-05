@@ -1,0 +1,9 @@
+/**
+ * Storybook Preview CSS
+ * 
+ * This file imports the UI package's design tokens and Tailwind CSS
+ * to ensure Storybook can properly render components with Tailwind utilities.
+ */
+
+@import '../src/index.css';
+@import 'tailwindcss';

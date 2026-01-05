@@ -6,7 +6,7 @@ const fileToBase64String = (file: File): Promise<string> =>
 
     reader.readAsDataURL(blob);
     reader.onload = () => {
-      const base64 = <string>reader.result;
+      const base64 = reader.result as string;
 
       resolve(base64);
     };

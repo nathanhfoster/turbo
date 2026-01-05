@@ -1,30 +1,35 @@
 "use client";
 
-import { Card, Typography, Box, ThemeToggle } from "@nathanhfoster/ui";
+import { Card, Typography, ThemeToggle } from "@nathanhfoster/ui";
+import { DEFAULT_CLASSES, MESSAGES } from "../constants";
 import type { ThemeProps } from "../types";
 
-export function Theme({ className = "", renderButton }: ThemeProps = {}) {
+export function Theme({
+  className = "",
+  titleClassName = "",
+  descriptionClassName = "",
+  renderButton,
+}: ThemeProps = {}) {
+  const defaultButton = (
+    <ThemeToggle variant="outlined" showLabel />
+  );
+
   return (
-    <Card
-      className={
-        className ||
-        "rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
-      }
-    >
+    <Card className={className || DEFAULT_CLASSES.container}>
       <Typography
         variant="h3"
-        className="mb-2 text-xl font-semibold text-gray-900 dark:text-white"
+        className={titleClassName || DEFAULT_CLASSES.title}
       >
-        Theme
+        {MESSAGES.theme.title}
       </Typography>
-      <Typography variant="p" className="mb-4 text-gray-600 dark:text-gray-400">
-        Choose between light and dark mode
+      <Typography
+        variant="p"
+        className={descriptionClassName || DEFAULT_CLASSES.description}
+      >
+        {MESSAGES.theme.description}
       </Typography>
-      {renderButton ? (
-        renderButton({})
-      ) : (
-        <ThemeToggle variant="outlined" showLabel />
-      )}
+      {renderButton ? renderButton({}) : defaultButton}
     </Card>
   );
 }
+

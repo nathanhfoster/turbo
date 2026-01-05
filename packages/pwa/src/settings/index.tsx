@@ -14,8 +14,6 @@ import type {
   ThemeProps,
 } from "./types";
 
-// Dynamic imports for code splitting using Next.js dynamic
-// Next.js resolves .tsx files without extensions, but TypeScript requires them
 const Theme = dynamic<ThemeProps>(
   () => import("./components/Theme").then((mod) => mod.Theme),
   { ssr: false },
