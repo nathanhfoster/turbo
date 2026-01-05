@@ -20,3 +20,4 @@ export interface DatabaseError {
   message: string;
   code?: number;
 }
+

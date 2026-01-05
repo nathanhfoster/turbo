@@ -15,3 +15,4 @@ export interface CookieManagerConstructorArgs<T> {
   context?: GetServerSidePropsContext | NextPageContext;
   value?: T;
 }
+

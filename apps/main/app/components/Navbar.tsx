@@ -8,6 +8,12 @@ import { SettingsMenu } from "./SettingsMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  IconHome,
+  IconBriefcase,
+  IconEnvelopeOpen,
+  IconSliders,
+} from "@nathanhfoster/ui";
 
 const BottomNavbar = dynamic(
   () => import("@nathanhfoster/ui").then((mod) => ({ default: mod.BottomNavbar })),
@@ -22,10 +28,10 @@ const NAV_ITEMS = [
 ];
 
 const BOTTOM_NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Newsletter", href: "/newsletter" },
-  { label: "Settings", href: "/settings" },
+  { label: "Home", href: "/", Icon: IconHome },
+  { label: "Portfolio", href: "/portfolio", Icon: IconBriefcase },
+  { label: "Newsletter", href: "/newsletter", Icon: IconEnvelopeOpen },
+  { label: "Settings", href: "/settings", Icon: IconSliders },
 ];
 
 export function Navbar() {
@@ -72,7 +78,7 @@ export function Navbar() {
       {!isDesktop && (
         <BottomNavbar>
           <Box className="flex w-full justify-around">
-            {BOTTOM_NAV_ITEMS.map(({ label, href }) => (
+            {BOTTOM_NAV_ITEMS.map(({ label, href, Icon }) => (
               <Link
                 key={href}
                 href={href}
@@ -82,6 +88,11 @@ export function Navbar() {
                     : "text-gray-700 dark:text-gray-300"
                 }`}
               >
+                {Icon && (
+                  <span className="h-6 w-6 mb-1 flex items-center justify-center">
+                    <Icon />
+                  </span>
+                )}
                 <Typography className="text-center">{label}</Typography>
               </Link>
             ))}

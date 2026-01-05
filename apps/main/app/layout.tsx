@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { InstallPromptProvider } from "@nathanhfoster/pwa";
 import {
   DeviceContextProvider,
+  CookieConsentModal,
   KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
   KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
   KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
@@ -107,6 +108,7 @@ export default async function RootLayout({
                 },
               }}
             >
+              <CookieConsentModal />
               <Navbar />
               <main className="pt-16 pb-16 md:pb-0">{children}</main>
             </DeviceContextProvider>

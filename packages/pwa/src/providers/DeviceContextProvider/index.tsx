@@ -31,3 +31,7 @@ export * from "./context";
 export * from "./types";
 export * from "./constants";
 export * from "./utils";
+
+// Export components
+export { default as CookieConsentModal } from "./components/CookieConsentModal";
+export { default as CookieConsentForm } from "./components/CookieConsentForm";

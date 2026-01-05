@@ -16,18 +16,17 @@ const NavbarContainer = ({
   fixed = true,
   ...props
 }: NavbarContainerProps) => {
-  const positionClasses =
-    position === "top"
-      ? "top-0 left-0 right-0 border-b border-gray-200 dark:border-gray-800"
-      : "bottom-0 left-0 right-0 border-t border-gray-200 dark:border-gray-800";
-
+  // Use classes directly so Tailwind v4 can detect them
+  const isTop = position === "top";
+  
   return (
     <Box
       variant="nav"
       className={combineClassNames(
         "w-full bg-white dark:bg-gray-900 shadow-sm z-50",
-        fixed && "fixed",
-        positionClasses,
+        fixed && "fixed right-0 left-0",
+        isTop && "top-0 border-b border-gray-200 dark:border-gray-800",
+        !isTop && "bottom-0 border-t border-gray-200 dark:border-gray-800",
         className,
       )}
       {...props}
@@ -67,7 +66,7 @@ const BottomNavbar = ({
   return (
     <NavbarContainer 
       position="bottom" 
-      className={combineClassNames("md:hidden", className)} 
+      className={combineClassNames("md:hidden bottom-0", className)} 
       {...props}
     >
       <Box className="mx-auto max-w-7xl px-4">
