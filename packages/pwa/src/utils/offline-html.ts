@@ -238,5 +238,3 @@ export function generateOfflineHTML(config: OfflineHTMLConfig): string {
 </html>
 `;
 }
-
-

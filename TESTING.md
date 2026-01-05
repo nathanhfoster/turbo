@@ -14,6 +14,7 @@ pnpm test:e2e:install
 ```
 
 Or from the root:
+
 ```bash
 cd turbo/apps/main && pnpm test:e2e:install
 ```
@@ -33,6 +34,7 @@ pnpm test:unit
 ```
 
 This runs unit tests in packages that have unit test configurations:
+
 - `@nathanhfoster/auth` - Uses Jest
 - `@nathanhfoster/resurrection` - Uses Vitest
 
@@ -43,6 +45,7 @@ pnpm test:e2e
 ```
 
 This runs end-to-end tests in apps that have e2e test configurations:
+
 - `@nathanhfoster/main` - Uses Playwright
 
 ## Test Configuration by Package
@@ -50,6 +53,7 @@ This runs end-to-end tests in apps that have e2e test configurations:
 ### Apps
 
 #### `apps/main`
+
 - **E2E Tests**: Playwright
 - **Location**: `tests/e2e/`
 - **Commands**:
@@ -61,11 +65,13 @@ This runs end-to-end tests in apps that have e2e test configurations:
 ### Packages
 
 #### `packages/auth`
+
 - **Unit Tests**: Jest
 - **Location**: `tests/` directory
 - **Command**: `pnpm test` or `pnpm test:unit`
 
 #### `packages/resurrection`
+
 - **Unit Tests**: Vitest
 - **Location**: `src/**/__tests__/`
 - **Command**: `pnpm test` or `pnpm test:unit`
@@ -82,6 +88,7 @@ The test tasks in `turbo.json` are configured as follows:
 ## Adding Tests to a New Package
 
 1. Add a `test` script to your `package.json`:
+
    ```json
    {
      "scripts": {
@@ -96,6 +103,7 @@ The test tasks in `turbo.json` are configured as follows:
 ## CI/CD
 
 In CI environments, tests run with:
+
 - Caching enabled for unit tests
 - Caching disabled for e2e tests (for reliability)
 - Parallel execution where possible
@@ -104,4 +112,3 @@ In CI environments, tests run with:
 
 - **Unit Tests**: Coverage reports in `coverage/` directories
 - **E2E Tests**: Test results in `test-results/` and reports in `playwright-report/` directories
-

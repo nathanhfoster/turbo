@@ -56,10 +56,7 @@ const Card = ({
     };
 
     return (
-      <Box
-        variant={boxVariant}
-        className={cardClassName}
-      >
+      <Box variant={boxVariant} className={cardClassName}>
         <Link
           href={href}
           onClick={onClick}

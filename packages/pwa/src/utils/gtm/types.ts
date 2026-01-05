@@ -1,20 +1,20 @@
 export type PWAEvent =
-  | 'pwa_install_prompt_shown'
-  | 'pwa_install_attempt'
-  | 'pwa_install_success'
-  | 'pwa_install_error'
-  | 'pwa_push_subscribe'
-  | 'pwa_push_unsubscribe'
-  | 'pwa_push_permission_denied'
-  | 'pwa_service_worker_update_available'
-  | 'pwa_service_worker_update_accepted'
-  | 'pwa_service_worker_update_declined'
-  | 'pwa_service_worker_error'
-  | 'pwa_dark_mode_toggle'
-  | 'pwa_push_sent'
-  | 'pwa_push_error';
+  | "pwa_install_prompt_shown"
+  | "pwa_install_attempt"
+  | "pwa_install_success"
+  | "pwa_install_error"
+  | "pwa_push_subscribe"
+  | "pwa_push_unsubscribe"
+  | "pwa_push_permission_denied"
+  | "pwa_service_worker_update_available"
+  | "pwa_service_worker_update_accepted"
+  | "pwa_service_worker_update_declined"
+  | "pwa_service_worker_error"
+  | "pwa_dark_mode_toggle"
+  | "pwa_push_sent"
+  | "pwa_push_error";
 
-export type GTMEvent = PWAEvent | 'subscribe' | 'server_test';
+export type GTMEvent = PWAEvent | "subscribe" | "server_test";
 
 export interface GTMBaseEventPayload {
   email?: string;
@@ -45,4 +45,3 @@ export interface GTMBaseEventPayload {
 }
 
 export type EventId = string | null;
-

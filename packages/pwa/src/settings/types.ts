@@ -90,5 +90,3 @@ export interface SettingsProps {
   renderPermissions?: (props: PermissionsRenderProps) => ReactNode;
   renderStorage?: (props: StorageRenderProps) => ReactNode;
 }
-
-

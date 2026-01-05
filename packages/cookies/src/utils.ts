@@ -1,7 +1,11 @@
 // Simple client-side cookie utilities for lightweight use cases
 // For more advanced use cases, use CookieManager class
 
-export const setCookie = (key: string, value: string, maxAge: number = 31536000): void => {
+export const setCookie = (
+  key: string,
+  value: string,
+  maxAge: number = 31536000,
+): void => {
   if (typeof document !== "undefined") {
     document.cookie = `${key}=${value}; path=/; max-age=${maxAge}; SameSite=Lax`;
   }

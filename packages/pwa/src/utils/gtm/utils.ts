@@ -1,9 +1,12 @@
-'use client';
+"use client";
 
-import { isMobile, isTablet } from '../../providers/DeviceContextProvider/utils';
-import { isPwaInstalled } from '@nathanhfoster/resurrection';
-import { LOCAL_STORAGE_CLIENT_ID_KEY } from './constants';
-import type { EventId, GTMBaseEventPayload, GTMEvent } from './types';
+import {
+  isMobile,
+  isTablet,
+} from "../../providers/DeviceContextProvider/utils";
+import { isPwaInstalled } from "@nathanhfoster/resurrection";
+import { LOCAL_STORAGE_CLIENT_ID_KEY } from "./constants";
+import type { EventId, GTMBaseEventPayload, GTMEvent } from "./types";
 
 // Track engagement start times for different events
 const eventStartTimes = new Map<string, number>();
@@ -54,27 +57,33 @@ export const getTrackingFields = (): Partial<GTMBaseEventPayload> => {
   const queryParams = Object.fromEntries(new URLSearchParams(location.search));
 
   // Device detection
-  const deviceType = isMobile(userAgent) ? 'mobile' : isTablet(userAgent) ? 'tablet' : 'desktop';
+  const deviceType = isMobile(userAgent)
+    ? "mobile"
+    : isTablet(userAgent)
+      ? "tablet"
+      : "desktop";
 
   const browser = (() => {
-    if (userAgent.includes('Chrome')) return 'Chrome';
-    if (userAgent.includes('Firefox')) return 'Firefox';
-    if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
-    if (userAgent.includes('Edge')) return 'Edge';
-    if (userAgent.includes('MSIE') || userAgent.includes('Trident/')) return 'IE';
-    return 'Other';
+    if (userAgent.includes("Chrome")) return "Chrome";
+    if (userAgent.includes("Firefox")) return "Firefox";
+    if (userAgent.includes("Safari") && !userAgent.includes("Chrome"))
+      return "Safari";
+    if (userAgent.includes("Edge")) return "Edge";
+    if (userAgent.includes("MSIE") || userAgent.includes("Trident/"))
+      return "IE";
+    return "Other";
   })();
 
   const os = (() => {
-    if (userAgent.includes('Windows')) return 'Windows';
-    if (userAgent.includes('Mac OS')) return 'MacOS';
-    if (userAgent.includes('Android')) return 'Android';
-    if (/iPhone|iPad|iPod/.test(userAgent)) return 'iOS';
-    if (userAgent.includes('Linux')) return 'Linux';
-    return 'Other';
+    if (userAgent.includes("Windows")) return "Windows";
+    if (userAgent.includes("Mac OS")) return "MacOS";
+    if (userAgent.includes("Android")) return "Android";
+    if (/iPhone|iPad|iPod/.test(userAgent)) return "iOS";
+    if (userAgent.includes("Linux")) return "Linux";
+    return "Other";
   })();
 
-  const isPWA = isPwaInstalled() ? 'true' : 'false';
+  const isPWA = isPwaInstalled() ? "true" : "false";
 
   return {
     page_path: location.pathname,
@@ -95,7 +104,7 @@ export const getTrackingFields = (): Partial<GTMBaseEventPayload> => {
 export const getEventPayload = (
   event: GTMEvent,
   payload: GTMBaseEventPayload,
-  eventId: EventId
+  eventId: EventId,
 ) => {
   const basePayload = getTrackingFields();
   const enriched = { ...basePayload, ...payload };
@@ -104,9 +113,8 @@ export const getEventPayload = (
     event,
     ...enriched,
     engagement_time_msec: getEventEngagementTime(eventId),
-    debug_mode: process.env.NODE_ENV !== 'production',
+    debug_mode: process.env.NODE_ENV !== "production",
   };
 
   return finalPayload;
 };
-

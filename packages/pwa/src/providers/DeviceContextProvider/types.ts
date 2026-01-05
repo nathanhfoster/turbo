@@ -1,6 +1,14 @@
-import { ContextStore, Ensure, ProviderProps } from "@nathanhfoster/resurrection";
+import {
+  ContextStore,
+  Ensure,
+  ProviderProps,
+} from "@nathanhfoster/resurrection";
 
-export type CookieConsentKey = "necessary" | "analytics" | "marketing" | "preferences";
+export type CookieConsentKey =
+  | "necessary"
+  | "analytics"
+  | "marketing"
+  | "preferences";
 
 export type CookieSettings = Record<CookieConsentKey, boolean>;
 

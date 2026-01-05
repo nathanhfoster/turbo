@@ -9,4 +9,3 @@ export interface CacheOptions {
   maxSize?: number;
   cleanupInterval?: number;
 }
-

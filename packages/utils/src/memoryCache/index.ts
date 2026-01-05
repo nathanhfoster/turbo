@@ -1,5 +1,5 @@
-import type { CacheEntry, CacheOptions } from './types';
-import { DEFAULT_CACHE_TTL, DEFAULT_MAX_SIZE } from './constants';
+import type { CacheEntry, CacheOptions } from "./types";
+import { DEFAULT_CACHE_TTL, DEFAULT_MAX_SIZE } from "./constants";
 
 /**
  * Generic in-memory cache with TTL support and pattern-based invalidation
@@ -119,10 +119,10 @@ export class MemoryCache<T> {
   generateKey(prefix: string, params: Record<string, unknown>): string {
     const sortedParams = Object.keys(params)
       .sort()
-      .map(key => `${key}:${this.serializeValue(params[key])}`)
-      .join('|');
+      .map((key) => `${key}:${this.serializeValue(params[key])}`)
+      .join("|");
 
-    return `${prefix}:${Buffer.from(sortedParams).toString('base64')}`;
+    return `${prefix}:${Buffer.from(sortedParams).toString("base64")}`;
   }
 
   /**
@@ -132,7 +132,7 @@ export class MemoryCache<T> {
     size: number;
     hitRate?: number;
     memoryUsage?: number;
-    } {
+  } {
     this.cleanExpired();
     return {
       size: this.cache.size,
@@ -159,7 +159,7 @@ export class MemoryCache<T> {
   private evictOldest(): void {
     if (this.cache.size === 0) return;
 
-    let oldestKey = '';
+    let oldestKey = "";
     let oldestTime = Date.now();
 
     for (const [key, entry] of this.cache.entries()) {
@@ -178,8 +178,8 @@ export class MemoryCache<T> {
    * Serialize values for cache key generation
    */
   private serializeValue(value: unknown): string {
-    if (value === null || value === undefined) return 'null';
-    if (typeof value === 'object') return JSON.stringify(value);
+    if (value === null || value === undefined) return "null";
+    if (typeof value === "object") return JSON.stringify(value);
     return String(value);
   }
 
@@ -193,4 +193,3 @@ export class MemoryCache<T> {
     this.clear();
   }
 }
-

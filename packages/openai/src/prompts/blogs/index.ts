@@ -1,4 +1,4 @@
-import type { BlogPromptParams } from './types';
+import type { BlogPromptParams } from "./types";
 import {
   AUDIENCE_GUIDELINES,
   CATEGORY_FRAMEWORKS,
@@ -6,11 +6,11 @@ import {
   TONE_GUIDELINES,
   TOPIC_CATEGORIES,
   TRENDING_ANGLES,
-} from './constants';
+} from "./constants";
 
-export * from './generator';
-export * from './constants';
-export * from './types';
+export * from "./generator";
+export * from "./constants";
+export * from "./types";
 
 export interface ManifestConfig {
   url: string;
@@ -22,11 +22,14 @@ export interface ManifestConfig {
 /**
  * Generate a random blog topic based on category and current trends
  */
-export const generateRandomTopic = (category: string = 'business'): string => {
+export const generateRandomTopic = (category: string = "business"): string => {
   const categoryTopics =
-    TOPIC_CATEGORIES[category as keyof typeof TOPIC_CATEGORIES] || TOPIC_CATEGORIES.business;
-  const trendingAngle = TRENDING_ANGLES[Math.floor(Math.random() * TRENDING_ANGLES.length)];
-  const baseTopic = categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
+    TOPIC_CATEGORIES[category as keyof typeof TOPIC_CATEGORIES] ||
+    TOPIC_CATEGORIES.business;
+  const trendingAngle =
+    TRENDING_ANGLES[Math.floor(Math.random() * TRENDING_ANGLES.length)];
+  const baseTopic =
+    categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
 
   // 30% chance to add trending angle
   if (Math.random() < 0.3) {
@@ -42,11 +45,11 @@ export const generateRandomTopic = (category: string = 'business'): string => {
 export const getBlogPrompt = (
   {
     topic,
-    tone = 'informative',
-    targetAudience = 'local businesses',
-    category = 'business',
+    tone = "informative",
+    targetAudience = "local businesses",
+    category = "business",
   }: BlogPromptParams,
-  manifest: ManifestConfig
+  manifest: ManifestConfig,
 ) => {
   const url = manifest.url;
   const companyName = manifest.name;
@@ -56,31 +59,32 @@ export const getBlogPrompt = (
   // Get audience-specific guidelines
   const audienceGuide =
     AUDIENCE_GUIDELINES[targetAudience as keyof typeof AUDIENCE_GUIDELINES] ||
-    AUDIENCE_GUIDELINES['local businesses'];
+    AUDIENCE_GUIDELINES["local businesses"];
 
   // Get category-specific framework
   const categoryFramework =
     CATEGORY_FRAMEWORKS[category as keyof typeof CATEGORY_FRAMEWORKS] ||
-    CATEGORY_FRAMEWORKS['business'];
+    CATEGORY_FRAMEWORKS["business"];
 
   // Select relevant mission angles with improved matching
   const relevantMissionAngles = Object.entries(MISSION_ANGLES)
     .filter(([key, _]) => {
-      const keyWords = key.replace('_', ' ').toLowerCase();
+      const keyWords = key.replace("_", " ").toLowerCase();
       const topicLower = topic.toLowerCase();
       const categoryLower = category.toLowerCase();
       const audienceLower = targetAudience.toLowerCase();
 
       return (
         topicLower.includes(keyWords) ||
-        categoryLower.includes(key.split('_')[0]) ||
-        audienceLower.includes(key.split('_')[0]) ||
+        categoryLower.includes(key.split("_")[0]) ||
+        audienceLower.includes(key.split("_")[0]) ||
         // Enhanced matching for related terms
-        (key === 'ai_enhancement' &&
-          (topicLower.includes('ai') || topicLower.includes('artificial'))) ||
-        (key === 'blockchain_verification' &&
-          (topicLower.includes('blockchain') || topicLower.includes('verification'))) ||
-        (key === 'community_empowerment' && topicLower.includes('community'))
+        (key === "ai_enhancement" &&
+          (topicLower.includes("ai") || topicLower.includes("artificial"))) ||
+        (key === "blockchain_verification" &&
+          (topicLower.includes("blockchain") ||
+            topicLower.includes("verification"))) ||
+        (key === "community_empowerment" && topicLower.includes("community"))
       );
     })
     .map(([_, value]) => value);
@@ -91,15 +95,15 @@ You are writing a sophisticated blog post for **${companyName}** (${url}), the p
 ### Strategic Context
 **Company Mission**: ${description}
 
-**Platform Categories**: ${categories.join(', ')}
+**Platform Categories**: ${categories.join(", ")}
 
 **Target Audience**: ${targetAudience}
 - **Focus Areas**: ${audienceGuide.focus}
 - **Tone Approach**: ${audienceGuide.tone}
-- **Key Concepts**: ${audienceGuide.keywords.join(', ')}
+- **Key Concepts**: ${audienceGuide.keywords.join(", ")}
 
 **Content Category**: ${category}
-- **Core Themes**: ${categoryFramework.themes.join(', ')}
+- **Core Themes**: ${categoryFramework.themes.join(", ")}
 - **${companyName} Connection**: ${categoryFramework.connections}
 - **Manifest Alignment**: ${categoryFramework.manifestAlignment}
 
@@ -112,7 +116,7 @@ ${topic}
 **Mission Integration**: Weave in these ${companyName} differentiators naturally:
 ${
   relevantMissionAngles.length > 0
-    ? relevantMissionAngles.map(angle => `- ${angle}`).join('\n')
+    ? relevantMissionAngles.map((angle) => `- ${angle}`).join("\n")
     : `- Blockchain-verified business impact scoring through Local Impact Score (LIS)
 - AI agents that enhance human potential in community building
 - Smart contracts ensuring transparent, automated impact verification
@@ -134,7 +138,7 @@ ${
 - **Call to Action**: Specific next steps aligned with ${audienceGuide.callToAction}
 
 ### Technical Specifications
-- **SEO Optimization**: Natural keyword integration focusing on ${audienceGuide.keywords.join(', ')}
+- **SEO Optimization**: Natural keyword integration focusing on ${audienceGuide.keywords.join(", ")}
 - **Readability**: Break complex concepts into digestible sections with clear subheadings
 - **Engagement**: Include compelling statistics, case studies, or thought-provoking questions
 - **Authority**: Position ${companyName} as the innovative leader in transparent impact measurement
@@ -178,4 +182,3 @@ Ensure the content includes:
 Return only the complete HTML <article> element with all content.
 `;
 };
-

@@ -18,7 +18,11 @@ export { default as HamburgerMenu } from "./HamburgerMenu";
 export type { HamburgerMenuProps, MenuItem } from "./HamburgerMenu/types";
 export { default as InputGroup } from "./InputGroup";
 export { default as Navbar, TopNavbar, BottomNavbar } from "./Navbar";
-export type { NavbarContainerProps, TopNavbarProps, BottomNavbarProps } from "./Navbar/types";
+export type {
+  NavbarContainerProps,
+  TopNavbarProps,
+  BottomNavbarProps,
+} from "./Navbar/types";
 export { SettingsMenu } from "./SettingsMenu";
 export type { SettingsMenuProps, SettingsMenuItem } from "./SettingsMenu";
 export { default as SimpleTable } from "./SimpleTable";

@@ -8,7 +8,11 @@ export interface InstallButtonProps {
   onClick?: () => void;
 }
 
-export function InstallButton({ children, className, onClick }: InstallButtonProps) {
+export function InstallButton({
+  children,
+  className,
+  onClick,
+}: InstallButtonProps) {
   const { installPrompt } = useInstallPrompt();
   const { deferredPrompt, handleInstallClick } = installPrompt;
 

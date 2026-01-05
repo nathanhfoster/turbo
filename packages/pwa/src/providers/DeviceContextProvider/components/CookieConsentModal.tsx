@@ -1,13 +1,11 @@
 "use client";
 
+import { Box, Button, Modal, Typography, ButtonGroup } from "@nathanhfoster/ui";
 import {
-  Box,
-  Button,
-  Modal,
-  Typography,
-  ButtonGroup,
-} from "@nathanhfoster/ui";
-import { useDeviceDispatch, useDeviceSelector, deviceContextActions } from "../context";
+  useDeviceDispatch,
+  useDeviceSelector,
+  deviceContextActions,
+} from "../context";
 import CookieConsentForm from "./CookieConsentForm";
 
 interface CookieModalProps {}
@@ -20,7 +18,9 @@ const CookieConsentModal = (_props: CookieModalProps) => {
     <Modal
       open={open}
       closeOnOutsideClick={false}
-      onClose={() => dispatch(deviceContextActions.ToggleCookieModalOpen(false))}
+      onClose={() =>
+        dispatch(deviceContextActions.ToggleCookieModalOpen(false))
+      }
       className="p-6"
       aria-label="Cookie consent"
     >
@@ -28,8 +28,9 @@ const CookieConsentModal = (_props: CookieModalProps) => {
         Cookie Settings
       </Typography>
       <Typography variant="p" className="mb-4">
-        We use cookies to enhance your browsing experience, serve personalized ads or content, and
-        analyze our traffic. By clicking &quot;Accept All&quot;, you consent to our use of cookies.
+        We use cookies to enhance your browsing experience, serve personalized
+        ads or content, and analyze our traffic. By clicking &quot;Accept
+        All&quot;, you consent to our use of cookies.
       </Typography>
       <ButtonGroup variant="outlined" className="flex justify-center">
         <Button
@@ -52,7 +53,9 @@ const CookieConsentModal = (_props: CookieModalProps) => {
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => dispatch(deviceContextActions.ToggleCookieModalOpen(false))}
+          onClick={() =>
+            dispatch(deviceContextActions.ToggleCookieModalOpen(false))
+          }
         >
           Confirm
         </Button>
@@ -62,4 +65,3 @@ const CookieConsentModal = (_props: CookieModalProps) => {
 };
 
 export default CookieConsentModal;
-

@@ -1,6 +1,9 @@
-import { generateContentWithRetry, validateGeneratedContent } from '../../helpers';
-import { responseCache, generateCacheKey } from '../../cache';
-import { getBlogPrompt, generateRandomTopic } from './index';
+import {
+  generateContentWithRetry,
+  validateGeneratedContent,
+} from "../../helpers";
+import { responseCache, generateCacheKey } from "../../cache";
+import { getBlogPrompt, generateRandomTopic } from "./index";
 import type {
   BlogPromptParams,
   BlogGenerationConfig,
@@ -8,7 +11,7 @@ import type {
   BlogValidationResult,
   BlogTone,
   ManifestConfig,
-} from './types';
+} from "./types";
 
 /**
  * Validates blog content quality and structure
@@ -24,23 +27,25 @@ export const validateBlogContent = (content: string): BlogValidationResult => {
 
   // Structure checks
   const hasProperStructure =
-    content.includes('<article') && content.includes('<h1') && content.includes('<h2');
+    content.includes("<article") &&
+    content.includes("<h1") &&
+    content.includes("<h2");
   if (!hasProperStructure) {
-    issues.push('Missing proper HTML structure (article, h1, h2 tags)');
+    issues.push("Missing proper HTML structure (article, h1, h2 tags)");
   }
 
   // Call to action check
   const hasCallToAction =
-    content.includes('Call-to-Action') ||
-    content.includes('call-to-action') ||
-    content.includes('bg-gradient-to-r from-purple-600 to-blue-600');
+    content.includes("Call-to-Action") ||
+    content.includes("call-to-action") ||
+    content.includes("bg-gradient-to-r from-purple-600 to-blue-600");
   if (!hasCallToAction) {
-    issues.push('Missing call-to-action section');
+    issues.push("Missing call-to-action section");
   }
 
   // Basic content validation
   if (!validateGeneratedContent(content)) {
-    issues.push('Content failed basic quality validation');
+    issues.push("Content failed basic quality validation");
   }
 
   return {
@@ -58,7 +63,7 @@ export const validateBlogContent = (content: string): BlogValidationResult => {
 export const generateBlogPost = async (
   params: BlogPromptParams,
   manifest: ManifestConfig,
-  config: BlogGenerationConfig = {}
+  config: BlogGenerationConfig = {},
 ): Promise<BlogGenerationResult> => {
   const {
     useCache = true,
@@ -70,16 +75,16 @@ export const generateBlogPost = async (
 
   const {
     topic,
-    tone = 'informative',
-    targetAudience = 'local businesses',
-    category = 'business',
+    tone = "informative",
+    targetAudience = "local businesses",
+    category = "business",
   } = params;
 
   // Generate cache key
   const prompt = getBlogPrompt(params, manifest);
   const cacheKey = generateCacheKey({
     prompt,
-    model: 'gpt-4o',
+    model: "gpt-4o",
     temperature,
     max_tokens: maxTokens,
   });
@@ -110,15 +115,15 @@ export const generateBlogPost = async (
         prompt,
         temperature,
         max_tokens: maxTokens,
-        model: 'gpt-4o',
+        model: "gpt-4o",
       },
-      maxRetries
+      maxRetries,
     );
 
     if (!result.success || !result.content) {
       return {
         success: false,
-        error: result.error?.message || 'Failed to generate content',
+        error: result.error?.message || "Failed to generate content",
       };
     }
 
@@ -128,7 +133,7 @@ export const generateBlogPost = async (
       if (!validation.isValid) {
         return {
           success: false,
-          error: `Content validation failed: ${validation.issues.join(', ')}`,
+          error: `Content validation failed: ${validation.issues.join(", ")}`,
         };
       }
     }
@@ -153,7 +158,7 @@ export const generateBlogPost = async (
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      error: error instanceof Error ? error.message : "Unknown error occurred",
     };
   }
 };
@@ -164,20 +169,23 @@ export const generateBlogPost = async (
 export const generateRandomBlogPost = async (
   manifest: ManifestConfig,
   category?: string,
-  config?: BlogGenerationConfig
+  config?: BlogGenerationConfig,
 ): Promise<BlogGenerationResult> => {
   const selectedCategory =
-    category || ['business', 'community', 'local', 'professional'][Math.floor(Math.random() * 4)];
+    category ||
+    ["business", "community", "local", "professional"][
+      Math.floor(Math.random() * 4)
+    ];
   const topic = generateRandomTopic(selectedCategory);
 
   const audiences = [
-    'local businesses',
-    'economic developers',
-    'city leaders',
-    'professionals',
-    'community members',
+    "local businesses",
+    "economic developers",
+    "city leaders",
+    "professionals",
+    "community members",
   ];
-  const tones: BlogTone[] = ['informative', 'creative', 'technical', 'casual'];
+  const tones: BlogTone[] = ["informative", "creative", "technical", "casual"];
 
   const params: BlogPromptParams = {
     topic,
@@ -196,7 +204,7 @@ export const generateMultipleBlogPosts = async (
   manifest: ManifestConfig,
   count: number,
   categories?: string[],
-  config?: BlogGenerationConfig
+  config?: BlogGenerationConfig,
 ): Promise<BlogGenerationResult[]> => {
   const results: BlogGenerationResult[] = [];
 
@@ -207,10 +215,9 @@ export const generateMultipleBlogPosts = async (
 
     // Add small delay to avoid rate limiting
     if (i < count - 1) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   }
 
   return results;
 };
-

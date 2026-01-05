@@ -35,7 +35,10 @@ export function Navbar() {
     <>
       <TopNavbar
         logo={
-          <Link href="/" className="text-xl font-bold text-primary hover:text-primary/80 transition-colors">
+          <Link
+            href="/"
+            className="text-xl font-bold text-primary hover:text-primary/80 transition-colors"
+          >
             AgentNate
           </Link>
         }
@@ -67,9 +70,7 @@ export function Navbar() {
               key={href}
               href={href}
               className={`flex flex-col items-center justify-center px-3 py-2 text-xs font-medium transition-colors ${
-                pathname === href
-                  ? "text-primary"
-                  : "text-foreground"
+                pathname === href ? "text-primary" : "text-foreground"
               }`}
             >
               {Icon && (
@@ -85,4 +86,3 @@ export function Navbar() {
     </>
   );
 }
-

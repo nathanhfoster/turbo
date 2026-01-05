@@ -23,14 +23,18 @@ const NavbarContainer = ({
   // Explicitly define all class combinations for Tailwind v4 scanning
   // Using semantic tokens that automatically switch in dark mode
   // Top navbar classes
-  const topClasses = "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 top-0 border-b border-border";
+  const topClasses =
+    "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 top-0 border-b border-border";
   // Bottom navbar classes
-  const bottomClasses = "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 bottom-0 border-t border-border";
+  const bottomClasses =
+    "w-full bg-background text-foreground shadow-sm z-50 fixed right-0 left-0 bottom-0 border-t border-border";
   // Static navbar base classes
   const staticClasses = "w-full bg-background text-foreground shadow-sm z-50";
 
   const baseClasses = fixed
-    ? (position === "top" ? topClasses : bottomClasses)
+    ? position === "top"
+      ? topClasses
+      : bottomClasses
     : staticClasses;
 
   // Add transition and transform classes
@@ -52,7 +56,7 @@ const NavbarContainer = ({
         baseClasses,
         transitionClasses,
         transformClasses,
-        className
+        className,
       )}
       {...props}
     >
@@ -89,11 +93,7 @@ const TopNavbar = ({
   );
 };
 
-const BottomNavbar = ({
-  children,
-  className,
-  ...props
-}: BottomNavbarProps) => {
+const BottomNavbar = ({ children, className, ...props }: BottomNavbarProps) => {
   return (
     <NavbarContainer
       position="bottom"
@@ -102,9 +102,7 @@ const BottomNavbar = ({
       {...props}
     >
       <Box className="mx-auto max-w-7xl px-4">
-        <Box className="h-16 flex items-center justify-center">
-          {children}
-        </Box>
+        <Box className="h-16 flex items-center justify-center">{children}</Box>
       </Box>
     </NavbarContainer>
   );

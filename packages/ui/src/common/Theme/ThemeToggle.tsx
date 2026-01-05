@@ -38,8 +38,10 @@ export function ThemeToggle({
           {isDark ? <IconSun /> : <IconMoon />}
           <span>{isDark ? lightLabel : darkLabel}</span>
         </div>
+      ) : isDark ? (
+        <IconSun />
       ) : (
-        isDark ? <IconSun /> : <IconMoon />
+        <IconMoon />
       )}
     </Button>
   );

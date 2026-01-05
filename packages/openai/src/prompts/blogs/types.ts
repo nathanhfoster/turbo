@@ -1,5 +1,5 @@
 // Valid tone options
-export type BlogTone = 'informative' | 'creative' | 'technical' | 'casual';
+export type BlogTone = "informative" | "creative" | "technical" | "casual";
 
 export interface BlogPromptParams {
   topic: string;
@@ -56,4 +56,3 @@ export interface BlogGenerationResult {
   };
   error?: string;
 }
-

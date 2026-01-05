@@ -34,5 +34,3 @@ export interface IDatabase {
    */
   isAvailable(): boolean;
 }
-
-

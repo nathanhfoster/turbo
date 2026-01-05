@@ -1,10 +1,12 @@
-import { askOpenAI, getOpenAiChoiceContent } from './index';
-import type { AskOpenAIProps, OpenAIResponse } from './types';
+import { askOpenAI, getOpenAiChoiceContent } from "./index";
+import type { AskOpenAIProps, OpenAIResponse } from "./types";
 
 /**
  * Wrapper function that provides standardized error handling and response formatting
  */
-export const generateContent = async (params: AskOpenAIProps): Promise<OpenAIResponse> => {
+export const generateContent = async (
+  params: AskOpenAIProps,
+): Promise<OpenAIResponse> => {
   try {
     const choices = await askOpenAI(params);
     const content = getOpenAiChoiceContent(choices);
@@ -13,8 +15,8 @@ export const generateContent = async (params: AskOpenAIProps): Promise<OpenAIRes
       return {
         success: false,
         error: {
-          message: 'No content generated from OpenAI response',
-          type: 'empty_response',
+          message: "No content generated from OpenAI response",
+          type: "empty_response",
         },
       };
     }
@@ -24,13 +26,14 @@ export const generateContent = async (params: AskOpenAIProps): Promise<OpenAIRes
       content,
     };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
 
     return {
       success: false,
       error: {
         message: errorMessage,
-        type: 'api_error',
+        type: "api_error",
       },
     };
   }
@@ -42,9 +45,9 @@ export const generateContent = async (params: AskOpenAIProps): Promise<OpenAIRes
 export const generateContentWithRetry = async (
   params: AskOpenAIProps,
   maxRetries = 3,
-  baseDelay = 1000
+  baseDelay = 1000,
 ): Promise<OpenAIResponse> => {
-  let lastError: OpenAIResponse['error'];
+  let lastError: OpenAIResponse["error"];
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const result = await generateContent(params);
@@ -57,15 +60,15 @@ export const generateContentWithRetry = async (
 
     if (attempt < maxRetries) {
       const delay = baseDelay * Math.pow(2, attempt - 1);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
     }
   }
 
   return {
     success: false,
     error: lastError || {
-      message: 'Max retries exceeded',
-      type: 'retry_limit_exceeded',
+      message: "Max retries exceeded",
+      type: "retry_limit_exceeded",
     },
   };
 };
@@ -79,9 +82,16 @@ export const validateGeneratedContent = (content: string): boolean => {
   }
 
   // Check for common error patterns
-  const errorPatterns = [/error/i, /sorry/i, /cannot/i, /unable to/i, /i don't/i, /i can't/i];
+  const errorPatterns = [
+    /error/i,
+    /sorry/i,
+    /cannot/i,
+    /unable to/i,
+    /i don't/i,
+    /i can't/i,
+  ];
 
-  return !errorPatterns.some(pattern => pattern.test(content));
+  return !errorPatterns.some((pattern) => pattern.test(content));
 };
 
 /**
@@ -94,7 +104,10 @@ export const estimateTokenCount = (text: string): number => {
 /**
  * Truncates content to fit within token limits
  */
-export const truncateToTokenLimit = (text: string, maxTokens: number): string => {
+export const truncateToTokenLimit = (
+  text: string,
+  maxTokens: number,
+): string => {
   const estimatedTokens = estimateTokenCount(text);
 
   if (estimatedTokens <= maxTokens) {
@@ -104,4 +117,3 @@ export const truncateToTokenLimit = (text: string, maxTokens: number): string =>
   const targetLength = Math.floor((maxTokens * text.length) / estimatedTokens);
   return text.substring(0, targetLength);
 };
-

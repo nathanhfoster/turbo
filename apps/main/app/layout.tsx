@@ -87,10 +87,22 @@ export default async function RootLayout({
 
   // Read other cookies
   const hasScrolled = parseCookie<boolean>(KEY_COOKIE_HAS_SCROLLED, false);
-  const necessary = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_NECESSARY, true);
-  const analytics = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS, true);
-  const marketing = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_MARKETING, true);
-  const preferences = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES, true);
+  const necessary = parseCookie<boolean>(
+    KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
+    true,
+  );
+  const analytics = parseCookie<boolean>(
+    KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
+    true,
+  );
+  const marketing = parseCookie<boolean>(
+    KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
+    true,
+  );
+  const preferences = parseCookie<boolean>(
+    KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES,
+    true,
+  );
 
   return (
     <html lang="en" className={initialTheme} suppressHydrationWarning>

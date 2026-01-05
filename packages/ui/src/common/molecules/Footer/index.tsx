@@ -11,10 +11,7 @@ import {
 
 const Footer = () => {
   return (
-    <Box
-      variant="footer"
-      className="px-4 py-12 md:px-8"
-    >
+    <Box variant="footer" className="px-4 py-12 md:px-8">
       <Box className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-4">
         {/* Logo & Mission */}
         <Box>

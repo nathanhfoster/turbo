@@ -1,12 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Box,
-  Typography,
-  IconGithub,
-  IconLinkedin,
-} from "@nathanhfoster/ui";
+import { Box, Typography, IconGithub, IconLinkedin } from "@nathanhfoster/ui";
 
 const FOOTER_LINKS = [
   { label: "Home", href: "/" },
@@ -34,10 +29,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <Box
-      variant="footer"
-      className="w-full border-t border-border mt-auto"
-    >
+    <Box variant="footer" className="w-full border-t border-border mt-auto">
       <Box className="mx-auto max-w-7xl px-4 py-8 md:px-6 lg:px-8">
         <Box className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Brand Section */}
@@ -46,7 +38,8 @@ export default function Footer() {
               AgentNate
             </Typography>
             <Typography className="text-sm text-foreground-muted">
-              Full-stack developer and technical consultant specializing in modern web applications, PWAs, and scalable architectures.
+              Full-stack developer and technical consultant specializing in
+              modern web applications, PWAs, and scalable architectures.
             </Typography>
             {/* Social Links */}
             <Box className="flex gap-4">
@@ -96,4 +89,3 @@ export default function Footer() {
     </Box>
   );
 }
-

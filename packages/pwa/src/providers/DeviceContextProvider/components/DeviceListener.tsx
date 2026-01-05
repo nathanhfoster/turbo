@@ -3,7 +3,12 @@
 import { FC, useCallback, useEffect } from "react";
 import { isPwaInstalled, useEventListener } from "@nathanhfoster/resurrection";
 import { deviceContextActions, useDeviceDispatch } from "../context";
-import { KEY_COOKIE_CONSENT_MODAL_OPEN, MOBILE_BREAKPOINT, TABLET_BREAKPOINT, COOKIE_MODAL_OPEN_DELAY } from "../constants";
+import {
+  KEY_COOKIE_CONSENT_MODAL_OPEN,
+  MOBILE_BREAKPOINT,
+  TABLET_BREAKPOINT,
+  COOKIE_MODAL_OPEN_DELAY,
+} from "../constants";
 
 const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
   const dispatch = useDeviceDispatch();
@@ -15,8 +20,13 @@ const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (typeof localStorage !== "undefined") {
-        const isCookieModalOpen = localStorage.getItem(KEY_COOKIE_CONSENT_MODAL_OPEN) ?? "true";
-        dispatch(deviceContextActions.ToggleCookieModalOpen(isCookieModalOpen === "true"));
+        const isCookieModalOpen =
+          localStorage.getItem(KEY_COOKIE_CONSENT_MODAL_OPEN) ?? "true";
+        dispatch(
+          deviceContextActions.ToggleCookieModalOpen(
+            isCookieModalOpen === "true",
+          ),
+        );
       }
     }, COOKIE_MODAL_OPEN_DELAY);
     return () => clearTimeout(timeoutId);
@@ -32,21 +42,28 @@ const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
 
   // Update PWA status when display mode changes
   useEffect(() => {
-    dispatch(deviceContextActions.UpdatePwaStatus({ isPWAInstalled: isPwaInstalled() }));
+    dispatch(
+      deviceContextActions.UpdatePwaStatus({
+        isPWAInstalled: isPwaInstalled(),
+      }),
+    );
   }, [dispatch]);
 
   const updateDeviceInfo = useCallback(() => {
     if (typeof window !== "undefined") {
       const { innerWidth, innerHeight } = window;
 
-      dispatch(deviceContextActions.UpdateScreenSize({ innerWidth, innerHeight }));
+      dispatch(
+        deviceContextActions.UpdateScreenSize({ innerWidth, innerHeight }),
+      );
 
       dispatch(
         deviceContextActions.UpdateDeviceType({
           isMobile: innerWidth < MOBILE_BREAKPOINT,
-          isTablet: innerWidth >= MOBILE_BREAKPOINT && innerWidth < TABLET_BREAKPOINT,
+          isTablet:
+            innerWidth >= MOBILE_BREAKPOINT && innerWidth < TABLET_BREAKPOINT,
           isDesktop: innerWidth >= TABLET_BREAKPOINT,
-        })
+        }),
       );
     }
   }, [dispatch]);

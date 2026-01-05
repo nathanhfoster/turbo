@@ -1,4 +1,4 @@
-import { MemoryCache } from '@nathanhfoster/utils/memoryCache';
+import { MemoryCache } from "@nathanhfoster/utils/memoryCache";
 
 // Singleton instances for different cache types
 export const responseCache = new MemoryCache<string>({
@@ -22,12 +22,11 @@ export const generateCacheKey = (params: {
   max_tokens?: number;
 }): string => {
   const normalizedParams = {
-    model: params.model || 'gpt-4o',
+    model: params.model || "gpt-4o",
     temperature: params.temperature || 0.7,
     max_tokens: params.max_tokens || 1600,
     content: params.prompt || JSON.stringify(params.messages || []),
   };
 
-  return responseCache.generateKey('openai', normalizedParams);
+  return responseCache.generateKey("openai", normalizedParams);
 };
-

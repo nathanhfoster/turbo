@@ -16,4 +16,5 @@ export interface TopNavbarProps extends Omit<NavbarContainerProps, "position"> {
   rightContent?: React.ReactNode;
 }
 
-export interface BottomNavbarProps extends Omit<NavbarContainerProps, "position"> {}
+export interface BottomNavbarProps
+  extends Omit<NavbarContainerProps, "position"> {}

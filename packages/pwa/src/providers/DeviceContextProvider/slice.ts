@@ -1,4 +1,7 @@
-import { ContextStoreInitializer, createSlice } from "@nathanhfoster/resurrection";
+import {
+  ContextStoreInitializer,
+  createSlice,
+} from "@nathanhfoster/resurrection";
 
 import { setCookie } from "@nathanhfoster/cookies";
 import {
@@ -67,20 +70,27 @@ export const deviceSlice = createSlice({
     SetBatteryStatus: (state, payload: DeviceContextState["batteryStatus"]) => {
       state.batteryStatus = payload;
     },
-    UpdateScreenSize: (state, payload: Pick<DeviceContextState, "innerWidth" | "innerHeight">) => {
+    UpdateScreenSize: (
+      state,
+      payload: Pick<DeviceContextState, "innerWidth" | "innerHeight">,
+    ) => {
       state.innerWidth = payload.innerWidth;
       state.innerHeight = payload.innerHeight;
-      state.orientation = payload.innerWidth > payload.innerHeight ? "landscape" : "portrait";
+      state.orientation =
+        payload.innerWidth > payload.innerHeight ? "landscape" : "portrait";
     },
     UpdateDeviceType: (
       state,
-      payload: Pick<DeviceContextState, "isMobile" | "isTablet" | "isDesktop">
+      payload: Pick<DeviceContextState, "isMobile" | "isTablet" | "isDesktop">,
     ) => {
       state.isMobile = payload.isMobile;
       state.isTablet = payload.isTablet;
       state.isDesktop = payload.isDesktop;
     },
-    UpdatePwaStatus: (state, payload: Pick<DeviceContextState, "isPWAInstalled">) => {
+    UpdatePwaStatus: (
+      state,
+      payload: Pick<DeviceContextState, "isPWAInstalled">,
+    ) => {
       state.isPWAInstalled = payload.isPWAInstalled;
     },
     SetHasScrolled: (state, hasScrolled: DeviceContextState["hasScrolled"]) => {
@@ -94,12 +104,18 @@ export const deviceSlice = createSlice({
       const newIsCookieModalOpen = payload ?? !state.isCookieModalOpen;
       state.isCookieModalOpen = newIsCookieModalOpen;
       if (typeof localStorage !== "undefined") {
-        localStorage.setItem(KEY_COOKIE_CONSENT_MODAL_OPEN, newIsCookieModalOpen.toString());
+        localStorage.setItem(
+          KEY_COOKIE_CONSENT_MODAL_OPEN,
+          newIsCookieModalOpen.toString(),
+        );
       }
     },
     ToggleCookieSettings: (
       state,
-      payload: { key: keyof DeviceContextState["cookieSettings"]; value?: boolean }
+      payload: {
+        key: keyof DeviceContextState["cookieSettings"];
+        value?: boolean;
+      },
     ) => {
       const newCookieSettings = {
         ...state.cookieSettings,
@@ -110,26 +126,38 @@ export const deviceSlice = createSlice({
       if (typeof localStorage !== "undefined") {
         localStorage.setItem(
           KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
-          newCookieSettings.necessary.toString()
+          newCookieSettings.necessary.toString(),
         );
         localStorage.setItem(
           KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
-          newCookieSettings.analytics.toString()
+          newCookieSettings.analytics.toString(),
         );
         localStorage.setItem(
           KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
-          newCookieSettings.marketing.toString()
+          newCookieSettings.marketing.toString(),
         );
         localStorage.setItem(
           KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES,
-          newCookieSettings.preferences.toString()
+          newCookieSettings.preferences.toString(),
         );
       }
 
-      setCookie(KEY_COOKIE_CONSENT_SETTINGS_NECESSARY, newCookieSettings.necessary.toString());
-      setCookie(KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS, newCookieSettings.analytics.toString());
-      setCookie(KEY_COOKIE_CONSENT_SETTINGS_MARKETING, newCookieSettings.marketing.toString());
-      setCookie(KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES, newCookieSettings.preferences.toString());
+      setCookie(
+        KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
+        newCookieSettings.necessary.toString(),
+      );
+      setCookie(
+        KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
+        newCookieSettings.analytics.toString(),
+      );
+      setCookie(
+        KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
+        newCookieSettings.marketing.toString(),
+      );
+      setCookie(
+        KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES,
+        newCookieSettings.preferences.toString(),
+      );
     },
     AcceptAllCookies: (state) => {
       state.cookieSettings = {

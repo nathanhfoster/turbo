@@ -24,7 +24,7 @@ const RichText: React.FC<RichTextProps> = ({
         "prose dark:prose-invert max-w-none text-foreground",
         sizeClass,
         variantClass,
-        className
+        className,
       )}
       {...(props as React.ComponentProps<typeof Box>)}
     >
@@ -34,4 +34,3 @@ const RichText: React.FC<RichTextProps> = ({
 };
 
 export default withForwardRef(withBaseTheme(withBaseTailwindProps(RichText)));
-

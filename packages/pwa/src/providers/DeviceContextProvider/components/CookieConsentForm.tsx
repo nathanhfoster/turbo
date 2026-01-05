@@ -1,15 +1,27 @@
 "use client";
 
 import { IconShield, Form } from "@nathanhfoster/ui";
-import { useDeviceDispatch, useDeviceSelector, deviceContextActions } from "../context";
+import {
+  useDeviceDispatch,
+  useDeviceSelector,
+  deviceContextActions,
+} from "../context";
 import type { DeviceContextState } from "../types";
 
 const CookieConsentForm = () => {
   const dispatch = useDeviceDispatch();
-  const necessary = useDeviceSelector((state: DeviceContextState) => state.cookieSettings.necessary);
-  const analytics = useDeviceSelector((state: DeviceContextState) => state.cookieSettings.analytics);
-  const marketing = useDeviceSelector((state: DeviceContextState) => state.cookieSettings.marketing);
-  const preferences = useDeviceSelector((state: DeviceContextState) => state.cookieSettings.preferences);
+  const necessary = useDeviceSelector(
+    (state: DeviceContextState) => state.cookieSettings.necessary,
+  );
+  const analytics = useDeviceSelector(
+    (state: DeviceContextState) => state.cookieSettings.analytics,
+  );
+  const marketing = useDeviceSelector(
+    (state: DeviceContextState) => state.cookieSettings.marketing,
+  );
+  const preferences = useDeviceSelector(
+    (state: DeviceContextState) => state.cookieSettings.preferences,
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key = event.target.name as keyof DeviceContextState["cookieSettings"];
@@ -56,4 +68,3 @@ const CookieConsentForm = () => {
 };
 
 export default CookieConsentForm;
-

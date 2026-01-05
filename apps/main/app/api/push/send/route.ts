@@ -18,7 +18,8 @@ function initializeVapid(): void {
       webPush.setVapidDetails(vapidEmail, vapidPublicKey, vapidPrivateKey);
       vapidInitialized = true;
     } catch (error) {
-      vapidInitError = error instanceof Error ? error : new Error(String(error));
+      vapidInitError =
+        error instanceof Error ? error : new Error(String(error));
       throw vapidInitError;
     }
   }

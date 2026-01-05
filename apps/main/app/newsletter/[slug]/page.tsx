@@ -227,7 +227,10 @@ export default async function NewsletterPost({
           </Typography>
           <Box className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {relatedPosts.map((relatedPost) => (
-              <Link key={relatedPost.slug} href={`/newsletter/${relatedPost.slug}`}>
+              <Link
+                key={relatedPost.slug}
+                href={`/newsletter/${relatedPost.slug}`}
+              >
                 <Box className="group h-full rounded-lg border border-border bg-background p-6 transition-all hover:border-primary hover:shadow-md">
                   {relatedPost.image && (
                     <Image

@@ -64,11 +64,14 @@ export async function getPostBySlug(
 
     // Convert markdown to HTML using marked
     let htmlContent = await marked.parse(content);
-    const htmlString = typeof htmlContent === "string" ? htmlContent : String(htmlContent);
+    const htmlString =
+      typeof htmlContent === "string" ? htmlContent : String(htmlContent);
 
     // Remove the first H1 tag since the title is already displayed in the page header
     // This prevents duplicate titles
-    const contentWithoutFirstH1 = htmlString.replace(/<h1[^>]*>.*?<\/h1>/is, "").trim();
+    const contentWithoutFirstH1 = htmlString
+      .replace(/<h1[^>]*>.*?<\/h1>/is, "")
+      .trim();
 
     return {
       slug,
@@ -157,9 +160,10 @@ export function getAllTags() {
 /**
  * Get next and previous posts based on date order
  */
-export function getAdjacentPosts(
-  currentSlug: string,
-): { next: NewsletterPost | null; previous: NewsletterPost | null } {
+export function getAdjacentPosts(currentSlug: string): {
+  next: NewsletterPost | null;
+  previous: NewsletterPost | null;
+} {
   const allPosts = getAllPosts();
   const currentIndex = allPosts.findIndex((post) => post.slug === currentSlug);
 
@@ -168,9 +172,11 @@ export function getAdjacentPosts(
   }
 
   return {
-    next: currentIndex > 0 ? allPosts[currentIndex - 1] ?? null : null,
+    next: currentIndex > 0 ? (allPosts[currentIndex - 1] ?? null) : null,
     previous:
-      currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] ?? null : null,
+      currentIndex < allPosts.length - 1
+        ? (allPosts[currentIndex + 1] ?? null)
+        : null,
   };
 }
 

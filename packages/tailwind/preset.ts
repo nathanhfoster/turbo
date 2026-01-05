@@ -144,4 +144,3 @@ const preset: Config = {
 };
 
 export default preset;
-

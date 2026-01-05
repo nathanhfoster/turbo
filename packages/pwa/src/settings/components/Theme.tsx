@@ -10,9 +10,7 @@ export function Theme({
   descriptionClassName = "",
   renderButton,
 }: ThemeProps = {}) {
-  const defaultButton = (
-    <ThemeToggle variant="outlined" showLabel />
-  );
+  const defaultButton = <ThemeToggle variant="outlined" showLabel />;
 
   return (
     <Card className={className || DEFAULT_CLASSES.container}>
@@ -32,4 +30,3 @@ export function Theme({
     </Card>
   );
 }
-

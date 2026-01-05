@@ -40,10 +40,11 @@ const Drawer = ({
   useIsomorphicLayoutEffect(() => {
     if (isOpen) {
       document.addEventListener("keydown", handleEscape);
-      
+
       // Calculate scrollbar width to prevent layout shift
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
       // Hide scrollbar and compensate for its width
       document.body.style.overflow = "hidden";
       if (scrollbarWidth > 0) {
@@ -72,7 +73,7 @@ const Drawer = ({
           });
         });
       }, 10); // Small delay to ensure DOM and CSS are ready
-      
+
       return () => clearTimeout(timeoutId);
     } else {
       setIsAnimating(false);

@@ -9,24 +9,26 @@ import React, { lazy, Suspense, type ComponentType } from "react";
 // Mock dynamic import - use React.lazy for code splitting in Storybook
 const dynamic = <P extends object>(
   importFn: () => Promise<{ default: ComponentType<P> } | ComponentType<P>>,
-  options?: any
+  options?: any,
 ): ComponentType<P> => {
   // Use React.lazy which works in Storybook
   const LazyComponent = lazy(async () => {
     const module = await importFn();
     return {
-      default: ("default" in module ? module.default : module) as ComponentType<P>,
+      default: ("default" in module
+        ? module.default
+        : module) as ComponentType<P>,
     };
   });
 
   // Return a wrapper that handles loading/error states
   const WrappedComponent = (props: P) => {
     const fallback = options?.loading || null;
-    
+
     return React.createElement(
       Suspense,
       { fallback },
-      React.createElement(LazyComponent, props)
+      React.createElement(LazyComponent, props),
     );
   };
 
@@ -34,4 +36,3 @@ const dynamic = <P extends object>(
 };
 
 export default dynamic;
-

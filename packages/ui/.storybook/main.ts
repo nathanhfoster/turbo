@@ -66,7 +66,7 @@ const config: StorybookConfig = {
 
     // Fix for dynamic imports - ensure proper handling of story files
     cfg.plugins = cfg.plugins || [];
-    
+
     // Ensure proper module resolution
     cfg.resolve.conditions = cfg.resolve.conditions || [];
     if (!cfg.resolve.conditions.includes("import")) {
@@ -80,7 +80,7 @@ const config: StorybookConfig = {
     cfg.resolve.alias = {
       ...cfg.resolve.alias,
       "next/dynamic": resolve(__dirname, "./mocks/next-dynamic.ts"),
-      "http": resolve(__dirname, "./mocks/http.ts"),
+      http: resolve(__dirname, "./mocks/http.ts"),
     };
 
     return cfg;
