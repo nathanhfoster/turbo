@@ -3,7 +3,9 @@ import type { NextConfig } from "next";
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const nextConfig: NextConfig = {
-  basePath: "/resume",
+  // Only use basePath in development when running standalone
+  // In production, resume app is deployed separately without basePath
+  basePath: isDevelopment ? "/resume" : undefined,
   transpilePackages: [
     "@nathanhfoster/resurrection",
     "@nathanhfoster/ui",
