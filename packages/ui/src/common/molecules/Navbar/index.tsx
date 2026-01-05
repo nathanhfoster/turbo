@@ -66,7 +66,7 @@ const BottomNavbar = ({
   return (
     <NavbarContainer 
       position="bottom" 
-      className={combineClassNames("md:hidden bottom-0", className)} 
+      className={combineClassNames("md:hidden", className)} 
       {...props}
     >
       <Box className="mx-auto max-w-7xl px-4">

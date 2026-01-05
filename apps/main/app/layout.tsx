@@ -11,7 +11,7 @@ import {
   KEY_COOKIE_HAS_SCROLLED,
 } from "@nathanhfoster/pwa/device";
 import { CookieManager } from "@nathanhfoster/cookies";
-import { ThemeProvider } from "@nathanhfoster/ui";
+import { Box, ThemeProvider } from "@nathanhfoster/ui";
 import { Navbar } from "./components/Navbar";
 import "./globals.css";
 
@@ -110,7 +110,7 @@ export default async function RootLayout({
             >
               <CookieConsentModal />
               <Navbar />
-              <main className="pt-16 pb-16 md:pb-0">{children}</main>
+              <Box className="pt-16 pb-16 md:pb-0" variant="main">{children}</Box>
             </DeviceContextProvider>
           </InstallPromptProvider>
         </ThemeProvider>

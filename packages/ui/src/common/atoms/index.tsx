@@ -12,6 +12,7 @@ export * from "./Link";
 export * from "./MailToLink";
 export * from "./Meter";
 export * from "./Modal";
+export { default as Modal } from "./Modal";
 export { default as Overlay } from "./Overlay";
 export * from "./Portal";
 export { default as Skeleton } from "./Skeleton";

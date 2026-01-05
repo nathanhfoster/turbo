@@ -1,10 +1,8 @@
 "use client";
 
-import { IconShield } from "@nathanhfoster/ui";
+import { IconShield, Form } from "@nathanhfoster/ui";
 import { useDeviceDispatch, useDeviceSelector, deviceContextActions } from "../context";
 import type { DeviceContextState } from "../types";
-// @ts-ignore - Form is not exported from main index, need to import directly
-import Form from "@nathanhfoster/ui/common/molecules/Form";
 
 const CookieConsentForm = () => {
   const dispatch = useDeviceDispatch();

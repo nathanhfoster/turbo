@@ -11,6 +11,7 @@ export type { ChipProps } from "./Chip";
 export { default as Dropdown } from "./Dropdown";
 export * from "./Footer";
 export * from "./Form";
+export { default as Form } from "./Form";
 export { default as FormControl } from "./FormControl";
 export { default as HamburgerMenu } from "./HamburgerMenu";
 export type { HamburgerMenuProps, MenuItem } from "./HamburgerMenu/types";
