@@ -1,6 +1,4 @@
-import type { MDXRemoteSerializeResult } from "next-mdx-remote";
-
-export interface BlogPost {
+export interface NewsletterPost {
   slug: string;
   title: string;
   description: string;
@@ -12,17 +10,17 @@ export interface BlogPost {
   readingTime?: string;
 }
 
-export interface BlogPostWithContent extends BlogPost {
-  content: MDXRemoteSerializeResult;
+export interface NewsletterPostWithContent extends NewsletterPost {
+  content: string; // Raw MDX content string for RSC MDXRemote
 }
 
-export interface BlogCategory {
+export interface NewsletterCategory {
   name: string;
   slug: string;
   count: number;
 }
 
-export interface BlogTag {
+export interface NewsletterTag {
   name: string;
   slug: string;
   count: number;

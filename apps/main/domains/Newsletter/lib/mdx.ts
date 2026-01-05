@@ -1,15 +1,14 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-import type { BlogPost, BlogPostWithContent } from "../model/types";
+import type { NewsletterPost, NewsletterPostWithContent } from "../model/types";
 
-const postsDirectory = path.join(process.cwd(), "app/blog/posts");
+const postsDirectory = path.join(process.cwd(), "app/newsletter/posts");
 
 /**
  * Get all blog posts sorted by date (newest first)
  */
-export function getAllPosts(): BlogPost[] {
+export function getAllPosts(): NewsletterPost[] {
   try {
     if (!fs.existsSync(postsDirectory)) {
       return [];
@@ -35,7 +34,7 @@ export function getAllPosts(): BlogPost[] {
           tags: data.tags || [],
           image: data.image,
           readingTime: data.readingTime,
-        } as BlogPost;
+        } as NewsletterPost;
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -51,7 +50,7 @@ export function getAllPosts(): BlogPost[] {
  */
 export async function getPostBySlug(
   slug: string,
-): Promise<BlogPostWithContent | null> {
+): Promise<NewsletterPostWithContent | null> {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
 
@@ -61,7 +60,6 @@ export async function getPostBySlug(
 
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
-    const mdxSource = await serialize(content);
 
     return {
       slug,
@@ -73,7 +71,7 @@ export async function getPostBySlug(
       tags: data.tags || [],
       image: data.image,
       readingTime: data.readingTime,
-      content: mdxSource,
+      content: content, // Pass raw content string for RSC MDXRemote
     };
   } catch (error) {
     console.error(`Error getting post ${slug}:`, error);
@@ -84,7 +82,7 @@ export async function getPostBySlug(
 /**
  * Get posts by category
  */
-export function getPostsByCategory(category: string): BlogPost[] {
+export function getPostsByCategory(category: string): NewsletterPost[] {
   const allPosts = getAllPosts();
   return allPosts.filter((post) =>
     post.categories.some((cat) => cat.toLowerCase() === category.toLowerCase()),
@@ -94,7 +92,7 @@ export function getPostsByCategory(category: string): BlogPost[] {
 /**
  * Get posts by tag
  */
-export function getPostsByTag(tag: string): BlogPost[] {
+export function getPostsByTag(tag: string): NewsletterPost[] {
   const allPosts = getAllPosts();
   return allPosts.filter((post) =>
     post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()),

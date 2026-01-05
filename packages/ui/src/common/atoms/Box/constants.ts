@@ -75,4 +75,5 @@ export const VARIANT_DEFAULT_STYLES: Partial<Record<BoxVariant, string>> = {
   nav: "bg-background text-foreground",
   footer: "bg-background text-foreground",
   aside: "bg-background text-foreground",
+  article: "text-foreground",
 };

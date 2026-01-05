@@ -122,7 +122,7 @@ export default async function NewsletterPost({
       {/* Content */}
       <Box
         variant="article"
-        className="prose prose-lg dark:prose-invert max-w-none"
+        className="prose prose-lg dark:prose-invert max-w-none text-foreground"
       >
         <MDXRemote source={post.content} />
       </Box>
