@@ -11,6 +11,7 @@ import {
   IconSliders,
   ThemeToggle,
 } from "@nathanhfoster/ui";
+import { getMainAppUrl } from "../../../shared/utils/getMainAppUrl";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/resume" },
@@ -21,15 +22,6 @@ const BOTTOM_NAV_ITEMS = [
   { label: "Home", href: "/resume", Icon: IconHome },
   { label: "Settings", href: "/resume/settings", Icon: IconSliders },
 ];
-
-// Get the origin URL to navigate outside basePath
-const getMainAppUrl = () => {
-  if (typeof window !== "undefined") {
-    return window.location.origin;
-  }
-  // Fallback for SSR - in production this would be your actual domain
-  return process.env.NEXT_PUBLIC_MAIN_APP_URL || "http://localhost:3000";
-};
 
 export function Navbar() {
   const pathname = usePathname();

@@ -17,6 +17,8 @@ const config: Config = {
   content: [
     // Apps
     "./apps/**/*.{ts,tsx,js,jsx,mdx}",
+    // Shared utilities between apps
+    "./apps/shared/**/*.{ts,tsx,js,jsx,mdx}",
 
     // UI library source
     "./packages/ui/src/**/*.{ts,tsx,js,jsx,mdx}",

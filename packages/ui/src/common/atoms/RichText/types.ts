@@ -10,3 +10,4 @@ export interface RichTextProps extends Omit<BoxProps, "children" | "variant"> {
 }
 
 
+

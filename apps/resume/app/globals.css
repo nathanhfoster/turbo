@@ -19,6 +19,7 @@
 @source "../**/*.{ts,tsx,js,jsx,mdx}";
 @source "../../domains/**/*.{ts,tsx,js,jsx,mdx}";
 @source "../../core/**/*.{ts,tsx,js,jsx,mdx}";
+@source "../../shared/**/*.{ts,tsx,js,jsx,mdx}";
 
 /**
  * Override design system tokens for this application.

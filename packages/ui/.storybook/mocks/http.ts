@@ -26,3 +26,4 @@ export class ServerResponse {
     return true;
   }
 }
+
