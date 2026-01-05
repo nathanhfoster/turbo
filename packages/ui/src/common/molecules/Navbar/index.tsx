@@ -67,11 +67,17 @@ const TopNavbar = ({
     <NavbarContainer position="top" className={className} {...props}>
       <Box className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <Box className="h-16 relative flex items-center justify-between">
-          <Box className="flex items-center md:items-stretch gap-4">
+          <Box className="flex items-center gap-4 flex-1 min-w-0">
             {logo}
-            {children}
+            <Box className="hidden md:flex items-center">
+              {children}
+            </Box>
           </Box>
-          <HamburgerMenu position="right" {...menuProps} />
+          <Box className="flex-shrink-0 w-10 flex items-center justify-end">
+            <Box className="md:hidden">
+              <HamburgerMenu position="right" {...menuProps} />
+            </Box>
+          </Box>
         </Box>
       </Box>
     </NavbarContainer>

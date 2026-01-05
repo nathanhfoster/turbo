@@ -30,6 +30,8 @@ const preset: Config = {
     "bg-white",
     "shadow-sm",
     "border-gray-200",
+    "border-b",
+    "border-t",
     "dark:bg-gray-900",
     "dark:bg-gray-800",
     "dark:border-gray-800",
@@ -40,6 +42,23 @@ const preset: Config = {
     "translate-y-full",
     "transition-transform",
     "duration-300",
+    // Footer background and styling
+    "border-t",
+    "mt-auto",
+    // Card background and styling
+    "rounded-lg",
+    "!bg-white",
+    "dark:!bg-gray-800",
+    "border",
+    "border-neutral-200",
+    "dark:border-gray-700",
+    // Card text colors for contrast
+    "text-gray-900",
+    "text-gray-600",
+    "text-gray-400",
+    "dark:text-white",
+    "dark:text-gray-100",
+    "dark:text-gray-400",
     // Modal width utilities
     "max-w-sm",
     "max-w-md",
