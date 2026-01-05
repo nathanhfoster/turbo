@@ -2,7 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/domains/Blog/lib/mdx";
+import { getAllPosts, getPostBySlug } from "@/domains/Newsletter/lib/mdx";
 import { Box, Typography, Button } from "@nathanhfoster/ui";
 
 // Generate static pages for all newsletter posts at build time

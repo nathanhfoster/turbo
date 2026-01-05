@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/domains/Blog/lib/mdx";
+import { getAllPosts } from "@/domains/Newsletter/lib/mdx";
 
 const BASE_URL = "https://agentnate.dev";
 const MAX_URLS_PER_SITEMAP = 50000; // Google's limit

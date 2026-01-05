@@ -1,18 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { InstallPromptProvider } from "@nathanhfoster/pwa";
 import {
   DeviceContextProvider,
-  CookieConsentModal,
   KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS,
   KEY_COOKIE_CONSENT_SETTINGS_MARKETING,
   KEY_COOKIE_CONSENT_SETTINGS_NECESSARY,
   KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES,
   KEY_COOKIE_HAS_SCROLLED,
 } from "@nathanhfoster/pwa/device";
-import { CookieManager } from "@nathanhfoster/cookies";
-import { Box, ThemeProvider } from "@nathanhfoster/ui";
+import { ThemeProvider } from "@nathanhfoster/ui";
 import { Navbar } from "./components/Navbar";
+import Footer from "./components/Footer";
+import { Body } from "./components/Body";
 import "./globals.css";
 
 const APP_NAME = "AgentNate - Portfolio & Consultancy";
@@ -68,24 +68,29 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get cookies using individual CookieManager instances
-  const themeCookieManager = new CookieManager<"light" | "dark">({ name: "theme" });
-  const initialTheme = themeCookieManager.getObject() || "light";
-
-  const hasScrolledManager = new CookieManager<boolean>({ name: KEY_COOKIE_HAS_SCROLLED });
-  const hasScrolled = hasScrolledManager.getObject() === true;
-
+  // Get cookies using Next.js cookies() for proper server-side support
+  const cookieStore = await cookies();
   const userAgent = (await headers()).get("user-agent") || "";
 
-  const necessaryManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_NECESSARY });
-  const analyticsManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS });
-  const marketingManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_MARKETING });
-  const preferencesManager = new CookieManager<boolean>({ name: KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES });
+  // Helper to parse cookie value
+  const parseCookie = <T,>(name: string, defaultValue: T): T => {
+    try {
+      const value = cookieStore.get(name)?.value;
+      return value ? JSON.parse(value) : defaultValue;
+    } catch {
+      return defaultValue;
+    }
+  };
 
-  const necessary = necessaryManager.getObject() !== false;
-  const analytics = analyticsManager.getObject() !== false;
-  const marketing = marketingManager.getObject() !== false;
-  const preferences = preferencesManager.getObject() !== false;
+  // Read theme cookie
+  const initialTheme = parseCookie<"light" | "dark">("theme", "light");
+
+  // Read other cookies
+  const hasScrolled = parseCookie<boolean>(KEY_COOKIE_HAS_SCROLLED, false);
+  const necessary = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_NECESSARY, true);
+  const analytics = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_ANALYTICS, true);
+  const marketing = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_MARKETING, true);
+  const preferences = parseCookie<boolean>(KEY_COOKIE_CONSENT_SETTINGS_PREFERENCES, true);
 
   return (
     <html lang="en" className={initialTheme} suppressHydrationWarning>
@@ -93,7 +98,7 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/icons/ios/180.png" />
       </head>
-      <body id="portal-root">
+      <body id="portal-root" className="min-h-screen">
         <ThemeProvider initialTheme={initialTheme}>
           <InstallPromptProvider>
             <DeviceContextProvider
@@ -108,9 +113,11 @@ export default async function RootLayout({
                 },
               }}
             >
-              <CookieConsentModal />
-              <Navbar />
-              <Box className="pt-16 pb-16 md:pb-0" variant="main">{children}</Box>
+              <Body>
+                <Navbar />
+                {children}
+                <Footer />
+              </Body>
             </DeviceContextProvider>
           </InstallPromptProvider>
         </ThemeProvider>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAllPosts, getAllCategories } from "@/domains/Blog/lib/mdx";
+import { getAllPosts, getAllCategories } from "@/domains/Newsletter/lib/mdx";
 import { Box, Card, Typography, Button } from "@nathanhfoster/ui";
 
 export const metadata = {

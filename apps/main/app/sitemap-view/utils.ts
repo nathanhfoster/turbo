@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/domains/Blog/lib/mdx";
+import { getAllPosts } from "@/domains/Newsletter/lib/mdx";
 import type { SitemapData, SitemapEntry } from "./types";
 import { BASE_URL, MAX_URLS_PER_SITEMAP, STATIC_ROUTES } from "./constants";
 

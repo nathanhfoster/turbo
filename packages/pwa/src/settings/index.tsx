@@ -11,10 +11,16 @@ import type {
   PermissionsProps,
   ServiceWorkerProps,
   StorageProps,
+  ThemeProps,
 } from "./types";
 
 // Dynamic imports for code splitting using Next.js dynamic
 // Next.js resolves .tsx files without extensions, but TypeScript requires them
+const Theme = dynamic<ThemeProps>(
+  () => import("./components/Theme").then((mod) => mod.Theme),
+  { ssr: false },
+);
+
 const InstallApp = dynamic<InstallAppProps>(
   () => import("./components/InstallApp").then((mod) => mod.InstallApp),
   { ssr: false },
@@ -53,12 +59,14 @@ export function Settings({
   className = "",
   titleClassName = "",
   gridClassName = "",
+  showTheme = true,
   showInstallApp = true,
   showServiceWorker = true,
   showNotifications = true,
   showPermissions = true,
   showStorage = true,
   onClearCookies,
+  renderTheme,
   renderInstallApp,
   renderServiceWorker,
   renderNotifications,
@@ -76,6 +84,11 @@ export function Settings({
         {MESSAGES.settings.title}
       </Typography>
       <Box className={gridClassName || DEFAULT_CLASSES.settingsGrid}>
+        {showTheme && (
+          <Suspense fallback={<ComponentLoader />}>
+            <Theme renderButton={renderTheme} />
+          </Suspense>
+        )}
         {showInstallApp && (
           <Suspense fallback={<ComponentLoader />}>
             <InstallApp renderButton={renderInstallApp} />
@@ -110,6 +123,7 @@ export function Settings({
 }
 
 // Export individual components for custom layouts
+export { Theme } from "./components/Theme";
 export { InstallApp } from "./components/InstallApp";
 export { ServiceWorker } from "./components/ServiceWorker";
 export { Notifications } from "./components/Notifications";
@@ -119,11 +133,13 @@ export { Storage } from "./components/Storage";
 // Export types
 export type {
   SettingsProps,
+  ThemeProps,
   InstallAppProps,
   ServiceWorkerProps,
   NotificationsProps,
   PermissionsProps,
   StorageProps,
+  ThemeRenderProps,
   InstallAppRenderProps,
   ServiceWorkerRenderProps,
   NotificationsRenderProps,

@@ -3,6 +3,7 @@
 import Box from "../../atoms/Box";
 import HamburgerMenu from "../HamburgerMenu";
 import { combineClassNames } from "@nathanhfoster/utils";
+import { useScrollDirection } from "./hooks/useScrollDirection";
 import type {
   NavbarContainerProps,
   TopNavbarProps,
@@ -14,20 +15,39 @@ const NavbarContainer = ({
   className,
   position = "top",
   fixed = true,
+  hideDirection = "up",
   ...props
 }: NavbarContainerProps) => {
-  // Use classes directly so Tailwind v4 can detect them
-  const isTop = position === "top";
-  
+  const isVisible = useScrollDirection();
+
+  // Explicitly define all class combinations for Tailwind v4 scanning
+  // Top navbar classes
+  const topClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50 fixed right-0 left-0 top-0 border-b border-gray-200 dark:border-gray-800";
+  // Bottom navbar classes
+  const bottomClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50 fixed right-0 left-0 bottom-0 border-t border-gray-200 dark:border-gray-800";
+  // Static navbar base classes
+  const staticClasses = "w-full bg-white dark:bg-gray-900 shadow-sm z-50";
+
+  const baseClasses = fixed
+    ? (position === "top" ? topClasses : bottomClasses)
+    : staticClasses;
+
+  // Add transition and transform classes
+  const transitionClasses = "transition-transform duration-300";
+  const transformClasses = isVisible
+    ? "translate-y-0"
+    : hideDirection === "up"
+      ? "-translate-y-full"
+      : "translate-y-full";
+
   return (
     <Box
       variant="nav"
       className={combineClassNames(
-        "w-full bg-white dark:bg-gray-900 shadow-sm z-50",
-        fixed && "fixed right-0 left-0",
-        isTop && "top-0 border-b border-gray-200 dark:border-gray-800",
-        !isTop && "bottom-0 border-t border-gray-200 dark:border-gray-800",
-        className,
+        baseClasses,
+        transitionClasses,
+        transformClasses,
+        className
       )}
       {...props}
     >
@@ -64,9 +84,10 @@ const BottomNavbar = ({
   ...props
 }: BottomNavbarProps) => {
   return (
-    <NavbarContainer 
-      position="bottom" 
-      className={combineClassNames("md:hidden", className)} 
+    <NavbarContainer
+      position="bottom"
+      hideDirection="down"
+      className={className}
       {...props}
     >
       <Box className="mx-auto max-w-7xl px-4">

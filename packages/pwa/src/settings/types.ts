@@ -64,17 +64,26 @@ export interface StorageProps extends BaseSettingProps {
   onClearCookies?: () => void;
 }
 
+// Theme types
+export interface ThemeRenderProps {}
+
+export interface ThemeProps extends BaseSettingProps {
+  renderButton?: (props: ThemeRenderProps) => ReactNode;
+}
+
 // Main Settings component types
 export interface SettingsProps {
   className?: string;
   titleClassName?: string;
   gridClassName?: string;
+  showTheme?: boolean;
   showInstallApp?: boolean;
   showServiceWorker?: boolean;
   showNotifications?: boolean;
   showPermissions?: boolean;
   showStorage?: boolean;
   onClearCookies?: () => void;
+  renderTheme?: (props: ThemeRenderProps) => ReactNode;
   renderInstallApp?: (props: InstallAppRenderProps) => ReactNode;
   renderServiceWorker?: (props: ServiceWorkerRenderProps) => ReactNode;
   renderNotifications?: (props: NotificationsRenderProps) => ReactNode;

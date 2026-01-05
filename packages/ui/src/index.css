@@ -507,3 +507,53 @@
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
+
+/**
+ * Base Layer - Resets and Fundamental Styles
+ */
+@layer base {
+  /* Hide the native dialog backdrop since we use a custom one */
+  dialog::backdrop {
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  /* Reset dialog default browser styles */
+  dialog {
+    border: none;
+    padding: 0;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+/**
+ * Utilities Layer - Utility Classes
+ */
+@layer utilities {
+  /* Ensure backdrop-blur works across browsers with vendor prefixes */
+  .backdrop-blur-sm {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-md {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .backdrop-blur-lg {
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .backdrop-blur-xl {
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+}

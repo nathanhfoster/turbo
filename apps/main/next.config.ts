@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   transpilePackages: [
     "@nathanhfoster/resurrection",
@@ -11,10 +13,29 @@ const nextConfig: NextConfig = {
     {
       source: "/(.*)",
       headers: [
-        { key: "Cache-Control", value: "public, max-age=0, must-revalidate" },
+        {
+          key: "Cache-Control",
+          value: isDevelopment
+            ? "no-cache, no-store, must-revalidate"
+            : "public, max-age=0, must-revalidate",
+        },
         { key: "Service-Worker-Allowed", value: "/" },
       ],
     },
+    // Aggressive no-cache for development assets
+    ...(isDevelopment
+      ? [
+          {
+            source: "/_next/static/:path*",
+            headers: [
+              {
+                key: "Cache-Control",
+                value: "no-cache, no-store, must-revalidate",
+              },
+            ],
+          },
+        ]
+      : []),
   ],
   // Multi-zone architecture: proxy /astralpoet routes to astralpoet app
   rewrites: async () => {

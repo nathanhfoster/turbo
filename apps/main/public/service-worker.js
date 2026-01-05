@@ -1,11 +1,24 @@
 // Service Worker for Progressive Web App
 // AgentNate Portfolio & Consultancy
+//
+// DEV vs PROD Behavior:
+// - DEV (localhost): No caching, always network-first for fresh content during development
+// - PROD: Full caching strategy with offline support
+//
+// To force unregister in dev console:
+//   navigator.serviceWorker.getRegistrations().then(r => r.forEach(reg => reg.unregister()))
+//   Then hard refresh (Cmd+Shift+R / Ctrl+Shift+R)
 
-const CACHE_NAME = "agentnate-v1";
+// Detect development mode - service worker runs on localhost or has ?dev query param
+const isDevelopment = self.location.hostname === "localhost" ||
+                       self.location.hostname === "127.0.0.1" ||
+                       self.location.search.includes("dev=true");
+
+const CACHE_NAME = isDevelopment ? "agentnate-dev-v1" : "agentnate-v1";
 const OFFLINE_URL = "/offline.html";
 
-// Assets to cache on install
-const PRECACHE_ASSETS = [
+// Assets to cache on install (only in production)
+const PRECACHE_ASSETS = isDevelopment ? [] : [
   "/",
   "/offline.html",
   "/manifest.webmanifest",
@@ -74,18 +87,20 @@ self.addEventListener("fetch", (event) => {
           // Network first for navigation
           const networkResponse = await fetch(request);
 
-          // Cache successful navigation responses
-          if (networkResponse.ok) {
+          // Cache successful navigation responses (only in production)
+          if (!isDevelopment && networkResponse.ok) {
             const cache = await caches.open(CACHE_NAME);
             cache.put(request, networkResponse.clone());
           }
 
           return networkResponse;
         } catch (error) {
-          // Network failed, try cache
-          const cachedResponse = await caches.match(request);
-          if (cachedResponse) {
-            return cachedResponse;
+          // Network failed, try cache (skip in development)
+          if (!isDevelopment) {
+            const cachedResponse = await caches.match(request);
+            if (cachedResponse) {
+              return cachedResponse;
+            }
           }
 
           // Return offline page as fallback
@@ -96,8 +111,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Handle blog content - Network first with cache fallback
-  if (url.pathname.startsWith("/blog/")) {
+  // Handle newsletter content - Network first with cache fallback (only in production)
+  if (url.pathname.startsWith("/newsletter/")) {
+    // In development, always use network
+    if (isDevelopment) {
+      event.respondWith(fetch(request));
+      return;
+    }
+
     event.respondWith(
       (async () => {
         try {
@@ -144,12 +165,18 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Handle static assets (JS, CSS) - Cache first with network fallback
+  // Handle static assets (JS, CSS) - Cache first with network fallback (only in production)
   if (
     request.destination === "script" ||
     request.destination === "style" ||
     /\.(js|css)$/i.test(url.pathname)
   ) {
+    // In development, always use network
+    if (isDevelopment) {
+      event.respondWith(fetch(request));
+      return;
+    }
+
     event.respondWith(
       (async () => {
         const cachedResponse = await caches.match(request);
@@ -189,7 +216,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Default: Network first with cache fallback
+  // Default: Network first with cache fallback (only in production)
+  // In development, always use network
+  if (isDevelopment) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   event.respondWith(
     (async () => {
       try {

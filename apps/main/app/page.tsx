@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <Box
       variant="main"
-      className="flex min-h-screen flex-col items-center justify-center p-8"
+      className="flex flex-1 flex-col items-center justify-center p-8 pt-20 pb-20 md:pb-8"
     >
       <Box className="max-w-4xl text-center">
         <Typography

@@ -56,6 +56,10 @@ export type { OfflineHTMLConfig } from "./utils/offline-html";
 export type { ManifestConfig, ManifestIcon } from "./utils/manifest-helpers";
 export type { RobotsConfig } from "./utils/robots-helpers";
 
+// Components
+export { InstallButton } from "./components";
+export type { InstallButtonProps } from "./components";
+
 // Settings
 export {
   Settings,

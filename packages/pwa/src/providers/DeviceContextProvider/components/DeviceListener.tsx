@@ -20,7 +20,7 @@ const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
       }
     }, COOKIE_MODAL_OPEN_DELAY);
     return () => clearTimeout(timeoutId);
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
