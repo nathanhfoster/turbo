@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://agentnate.dev/resume/sitemap.xml",
+    sitemap: "https://agentnate.dev/apps/resume/sitemap.xml",
   });
 }
 

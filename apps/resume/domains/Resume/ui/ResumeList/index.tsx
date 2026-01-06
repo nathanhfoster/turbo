@@ -2,6 +2,7 @@
 
 import { Card, Typography, Box, IconButton, IconTrash } from "@nathanhfoster/ui";
 import { useRouter } from "next/navigation";
+import { getMainAppUrl } from "../../../../../shared/utils/getMainAppUrl";
 import type { ResumeListProps } from "./types";
 
 export function ResumeList({
@@ -29,7 +30,10 @@ export function ResumeList({
           <Card
             key={resume.id}
             onClick={() => {
-              router.push(`/resume/${resume.id}`);
+              // Use absolute URL to ensure navigation works from main app
+              // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
+              const mainAppUrl = getMainAppUrl();
+              router.push(`${mainAppUrl}/apps/resume/view/${resume.id}`);
             }}
             hoverable
             className={`cursor-pointer transition-all duration-200 ${

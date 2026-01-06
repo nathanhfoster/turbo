@@ -27,9 +27,9 @@ export function useResumeActions(
       // Redirect after success animation completes
       if (result?.id) {
         // Use absolute URL to ensure navigation works from main app
-        // The resume app is proxied at /resume on the main app
+        // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
         const mainAppUrl = getMainAppUrl();
-        router.push(`${mainAppUrl}/resume/resume/${result.id}`);
+        router.push(`${mainAppUrl}/apps/resume/view/${result.id}`);
       }
     },
     [router],
@@ -46,9 +46,9 @@ export function useResumeActions(
     (resume: Resume | null) => {
       if (resume?.id) {
         // Use absolute URL to ensure navigation works from main app
-        // The resume app is proxied at /resume on the main app
+        // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
         const mainAppUrl = getMainAppUrl();
-        router.push(`${mainAppUrl}/resume/resume/${resume.id}`);
+        router.push(`${mainAppUrl}/apps/resume/view/${resume.id}`);
       }
     },
     [router],
@@ -103,9 +103,9 @@ export function useResumeActions(
         const newResume = await createResume(versionName, tailoredContent, jobDescription);
         if (newResume?.id) {
           // Use absolute URL to ensure navigation works from main app
-          // The resume app is proxied at /resume on the main app
+          // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
           const mainAppUrl = getMainAppUrl();
-          router.push(`${mainAppUrl}/resume/resume/${newResume.id}`);
+          router.push(`${mainAppUrl}/apps/resume/view/${newResume.id}`);
         }
         return newResume;
       }
@@ -135,17 +135,17 @@ export function useResumeActions(
             fileData,
           });
           // Use absolute URL to ensure navigation works from main app
-          // The resume app is proxied at /resume on the main app
+          // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
           const mainAppUrl = getMainAppUrl();
-          router.push(`${mainAppUrl}/resume/resume/${updatedResume.id}`);
+          router.push(`${mainAppUrl}/apps/resume/view/${updatedResume.id}`);
           return updatedResume;
         } catch (error) {
           console.warn("Failed to store file data in resume:", error);
           // Continue even if file storage fails
           // Use absolute URL to ensure navigation works from main app
-          // The resume app is proxied at /resume on the main app
+          // The route is /view/[id] within the app, so full path is /apps/resume/view/[id]
           const mainAppUrl = getMainAppUrl();
-          router.push(`${mainAppUrl}/resume/resume/${newResume.id}`);
+          router.push(`${mainAppUrl}/apps/resume/view/${newResume.id}`);
           return newResume;
         }
       }

@@ -8,13 +8,13 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "AI-powered resume builder with inline editing and job-specific customization",
     id: "resume-builder",
-    start_url: "/resume/?source=pwa",
+    start_url: "/apps/resume/?source=pwa",
     display: "standalone",
     background_color: "#020617",
     theme_color: "#0077c5",
     orientation: "portrait",
     dir: "ltr",
-    scope: "/resume/",
+    scope: "/apps/resume/",
     lang: "en-US",
     categories: ["productivity", "business", "professional"],
     icons: [
