@@ -3,35 +3,31 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIsMounted } from "@nathanhfoster/resurrection";
+import { isNavItemActive } from "@nathanhfoster/utils";
 import { Box, Typography } from "../../atoms";
 import { ThemeToggle } from "../../Theme";
 import { TopNavbar, BottomNavbar } from "../Navbar";
-import type { ReactNode } from "react";
+import type { AppNavbarProps, NavItem } from "./types";
 
-export interface NavItem {
-  label: string;
-  href: string;
-  Icon?: ReactNode;
-}
-
-export interface AppNavbarProps {
-  logo: ReactNode;
-  navItems: NavItem[];
-  bottomNavItems: NavItem[];
-  rightContent?: ReactNode;
-}
+export type { AppNavbarProps, NavItem };
 
 export function AppNavbar({
   logo,
   navItems,
   bottomNavItems,
   rightContent,
+  stripPrefix,
+  basePath,
 }: AppNavbarProps) {
   const pathname = usePathname();
   const mounted = useIsMounted(false);
 
   // Only use pathname after hydration to avoid SSR/client mismatch
-  const isActive = (href: string) => mounted && pathname === href;
+  // Use the reusable utility function for active state detection
+  const isActive = (href: string) => {
+    if (!mounted) return false;
+    return isNavItemActive(href, pathname, { stripPrefix, basePath });
+  };
 
   return (
     <>

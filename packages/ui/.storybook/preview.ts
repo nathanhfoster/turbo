@@ -1,7 +1,17 @@
 import type { Preview } from "@storybook/react-vite";
+import React from "react";
+import { ThemeProvider } from "../src/common/Theme";
 import "./preview.css";
 
 const preview: Preview = {
+  decorators: [
+    (Story) => {
+      return React.createElement(
+        ThemeProvider,
+        { children: React.createElement(Story) },
+      );
+    },
+  ],
   parameters: {
     controls: {
       matchers: {

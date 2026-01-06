@@ -18,10 +18,12 @@ import { parseResumeFile } from "./lib/fileParser";
 import {
   exportResumeAsHTML,
   exportResumeAsText,
+  exportResumeAsPDF,
   copyResumeToClipboard,
 } from "./lib/export";
 import { ACCEPTED_FILE_TYPES, MAX_FILE_SIZE } from "./lib/constants";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import type { ResumeProps } from "./model/types";
 
 /**
@@ -29,6 +31,7 @@ import type { ResumeProps } from "./model/types";
  * Following FSD pattern - orchestration layer
  */
 export function ResumeBuilder(props?: ResumeProps) {
+  const router = useRouter();
   const {
     resumes,
     currentResume,
@@ -57,19 +60,33 @@ export function ResumeBuilder(props?: ResumeProps) {
   const [newResumeName, setNewResumeName] = useState("");
   const [newResumeContent, setNewResumeContent] = useState("");
 
-  const handleFileSelected = async (files: File[]) => {
+  const handleFileSubmit = async (files: File[]) => {
     if (files.length === 0) return;
 
-    try {
-      const file = files[0];
-      if (!file) return;
-      const content = await parseResumeFile(file);
-      const name = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+    const file = files[0];
+    if (!file) return;
+    
+    const content = await parseResumeFile(file);
+    const name = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
 
-      await createResume(name, content);
-    } catch (err) {
-      console.error("Failed to load resume file:", err);
+    const newResume = await createResume(name, content);
+    if (!newResume) {
+      throw new Error("Failed to create resume");
     }
+    
+    return newResume;
+  };
+
+  const handleFileSuccess = (files: File[], newResume?: Awaited<ReturnType<typeof handleFileSubmit>>) => {
+    // Redirect after success animation completes
+    if (newResume) {
+      router.push(`/resume/${newResume.id}`);
+    }
+  };
+
+  const handleFileError = (error: string) => {
+    console.error("Failed to load resume file:", error);
+    // You could show a toast notification here
   };
 
   const handleSave = async () => {
@@ -104,9 +121,12 @@ export function ResumeBuilder(props?: ResumeProps) {
     const tailoredContent = await tailorForJob(currentResume, jobDescription);
     if (tailoredContent) {
       const versionName = `${currentResume.name} - ${jobDescription.substring(0, 30)}...`;
-      await createResume(versionName, tailoredContent, jobDescription);
+      const newResume = await createResume(versionName, tailoredContent, jobDescription);
       setJobDescription("");
       setShowJobInput(false);
+      if (newResume) {
+        router.push(`/resume/${newResume.id}`);
+      }
     }
   };
 
@@ -144,7 +164,9 @@ export function ResumeBuilder(props?: ResumeProps) {
               <FileDropper
                 accept={ACCEPTED_FILE_TYPES.join(",")}
                 maxSize={MAX_FILE_SIZE}
-                onFilesSelected={handleFileSelected}
+                onSubmit={handleFileSubmit}
+                onSuccess={handleFileSuccess}
+                onError={handleFileError}
                 label="Load Resume"
                 helperText="Upload a resume file (TXT, HTML, PDF, DOC, DOCX)"
                 dropZoneText="Drop your resume file here or click to browse"
@@ -191,13 +213,16 @@ export function ResumeBuilder(props?: ResumeProps) {
                     <Button
                       onClick={async () => {
                         if (newResumeName.trim() && newResumeContent.trim()) {
-                          await createResume(
+                          const newResume = await createResume(
                             newResumeName,
                             newResumeContent,
                           );
                           setNewResumeName("");
                           setNewResumeContent("");
                           setShowNewResumeForm(false);
+                          if (newResume) {
+                            router.push(`/resume/${newResume.id}`);
+                          }
                         }
                       }}
                       variant="contained"
@@ -277,6 +302,23 @@ export function ResumeBuilder(props?: ResumeProps) {
                 color="inherit"
               >
                 Export TXT
+              </Button>
+              <Button
+                onClick={async () => {
+                  if (currentResume) {
+                    try {
+                      await exportResumeAsPDF(currentResume);
+                    } catch (error) {
+                      alert(
+                        `Failed to export PDF: ${error instanceof Error ? error.message : "Unknown error"}`,
+                      );
+                    }
+                  }
+                }}
+                variant="outlined"
+                color="inherit"
+              >
+                Export PDF
               </Button>
               <Button
                 onClick={async () => {

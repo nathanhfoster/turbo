@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   AppNavbar,
+  BubbleAI,
   IconHome,
   IconBriefcase,
   IconEnvelopeOpen,
@@ -30,9 +31,10 @@ export function Navbar() {
       logo={
         <Link
           href="/"
-          className="text-xl font-bold text-primary hover:text-primary/80 transition-colors"
+          className="flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors"
         >
-          AgentNate
+          <BubbleAI size={28} state="idle" quality="low" ringCount={2} particleSize={0.5} />
+          <span>AgentNate</span>
         </Link>
       }
       navItems={NAV_ITEMS}

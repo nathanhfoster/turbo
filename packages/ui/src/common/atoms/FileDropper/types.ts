@@ -1,10 +1,11 @@
+import type { InputHTMLAttributes } from "react";
 import type { BaseTailwindProps, ComponentColor, Size } from "../types";
 
 export interface FileDropperProps extends BaseTailwindProps {
   /**
    * Accepted file types (e.g., "application/pdf", ".pdf,.doc,.docx")
    */
-  accept?: string;
+  accept?: InputHTMLAttributes<HTMLInputElement>["accept"];
   /**
    * Maximum file size in bytes
    */
@@ -14,9 +15,24 @@ export interface FileDropperProps extends BaseTailwindProps {
    */
   multiple?: boolean;
   /**
-   * Callback when files are selected/dropped
+   * Callback when files are selected/dropped (called immediately)
    */
   onFilesSelected?: (files: File[]) => void;
+  /**
+   * Callback after thinking animation completes - useful for API calls
+   * Called after the "thinking" animation (1.5s delay) but before success state
+   * Can return a value that will be passed to onSuccess
+   */
+  onSubmit?: (files: File[]) => void | Promise<any>;
+  /**
+   * Callback when upload is successful (called after success animation completes)
+   * Receives the files and optionally the result from onSubmit
+   */
+  onSuccess?: (files: File[], result?: any) => void;
+  /**
+   * Callback when upload fails (called immediately on error)
+   */
+  onError?: (error: string, files?: File[]) => void;
   /**
    * Component color variant
    */
@@ -61,5 +77,13 @@ export interface FileDropperProps extends BaseTailwindProps {
    * Custom icon (React node)
    */
   icon?: React.ReactNode;
+  /**
+   * Loading state - shows loading indicator and disables interactions
+   */
+  loading?: boolean;
+  /**
+   * Loading text to display when loading
+   */
+  loadingText?: string;
 }
 

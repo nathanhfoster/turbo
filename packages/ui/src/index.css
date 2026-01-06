@@ -499,6 +499,226 @@ html.dark {
   }
 }
 
+/* ============================================
+   BUBBLE AI KEYFRAMES
+   ============================================ */
+
+/* Ring rotation animations - clockwise and counterclockwise */
+@keyframes bubbleRotateCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bubbleRotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* 3D sphere rotation animations - creates spherical appearance */
+@keyframes bubbleSphereRotateX {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes bubbleSphereRotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes bubbleSphereRotateZ {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* Combined 3D rotations for sphere effect */
+@keyframes bubbleSphereRotateXY {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+@keyframes bubbleSphereRotateXZ {
+  from {
+    transform: rotateX(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateZ(360deg);
+  }
+}
+
+@keyframes bubbleSphereRotateYZ {
+  from {
+    transform: rotateY(0deg) rotateZ(0deg);
+  }
+  to {
+    transform: rotateY(360deg) rotateZ(360deg);
+  }
+}
+
+/* Ripple effect animations - uses CSS variables for opacity */
+@keyframes bubbleRipple {
+  0% {
+    transform: scale(1);
+    opacity: var(--bubble-ripple-start-opacity, 0.8);
+  }
+  50% {
+    opacity: var(--bubble-ripple-mid-opacity, 0.4);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleRippleDelay1 {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  33% {
+    opacity: var(--bubble-ripple-start-opacity, 0.8);
+  }
+  66% {
+    opacity: var(--bubble-ripple-mid-opacity, 0.4);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleRippleDelay2 {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  66% {
+    opacity: var(--bubble-ripple-start-opacity, 0.8);
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Pulse effect animation - uses CSS variable for opacity */
+@keyframes bubblePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: var(--bubble-pulse-min-opacity, 0.5);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: var(--bubble-pulse-max-opacity, 1);
+  }
+}
+
+/* String vibration animation - creates wave-like oscillation */
+@keyframes bubbleVibrate {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  25% {
+    transform: scale(1.02) rotate(0.5deg);
+    filter: drop-shadow(2px 0 3px currentColor);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  75% {
+    transform: scale(1.02) rotate(-0.5deg);
+    filter: drop-shadow(-2px 0 3px currentColor);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+}
+
+/* String vibration with phase offset for multiple rings */
+@keyframes bubbleVibratePhase1 {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  25% {
+    transform: scale(1.015) rotate(0.3deg);
+    filter: drop-shadow(1.5px 0 2.5px currentColor);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  75% {
+    transform: scale(1.015) rotate(-0.3deg);
+    filter: drop-shadow(-1.5px 0 2.5px currentColor);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+}
+
+@keyframes bubbleVibratePhase2 {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  25% {
+    transform: scale(1.025) rotate(0.7deg);
+    filter: drop-shadow(2.5px 0 3.5px currentColor);
+  }
+  50% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  75% {
+    transform: scale(1.025) rotate(-0.7deg);
+    filter: drop-shadow(-2.5px 0 3.5px currentColor);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+}
+
+/* Breathing animation - makes BubbleAI feel alive */
+@keyframes bubbleBreathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
 /**
  * Base Layer - Resets and Fundamental Styles
  */

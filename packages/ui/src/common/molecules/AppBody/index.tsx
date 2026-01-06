@@ -2,14 +2,7 @@
 
 import { Box } from "../../atoms";
 import GoogleTagManageIframe from "./GoogleTagManageIframe";
-import type { ReactNode } from "react";
-
-interface AppBodyProps {
-  children: ReactNode;
-  className?: string;
-  enableGoogleTagManager?: boolean;
-  consentModal?: ReactNode;
-}
+import type { AppBodyProps } from "./types";
 
 export function AppBody({ 
   children, 

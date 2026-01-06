@@ -1,7 +1,8 @@
 export { default as IconBook } from "./Book";
 export { default as IconBriefcase } from "./Briefcase";
 export { default as IconCalendar } from "./Calendar";
-export { default as IconCloudUpload } from "./CloudUpload";
+export { default as IconCode } from "./Code";
+export { default as IconDocument } from "./Document";
 export { default as IconDownload } from "./Download";
 export { default as IconEllipsis } from "./Ellipsis";
 export { default as IconEnvelopeOpen } from "./EnvelopeOpen";
@@ -19,5 +20,7 @@ export { default as IconShield } from "./Shield";
 export { default as IconSliders } from "./Sliders";
 export { default as IconSun } from "./Sun";
 export { default as IconSwatchbook } from "./Swatchbook";
+export { default as IconTrash } from "./Trash";
+export { default as IconUpload } from "./Upload";
 export { default as IconUniversalAccess } from "./UniversalAccess";
 export { default as IconUsers } from "./Users";

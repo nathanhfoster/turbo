@@ -80,6 +80,8 @@ const config: StorybookConfig = {
     cfg.resolve.alias = {
       ...cfg.resolve.alias,
       "next/dynamic": resolve(__dirname, "./mocks/next-dynamic.ts"),
+      "next/image": resolve(__dirname, "./mocks/next-image.tsx"),
+      "next/link": resolve(__dirname, "./mocks/next-link.tsx"),
       http: resolve(__dirname, "./mocks/http.ts"),
     };
 

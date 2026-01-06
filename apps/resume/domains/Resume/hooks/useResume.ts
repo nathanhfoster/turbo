@@ -38,7 +38,18 @@ export function useResume(props?: ResumeProps) {
 
         // If resumeId is provided, set it as current
         if (props?.resumeId) {
-          const resume = allResumes.find((r) => r.id === props.resumeId);
+          // First try to find it in the list
+          let resume = allResumes.find((r) => r.id === props.resumeId);
+          
+          // If not found in the list, fetch it directly from IndexedDB
+          if (!resume) {
+            resume = await repository.getById(props.resumeId);
+            // If found, add it to the list
+            if (resume) {
+              dispatch(resumeContextActions.AddResume(resume));
+            }
+          }
+          
           if (resume) {
             dispatch(resumeContextActions.SetCurrentResume(resume));
           }

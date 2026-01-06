@@ -26,6 +26,7 @@ export { default as getObjectDiffKeys } from "./getObjectDiffKeys";
 export { default as getValidDate } from "./getValidDate";
 export { default as hasProp } from "./hasProp";
 export { default as isActiveUrlPath } from "./isActiveUrlPath";
+export { isNavItemActive } from "./isNavItemActive";
 export { default as isArray } from "./isArray";
 export { default as isAsyncFunction } from "./isAsyncFunction";
 export { default as isBoolean } from "./isBoolean";

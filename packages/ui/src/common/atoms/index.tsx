@@ -28,4 +28,6 @@ export * from "./TextArea/types";
 export { default as Typography } from "./Typography";
 export { default as FileDropper } from "./FileDropper";
 export * from "./FileDropper/types";
+export { default as BubbleAI } from "./BubbleAI";
+export * from "./BubbleAI/types";
 export * from "./types";

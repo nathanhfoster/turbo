@@ -12,16 +12,18 @@
   },
   "dependencies": {
     "@nathanhfoster/cookies": "workspace:*",
+    "@nathanhfoster/indexeddb": "workspace:*",
+    "@nathanhfoster/openai": "workspace:*",
     "@nathanhfoster/pwa": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/ui": "workspace:*",
     "@nathanhfoster/utils": "workspace:*",
-    "@nathanhfoster/indexeddb": "workspace:*",
-    "@nathanhfoster/openai": "workspace:*",
     "html-react-parser": "^5.2.5",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.0.0",
     "mammoth": "^1.8.0",
-    "pdfjs-dist": "^4.0.379",
     "next": "16.1.1",
+    "pdfjs-dist": "^4.0.379",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -36,4 +38,3 @@
     "typescript": "5.9.2"
   }
 }
-
