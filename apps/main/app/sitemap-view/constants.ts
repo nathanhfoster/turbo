@@ -11,7 +11,7 @@ export const MAX_URLS_PER_SITEMAP = 50000; // Google's limit
 export const STATIC_ROUTES = [
   "",
   "/newsletter",
-  "/portfolio",
+  "/apps",
   "/services",
   "/settings",
   "/sitemap-view",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, useId } from "react";
 import { combineClassNames } from "@nathanhfoster/utils";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
@@ -37,6 +37,7 @@ const FileDropper = ({
   ...props
 }: FileDropperProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputId = useId();
   const [isDragOver, setIsDragOver] = useState(false);
   const [dragError, setDragError] = useState<string | null>(null);
 
@@ -79,7 +80,7 @@ const FileDropper = ({
   );
 
   const handleDrop = useCallback(
-    (e: React.DragEvent<HTMLDivElement>) => {
+    (e: React.DragEvent<HTMLLabelElement>) => {
       e.preventDefault();
       setIsDragOver(false);
       if (disabled) return;
@@ -90,13 +91,13 @@ const FileDropper = ({
     [disabled, handleFiles],
   );
 
-  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     if (disabled) return;
     setIsDragOver(true);
   }, [disabled]);
 
-  const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const handleDragLeave = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     setIsDragOver(false);
   }, []);
@@ -105,6 +106,15 @@ const FileDropper = ({
     if (disabled) return;
     fileInputRef.current?.click();
   }, [disabled]);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      if (disabled) return;
+      fileInputRef.current?.click();
+    },
+    [disabled],
+  );
 
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,11 +138,12 @@ const FileDropper = ({
         </Typography>
       )}
       {showDropZone ? (
-        <div
-          onClick={handleClick}
+        <label
+          htmlFor={inputId}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
+          onTouchEnd={handleTouchEnd}
           className={combineClassNames(
             FILE_DROPPER_BASE_STYLES,
             colorStyles,
@@ -140,7 +151,9 @@ const FileDropper = ({
             isDragOver && FILE_DROPPER_DRAG_OVER_STYLES,
             disabled && FILE_DROPPER_DISABLED_STYLES,
             displayError && FILE_DROPPER_COLOR_STYLES.error,
+            "block",
           )}
+          style={{ cursor: disabled ? "not-allowed" : "pointer" }}
         >
           <Box
             variant="div"
@@ -170,23 +183,25 @@ const FileDropper = ({
               </Typography>
             )}
           </Box>
-        </div>
+        </label>
       ) : (
-        <Box
-          variant="div"
-          onClick={handleClick}
+        <label
+          htmlFor={inputId}
+          onTouchEnd={handleTouchEnd}
           className={combineClassNames(
-            "cursor-pointer",
+            "cursor-pointer block",
             disabled && FILE_DROPPER_DISABLED_STYLES,
           )}
+          style={{ cursor: disabled ? "not-allowed" : "pointer" }}
         >
           <Typography variant="p" color={color}>
             {dropZoneText}
           </Typography>
-        </Box>
+        </label>
       )}
       <input
         ref={fileInputRef}
+        id={inputId}
         type="file"
         accept={accept}
         multiple={multiple}

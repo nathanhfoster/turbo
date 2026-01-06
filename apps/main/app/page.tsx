@@ -52,7 +52,7 @@ export default function Home() {
             </Typography>
           </Card>
           <Card
-            href="/portfolio"
+            href="/apps"
             padding="p-5 sm:p-6 md:p-8"
             hoverable
             className="hover:shadow-lg transition-all hover:border-primary group"
@@ -63,7 +63,7 @@ export default function Home() {
               size="text-xl"
               weight="font-semibold"
             >
-              Portfolio
+              Apps
             </Typography>
             <Typography
               variant="p"

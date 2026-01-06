@@ -16,14 +16,14 @@ import {
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Apps", href: "/apps" },
   { label: "Newsletter", href: "/newsletter" },
   { label: "Settings", href: "/settings" },
 ];
 
 const BOTTOM_NAV_ITEMS = [
   { label: "Home", href: "/", Icon: IconHome },
-  { label: "Portfolio", href: "/portfolio", Icon: IconBriefcase },
+  { label: "Apps", href: "/apps", Icon: IconBriefcase },
   { label: "Newsletter", href: "/newsletter", Icon: IconEnvelopeOpen },
   { label: "Settings", href: "/settings", Icon: IconSliders },
 ];

@@ -39,7 +39,7 @@ test.describe("Navbar Functionality", () => {
 
       // Check for desktop nav items
       const homeLink = page.getByRole("link", { name: "Home" }).first();
-      const portfolioLink = page.getByRole("link", { name: "Portfolio" });
+      const appsLink = page.getByRole("link", { name: "Apps" });
       const newsletterLink = page.getByRole("link", { name: "Newsletter" });
       const settingsLink = page.getByRole("link", { name: "Settings" });
 
@@ -51,7 +51,7 @@ test.describe("Navbar Functionality", () => {
         .locator("nav")
         .first()
         .getByRole("link")
-        .filter({ hasText: /^(Home|Portfolio|Newsletter|Settings)$/ });
+        .filter({ hasText: /^(Home|Apps|Newsletter|Settings)$/ });
 
       // Should have at least the desktop nav links visible
       const visibleLinks = await topNavLinks.count();
@@ -79,7 +79,7 @@ test.describe("Navbar Functionality", () => {
       // We can check that desktop nav items are not in the top nav area
       const topNav = page.locator("nav").first();
       const desktopNavItems = topNav.getByRole("link", {
-        name: /^(Portfolio|Newsletter|Settings)$/,
+        name: /^(Apps|Newsletter|Settings)$/,
       });
 
       // On mobile, these should either not exist in top nav or be hidden
@@ -144,8 +144,8 @@ test.describe("Navbar Functionality", () => {
 
       // Check for all bottom nav items
       const homeLink = bottomNavbar.getByRole("link", { name: "Home" });
-      const portfolioLink = bottomNavbar.getByRole("link", {
-        name: "Portfolio",
+      const appsLink = bottomNavbar.getByRole("link", {
+        name: "Apps",
       });
       const newsletterLink = bottomNavbar.getByRole("link", {
         name: "Newsletter",
@@ -153,7 +153,7 @@ test.describe("Navbar Functionality", () => {
       const settingsLink = bottomNavbar.getByRole("link", { name: "Settings" });
 
       await expect(homeLink).toBeVisible();
-      await expect(portfolioLink).toBeVisible();
+      await expect(appsLink).toBeVisible();
       await expect(newsletterLink).toBeVisible();
       await expect(settingsLink).toBeVisible();
     });
@@ -169,12 +169,12 @@ test.describe("Navbar Functionality", () => {
 
       const bottomNavbar = page.locator("nav").last();
 
-      // Test Portfolio link
-      const portfolioLink = bottomNavbar.getByRole("link", {
-        name: "Portfolio",
+      // Test Apps link
+      const appsLink = bottomNavbar.getByRole("link", {
+        name: "Apps",
       });
-      await portfolioLink.click();
-      await expect(page).toHaveURL(`${BASE_URL}/portfolio`);
+      await appsLink.click();
+      await expect(page).toHaveURL(`${BASE_URL}/apps`);
 
       // Go back and test Newsletter link
       await page.goto(BASE_URL);
@@ -197,17 +197,17 @@ test.describe("Navbar Functionality", () => {
       // Set viewport to mobile size
       await page.setViewportSize({ width: 375, height: 667 });
 
-      // Navigate to portfolio page
-      await page.goto(`${BASE_URL}/portfolio`);
+      // Navigate to apps page
+      await page.goto(`${BASE_URL}/apps`);
       await page.waitForTimeout(1000);
 
       const bottomNavbar = page.locator("nav").last();
-      const portfolioLink = bottomNavbar.getByRole("link", {
-        name: "Portfolio",
+      const appsLink = bottomNavbar.getByRole("link", {
+        name: "Apps",
       });
 
       // Active link should have primary color class
-      const classList = await portfolioLink.evaluate((el) =>
+      const classList = await appsLink.evaluate((el) =>
         Array.from(el.classList),
       );
       const hasActiveClass = classList.some(
@@ -215,7 +215,7 @@ test.describe("Navbar Functionality", () => {
       );
 
       // Check if link has primary color styling (text-primary class)
-      const color = await portfolioLink.evaluate((el) => {
+      const color = await appsLink.evaluate((el) => {
         return window.getComputedStyle(el).color;
       });
 

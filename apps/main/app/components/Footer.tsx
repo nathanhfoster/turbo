@@ -5,7 +5,7 @@ import { Box, Typography, IconGithub, IconLinkedin } from "@nathanhfoster/ui";
 
 const FOOTER_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
+  { label: "Apps", href: "/apps" },
   { label: "Newsletter", href: "/newsletter" },
   { label: "Services", href: "/services" },
   { label: "Settings", href: "/settings" },

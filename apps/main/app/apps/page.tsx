@@ -2,11 +2,11 @@ import { Box, Card, Typography } from "@nathanhfoster/ui";
 import { getMainAppUrl } from "../../../shared/utils/getMainAppUrl";
 
 export const metadata = {
-  title: "Portfolio",
+  title: "Apps",
   description: "Showcase of projects, case studies, and applications",
 };
 
-export default function PortfolioPage() {
+export default function AppsPage() {
   const mainAppUrl = getMainAppUrl();
   return (
     <Box className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -17,7 +17,7 @@ export default function PortfolioPage() {
           size="text-5xl"
           weight="font-bold"
         >
-          Portfolio
+          Apps
         </Typography>
         <Typography
           variant="p"

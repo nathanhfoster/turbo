@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Box, Typography } from "@nathanhfoster/ui";
 
 const FOOTER_LINKS = [
-  { label: "Home", href: "/resume" },
-  { label: "Settings", href: "/resume/settings" },
+  { label: "Home", href: "/apps/resume" },
+  { label: "Settings", href: "/apps/resume/settings" },
 ];
 
 export default function Footer() {
