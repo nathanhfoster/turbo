@@ -305,40 +305,6 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/web:
-    dependencies:
-      '@nathanhfoster/resurrection':
-        specifier: workspace:*
-        version: link:../../packages/resurrection
-      '@nathanhfoster/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-    devDependencies:
-      '@nathanhfoster/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@nathanhfoster/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@tailwindcss/postcss':
-        specifier: ^4.1.13
-        version: 4.1.13
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.15.3
-      '@types/react':
-        specifier: 19.2.3
-        version: 19.2.3
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.3)
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
-      tailwindcss:
-        specifier: ^4.1.13
-        version: 4.1.13
-
   packages/auth:
     dependencies:
       '@nathanhfoster/utils':
@@ -687,6 +653,9 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.22
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
     devDependencies:
       '@nathanhfoster/eslint-config':
         specifier: workspace:*

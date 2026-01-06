@@ -1,7 +1,7 @@
 import type { ComponentColor, Size } from "../types";
 
 export const FILE_DROPPER_BASE_STYLES =
-  "border-2 border-dashed rounded-lg transition-all duration-200 cursor-pointer";
+  "border-2 border-dashed rounded-lg transition-all duration-200 cursor-pointer appearance-none outline-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 m-0 p-0 font-normal";
 
 export const FILE_DROPPER_COLOR_STYLES: Record<
   ComponentColor | "error",

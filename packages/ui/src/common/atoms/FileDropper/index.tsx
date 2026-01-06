@@ -148,7 +148,10 @@ const FileDropper = ({
   return (
     <Box fullWidth className={className} {...props}>
       {label && (
-        <Typography variant="label" className="mb-2">
+        <Typography 
+          variant="label" 
+          className="mb-2 block text-sm font-medium text-foreground"
+        >
           {label}
         </Typography>
       )}
@@ -201,6 +204,9 @@ const FileDropper = ({
           onTouchStart={handleTouchStart}
           className={combineClassNames(
             "cursor-pointer block",
+            "appearance-none",
+            "outline-none",
+            "focus:outline-none",
             disabled && FILE_DROPPER_DISABLED_STYLES,
           )}
           style={{ cursor: disabled ? "not-allowed" : "pointer" }}
