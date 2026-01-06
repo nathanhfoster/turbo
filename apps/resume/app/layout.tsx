@@ -120,7 +120,7 @@ export default async function RootLayout({
                 },
               }}
             >
-              <Body>
+              <Body className="pt-16">
                 <Navbar />
                 {children}
                 <Footer />

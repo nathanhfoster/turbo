@@ -18,7 +18,7 @@ export function AppBody({
   consentModal,
 }: AppBodyProps) {
   return (
-    <Box pt="pt-8" className={`flex min-h-screen flex-col ${className || ""}`}>
+    <Box className={`flex min-h-screen flex-col ${className || ""}`}>
       {enableGoogleTagManager && (
         <>
           <script
