@@ -182,11 +182,11 @@ const FileDropper = ({
               {dropZoneText}
             </Typography>
             {accept && (
-              <Box variant="div" className="w-full min-w-0 px-2">
+              <Box variant="div" className="w-full min-w-0 max-w-full px-2 text-left">
                 <Typography 
                   variant="small" 
                   truncate
-                  className="text-gray-500 dark:text-gray-500 text-left"
+                  className="text-gray-500 dark:text-gray-500 block w-full overflow-hidden"
                 >
                   Accepted: {accept}
                 </Typography>
