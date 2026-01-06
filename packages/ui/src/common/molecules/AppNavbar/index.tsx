@@ -14,7 +14,7 @@ export interface NavItem {
   Icon?: ReactNode;
 }
 
-interface AppNavbarProps {
+export interface AppNavbarProps {
   logo: ReactNode;
   navItems: NavItem[];
   bottomNavItems: NavItem[];

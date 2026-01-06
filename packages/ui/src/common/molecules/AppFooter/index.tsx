@@ -15,7 +15,7 @@ export interface SocialLink {
   Icon: ReactNode;
 }
 
-interface AppFooterProps {
+export interface AppFooterProps {
   brandName: string;
   brandDescription: string;
   footerLinks: FooterLink[];
@@ -103,4 +103,5 @@ export function AppFooter({
     </Box>
   );
 }
+
 
