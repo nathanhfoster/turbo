@@ -19,7 +19,7 @@ const BaseTypography = ({
   variant = href ? "a" : "span",
   italic = false,
   size,
-  color = "inherit",
+  color,
   lineHeight = "leading-normal",
   weight,
   truncate = false,
@@ -40,7 +40,19 @@ const BaseTypography = ({
   const sizeClass = size ?? defaultSize;
   const Component = TYPOGRAPHY_VARIANT_MAPPING[variant] as ComponentType<any>;
   const baseStyles = TYPOGRAPHY_VARIANT_STYLES[variant];
-  const colorStyle = TYPOGRAPHY_COLOR_STYLES[color as ComponentColor] ?? color;
+  
+  // Default color: for headings, use text that works in both light and dark modes
+  // For other variants, default to inherit
+  // If color is explicitly provided, use it; otherwise use defaults
+  const effectiveColor = color !== undefined 
+    ? color 
+    : (variant === "h1" || variant === "h2" || variant === "h3" || variant === "h4" || variant === "h5" || variant === "h6")
+      ? undefined // Will use default heading color from baseStyles
+      : "inherit";
+  
+  const colorStyle = effectiveColor 
+    ? (TYPOGRAPHY_COLOR_STYLES[effectiveColor as ComponentColor] ?? effectiveColor)
+    : "";
   const defaultWeight = VARIANT_DEFAULT_WEIGHTS[variant];
   const weightStyle = weight ?? defaultWeight;
 

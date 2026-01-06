@@ -1,5 +1,4 @@
 import type { BubbleAIQuality, BubbleAIState, RingConfig } from "./types";
-// @ts-expect-error - getRandomNumber is exported but TypeScript may not resolve it correctly
 import { getRandomNumber } from "@nathanhfoster/resurrection";
 
 /**

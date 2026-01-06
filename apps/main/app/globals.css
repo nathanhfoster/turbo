@@ -11,6 +11,12 @@
 @import 'tailwindcss';
 
 /**
+ * Configure dark mode variant for Tailwind v4
+ * This enables class-based dark mode (using .dark class) instead of media queries
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/**
  * Explicitly tell Tailwind v4 where to scan for classes using @source directive.
  * This ensures classes from packages are detected even if config loading has issues.
  */

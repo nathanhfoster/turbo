@@ -6,19 +6,19 @@ import {
   Provider,
   type ReducerActionCreators,
 } from "@nathanhfoster/resurrection";
-import { resumeSlice } from "./resumeSlice";
+import { resumeSlice, resumeActions } from "./resumeSlice";
 import type { ResumeState } from "./types";
 
-// Get action creators
-export const resumeContextActions = resumeSlice.actions;
+// Re-export actions from slice for backward compatibility
+export const resumeContextActions = resumeActions;
 
-// Define actions type
+// Define actions type using slice actions
 export type ResumeActions = ReducerActionCreators<
-  typeof resumeContextActions,
+  typeof resumeActions,
   "Resume"
 >;
 
-// Create context
+// Create context using slice's initialState and reducer
 export const ResumeContext = createContextWithName<ResumeState, ResumeActions>(
   "Resume",
   resumeSlice.initialState,
@@ -32,7 +32,7 @@ export const {
   useDispatch: useResumeDispatch,
 } = ResumeContext;
 
-// Initializer function
+// Initializer function using slice's initialState
 const getInitialState = (initialState?: Partial<ResumeState>): ResumeState => {
   return {
     ...resumeSlice.initialState,
@@ -40,7 +40,7 @@ const getInitialState = (initialState?: Partial<ResumeState>): ResumeState => {
   };
 };
 
-// Create provider component
+// Create provider component using slice's reducer
 export const ResumeContextProvider: FC<{
   children: React.ReactNode;
   initialState?: Partial<ResumeState>;

@@ -11,6 +11,14 @@ export interface Resume {
   updatedAt: string;
   jobDescription?: string; // Optional job description this resume is tailored for
   version?: number; // Version number for tracking changes
+  // File data stored directly in the resume
+  fileData?: {
+    name: string;
+    type: string;
+    size: number;
+    lastModified: number;
+    data: Blob;
+  };
 }
 
 export interface ResumeVersion extends Resume {

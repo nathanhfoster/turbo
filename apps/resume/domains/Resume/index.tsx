@@ -1,29 +1,46 @@
 "use client";
 
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useDeviceSelector } from "@nathanhfoster/pwa/device";
 import { useResume } from "./hooks/useResume";
 import { useResumeEditor } from "./hooks/useResumeEditor";
 import { useResumeAI } from "./hooks/useResumeAI";
-import { ResumeEditor } from "./ui/ResumeEditor";
-import { ResumeList } from "./ui/ResumeList";
+import { useResumeForm } from "./hooks/useResumeForm";
+import { useResumeActions } from "./hooks/useResumeActions";
 import {
-  FileDropper,
   Box,
-  Button,
   Typography,
-  Input,
-  TextArea,
-  Card,
+  Drawer,
+  IconButton,
+  IconMenu,
+  IconDocument,
 } from "@nathanhfoster/ui";
-import { parseResumeFile } from "./lib/fileParser";
+import type { ResumeEditorProps } from "./ui/ResumeEditor/types";
+import type { LeftPaneProps } from "./ui/LeftPane/types";
+import type { RightPaneProps } from "./ui/RightPane/types";
+
+// Dynamic imports for conditionally rendered components
+const ResumeEditor = dynamic<ResumeEditorProps>(
+  () => import("./ui/ResumeEditor").then((mod) => ({ default: mod.ResumeEditor })),
+  { ssr: false },
+);
+
+const LeftPane = dynamic<LeftPaneProps>(
+  () => import("./ui/LeftPane").then((mod) => ({ default: mod.LeftPane })),
+  { ssr: false },
+);
+
+const RightPane = dynamic<RightPaneProps>(
+  () => import("./ui/RightPane").then((mod) => ({ default: mod.RightPane })),
+  { ssr: false },
+);
 import {
   exportResumeAsHTML,
   exportResumeAsText,
   exportResumeAsPDF,
   copyResumeToClipboard,
 } from "./lib/export";
-import { ACCEPTED_FILE_TYPES, MAX_FILE_SIZE } from "./lib/constants";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import type { ResumeProps } from "./model/types";
 
 /**
@@ -31,7 +48,6 @@ import type { ResumeProps } from "./model/types";
  * Following FSD pattern - orchestration layer
  */
 export function ResumeBuilder(props?: ResumeProps) {
-  const router = useRouter();
   const {
     resumes,
     currentResume,
@@ -41,6 +57,10 @@ export function ResumeBuilder(props?: ResumeProps) {
     updateResume,
     deleteResume,
     setCurrentResume,
+    getResumeByFileName,
+    createResumeFromFile,
+    removeFileFromResume,
+    clearFilesFromResumes,
   } = useResume(props);
 
   const { content, isDirty, handleContentChange, saveChanges, resetChanges } =
@@ -54,11 +74,39 @@ export function ResumeBuilder(props?: ResumeProps) {
     error: aiError,
   } = useResumeAI();
 
-  const [jobDescription, setJobDescription] = useState("");
-  const [showJobInput, setShowJobInput] = useState(false);
-  const [showNewResumeForm, setShowNewResumeForm] = useState(false);
-  const [newResumeName, setNewResumeName] = useState("");
-  const [newResumeContent, setNewResumeContent] = useState("");
+  const {
+    jobDescription,
+    setJobDescription,
+    showJobInput,
+    toggleJobInput,
+    resetJobForm,
+    newResumeName,
+    setNewResumeName,
+    newResumeContent,
+    setNewResumeContent,
+    showNewResumeForm,
+    toggleNewResumeForm,
+    resetNewResumeForm,
+  } = useResumeForm();
+
+  const {
+    handleFileSuccess,
+    handleFileError,
+    handleFileClick: handleFileClickAction,
+    handleSave,
+    handleImprove,
+    handleTailorForJob,
+    handleCreateVersion,
+    handleCreateResumeFromForm,
+  } = useResumeActions(
+    currentResume,
+    createResume,
+    updateResume,
+    saveChanges,
+    handleContentChange,
+    improveResume,
+    tailorForJob,
+  );
 
   const handleFileSubmit = async (files: File[]) => {
     if (files.length === 0) return;
@@ -66,317 +114,307 @@ export function ResumeBuilder(props?: ResumeProps) {
     const file = files[0];
     if (!file) return;
     
-    const content = await parseResumeFile(file);
-    const name = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
-
-    const newResume = await createResume(name, content);
-    if (!newResume) {
-      throw new Error("Failed to create resume");
-    }
-    
-    return newResume;
+    return await createResumeFromFile(file);
   };
 
-  const handleFileSuccess = (files: File[], newResume?: Awaited<ReturnType<typeof handleFileSubmit>>) => {
-    // Redirect after success animation completes
-    if (newResume) {
-      router.push(`/resume/${newResume.id}`);
+  const handleFileRemoved = async (removedFile: File) => {
+    try {
+      await removeFileFromResume(removedFile.name);
+    } catch (error) {
+      console.error("Failed to remove file from resume:", error);
     }
   };
 
-  const handleFileError = (error: string) => {
-    console.error("Failed to load resume file:", error);
-    // You could show a toast notification here
-  };
-
-  const handleSave = async () => {
-    if (currentResume) {
-      await saveChanges(async (updatedResume) => {
-        await updateResume(updatedResume);
-      });
+  const handleFilesCleared = async (clearedFiles: File[]) => {
+    try {
+      const fileNames = clearedFiles.map((f) => f.name);
+      await clearFilesFromResumes(fileNames);
+    } catch (error) {
+      console.error("Failed to clear files from resumes:", error);
     }
   };
 
-  const handleImprove = async () => {
-    if (!currentResume) return;
+  const handleFileClick = (file: File) => {
+    // Find the resume that has this file
+    const resume = getResumeByFileName(file.name);
+    handleFileClickAction(resume || null);
+  };
 
-    const improvedContent = await improveResume(currentResume);
-    if (improvedContent) {
-      handleContentChange(improvedContent);
+  // Device state
+  const isMobile = useDeviceSelector((state) => state.isMobile);
+  const isTablet = useDeviceSelector((state) => state.isTablet);
+  const isDesktop = useDeviceSelector((state) => state.isDesktop);
+  const hasScrolled = useDeviceSelector((state) => state.hasScrolled);
+  const shouldUseDrawers = isMobile || isTablet;
+
+  // Drawer state for mobile/tablet
+  const [isLeftDrawerOpen, setIsLeftDrawerOpen] = useState(false);
+  const [isRightDrawerOpen, setIsRightDrawerOpen] = useState(false);
+
+  // Editor state
+  const [isEditing, setIsEditing] = useState(false);
+  const [showPlainText, setShowPlainText] = useState(false);
+
+  // Export handlers
+  const handleExportHTML = (resume: typeof currentResume) => {
+    if (resume) exportResumeAsHTML(resume);
+  };
+
+  const handleExportTXT = (resume: typeof currentResume) => {
+    if (resume) exportResumeAsText(resume);
+  };
+
+  const handleExportPDF = async (resume: typeof currentResume) => {
+    if (resume) {
+      try {
+        await exportResumeAsPDF(resume);
+      } catch (error) {
+        alert(
+          `Failed to export PDF: ${error instanceof Error ? error.message : "Unknown error"}`,
+        );
+      }
     }
   };
 
-  const handleTailorForJob = async () => {
-    if (!currentResume || !jobDescription.trim()) return;
-
-    const tailoredContent = await tailorForJob(currentResume, jobDescription);
-    if (tailoredContent) {
-      handleContentChange(tailoredContent);
-    }
-  };
-
-  const handleCreateVersion = async () => {
-    if (!currentResume || !jobDescription.trim()) return;
-
-    const tailoredContent = await tailorForJob(currentResume, jobDescription);
-    if (tailoredContent) {
-      const versionName = `${currentResume.name} - ${jobDescription.substring(0, 30)}...`;
-      const newResume = await createResume(versionName, tailoredContent, jobDescription);
-      setJobDescription("");
-      setShowJobInput(false);
-      if (newResume) {
-        router.push(`/resume/${newResume.id}`);
+  const handleCopy = async (resume: typeof currentResume) => {
+    if (resume) {
+      const success = await copyResumeToClipboard(resume);
+      if (success) {
+        alert("Resume copied to clipboard!");
+      } else {
+        alert("Failed to copy to clipboard");
       }
     }
   };
 
   return (
-    <Box variant="main" className="flex flex-1 flex-col p-4 md:p-8">
-      <Box className="max-w-7xl mx-auto w-full">
-          <Typography
-            variant="h1"
-            className="mb-6 text-4xl md:text-5xl"
-            weight="font-bold"
-          >
-            AI Resume Builder
-          </Typography>
-
-        {error && (
-          <Box className="mb-4 p-4 bg-error/10 border border-error rounded-lg">
-            <Typography variant="p" className="text-error">
-              {error}
-            </Typography>
-          </Box>
-        )}
-
-        {aiError && (
-          <Box className="mb-4 p-4 bg-error/10 border border-error rounded-lg">
-            <Typography variant="p" className="text-error">
-              AI Error: {aiError}
-            </Typography>
-          </Box>
-        )}
-
-        {/* File Upload Section */}
-        {!currentResume && (
-          <Box className="mb-8 space-y-4">
-            <Box className="flex flex-col gap-4 w-full">
-              <FileDropper
-                accept={ACCEPTED_FILE_TYPES.join(",")}
-                maxSize={MAX_FILE_SIZE}
-                onSubmit={handleFileSubmit}
-                onSuccess={handleFileSuccess}
-                onError={handleFileError}
-                label="Load Resume"
-                helperText="Upload a resume file (TXT, HTML, PDF, DOC, DOCX)"
-                dropZoneText="Drop your resume file here or click to browse"
-                showDropZone={true}
-              />
-              <Box className="flex items-start">
-                <Button
-                  onClick={() => setShowNewResumeForm(!showNewResumeForm)}
-                  variant="outlined"
-                  color="primary"
-                  className="w-full md:w-auto whitespace-nowrap"
-                >
-                  {showNewResumeForm ? "Cancel" : "Create New Resume"}
-                </Button>
-              </Box>
+    <Box variant="main" className={`flex flex-1 flex-col py-4 ${shouldUseDrawers ? 'px-2' : 'px-4'} md:py-8 md:px-0 w-full max-w-full overflow-x-hidden`}>
+      <Box className="w-full max-w-full">
+        <Box className="px-4 md:px-4 xl:px-6">
+          {error && (
+            <Box className="mb-4 p-4 bg-error/10 border border-error rounded-lg">
+              <Typography variant="p" className="text-error">
+                {error}
+              </Typography>
             </Box>
+          )}
 
-            {showNewResumeForm && (
-              <Card className="p-6">
-                <Typography
-                  variant="h3"
-                  className="mb-4"
-                  size="text-xl"
-                  weight="font-semibold"
+          {aiError && (
+            <Box className="mb-4 p-4 bg-error/10 border border-error rounded-lg">
+              <Typography variant="p" className="text-error">
+                AI Error: {aiError}
+              </Typography>
+            </Box>
+          )}
+        </Box>
+
+        {/* Header Bar with Title and Drawer Triggers */}
+        {currentResume && (
+          <Box className={`${shouldUseDrawers ? 'fixed top-20 left-0 right-0 z-50' : 'mb-4'} transition-all duration-300 px-2 ${isDesktop ? 'px-4 xl:px-6' : ''}`}>
+            <Box className="flex items-center justify-between gap-2 w-full max-w-full">
+              {/* Left: Actions Button (Mobile/Tablet only) */}
+              {shouldUseDrawers && (
+                <IconButton
+                  onClick={() => setIsLeftDrawerOpen(true)}
+                  icon={<IconMenu className="size-6" />}
+                  aria-label="Actions"
+                  variant="primary"
+                  size="sm"
+                  className={`flex-shrink-0 transition-all duration-300 ${hasScrolled ? 'bg-background-elevated/90 backdrop-blur-sm' : ''} ${isMobile ? '-ml-2' : isTablet ? '-ml-4' : ''}`}
+                />
+              )}
+              {/* Center: Title */}
+              <Box className="flex-1 min-w-0 flex justify-center px-2">
+                <Typography 
+                  variant="h2" 
+                  size={shouldUseDrawers ? "text-lg" : "text-2xl"} 
+                  weight="font-bold" 
+                  className={`text-center truncate transition-all duration-300 ${hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                 >
-                  Create New Resume
+                  {currentResume.name}
                 </Typography>
-                <Box className="space-y-4">
-                  <Input
-                    label="Resume Name"
-                    value={newResumeName}
-                    onChange={(e) => setNewResumeName(e.target.value)}
-                    placeholder="e.g., Software Engineer Resume"
+              </Box>
+              {/* Right: Resumes Button (Mobile/Tablet only) */}
+              {shouldUseDrawers && (
+                <IconButton
+                  onClick={() => setIsRightDrawerOpen(true)}
+                  icon={<IconDocument className="size-6" />}
+                  aria-label="Resumes"
+                  variant="primary"
+                  size="sm"
+                  className={`flex-shrink-0 transition-all duration-300 ${hasScrolled ? 'bg-background-elevated/90 backdrop-blur-sm' : ''} ${isMobile ? '-mr-2' : isTablet ? '-mr-4' : ''}`}
+                />
+              )}
+              {/* Spacer for desktop to maintain layout */}
+              {isDesktop && <Box className="w-20 flex-shrink-0" />}
+            </Box>
+          </Box>
+        )}
+
+        {/* Desktop Layout: Three panes - left (actions), middle (editor), right (selection) */}
+        <Box className={`flex ${isDesktop ? 'flex-row' : 'flex-col'} gap-6 ${isDesktop ? 'gap-8' : 'gap-4'} ${isDesktop ? 'px-4 xl:px-6' : shouldUseDrawers ? 'px-2' : 'px-4'} ${shouldUseDrawers && currentResume ? 'pt-20' : ''} w-full max-w-full min-w-0 ${isDesktop ? 'h-full' : ''}`}>
+
+          {/* Left Panel: Action Buttons */}
+          {currentResume && (
+            <>
+              {/* Desktop: Direct rendering */}
+              {isDesktop && (
+                <Box className="flex w-64 flex-shrink-0 flex-col gap-4 min-w-0 animate-[fadeIn_0.4s_ease-out_0.1s_both]">
+                  <LeftPane
+                    currentResume={currentResume}
+                    isGenerating={isGenerating}
+                    showJobInput={showJobInput}
+                    jobDescription={jobDescription}
+                    onJobDescriptionChange={setJobDescription}
+                    onImprove={handleImprove}
+                    onTailorForJob={handleTailorForJob}
+                    onCreateVersion={handleCreateVersion}
+                    onToggleJobInput={toggleJobInput}
+                    onResetJobForm={resetJobForm}
+                    onExportHTML={handleExportHTML}
+                    onExportTXT={handleExportTXT}
+                    onExportPDF={handleExportPDF}
+                    onCopy={handleCopy}
+                    isEditing={isEditing}
+                    isDirty={isDirty}
+                    showPlainText={showPlainText}
+                    onEdit={() => setIsEditing(true)}
+                    onSave={handleSave}
+                    onReset={resetChanges}
+                    onTogglePlainText={setShowPlainText}
                   />
-                  <TextArea
-                    label="Resume Content (HTML supported)"
-                    value={newResumeContent}
-                    onChange={(e) => setNewResumeContent(e.target.value)}
-                    placeholder="<h1>Your Name</h1><p>Your resume content here...</p>"
-                    fullHeight
-                    className="min-h-[300px]"
-                  />
-                  <Box className="flex gap-2">
-                    <Button
-                      onClick={async () => {
-                        if (newResumeName.trim() && newResumeContent.trim()) {
-                          const newResume = await createResume(
-                            newResumeName,
-                            newResumeContent,
-                          );
-                          setNewResumeName("");
-                          setNewResumeContent("");
-                          setShowNewResumeForm(false);
-                          if (newResume) {
-                            router.push(`/resume/${newResume.id}`);
-                          }
-                        }
-                      }}
-                      variant="contained"
-                      color="primary"
-                      disabled={!newResumeName.trim() || !newResumeContent.trim()}
-                    >
-                      Create Resume
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setShowNewResumeForm(false);
-                        setNewResumeName("");
-                        setNewResumeContent("");
-                      }}
-                      variant="outlined"
-                      color="inherit"
-                    >
-                      Cancel
-                    </Button>
-                  </Box>
                 </Box>
-              </Card>
+              )}
+              {/* Mobile/Tablet: Drawer */}
+              {shouldUseDrawers && (
+                <Drawer
+                  isOpen={isLeftDrawerOpen}
+                  onClose={() => setIsLeftDrawerOpen(false)}
+                  position="left"
+                  width="w-64"
+                >
+                  <LeftPane
+                    currentResume={currentResume}
+                    isGenerating={isGenerating}
+                    showJobInput={showJobInput}
+                    jobDescription={jobDescription}
+                    onJobDescriptionChange={setJobDescription}
+                    onImprove={handleImprove}
+                    onTailorForJob={handleTailorForJob}
+                    onCreateVersion={handleCreateVersion}
+                    onToggleJobInput={toggleJobInput}
+                    onResetJobForm={resetJobForm}
+                    onExportHTML={handleExportHTML}
+                    onExportTXT={handleExportTXT}
+                    onExportPDF={handleExportPDF}
+                    onCopy={handleCopy}
+                    isEditing={isEditing}
+                    isDirty={isDirty}
+                    showPlainText={showPlainText}
+                    onEdit={() => setIsEditing(true)}
+                    onSave={handleSave}
+                    onReset={resetChanges}
+                    onTogglePlainText={setShowPlainText}
+                  />
+                </Drawer>
+              )}
+            </>
+          )}
+
+          {/* Middle Panel: Resume Editor */}
+          <Box className={`flex-1 min-w-0 ${isDesktop ? 'w-0' : isTablet ? 'max-w-4xl mx-auto w-full' : 'w-full'} ${!currentResume ? (isDesktop ? 'order-1' : 'order-2') : (isDesktop ? 'order-2' : 'order-1')} ${currentResume ? 'animate-[fadeIn_0.4s_ease-out_0.2s_both]' : ''}`}>
+            {currentResume ? (
+              <Box className="space-y-4 w-full max-w-full min-w-0 overflow-hidden">
+                {/* Resume Editor Component */}
+                <ResumeEditor
+                  resume={currentResume}
+                  content={content}
+                  isDirty={isDirty}
+                  onContentChange={handleContentChange}
+                  onSave={() => {
+                    handleSave();
+                    setIsEditing(false);
+                  }}
+                  onReset={() => {
+                    resetChanges();
+                    setIsEditing(false);
+                  }}
+                  isEditing={isEditing}
+                  showPlainText={showPlainText}
+                  onEdit={() => setIsEditing(true)}
+                  onTogglePlainText={setShowPlainText}
+                  onCancel={() => setIsEditing(false)}
+                  showTitle={false}
+                />
+              </Box>
+            ) : (
+              <Box className="text-center py-12 md:py-24">
+                <Typography variant="p" className="text-gray-500 dark:text-gray-400">
+                  Select or create a resume to get started
+                </Typography>
+              </Box>
             )}
           </Box>
-        )}
 
-        {/* Resume List */}
-        {resumes.length > 0 && (
-          <Box className="mb-6">
-            <Typography
-              variant="h3"
-              className="mb-4"
-              size="text-xl"
-              weight="font-semibold"
-            >
-              Your Resumes
-            </Typography>
-            <ResumeList
-              resumes={resumes}
-              currentResume={currentResume}
-              onSelectResume={setCurrentResume}
-              onDeleteResume={deleteResume}
-            />
-          </Box>
-        )}
-
-        {/* Resume Editor */}
-        {currentResume && (
-          <Box className="space-y-4">
-            {/* Action Buttons */}
-            <Box className="flex flex-wrap gap-2">
-              <Button
-                onClick={handleImprove}
-                variant="outlined"
-                color="primary"
-                disabled={isGenerating}
+          {/* Right Panel: Resume Selection and Loading */}
+          <>
+            {/* Desktop: Direct rendering */}
+            {isDesktop && (
+              <Box className={`flex w-80 xl:w-96 flex-shrink-0 min-w-0 order-3 animate-[fadeIn_0.4s_ease-out_0.3s_both]`}>
+                <RightPane
+                  resumes={resumes}
+                  currentResume={currentResume}
+                  showNewResumeForm={showNewResumeForm}
+                  newResumeName={newResumeName}
+                  newResumeContent={newResumeContent}
+                  onFileSubmit={handleFileSubmit}
+                  onFileSuccess={handleFileSuccess}
+                  onFileError={handleFileError}
+                  onFileRemoved={handleFileRemoved}
+                  onFilesCleared={handleFilesCleared}
+                  onFileClick={handleFileClick}
+                  onToggleNewResumeForm={toggleNewResumeForm}
+                  onNewResumeNameChange={setNewResumeName}
+                  onNewResumeContentChange={setNewResumeContent}
+                  onCreateResumeFromForm={handleCreateResumeFromForm}
+                  onResetNewResumeForm={resetNewResumeForm}
+                  onSelectResume={setCurrentResume}
+                  onDeleteResume={deleteResume}
+                />
+              </Box>
+            )}
+            {/* Mobile/Tablet: Drawer */}
+            {shouldUseDrawers && (
+              <Drawer
+                isOpen={isRightDrawerOpen}
+                onClose={() => setIsRightDrawerOpen(false)}
+                position="right"
+                width="w-80"
               >
-                {isGenerating ? "Improving..." : "Improve with AI"}
-              </Button>
-              <Button
-                onClick={() => setShowJobInput(!showJobInput)}
-                variant="outlined"
-                color="secondary"
-              >
-                Tailor for Job
-              </Button>
-              <Button
-                onClick={() => currentResume && exportResumeAsHTML(currentResume)}
-                variant="outlined"
-                color="inherit"
-              >
-                Export HTML
-              </Button>
-              <Button
-                onClick={() => currentResume && exportResumeAsText(currentResume)}
-                variant="outlined"
-                color="inherit"
-              >
-                Export TXT
-              </Button>
-              <Button
-                onClick={async () => {
-                  if (currentResume) {
-                    try {
-                      await exportResumeAsPDF(currentResume);
-                    } catch (error) {
-                      alert(
-                        `Failed to export PDF: ${error instanceof Error ? error.message : "Unknown error"}`,
-                      );
-                    }
-                  }
-                }}
-                variant="outlined"
-                color="inherit"
-              >
-                Export PDF
-              </Button>
-              <Button
-                onClick={async () => {
-                  if (currentResume) {
-                    const success = await copyResumeToClipboard(currentResume);
-                    if (success) {
-                      alert("Resume copied to clipboard!");
-                    } else {
-                      alert("Failed to copy to clipboard");
-                    }
-                  }
-                }}
-                variant="outlined"
-                color="inherit"
-              >
-                Copy
-              </Button>
-              {showJobInput && (
-                <>
-                  <Box className="flex-1 min-w-[200px]">
-                    <Input
-                      value={jobDescription}
-                      onChange={(e) => setJobDescription(e.target.value)}
-                      placeholder="Paste job description..."
-                      label="Job Description"
-                    />
-                  </Box>
-                  <Button
-                    onClick={handleTailorForJob}
-                    variant="contained"
-                    color="primary"
-                    disabled={!jobDescription.trim() || isGenerating}
-                  >
-                    Apply
-                  </Button>
-                  <Button
-                    onClick={handleCreateVersion}
-                    variant="outlined"
-                    color="primary"
-                    disabled={!jobDescription.trim() || isGenerating}
-                  >
-                    Save as Version
-                  </Button>
-                </>
-              )}
-            </Box>
-
-            {/* Resume Editor Component */}
-            <ResumeEditor
-              resume={currentResume}
-              content={content}
-              isDirty={isDirty}
-              onContentChange={handleContentChange}
-              onSave={handleSave}
-              onReset={resetChanges}
-            />
-          </Box>
-        )}
+                <RightPane
+                  resumes={resumes}
+                  currentResume={currentResume}
+                  showNewResumeForm={showNewResumeForm}
+                  newResumeName={newResumeName}
+                  newResumeContent={newResumeContent}
+                  onFileSubmit={handleFileSubmit}
+                  onFileSuccess={handleFileSuccess}
+                  onFileError={handleFileError}
+                  onFileRemoved={handleFileRemoved}
+                  onFilesCleared={handleFilesCleared}
+                  onFileClick={handleFileClick}
+                  onToggleNewResumeForm={toggleNewResumeForm}
+                  onNewResumeNameChange={setNewResumeName}
+                  onNewResumeContentChange={setNewResumeContent}
+                  onCreateResumeFromForm={handleCreateResumeFromForm}
+                  onResetNewResumeForm={resetNewResumeForm}
+                  onSelectResume={setCurrentResume}
+                  onDeleteResume={deleteResume}
+                />
+              </Drawer>
+            )}
+          </>
+        </Box>
 
         {isLoading && (
           <Box className="text-center py-8">

@@ -10,6 +10,7 @@ export { default as IconGithub } from "./Github";
 export { default as IconHeading } from "./Heading";
 export { default as IconHome } from "./Home";
 export { default as IconLinkedin } from "./Linkedin";
+export { default as IconMenu } from "./Menu";
 export { default as IconKey } from "./Key";
 export { default as IconLifeRing } from "./LifeRing";
 export { default as IconLogo } from "./Logo";

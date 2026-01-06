@@ -1,56 +1,60 @@
-import { OpenAI } from "openai";
 import type { ChatCompletion } from "openai/resources";
 import type { AskOpenAIProps } from "./types";
+import { OpenAIAdapter } from "./adapter";
+import type { OpenAIAdapterConfig } from "./adapter";
 
+export * from "./adapter";
 export * from "./helpers";
 export * from "./types";
 export * from "./cache";
 
-let openaiClient: OpenAI | null = null;
+// Default instance for backward compatibility
+// Uses environment variable if available
+let defaultAdapter: OpenAIAdapter | null = null;
 
-const getOpenAIClient = () => {
-  if (!process.env.NEXT_PUBLIC_OPENAI_API_KEY) {
-    throw new Error(
-      "NEXT_PUBLIC_OPENAI_API_KEY environment variable is required",
-    );
+/**
+ * Get or create the default OpenAI adapter instance
+ * This maintains backward compatibility with the old API
+ * @deprecated Use OpenAIAdapter class directly for better control
+ */
+const getDefaultAdapter = (): OpenAIAdapter => {
+  if (!defaultAdapter) {
+    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        "NEXT_PUBLIC_OPENAI_API_KEY environment variable is required",
+      );
+    }
+    defaultAdapter = new OpenAIAdapter({ apiKey });
   }
-
-  if (!openaiClient) {
-    openaiClient = new OpenAI({
-      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-    });
-  }
-
-  return openaiClient;
+  return defaultAdapter;
 };
 
-export const askOpenAI = async ({
-  prompt,
-  messages,
-  temperature = 0.7,
-  max_tokens = 1600,
-  model = "gpt-4o",
-  ...rest
-}: AskOpenAIProps): Promise<ChatCompletion.Choice[]> => {
-  const openai = getOpenAIClient();
-  const chatMessages = messages ?? [{ role: "user", content: prompt! }];
-
-  try {
-    const response = await openai.chat.completions.create({
-      model,
-      messages: chatMessages,
-      temperature,
-      max_completion_tokens: max_tokens,
-      ...rest,
-    });
-
-    return response.choices;
-  } catch (error) {
-    console.error("OpenAI API error:", error);
-    throw new Error("Failed to generate content from OpenAI");
-  }
+/**
+ * Create a new OpenAI adapter instance with custom configuration
+ * Recommended approach for new code
+ */
+export const createOpenAIAdapter = (
+  config: OpenAIAdapterConfig,
+): OpenAIAdapter => {
+  return new OpenAIAdapter(config);
 };
 
+/**
+ * @deprecated Use OpenAIAdapter instance methods instead
+ * Maintained for backward compatibility
+ */
+export const askOpenAI = async (
+  params: AskOpenAIProps,
+): Promise<ChatCompletion.Choice[]> => {
+  const adapter = getDefaultAdapter();
+  return adapter.askOpenAI(params);
+};
+
+/**
+ * @deprecated Use OpenAIAdapter instance methods instead
+ * Maintained for backward compatibility
+ */
 export const getOpenAiChoiceContent = (
   choices: ChatCompletion.Choice[],
   index = 0,

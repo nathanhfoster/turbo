@@ -17,12 +17,13 @@ export class ResumeRepository extends BaseRepository<Resume> {
 
 /**
  * Initialize the resume database and repository
+ * This is the single source of truth for all resume-related data
  */
 export async function initializeResumeDatabase(): Promise<ResumeRepository> {
   const database = await createDatabase(
     {
       name: "ResumeBuilder",
-      version: 1,
+      version: 1, // Back to version 1 - files are stored in resume object
     },
     [
       {
@@ -46,5 +47,37 @@ export async function initializeResumeDatabase(): Promise<ResumeRepository> {
   );
 
   return new ResumeRepository(database);
+}
+
+/**
+ * Get the shared database instance
+ * This ensures we use the same database for both resumes and files
+ */
+export async function getSharedDatabase(): Promise<IDatabase> {
+  return await createDatabase(
+    {
+      name: "ResumeBuilder",
+      version: 2,
+    },
+    [
+      {
+        name: "resumes",
+        keyPath: "id",
+        autoIncrement: false,
+        indexes: [
+          {
+            name: "baseResumeId",
+            keyPath: "baseResumeId",
+            unique: false,
+          },
+          {
+            name: "createdAt",
+            keyPath: "createdAt",
+            unique: false,
+          },
+        ],
+      },
+    ],
+  );
 }
 

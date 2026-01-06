@@ -2,7 +2,6 @@
 
 import React, { useMemo, useEffect, useRef, useState } from "react";
 import { combineClassNames } from "@nathanhfoster/utils";
-// @ts-expect-error - useEventListener and getRandomNumber are exported but TypeScript may not resolve them correctly
 import { useEventListener, getRandomNumber } from "@nathanhfoster/resurrection";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
@@ -81,14 +80,19 @@ const BubbleAI = ({
   }, [respectReducedMotion]);
 
   // Listen for reduced motion preference changes
-  useEventListener<MediaQueryListEvent>(
-    "change",
-    (e: MediaQueryListEvent) => {
+  useEffect(() => {
+    const mediaQuery = mediaQueryRef.current;
+    if (!mediaQuery) return;
+
+    const handleChange = (e: MediaQueryListEvent) => {
       setReducedMotion(e.matches);
-    },
-    undefined,
-    mediaQueryRef.current ?? undefined,
-  );
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [respectReducedMotion]);
 
   // Determine actual rings configuration with theme support
   const ringConfigs = useMemo<RingConfig[]>(() => {
@@ -478,13 +482,24 @@ const BubbleAI = ({
             ? `bubbleSphereRotateXZ ${sphereRotationDuration * 1.2}s linear infinite`
             : `bubbleSphereRotateYZ ${sphereRotationDuration * 0.8}s linear infinite`;
 
+          // Include delay in animation shorthand to avoid mixing shorthand and non-shorthand
+          // CSS animation format: name duration timing-function delay iteration-count
+          const delayValue = reducedMotion ? "0s" : `${ring.animationDelay}s`;
+          // Insert delay after timing-function (linear) and before iteration-count (infinite)
+          const sphereAnimationWithDelay = reducedMotion 
+            ? "none" 
+            : sphereAnimation.replace(/\s+(linear|ease|ease-in|ease-out|ease-in-out)\s+(infinite|\d+)/, ` $1 ${delayValue} $2`);
+          
+          const circleAnimationWithDelay = reducedMotion
+            ? "none"
+            : `${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear ${delayValue} infinite, ${vibrationAnimation} ${vibrationDuration}s ease-in-out ${delayValue} infinite`;
+
           return (
             <g 
               key={`ring-group-${index}`}
               style={{
                 transformOrigin: `${center}px ${center}px`,
-                animation: reducedMotion ? "none" : sphereAnimation,
-                animationDelay: reducedMotion ? "0s" : `${ring.animationDelay}s`,
+                animation: sphereAnimationWithDelay,
               }}
             >
               {/* Main ring with 3D gradient and vibration */}
@@ -499,10 +514,7 @@ const BubbleAI = ({
                 filter={`url(#glow-${index})`}
                 style={{
                   transformOrigin: `${center}px ${center}px`,
-                  animation: reducedMotion
-                    ? "none"
-                    : `${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite, ${vibrationAnimation} ${vibrationDuration}s ease-in-out infinite`,
-                  animationDelay: reducedMotion ? "0s" : `${ring.animationDelay}s`,
+                  animation: circleAnimationWithDelay,
                 }}
               />
               {/* Ripple effects - 3 waves per ring with 3D gradients */}

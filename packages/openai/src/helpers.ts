@@ -1,12 +1,22 @@
-import { askOpenAI, getOpenAiChoiceContent } from "./index";
+import { askOpenAI } from "./index";
 import type { AskOpenAIProps, OpenAIResponse } from "./types";
+import type { IOpenAIAdapter } from "./adapter";
 
 /**
  * Wrapper function that provides standardized error handling and response formatting
+ * @deprecated Use OpenAIAdapter.generateContent() instead
+ * Maintained for backward compatibility
  */
 export const generateContent = async (
   params: AskOpenAIProps,
+  adapter?: IOpenAIAdapter,
 ): Promise<OpenAIResponse> => {
+  // If adapter is provided, use it; otherwise use default (backward compatibility)
+  if (adapter) {
+    return adapter.generateContent(params);
+  }
+
+  // Fallback to default adapter for backward compatibility
   try {
     const choices = await askOpenAI(params);
     const content = getOpenAiChoiceContent(choices);
@@ -41,12 +51,21 @@ export const generateContent = async (
 
 /**
  * Retry wrapper for OpenAI requests with exponential backoff
+ * @deprecated Use OpenAIAdapter.generateContentWithRetry() instead
+ * Maintained for backward compatibility
  */
 export const generateContentWithRetry = async (
   params: AskOpenAIProps,
   maxRetries = 3,
   baseDelay = 1000,
+  adapter?: IOpenAIAdapter,
 ): Promise<OpenAIResponse> => {
+  // If adapter is provided, use it; otherwise use default (backward compatibility)
+  if (adapter) {
+    return adapter.generateContentWithRetry(params, maxRetries, baseDelay);
+  }
+
+  // Fallback to default implementation for backward compatibility
   let lastError: OpenAIResponse["error"];
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -71,6 +90,53 @@ export const generateContentWithRetry = async (
       type: "retry_limit_exceeded",
     },
   };
+};
+
+/**
+ * Helper function to extract content from choices
+ * @deprecated This is now internal to OpenAIAdapter
+ */
+const getOpenAiChoiceContent = (
+  choices: Array<{ message: { content?: string | null } }>,
+  index = 0,
+): string | undefined => {
+  if (!choices || choices.length === 0 || !choices[index]) {
+    return undefined;
+  }
+
+  const content = choices[index].message.content?.trim();
+
+  if (!content) return undefined;
+
+  try {
+    const parsed = JSON.parse(content);
+    return typeof parsed === "string" ? parsed : JSON.stringify(parsed);
+  } catch {
+    return cleanMarkdownContent(content);
+  }
+};
+
+const cleanMarkdownContent = (content: string): string => {
+  let cleanContent = content;
+
+  // Remove markdown code block patterns
+  const codeBlockPatterns = [
+    /^```html\s*\n?/gm,
+    /^```\w*\s*\n?/gm,
+    /\n?```\s*$/gm,
+    /```\w*/g,
+    /```/g,
+  ];
+
+  codeBlockPatterns.forEach((pattern) => {
+    cleanContent = cleanContent.replace(pattern, "");
+  });
+
+  // Clean up extra whitespace
+  cleanContent = cleanContent.replace(/^\s+|\s+$/g, "");
+  cleanContent = cleanContent.replace(/\n\s*\n/g, "\n");
+
+  return cleanContent;
 };
 
 /**

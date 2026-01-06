@@ -4,8 +4,8 @@ import { useEffect, useCallback } from "react";
 import {
   useResumeSelector,
   useResumeDispatch,
-  resumeContextActions,
 } from "../model/resumeContext";
+import { resumeActions } from "../model/resumeSlice";
 import {
   selectResumes,
   selectCurrentResume,
@@ -15,6 +15,8 @@ import {
 } from "../model/selectors";
 import { initializeResumeDatabase } from "../model/repository";
 import type { Resume, ResumeProps } from "../model/types";
+import { parseResumeFile } from "../lib/fileParser";
+import { fileToResumeFileData } from "../lib/fileStorage";
 
 /**
  * Main Resume domain hook
@@ -31,10 +33,10 @@ export function useResume(props?: ResumeProps) {
   useEffect(() => {
     const loadResumes = async () => {
       try {
-        dispatch(resumeContextActions.SetLoading(true));
+        dispatch(resumeActions.SetLoading(true));
         const repository = await initializeResumeDatabase();
         const allResumes = await repository.getAll();
-        dispatch(resumeContextActions.SetResumes(allResumes));
+        dispatch(resumeActions.SetResumes(allResumes));
 
         // If resumeId is provided, set it as current
         if (props?.resumeId) {
@@ -46,22 +48,22 @@ export function useResume(props?: ResumeProps) {
             resume = await repository.getById(props.resumeId);
             // If found, add it to the list
             if (resume) {
-              dispatch(resumeContextActions.AddResume(resume));
+              dispatch(resumeActions.AddResume(resume));
             }
           }
           
           if (resume) {
-            dispatch(resumeContextActions.SetCurrentResume(resume));
+            dispatch(resumeActions.SetCurrentResume(resume));
           }
         }
       } catch (err) {
         dispatch(
-          resumeContextActions.SetError(
+          resumeActions.SetError(
             err instanceof Error ? err.message : "Failed to load resumes",
           ),
         );
       } finally {
-        dispatch(resumeContextActions.SetLoading(false));
+        dispatch(resumeActions.SetLoading(false));
       }
     };
 
@@ -72,7 +74,7 @@ export function useResume(props?: ResumeProps) {
   const createResume = useCallback(
     async (name: string, content: string, jobDescription?: string) => {
       try {
-        dispatch(resumeContextActions.SetLoading(true));
+        dispatch(resumeActions.SetLoading(true));
         const repository = await initializeResumeDatabase();
 
         const newResume: Resume = {
@@ -86,18 +88,18 @@ export function useResume(props?: ResumeProps) {
         };
 
         await repository.save(newResume);
-        dispatch(resumeContextActions.AddResume(newResume));
-        dispatch(resumeContextActions.SetCurrentResume(newResume));
+        dispatch(resumeActions.AddResume(newResume));
+        dispatch(resumeActions.SetCurrentResume(newResume));
         return newResume;
       } catch (err) {
         dispatch(
-          resumeContextActions.SetError(
+          resumeActions.SetError(
             err instanceof Error ? err.message : "Failed to create resume",
           ),
         );
         throw err;
       } finally {
-        dispatch(resumeContextActions.SetLoading(false));
+        dispatch(resumeActions.SetLoading(false));
       }
     },
     [dispatch],
@@ -107,7 +109,7 @@ export function useResume(props?: ResumeProps) {
   const updateResume = useCallback(
     async (resume: Resume) => {
       try {
-        dispatch(resumeContextActions.SetSaving(true));
+        dispatch(resumeActions.SetSaving(true));
         const repository = await initializeResumeDatabase();
 
         const updatedResume: Resume = {
@@ -117,17 +119,17 @@ export function useResume(props?: ResumeProps) {
         };
 
         await repository.save(updatedResume);
-        dispatch(resumeContextActions.UpdateResume(updatedResume));
+        dispatch(resumeActions.UpdateResume(updatedResume));
         return updatedResume;
       } catch (err) {
         dispatch(
-          resumeContextActions.SetError(
+          resumeActions.SetError(
             err instanceof Error ? err.message : "Failed to update resume",
           ),
         );
         throw err;
       } finally {
-        dispatch(resumeContextActions.SetSaving(false));
+        dispatch(resumeActions.SetSaving(false));
       }
     },
     [dispatch],
@@ -137,19 +139,19 @@ export function useResume(props?: ResumeProps) {
   const deleteResume = useCallback(
     async (resumeId: string) => {
       try {
-        dispatch(resumeContextActions.SetLoading(true));
+        dispatch(resumeActions.SetLoading(true));
         const repository = await initializeResumeDatabase();
         await repository.delete(resumeId);
-        dispatch(resumeContextActions.DeleteResume(resumeId));
+        dispatch(resumeActions.DeleteResume(resumeId));
       } catch (err) {
         dispatch(
-          resumeContextActions.SetError(
+          resumeActions.SetError(
             err instanceof Error ? err.message : "Failed to delete resume",
           ),
         );
         throw err;
       } finally {
-        dispatch(resumeContextActions.SetLoading(false));
+        dispatch(resumeActions.SetLoading(false));
       }
     },
     [dispatch],
@@ -158,7 +160,7 @@ export function useResume(props?: ResumeProps) {
   // Set current resume
   const setCurrentResume = useCallback(
     (resume: Resume | null) => {
-      dispatch(resumeContextActions.SetCurrentResume(resume));
+      dispatch(resumeActions.SetCurrentResume(resume));
     },
     [dispatch],
   );
@@ -171,6 +173,101 @@ export function useResume(props?: ResumeProps) {
     [resumes],
   );
 
+  // Get resume by file name
+  const getResumeByFileName = useCallback(
+    (fileName: string) => {
+      return resumes.find((r) => r.fileData?.name === fileName);
+    },
+    [resumes],
+  );
+
+  // Create a resume from a file upload
+  const createResumeFromFile = useCallback(
+    async (file: File) => {
+      try {
+        dispatch(resumeActions.SetLoading(true));
+        
+        // Parse file content
+        const content = await parseResumeFile(file);
+        const name = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+
+        // Store file data directly in the resume
+        const fileData = fileToResumeFileData(file);
+        const newResume = await createResume(name, content);
+        
+        if (!newResume) {
+          throw new Error("Failed to create resume");
+        }
+
+        // Update resume with file data
+        try {
+          await updateResume({
+            ...newResume,
+            fileData,
+          });
+        } catch (error) {
+          console.warn("Failed to update resume with file data:", error);
+          // Continue even if update fails
+        }
+
+        return { ...newResume, fileData };
+      } catch (err) {
+        dispatch(
+          resumeActions.SetError(
+            err instanceof Error ? err.message : "Failed to create resume from file",
+          ),
+        );
+        throw err;
+      } finally {
+        dispatch(resumeActions.SetLoading(false));
+      }
+    },
+    [dispatch, createResume, updateResume],
+  );
+
+  // Remove file from a resume by file name
+  const removeFileFromResume = useCallback(
+    async (fileName: string) => {
+      const resume = resumes.find((r) => r.fileData?.name === fileName);
+      if (resume) {
+        try {
+          await updateResume({
+            ...resume,
+            fileData: undefined,
+          });
+        } catch (error) {
+          console.error("Failed to remove file from resume:", error);
+          throw error;
+        }
+      }
+    },
+    [resumes, updateResume],
+  );
+
+  // Clear files from multiple resumes
+  const clearFilesFromResumes = useCallback(
+    async (fileNames: string[]) => {
+      const resumesToUpdate = resumes.filter(
+        (r) => r.fileData && fileNames.includes(r.fileData.name),
+      );
+
+      const updates = resumesToUpdate.map((resume) =>
+        updateResume({
+          ...resume,
+          fileData: undefined,
+        }),
+      );
+
+      try {
+        await Promise.all(updates);
+      } catch (error) {
+        console.error("Failed to clear files from resumes:", error);
+        throw error;
+      }
+    },
+    [resumes, updateResume],
+  );
+
   return {
     resumes,
     currentResume,
@@ -181,6 +278,10 @@ export function useResume(props?: ResumeProps) {
     deleteResume,
     setCurrentResume,
     getResumeById,
+    getResumeByFileName,
+    createResumeFromFile,
+    removeFileFromResume,
+    clearFilesFromResumes,
   };
 }
 

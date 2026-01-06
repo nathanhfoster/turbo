@@ -4,21 +4,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useIsMounted } from "@nathanhfoster/resurrection";
 import { isNavItemActive } from "@nathanhfoster/utils";
-import { Box, Typography } from "../../atoms";
+import { Box, Typography, BubbleAI } from "../../atoms";
 import { ThemeToggle } from "../../Theme";
 import { TopNavbar, BottomNavbar } from "../Navbar";
 import type { AppNavbarProps, NavItem } from "./types";
 
 export type { AppNavbarProps, NavItem };
 
+const getDefaultLogo = (href: string = "/") => (
+  <Link
+    href={href}
+    className="flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors"
+  >
+    <BubbleAI size={28} state="idle" quality="low" ringCount={2} particleSize={0.5} />
+    <span>AgentNate</span>
+  </Link>
+);
+
 export function AppNavbar({
   logo,
+  logoHref = "/",
   navItems,
   bottomNavItems,
   rightContent,
   stripPrefix,
   basePath,
 }: AppNavbarProps) {
+  const defaultLogo = logo ?? getDefaultLogo(logoHref);
   const pathname = usePathname();
   const mounted = useIsMounted(false);
 
@@ -32,7 +44,7 @@ export function AppNavbar({
   return (
     <>
       <TopNavbar
-        logo={logo}
+        logo={defaultLogo}
         menuProps={{
           menuItems: navItems.map(({ label, href }) => ({ label, href })),
         }}

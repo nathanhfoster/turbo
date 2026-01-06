@@ -14,7 +14,10 @@ const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
   const dispatch = useDeviceDispatch();
 
   useEventListener("scroll", () => {
-    dispatch(deviceContextActions.SetHasScrolled(true));
+    if (typeof window !== "undefined") {
+      const hasScrolled = window.scrollY > 0;
+      dispatch(deviceContextActions.SetHasScrolled(hasScrolled));
+    }
   });
 
   useEffect(() => {

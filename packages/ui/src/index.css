@@ -394,6 +394,7 @@
     color: var(--color-foreground-DEFAULT);
     transition: background-color var(--duration-normal) var(--ease-in-out),
       color var(--duration-normal) var(--ease-in-out);
+    scrollbar-gutter: stable;
   }
 }
 

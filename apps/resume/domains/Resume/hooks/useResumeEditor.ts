@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { useResumeDispatch, resumeContextActions } from "../model/resumeContext";
+import { useResumeDispatch } from "../model/resumeContext";
+import { resumeActions } from "../model/resumeSlice";
 import type { Resume } from "../model/types";
 
 /**
@@ -39,7 +40,7 @@ export function useResumeEditor(resume: Resume | null) {
         version: (resume.version || 1) + 1,
       };
 
-      dispatch(resumeContextActions.UpdateResume(updatedResume));
+      dispatch(resumeActions.UpdateResume(updatedResume));
       setIsDirty(false);
       onSave?.(updatedResume);
     },

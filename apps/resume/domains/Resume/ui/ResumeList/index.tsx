@@ -24,7 +24,7 @@ export function ResumeList({
 
   return (
     <Box className={className}>
-      <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      <Box className="flex flex-col gap-3">
         {resumes.map((resume) => (
           <Card
             key={resume.id}

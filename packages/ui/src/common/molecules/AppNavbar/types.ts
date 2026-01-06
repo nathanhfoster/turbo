@@ -7,7 +7,12 @@ export interface NavItem {
 }
 
 export interface AppNavbarProps {
-  logo: ReactNode;
+  logo?: ReactNode;
+  /**
+   * Custom href for the default logo. Only used when logo is not provided.
+   * @default "/"
+   */
+  logoHref?: string;
   navItems: NavItem[];
   bottomNavItems: NavItem[];
   rightContent?: ReactNode;

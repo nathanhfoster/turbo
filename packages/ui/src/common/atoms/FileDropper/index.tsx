@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useRef, useState, useCallback, useId, useMemo, useEffect } from "react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/solid";
 import { combineClassNames } from "@nathanhfoster/utils";
-// @ts-expect-error - useEventListener is exported but TypeScript may not resolve it correctly
 import { useEventListener } from "@nathanhfoster/resurrection";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
@@ -19,7 +18,6 @@ import {
   FILE_DROPPER_SIZE_STYLES,
 } from "./constants";
 import type { FileDropperProps } from "./types";
-import { TAILWIND_SIZES } from "../../../constants";
 import type { Size } from "../types";
 
 const FileDropper = ({
@@ -43,6 +41,10 @@ const FileDropper = ({
   icon,
   loading = false,
   loadingText = "Processing files...",
+  initialFiles,
+  onFileRemoved,
+  onFilesCleared,
+  onFileClick,
   ...props
 }: FileDropperProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +53,31 @@ const FileDropper = ({
   const [dragError, setDragError] = useState<string | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploadStatus, setUploadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [bubbleAIScale, setBubbleAIScale] = useState(1);
+  const [particleSpeedBoost, setParticleSpeedBoost] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successStateTransition, setSuccessStateTransition] = useState<"speaking" | "navigating">("speaking");
+  const previousInitialFilesRef = useRef<string>("");
+
+  // Load initial files on mount or when initialFiles prop changes
+  useEffect(() => {
+    // Create a stable key from file names to detect changes
+    const fileNamesKey = (initialFiles || []).map(f => f.name).sort().join(',');
+    
+    // Only update if the file names have actually changed
+    if (previousInitialFilesRef.current !== fileNamesKey) {
+      previousInitialFilesRef.current = fileNamesKey;
+      
+      if (initialFiles && initialFiles.length > 0) {
+        setSelectedFiles([...initialFiles]); // Create new array to trigger update
+        // Call onFilesSelected if provided
+        onFilesSelected?.(initialFiles);
+      } else {
+        // Clear selected files if initialFiles is empty or undefined
+        setSelectedFiles([]);
+      }
+    }
+  }, [initialFiles, onFilesSelected]);
 
   const sizeStyles =
     typeof size === "string" && size.includes(" ")
@@ -85,6 +112,17 @@ const FileDropper = ({
         const errorMessage = errors.join(", ");
         setDragError(errorMessage);
         setUploadStatus("error");
+        // Error animation: quick shake
+        setBubbleAIScale(0.9);
+        setTimeout(() => {
+          setBubbleAIScale(1.1);
+        }, 100);
+        setTimeout(() => {
+          setBubbleAIScale(0.95);
+        }, 200);
+        setTimeout(() => {
+          setBubbleAIScale(1);
+        }, 300);
         // Call onError callback immediately
         onError?.(errorMessage, fileArray);
         // Reset error state after 3 seconds
@@ -100,18 +138,61 @@ const FileDropper = ({
       // Call onFilesSelected immediately (for immediate file access)
       onFilesSelected?.(fileArray);
       
+      // Excitement animation when files are selected
+      setBubbleAIScale(1.15);
+      setParticleSpeedBoost(1.5);
+      setTimeout(() => {
+        setBubbleAIScale(1);
+        setParticleSpeedBoost(1);
+      }, 300);
+      
       // Set loading state if loading prop is true
       if (loading) {
         setUploadStatus("loading");
+        // Animate: Scale up when processing starts
+        setBubbleAIScale(1.1);
+        setParticleSpeedBoost(1.3);
+        setTimeout(() => {
+          setBubbleAIScale(1);
+          setParticleSpeedBoost(1);
+        }, 200);
       } else {
         // Show thinking animation first, then success
         setUploadStatus("loading");
+        setIsSubmitting(true);
+        // Processing animation: subtle pulse
+        setBubbleAIScale(1.08);
+        setParticleSpeedBoost(1.2);
+        setTimeout(() => {
+          setBubbleAIScale(1);
+          setParticleSpeedBoost(1);
+        }, 150);
         setTimeout(async () => {
           // Call onSubmit after thinking animation (useful for API calls)
           try {
             const result = await onSubmit?.(fileArray);
             // Transition to success after onSubmit completes
             setUploadStatus("success");
+            setIsSubmitting(false);
+            // Start with "navigating" state for excitement
+            setSuccessStateTransition("navigating");
+            // Celebration animation: exciting bounce with particle burst
+            setBubbleAIScale(1.25);
+            setParticleSpeedBoost(2.2);
+            setTimeout(() => {
+              setBubbleAIScale(1.15);
+              setParticleSpeedBoost(1.5);
+            }, 150);
+            setTimeout(() => {
+              setBubbleAIScale(1.05);
+              setParticleSpeedBoost(1.2);
+              // Transition to "speaking" state after initial excitement
+              setSuccessStateTransition("speaking");
+            }, 400);
+            setTimeout(() => {
+              setBubbleAIScale(1);
+              setParticleSpeedBoost(1);
+            }, 600);
             setTimeout(() => {
               // Call onSuccess after success animation completes, passing the result
               onSuccess?.(fileArray, result);
@@ -122,6 +203,18 @@ const FileDropper = ({
             const errorMsg = err instanceof Error ? err.message : "Upload failed";
             setDragError(errorMsg);
             setUploadStatus("error");
+            setIsSubmitting(false);
+            // Error animation: quick shake
+            setBubbleAIScale(0.9);
+            setTimeout(() => {
+              setBubbleAIScale(1.1);
+            }, 100);
+            setTimeout(() => {
+              setBubbleAIScale(0.95);
+            }, 200);
+            setTimeout(() => {
+              setBubbleAIScale(1);
+            }, 300);
             onError?.(errorMsg, fileArray);
             setTimeout(() => {
               setUploadStatus("idle");
@@ -133,18 +226,46 @@ const FileDropper = ({
     [validateFile, onFilesSelected, multiple, loading],
   );
 
-  // Update upload status when loading prop changes
+  // Update upload status when loading prop changes (only when controlled externally)
   useEffect(() => {
     if (loading) {
       setUploadStatus("loading");
-    } else if (uploadStatus === "loading" && !loading) {
-      // Transition from loading to success when loading completes
-      // Add a small delay to ensure the thinking animation is visible
+      // Animate: Scale up when processing starts
+      setBubbleAIScale(1.1);
+      setParticleSpeedBoost(1.3);
+      setTimeout(() => {
+        setBubbleAIScale(1);
+        setParticleSpeedBoost(1);
+      }, 200);
+    } else if (uploadStatus === "loading" && !loading && !isSubmitting && selectedFiles.length > 0) {
+      // Only call onSubmit if we're not already submitting (prevents duplicate calls)
+      // This handles the case when loading prop is controlled externally
+      setIsSubmitting(true);
       setTimeout(async () => {
         // Call onSubmit if provided (useful for API calls)
         try {
           const result = await onSubmit?.(selectedFiles);
           setUploadStatus("success");
+          setIsSubmitting(false);
+          // Start with "navigating" state for excitement
+          setSuccessStateTransition("navigating");
+          // Celebration animation: exciting bounce with particle burst
+          setBubbleAIScale(1.25);
+          setParticleSpeedBoost(2.2);
+          setTimeout(() => {
+            setBubbleAIScale(1.15);
+            setParticleSpeedBoost(1.5);
+          }, 150);
+          setTimeout(() => {
+            setBubbleAIScale(1.05);
+            setParticleSpeedBoost(1.2);
+            // Transition to "speaking" state after initial excitement
+            setSuccessStateTransition("speaking");
+          }, 400);
+          setTimeout(() => {
+            setBubbleAIScale(1);
+            setParticleSpeedBoost(1);
+          }, 600);
           setTimeout(() => {
             // Call onSuccess after success animation completes, passing the result
             onSuccess?.(selectedFiles, result);
@@ -155,6 +276,18 @@ const FileDropper = ({
           const errorMsg = err instanceof Error ? err.message : "Upload failed";
           setDragError(errorMsg);
           setUploadStatus("error");
+          setIsSubmitting(false);
+          // Error animation: quick shake
+          setBubbleAIScale(0.9);
+          setTimeout(() => {
+            setBubbleAIScale(1.1);
+          }, 100);
+          setTimeout(() => {
+            setBubbleAIScale(0.95);
+          }, 200);
+          setTimeout(() => {
+            setBubbleAIScale(1);
+          }, 300);
           onError?.(errorMsg, selectedFiles);
           setTimeout(() => {
             setUploadStatus("idle");
@@ -162,7 +295,7 @@ const FileDropper = ({
         }
       }, 500); // Small delay to show the transition
     }
-  }, [loading, uploadStatus, onSubmit, onSuccess, onError, selectedFiles]);
+  }, [loading, uploadStatus, onSubmit, onSuccess, onError, selectedFiles, isSubmitting]);
 
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLLabelElement>) => {
@@ -284,22 +417,27 @@ const FileDropper = ({
       : sizeMap[(size as Size) || "md"];
   }, [size]);
 
-  // Determine BubbleAI state based on component state
+  // Determine BubbleAI state based on component state with dynamic transitions
   const bubbleAIState = useMemo<"idle" | "listening" | "thinking" | "speaking" | "navigating">(() => {
     if (loading || uploadStatus === "loading") {
       return "thinking";
     }
     if (uploadStatus === "success") {
-      return "speaking";
+      // Use dynamic state transition: start with "navigating" for excitement, then "speaking"
+      return successStateTransition;
     }
     if (isDragOver) {
+      return "listening";
+    }
+    if (hasSelectedFiles && uploadStatus === "idle") {
+      // Show "listening" when files are selected but not yet processing
       return "listening";
     }
     if (displayError || uploadStatus === "error") {
       return "idle"; // Will use error colors
     }
     return "idle";
-  }, [loading, uploadStatus, isDragOver, displayError]);
+  }, [loading, uploadStatus, isDragOver, displayError, hasSelectedFiles, successStateTransition]);
 
   // Get file type and size info for better visual feedback
   const fileInfo = useMemo(() => {
@@ -319,15 +457,25 @@ const FileDropper = ({
   const handleClearFiles = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    const filesToClear = [...selectedFiles];
     setSelectedFiles([]);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }, []);
+    // Call callback with cleared files
+    onFilesCleared?.(filesToClear);
+  }, [selectedFiles, onFilesCleared]);
 
   const handleRemoveFile = useCallback((index: number) => {
-    setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
-  }, []);
+    setSelectedFiles((prev) => {
+      const removedFile = prev[index];
+      if (!removedFile) return prev; // Safety check
+      const remainingFiles = prev.filter((_, i) => i !== index);
+      // Call callback with removed file and remaining files
+      onFileRemoved?.(removedFile, remainingFiles);
+      return remainingFiles;
+    });
+  }, [onFileRemoved]);
 
   const formatFileSize = useCallback((bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
@@ -420,30 +568,52 @@ const FileDropper = ({
               icon
             ) : (
               <>
-                <BubbleAI
-                  size={bubbleAISize}
-                  state={bubbleAIState}
-                  quality="medium"
-                  ringCount={3}
-                  particleCount={Math.min(100, Math.max(25, bubbleAISize / 2))}
-                  particleSize={0.5}
-                  rings={
-                    displayError || uploadStatus === "error"
-                      ? [
-                          { color: "#ef4444", rotationSpeed: 1, glowIntensity: 0.8, opacity: 0.9 },
-                          { color: "#dc2626", rotationSpeed: -1.2, glowIntensity: 0.6, opacity: 0.7 },
-                          { color: "#991b1b", rotationSpeed: 0.8, glowIntensity: 0.4, opacity: 0.5 },
-                        ]
-                      : uploadStatus === "success"
+                <Box
+                  variant="div"
+                  style={{
+                    transform: `scale(${bubbleAIScale})`,
+                    transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                >
+                  <BubbleAI
+                    size={bubbleAISize}
+                    state={bubbleAIState}
+                    quality="medium"
+                    ringCount={uploadStatus === "success" ? 4 : 3}
+                    particleCount={Math.min(100, Math.max(25, bubbleAISize / 2))}
+                    particleSize={0.5}
+                    particleSpeed={particleSpeedBoost}
+                    rings={
+                      displayError || uploadStatus === "error"
                         ? [
-                            { color: "#10b981", rotationSpeed: 1, glowIntensity: 0.8, opacity: 0.9 },
-                            { color: "#059669", rotationSpeed: -1.2, glowIntensity: 0.6, opacity: 0.7 },
-                            { color: "#34d399", rotationSpeed: 0.8, glowIntensity: 0.4, opacity: 0.5 },
+                            { color: "#ef4444", rotationSpeed: 1.5, glowIntensity: 0.9, opacity: 0.9 },
+                            { color: "#dc2626", rotationSpeed: -1.8, glowIntensity: 0.7, opacity: 0.7 },
+                            { color: "#991b1b", rotationSpeed: 1.2, glowIntensity: 0.5, opacity: 0.5 },
                           ]
-                        : undefined
-                  }
-                  opacity={isDisabled ? 0.5 : 1}
-                />
+                        : uploadStatus === "success"
+                          ? [
+                              { color: "#10b981", rotationSpeed: 2, glowIntensity: 1, opacity: 1 },
+                              { color: "#059669", rotationSpeed: -2.4, glowIntensity: 0.8, opacity: 0.9 },
+                              { color: "#34d399", rotationSpeed: 1.6, glowIntensity: 0.6, opacity: 0.7 },
+                              { color: "#6ee7b7", rotationSpeed: -1.2, glowIntensity: 0.4, opacity: 0.5 },
+                            ]
+                          : uploadStatus === "loading" || loading
+                            ? [
+                                { color: "#3b82f6", rotationSpeed: 1.8, glowIntensity: 0.9, opacity: 0.9 },
+                                { color: "#2563eb", rotationSpeed: -2.2, glowIntensity: 0.7, opacity: 0.7 },
+                                { color: "#1d4ed8", rotationSpeed: 1.4, glowIntensity: 0.5, opacity: 0.5 },
+                              ]
+                            : hasSelectedFiles
+                              ? [
+                                  { color: "#8b5cf6", rotationSpeed: 1.3, glowIntensity: 0.85, opacity: 0.95 },
+                                  { color: "#7c3aed", rotationSpeed: -1.6, glowIntensity: 0.65, opacity: 0.75 },
+                                  { color: "#6d28d9", rotationSpeed: 1.1, glowIntensity: 0.45, opacity: 0.55 },
+                                ]
+                              : undefined
+                    }
+                    opacity={isDisabled ? 0.5 : 1}
+                  />
+                </Box>
                 <Typography variant="p" className="text-gray-600 dark:text-gray-400">
                   {loading ? (
                     loadingText
@@ -531,7 +701,27 @@ const FileDropper = ({
             <Box
               key={`${file.name}-${index}`}
               variant="div"
-              className="flex items-center justify-between gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700"
+              className={`flex items-center justify-between gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 ${
+                onFileClick ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" : ""
+              }`}
+              onClick={onFileClick ? (e) => {
+                // Only trigger if clicking on the file area, not the delete button
+                if ((e.target as HTMLElement).closest('button[aria-label*="Remove"]')) {
+                  return;
+                }
+                e.preventDefault();
+                e.stopPropagation();
+                onFileClick(file);
+              } : undefined}
+              role={onFileClick ? "button" : undefined}
+              tabIndex={onFileClick ? 0 : undefined}
+              onKeyDown={onFileClick ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onFileClick(file);
+                }
+              } : undefined}
             >
               <Box variant="div" className="flex-1 min-w-0">
                 <Typography 
@@ -543,7 +733,7 @@ const FileDropper = ({
                 </Typography>
                 <Typography 
                   variant="small" 
-                  className="text-gray-500 dark:text-gray-400 text-xs"
+                  className="text-gray-700 dark:text-gray-400 text-xs ml-1"
                 >
                   {formatFileSize(file.size)}
                 </Typography>
@@ -558,7 +748,7 @@ const FileDropper = ({
                 className="flex-shrink-0 p-1 text-gray-400 hover:text-red-500 dark:hover:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-500 rounded"
                 aria-label={`Remove ${file.name}`}
               >
-                <XMarkIcon className="w-4 h-4" />
+                <TrashIcon className="w-4 h-4" />
               </button>
             </Box>
           ))}
@@ -580,4 +770,5 @@ const FileDropper = ({
 export default withForwardRef(
   withBaseTheme(withBaseTailwindProps(FileDropper)),
 );
+
 

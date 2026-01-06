@@ -10,9 +10,7 @@ import {
   KEY_COOKIE_HAS_SCROLLED,
 } from "@nathanhfoster/pwa/device";
 import { ThemeProvider } from "@nathanhfoster/ui";
-import { Navbar } from "./components/Navbar";
-import Footer from "./components/Footer";
-import { Body } from "./components/Body";
+import { ResumeLayoutContent } from "./components/ResumeLayoutContent";
 import "./globals.css";
 
 const APP_NAME = "AI Resume Builder";
@@ -120,11 +118,7 @@ export default async function RootLayout({
                 },
               }}
             >
-              <Body className="pt-16">
-                <Navbar />
-                {children}
-                <Footer />
-              </Body>
+              <ResumeLayoutContent>{children}</ResumeLayoutContent>
             </DeviceContextProvider>
           </InstallPromptProvider>
         </ThemeProvider>

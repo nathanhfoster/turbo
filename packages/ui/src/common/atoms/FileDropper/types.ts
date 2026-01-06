@@ -85,5 +85,25 @@ export interface FileDropperProps extends BaseTailwindProps {
    * Loading text to display when loading
    */
   loadingText?: string;
+  /**
+   * Initial files to preload (e.g., from IndexedDB or other storage)
+   * These files will be set as selected files when the component mounts
+   */
+  initialFiles?: File[];
+  /**
+   * Callback when a file is removed
+   * Receives the removed file and the remaining files
+   */
+  onFileRemoved?: (removedFile: File, remainingFiles: File[]) => void;
+  /**
+   * Callback when all files are cleared
+   * Receives the files that were cleared
+   */
+  onFilesCleared?: (clearedFiles: File[]) => void;
+  /**
+   * Callback when a file is clicked
+   * Receives the clicked file
+   */
+  onFileClick?: (file: File) => void;
 }
 

@@ -1,13 +1,7 @@
-"use client";
-
-import {
-  AppFooter,
-  IconGithub,
-  IconLinkedin,
-} from "@nathanhfoster/ui";
 import type { FooterLink, SocialLink } from "@nathanhfoster/ui";
+import { IconGithub, IconLinkedin } from "@nathanhfoster/ui";
 
-const FOOTER_LINKS: FooterLink[] = [
+export const FOOTER_LINKS: FooterLink[] = [
   { label: "Home", href: "/" },
   { label: "Apps", href: "/apps" },
   { label: "Newsletter", href: "/newsletter" },
@@ -16,7 +10,7 @@ const FOOTER_LINKS: FooterLink[] = [
   { label: "Cookies", href: "/cookies" },
 ];
 
-const SOCIAL_LINKS: SocialLink[] = [
+export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: "GitHub",
     href: "https://github.com/nathanhfoster",
@@ -29,13 +23,8 @@ const SOCIAL_LINKS: SocialLink[] = [
   },
 ];
 
-export default function Footer() {
-  return (
-    <AppFooter
-      brandName="AgentNate"
-      brandDescription="Full-stack developer and technical consultant specializing in modern web applications, PWAs, and scalable architectures."
-      footerLinks={FOOTER_LINKS}
-      socialLinks={SOCIAL_LINKS}
-    />
-  );
-}
+export const BRAND_NAME = "AgentNate";
+
+export const BRAND_DESCRIPTION =
+  "Full-stack developer and technical consultant specializing in modern web applications, PWAs, and scalable architectures.";
+

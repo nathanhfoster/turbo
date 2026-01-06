@@ -53,7 +53,7 @@ function stripHtml(html: string): string {
   
   function getIndentFromStyle(style: string): number {
     const marginMatch = style.match(/margin-left:\s*([\d.]+)(em|px)/);
-    if (marginMatch) {
+    if (marginMatch && marginMatch[1] && marginMatch[2]) {
       const value = parseFloat(marginMatch[1]);
       const unit = marginMatch[2];
       if (unit === "em") {
@@ -391,10 +391,20 @@ export function ResumeEditor({
   onSave,
   onReset,
   className,
+  isEditing: externalIsEditing,
+  showPlainText: externalShowPlainText,
+  onEdit: externalOnEdit,
+  onTogglePlainText: externalOnTogglePlainText,
+  onCancel: externalOnCancel,
+  showTitle = true,
 }: ResumeEditorProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [internalIsEditing, setInternalIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(content);
-  const [showPlainText, setShowPlainText] = useState(false);
+  const [internalShowPlainText, setInternalShowPlainText] = useState(false);
+  
+  // Use external state if provided, otherwise use internal state
+  const isEditing = externalIsEditing !== undefined ? externalIsEditing : internalIsEditing;
+  const showPlainText = externalShowPlainText !== undefined ? externalShowPlainText : internalShowPlainText;
   const contentEditableRef = React.useRef<HTMLDivElement>(null);
   const lastContentRef = React.useRef<string>(content);
   const isUserTypingRef = React.useRef<boolean>(false);
@@ -405,6 +415,22 @@ export function ResumeEditor({
       setEditContent(content);
     }
   }, [content, isEditing]);
+
+  // Sync internal state with external state when provided
+  React.useEffect(() => {
+    if (externalIsEditing !== undefined && externalIsEditing !== internalIsEditing) {
+      if (externalIsEditing) {
+        setEditContent(content);
+      }
+      setInternalIsEditing(externalIsEditing);
+    }
+  }, [externalIsEditing]);
+
+  React.useEffect(() => {
+    if (externalShowPlainText !== undefined && externalShowPlainText !== internalShowPlainText) {
+      setInternalShowPlainText(externalShowPlainText);
+    }
+  }, [externalShowPlainText]);
 
   // Initialize contentEditable with content on mount
   useIsomorphicLayoutEffect(() => {
@@ -464,72 +490,50 @@ export function ResumeEditor({
 
   const handleEdit = () => {
     setEditContent(content);
-    setIsEditing(true);
+    if (externalOnEdit) {
+      externalOnEdit();
+    } else {
+      setInternalIsEditing(true);
+    }
   };
 
   const handleSave = () => {
     onContentChange(editContent);
-    setIsEditing(false);
+    if (externalOnCancel) {
+      // External control - state will be managed externally via onCancel
+      externalOnCancel();
+    } else {
+      setInternalIsEditing(false);
+    }
     onSave();
   };
 
   const handleCancel = () => {
     setEditContent(content);
-    setIsEditing(false);
+    if (externalOnCancel) {
+      externalOnCancel();
+    } else {
+      setInternalIsEditing(false);
+    }
+  };
+
+  const handleTogglePlainText = (checked: boolean) => {
+    if (externalOnTogglePlainText) {
+      externalOnTogglePlainText(checked);
+    } else {
+      setInternalShowPlainText(checked);
+    }
   };
 
   return (
-    <Box className={className}>
-      <Box className="mb-4 flex items-center justify-between">
-        <Typography variant="h2" size="text-2xl" weight="font-bold">
-          {resume.name}
-        </Typography>
-        <Box className="flex items-center gap-4">
-          {!isEditing && (
-            <Box className="flex items-center gap-2">
-              <IconDocument 
-                className={`w-5 h-5 transition-opacity ${showPlainText ? 'opacity-40' : 'opacity-100'}`}
-              />
-              <Switch
-                checked={showPlainText}
-                onChange={(e) => setShowPlainText(e.target.checked)}
-                name="plain-text-toggle"
-              />
-              <IconCode 
-                className={`w-5 h-5 transition-opacity ${showPlainText ? 'opacity-100' : 'opacity-40'}`}
-              />
-            </Box>
-          )}
-          <Box className="flex gap-2">
-            {!isEditing ? (
-              <>
-                <Button onClick={handleEdit} variant="outlined" color="primary">
-                  Edit
-                </Button>
-                {isDirty && (
-                  <>
-                    <Button onClick={onSave} variant="contained" color="primary">
-                      Save Changes
-                    </Button>
-                    <Button onClick={onReset} variant="text" color="inherit">
-                      Reset
-                    </Button>
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <Button onClick={handleSave} variant="contained" color="primary">
-                  Save
-                </Button>
-                <Button onClick={handleCancel} variant="outlined" color="inherit">
-                  Cancel
-                </Button>
-              </>
-            )}
-          </Box>
+    <Box className={`${className} w-full max-w-full min-w-0`}>
+      {showTitle && (
+        <Box className="mb-4">
+          <Typography variant="h2" size="text-2xl" weight="font-bold">
+            {resume.name}
+          </Typography>
         </Box>
-      </Box>
+      )}
 
       {isEditing ? (
         <TextArea
@@ -537,10 +541,10 @@ export function ResumeEditor({
           onChange={(e) => setEditContent(e.target.value)}
           placeholder="Edit resume content (HTML supported)"
           fullHeight
-          className="min-h-[600px] font-mono text-sm"
+          className="min-h-[600px] font-mono text-sm w-full"
         />
       ) : showPlainText ? (
-        <Box className="min-h-[400px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900">
+        <Box className="min-h-[400px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 w-full">
           <pre className="whitespace-pre-wrap font-sans text-sm text-foreground">
             {stripHtml(content)}
           </pre>
@@ -587,7 +591,7 @@ export function ResumeEditor({
               selection?.addRange(range);
             }
           }}
-          className="prose dark:prose-invert max-w-none min-h-[400px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-text"
+          className="prose dark:prose-invert max-w-none w-full min-h-[400px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-text prose-headings:!text-gray-900 prose-headings:dark:!text-gray-100"
         />
       )}
     </Box>

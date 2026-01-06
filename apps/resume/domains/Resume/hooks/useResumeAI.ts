@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { generateContent } from "@nathanhfoster/openai";
+import { useState, useCallback, useMemo } from "react";
+import { createOpenAIAdapter } from "@nathanhfoster/openai";
 import type { Resume } from "../model/types";
 
 /**
@@ -12,11 +12,33 @@ export function useResumeAI() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Create OpenAI adapter instance with configuration
+  // This follows SOLID principles by creating a unique instance per application
+  const openAIAdapter = useMemo(() => {
+    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    if (!apiKey) {
+      console.warn("NEXT_PUBLIC_OPENAI_API_KEY is not set");
+      return null;
+    }
+
+    return createOpenAIAdapter({
+      apiKey,
+      defaultModel: "gpt-4o",
+      defaultTemperature: 0.7,
+      defaultMaxTokens: 2000,
+    });
+  }, []);
+
   /**
    * Improve resume content using AI
    */
   const improveResume = useCallback(
     async (resume: Resume, instructions?: string): Promise<string | null> => {
+      if (!openAIAdapter) {
+        setError("OpenAI API key is not configured");
+        return null;
+      }
+
       setIsGenerating(true);
       setError(null);
 
@@ -25,11 +47,8 @@ export function useResumeAI() {
           ? `Improve the following resume based on these instructions: ${instructions}\n\nResume content:\n${resume.content}`
           : `Improve the following resume content to make it more professional and impactful:\n\n${resume.content}`;
 
-        const result = await generateContent({
+        const result = await openAIAdapter.generateContent({
           prompt,
-          model: "gpt-4o",
-          temperature: 0.7,
-          max_tokens: 2000,
         });
 
         if (result.success && result.content) {
@@ -46,7 +65,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [],
+    [openAIAdapter],
   );
 
   /**
@@ -57,17 +76,19 @@ export function useResumeAI() {
       resume: Resume,
       jobDescription: string,
     ): Promise<string | null> => {
+      if (!openAIAdapter) {
+        setError("OpenAI API key is not configured");
+        return null;
+      }
+
       setIsGenerating(true);
       setError(null);
 
       try {
         const prompt = `Tailor the following resume to match this job description. Keep the same structure and format, but adjust the content to highlight relevant skills and experiences:\n\nJob Description:\n${jobDescription}\n\nResume content:\n${resume.content}`;
 
-        const result = await generateContent({
+        const result = await openAIAdapter.generateContent({
           prompt,
-          model: "gpt-4o",
-          temperature: 0.7,
-          max_tokens: 2000,
         });
 
         if (result.success && result.content) {
@@ -86,7 +107,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [],
+    [openAIAdapter],
   );
 
   /**
@@ -97,6 +118,11 @@ export function useResumeAI() {
       resume: Resume,
       section?: string,
     ): Promise<string | null> => {
+      if (!openAIAdapter) {
+        setError("OpenAI API key is not configured");
+        return null;
+      }
+
       setIsGenerating(true);
       setError(null);
 
@@ -105,10 +131,8 @@ export function useResumeAI() {
           ? `Analyze the following resume and provide specific suggestions for improving the "${section}" section:\n\nResume content:\n${resume.content}`
           : `Analyze the following resume and provide specific suggestions for improvement:\n\n${resume.content}`;
 
-        const result = await generateContent({
+        const result = await openAIAdapter.generateContent({
           prompt,
-          model: "gpt-4o",
-          temperature: 0.7,
           max_tokens: 1000,
         });
 
@@ -128,7 +152,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [],
+    [openAIAdapter],
   );
 
   return {

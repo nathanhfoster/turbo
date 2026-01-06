@@ -137,13 +137,13 @@ export default function ServicesPage() {
         </Typography>
         <Typography
           variant="p"
-          className="mb-8 text-xl text-gray-600 dark:text-gray-400"
+          className="mb-8 text-xl text-gray-700 dark:text-gray-400"
         >
           Consultancy services for web applications and architecture
         </Typography>
         <Typography
           variant="p"
-          className="mx-auto max-w-3xl text-lg text-gray-700 dark:text-gray-300"
+          className="mx-auto max-w-3xl text-lg text-gray-800 dark:text-gray-300"
         >
           A visionary software engineer on the vanguard of AI-powered web
           development, with nearly a decade of experience architecting
@@ -166,7 +166,7 @@ export default function ServicesPage() {
             >
               <Box className="mb-4 flex items-center gap-3">
                 <Box className="rounded-lg bg-primary/10 p-2 group-hover:bg-primary transition-colors flex items-center justify-center">
-                  <Box className="h-6 w-6 text-primary group-hover:text-black transition-colors">
+                  <Box className="h-6 w-6 text-primary group-hover:text-black transition-colors flex items-center justify-center">
                     <IconComponent />
                   </Box>
                 </Box>
@@ -181,17 +181,17 @@ export default function ServicesPage() {
               </Box>
               <Typography
                 variant="p"
-                className="mb-4 text-gray-600 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
+                className="mb-4 text-gray-800 dark:text-gray-400 group-hover:text-primary/80 transition-colors"
               >
                 {service.description}
               </Typography>
               <Box className="space-y-2">
                 {service.features.map((feature, index) => (
                   <Box key={index} className="flex items-start gap-2">
-                    <Box className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
+                    <Box className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary dark:bg-primary" />
                     <Typography
                       variant="span"
-                      className="text-sm text-gray-700 dark:text-gray-300"
+                      className="text-sm text-gray-900 dark:text-gray-300"
                     >
                       {feature}
                     </Typography>
@@ -214,13 +214,13 @@ export default function ServicesPage() {
         </Typography>
         <Typography
           variant="p"
-          className="mb-6 text-lg text-gray-700 dark:text-gray-300"
+          className="mb-6 text-lg text-gray-800 dark:text-gray-300"
         >
           Let's discuss how I can help with your project. Whether you need
           development, architecture guidance, or team training, I'm here to
           help.
         </Typography>
-        <Typography variant="p" className="text-gray-600 dark:text-gray-400">
+        <Typography variant="p" className="text-gray-700 dark:text-gray-400">
           Contact me to discuss your project requirements and how we can work
           together.
         </Typography>

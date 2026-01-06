@@ -111,17 +111,34 @@ export function createColorStyles(
       };
 
     case "outlined":
-      // For outlined buttons, use a lighter shade in dark mode for better contrast
+      // For outlined buttons, use darker text in light mode and lighter shade in dark mode for better contrast
+      // Use text-gray-900 for light mode (no !important to avoid conflicts) and dark:text-*-300 for dark mode
       const outlinedTextColor =
         color === "inherit"
           ? "text-inherit"
           : color === "white" || color === "black" || color === "gray"
             ? getTextColor(color) // Keep as-is for utility colors
-            : `${getTextColor(color)} dark:text-${COLOR_TOKENS[color]}-300`;
+            : color === "primary"
+              ? "text-gray-900 dark:text-primary-300"
+              : color === "secondary"
+                ? "text-gray-900 dark:text-secondary-300"
+                : color === "accent"
+                  ? "text-gray-900 dark:text-accent-300"
+                  : color === "error"
+                    ? "text-gray-900 dark:text-error-300"
+                    : color === "success"
+                      ? "text-gray-900 dark:text-success-300"
+                      : color === "warning"
+                        ? "text-gray-900 dark:text-warning-300"
+                        : color === "info"
+                          ? "text-gray-900 dark:text-info-300"
+                          : `text-gray-900 dark:text-${COLOR_TOKENS[color]}-300`;
       return {
         bg: "bg-transparent",
         text: outlinedTextColor,
-        hover: `${getHoverBgColor(color)} ${color === "inherit" ? "hover:text-inherit" : "hover:text-foreground-inverted"} hover:border-opacity-100`,
+        hover: color === "inherit"
+          ? "hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 hover:border-opacity-100"
+          : `${getHoverBgColor(color)} hover:text-foreground-inverted hover:border-opacity-100`,
         active: getBgColor(color),
         border: `${getBorderColor(color)} border-opacity-60 dark:border-opacity-70`, // Visible border with opacity for better visibility
         focus: getFocusBorderColor(color),

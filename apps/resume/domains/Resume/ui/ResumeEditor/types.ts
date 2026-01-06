@@ -8,5 +8,13 @@ export interface ResumeEditorProps {
   onSave: () => void;
   onReset: () => void;
   className?: string;
+  // Expose editing state and handlers for external control
+  isEditing?: boolean;
+  showPlainText?: boolean;
+  onEdit?: () => void;
+  onTogglePlainText?: (checked: boolean) => void;
+  onCancel?: () => void;
+  // Control title visibility
+  showTitle?: boolean;
 }
 
