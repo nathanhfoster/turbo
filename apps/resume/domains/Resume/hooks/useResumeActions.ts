@@ -24,7 +24,8 @@ export function useResumeActions(
   const handleFileSuccess = useCallback(
     (files: File[], result?: Resume) => {
       // Redirect after success animation completes
-      if (result) {
+      if (result?.id) {
+        // Use router.push which automatically handles basePath
         router.push(`/resume/${result.id}`);
       }
     },

@@ -48,10 +48,10 @@ async function parsePdfFile(file: File): Promise<string> {
     // Dynamically import pdfjs-dist to avoid SSR issues
     const pdfjsLib = await import("pdfjs-dist");
     
-    // Set worker source - use local worker file (more reliable than CDN)
+    // Set worker source - use CDN URL (most reliable, works with any basePath)
     if (typeof window !== "undefined") {
-      // Use local worker file from public folder (accounts for basePath)
-      pdfjsLib.GlobalWorkerOptions.workerSrc = "/resume/pdf.worker.min.mjs";
+      // Use the official CDN worker URL from pdfjs-dist
+      pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
     }
 
     const arrayBuffer = await file.arrayBuffer();
