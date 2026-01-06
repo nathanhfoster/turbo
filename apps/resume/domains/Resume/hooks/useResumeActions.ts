@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { Resume } from "../model/types";
 import { fileToResumeFileData } from "../lib/fileStorage";
+import { getMainAppUrl } from "../../../../shared/utils/getMainAppUrl";
 
 /**
  * Hook for resume action handlers
@@ -25,8 +26,10 @@ export function useResumeActions(
     (files: File[], result?: Resume) => {
       // Redirect after success animation completes
       if (result?.id) {
-        // Use router.push which automatically handles basePath
-        router.push(`/resume/${result.id}`);
+        // Use absolute URL to ensure navigation works from main app
+        // The resume app is proxied at /resume on the main app
+        const mainAppUrl = getMainAppUrl();
+        router.push(`${mainAppUrl}/resume/resume/${result.id}`);
       }
     },
     [router],
@@ -41,8 +44,11 @@ export function useResumeActions(
   // Handle file click (navigation)
   const handleFileClick = useCallback(
     (resume: Resume | null) => {
-      if (resume) {
-        router.push(`/resume/${resume.id}`);
+      if (resume?.id) {
+        // Use absolute URL to ensure navigation works from main app
+        // The resume app is proxied at /resume on the main app
+        const mainAppUrl = getMainAppUrl();
+        router.push(`${mainAppUrl}/resume/resume/${resume.id}`);
       }
     },
     [router],
@@ -95,8 +101,11 @@ export function useResumeActions(
       if (tailoredContent) {
         const versionName = `${currentResume.name} - ${jobDescription.substring(0, 30)}...`;
         const newResume = await createResume(versionName, tailoredContent, jobDescription);
-        if (newResume) {
-          router.push(`/resume/${newResume.id}`);
+        if (newResume?.id) {
+          // Use absolute URL to ensure navigation works from main app
+          // The resume app is proxied at /resume on the main app
+          const mainAppUrl = getMainAppUrl();
+          router.push(`${mainAppUrl}/resume/resume/${newResume.id}`);
         }
         return newResume;
       }
@@ -125,12 +134,18 @@ export function useResumeActions(
             ...newResume,
             fileData,
           });
-          router.push(`/resume/${updatedResume.id}`);
+          // Use absolute URL to ensure navigation works from main app
+          // The resume app is proxied at /resume on the main app
+          const mainAppUrl = getMainAppUrl();
+          router.push(`${mainAppUrl}/resume/resume/${updatedResume.id}`);
           return updatedResume;
         } catch (error) {
           console.warn("Failed to store file data in resume:", error);
           // Continue even if file storage fails
-          router.push(`/resume/${newResume.id}`);
+          // Use absolute URL to ensure navigation works from main app
+          // The resume app is proxied at /resume on the main app
+          const mainAppUrl = getMainAppUrl();
+          router.push(`${mainAppUrl}/resume/resume/${newResume.id}`);
           return newResume;
         }
       }
