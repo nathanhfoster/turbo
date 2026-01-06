@@ -8,8 +8,11 @@ const nextConfig: NextConfig = {
   basePath: isDevelopment ? "/resume" : undefined,
   // Use assetPrefix in production so assets load from resume app's domain when proxied
   // This ensures static assets are served from the correct domain
-  // Set RESUME_APP_URL env var in Vercel to the resume app's URL (e.g., https://turbo-resume-ten.vercel.app)
-  assetPrefix: isDevelopment ? undefined : process.env.RESUME_APP_URL || undefined,
+  // Set RESUME_APP_URL env var in Vercel to override the default resume app URL
+  // Default is the known Vercel deployment URL for the resume app
+  assetPrefix: isDevelopment 
+    ? undefined 
+    : process.env.RESUME_APP_URL || "https://turbo-resume-ten.vercel.app",
   transpilePackages: [
     "@nathanhfoster/resurrection",
     "@nathanhfoster/ui",
