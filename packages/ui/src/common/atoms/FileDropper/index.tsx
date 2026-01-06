@@ -103,16 +103,30 @@ const FileDropper = ({
     setIsDragOver(false);
   }, []);
 
-  const handleClick = useCallback(() => {
-    if (disabled) return;
-    fileInputRef.current?.click();
-  }, [disabled]);
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLLabelElement>) => {
+      if (disabled) {
+        e.preventDefault();
+        return;
+      }
+      // For desktop: if clicking directly on the label (not a child), programmatically trigger
+      // For mobile: let the label's htmlFor handle it naturally
+      if (e.target === e.currentTarget) {
+        e.preventDefault();
+        fileInputRef.current?.click();
+      }
+      // Otherwise, let the label's natural behavior work (htmlFor will handle it)
+    },
+    [disabled],
+  );
 
-  const handleTouchEnd = useCallback(
+  const handleTouchStart = useCallback(
     (e: React.TouchEvent<HTMLLabelElement>) => {
-      e.preventDefault();
-      if (disabled) return;
-      fileInputRef.current?.click();
+      // Don't prevent default on touch - let the label's htmlFor work naturally
+      // This is crucial for mobile browsers
+      if (disabled) {
+        e.preventDefault();
+      }
     },
     [disabled],
   );
@@ -144,7 +158,8 @@ const FileDropper = ({
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          onTouchEnd={handleTouchEnd}
+          onClick={handleClick}
+          onTouchStart={handleTouchStart}
           className={combineClassNames(
             FILE_DROPPER_BASE_STYLES,
             colorStyles,
@@ -182,7 +197,8 @@ const FileDropper = ({
       ) : (
         <label
           htmlFor={inputId}
-          onTouchEnd={handleTouchEnd}
+          onClick={handleClick}
+          onTouchStart={handleTouchStart}
           className={combineClassNames(
             "cursor-pointer block",
             disabled && FILE_DROPPER_DISABLED_STYLES,
