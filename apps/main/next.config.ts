@@ -52,16 +52,12 @@ const nextConfig: NextConfig = {
         source: "/astralpoet/:path*",
         destination: `${astralpoetUrl}/:path*`,
       },
-      // Resume app routes - exact match first, then wildcard
+      // Resume app routes - more specific routes first, then wildcard
       {
         source: "/apps/resume",
         destination: `${resumeUrl}${resumeBasePath}`,
       },
-      {
-        source: "/apps/resume/:path*",
-        destination: `${resumeUrl}${resumeBasePath}/:path*`,
-      },
-      // Proxy static assets for resume app (from /apps/resume path)
+      // Proxy static assets for resume app (must come before wildcard)
       {
         source: "/apps/resume/_next/static/:path*",
         destination: `${resumeUrl}${resumeBasePath}/_next/static/:path*`,
@@ -69,6 +65,11 @@ const nextConfig: NextConfig = {
       {
         source: "/apps/resume/_next/webpack-hmr",
         destination: `${resumeUrl}${resumeBasePath}/_next/webpack-hmr`,
+      },
+      // Wildcard route (must come last to catch all other paths)
+      {
+        source: "/apps/resume/:path*",
+        destination: `${resumeUrl}${resumeBasePath}/:path*`,
       },
       // Proxy resume app basePath routes (resume app generates /resume/* paths due to basePath)
       // Only needed in development when resume app has basePath

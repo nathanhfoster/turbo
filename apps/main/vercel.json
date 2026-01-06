@@ -4,8 +4,20 @@
   "framework": "nextjs",
   "rewrites": [
     {
-      "source": "/web/:path*",
-      "destination": "https://web.agentnate.dev/:path*"
+      "source": "/apps/resume",
+      "destination": "https://turbo-resume-ten.vercel.app"
+    },
+    {
+      "source": "/apps/resume/_next/static/:path*",
+      "destination": "https://turbo-resume-ten.vercel.app/_next/static/:path*"
+    },
+    {
+      "source": "/apps/resume/_next/webpack-hmr",
+      "destination": "https://turbo-resume-ten.vercel.app/_next/webpack-hmr"
+    },
+    {
+      "source": "/apps/resume/:path*",
+      "destination": "https://turbo-resume-ten.vercel.app/:path*"
     }
   ]
 }
