@@ -6,7 +6,14 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"],
-      "env": ["VAPID_PRIVATE_KEY", "VAPID_EMAIL", "NEXT_PUBLIC_VAPID_PUBLIC_KEY"]
+      "env": [
+        "VAPID_PRIVATE_KEY",
+        "VAPID_EMAIL",
+        "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
+        "APPS_RESUME_URL",
+        "APPS_MAIN_URL",
+        "APPS_ASTRAL_POET_URL"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
