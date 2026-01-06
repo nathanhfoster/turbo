@@ -7,6 +7,7 @@ import withForwardRef from "../../hocs/withForwardRef";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import Box from "../Box";
 import Typography from "../Typography";
+import { IconCloudUpload } from "../../../icons";
 import {
   FILE_DROPPER_BASE_STYLES,
   FILE_DROPPER_COLOR_STYLES,
@@ -157,30 +158,24 @@ const FileDropper = ({
         >
           <Box
             variant="div"
-            className="flex flex-col items-center justify-center text-center gap-2"
+            className="flex flex-col items-center justify-center text-center gap-2 w-full"
           >
             {icon || (
-              <svg
-                className="w-12 h-12 text-gray-400 dark:text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
+              <IconCloudUpload className="w-12 h-12 text-gray-400 dark:text-gray-500" />
             )}
             <Typography variant="p" className="text-gray-600 dark:text-gray-400">
               {dropZoneText}
             </Typography>
             {accept && (
-              <Typography variant="small" className="text-gray-500 dark:text-gray-500">
-                Accepted: {accept}
-              </Typography>
+              <Box variant="div" className="w-full min-w-0 px-2">
+                <Typography 
+                  variant="small" 
+                  truncate
+                  className="text-gray-500 dark:text-gray-500 text-left"
+                >
+                  Accepted: {accept}
+                </Typography>
+              </Box>
             )}
           </Box>
         </label>

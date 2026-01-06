@@ -1,6 +1,7 @@
 export { default as IconBook } from "./Book";
 export { default as IconBriefcase } from "./Briefcase";
 export { default as IconCalendar } from "./Calendar";
+export { default as IconCloudUpload } from "./CloudUpload";
 export { default as IconDownload } from "./Download";
 export { default as IconEllipsis } from "./Ellipsis";
 export { default as IconEnvelopeOpen } from "./EnvelopeOpen";

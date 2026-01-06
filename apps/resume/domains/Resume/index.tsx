@@ -140,7 +140,7 @@ export function ResumeBuilder(props?: ResumeProps) {
         {/* File Upload Section */}
         {!currentResume && (
           <Box className="mb-8 space-y-4">
-            <Box className="flex gap-4">
+            <Box className="flex flex-col gap-4 w-full">
               <FileDropper
                 accept={ACCEPTED_FILE_TYPES.join(",")}
                 maxSize={MAX_FILE_SIZE}
@@ -150,11 +150,12 @@ export function ResumeBuilder(props?: ResumeProps) {
                 dropZoneText="Drop your resume file here or click to browse"
                 showDropZone={true}
               />
-              <Box className="flex items-end">
+              <Box className="flex items-start">
                 <Button
                   onClick={() => setShowNewResumeForm(!showNewResumeForm)}
                   variant="outlined"
                   color="primary"
+                  className="w-full md:w-auto whitespace-nowrap"
                 >
                   {showNewResumeForm ? "Cancel" : "Create New Resume"}
                 </Button>

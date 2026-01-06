@@ -79,6 +79,8 @@ const preset: Config = {
     "dark:text-success-300",
     "dark:text-error-300",
     "dark:text-warning-300",
+    // Text truncation utility
+    "truncate",
     "dark:text-info-300",
     // Drawer background and styling
     "bg-background",
