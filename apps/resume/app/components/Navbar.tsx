@@ -14,13 +14,13 @@ import {
 import { getMainAppUrl } from "../../../shared/utils/getMainAppUrl";
 
 const NAV_ITEMS = [
-  { label: "Home", href: "/resume" },
-  { label: "Settings", href: "/resume/settings" },
+  { label: "Home", href: "/apps/resume" },
+  { label: "Settings", href: "/apps/resume/settings" },
 ];
 
 const BOTTOM_NAV_ITEMS = [
-  { label: "Home", href: "/resume", Icon: IconHome },
-  { label: "Settings", href: "/resume/settings", Icon: IconSliders },
+  { label: "Home", href: "/apps/resume", Icon: IconHome },
+  { label: "Settings", href: "/apps/resume/settings", Icon: IconSliders },
 ];
 
 export function Navbar() {
