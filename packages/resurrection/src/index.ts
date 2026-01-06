@@ -7,4 +7,5 @@ export {
   useLayoutEffectAfterMount,
   useThrottledCallback,
   useIsomorphicLayoutEffect,
+  useIsMounted,
 } from "./lib";

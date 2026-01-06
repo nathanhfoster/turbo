@@ -1,19 +1,20 @@
 "use client";
 
 import { CookieConsentModal } from "@nathanhfoster/pwa/device";
-import { Box } from "@nathanhfoster/ui";
+import { AppBody } from "@nathanhfoster/ui";
 
 interface BodyProps {
   children: React.ReactNode;
   className?: string;
 }
 
-export function Body({ children }: BodyProps) {
+export function Body({ children, className }: BodyProps) {
   return (
-    <Box pt="pt-8" className="flex min-h-screen flex-col">
-      <CookieConsentModal />
+    <AppBody 
+      className={className}
+      consentModal={<CookieConsentModal />}
+    >
       {children}
-    </Box>
+    </AppBody>
   );
 }
-

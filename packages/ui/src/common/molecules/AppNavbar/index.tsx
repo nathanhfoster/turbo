@@ -1,0 +1,84 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useIsMounted } from "@nathanhfoster/resurrection";
+import { Box, Typography } from "../../atoms";
+import { ThemeToggle } from "../../Theme";
+import { TopNavbar, BottomNavbar } from "../Navbar";
+import type { ReactNode } from "react";
+
+export interface NavItem {
+  label: string;
+  href: string;
+  Icon?: ReactNode;
+}
+
+interface AppNavbarProps {
+  logo: ReactNode;
+  navItems: NavItem[];
+  bottomNavItems: NavItem[];
+  rightContent?: ReactNode;
+}
+
+export function AppNavbar({
+  logo,
+  navItems,
+  bottomNavItems,
+  rightContent,
+}: AppNavbarProps) {
+  const pathname = usePathname();
+  const mounted = useIsMounted(false);
+
+  // Only use pathname after hydration to avoid SSR/client mismatch
+  const isActive = (href: string) => mounted && pathname === href;
+
+  return (
+    <>
+      <TopNavbar
+        logo={logo}
+        menuProps={{
+          menuItems: navItems.map(({ label, href }) => ({ label, href })),
+        }}
+        rightContent={rightContent || <ThemeToggle variant="text" size="md" />}
+      >
+        <Box className="hidden md:flex items-center gap-1">
+          {navItems.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                isActive(href)
+                  ? "text-primary"
+                  : "text-foreground hover:text-primary"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </Box>
+      </TopNavbar>
+      <BottomNavbar className="md:hidden">
+        <Box className="flex w-full justify-around">
+          {bottomNavItems.map(({ label, href, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`flex flex-col items-center justify-center px-3 py-2 text-xs font-medium transition-colors ${
+                isActive(href) ? "text-primary" : "text-foreground"
+              }`}
+            >
+              {Icon && (
+                <span className="h-6 w-6 mb-1 flex items-center justify-center">
+                  {Icon}
+                </span>
+              )}
+              <Typography className="text-center">{label}</Typography>
+            </Link>
+          ))}
+        </Box>
+      </BottomNavbar>
+    </>
+  );
+}
+

@@ -28,3 +28,8 @@ export type { SettingsMenuProps, SettingsMenuItem } from "./SettingsMenu";
 export { default as SimpleTable } from "./SimpleTable";
 export * from "./Stepper";
 export * from "./Tabs";
+export { AppBody } from "./AppBody";
+export { AppNavbar } from "./AppNavbar";
+export type { NavItem, AppNavbarProps } from "./AppNavbar";
+export { AppFooter } from "./AppFooter";
+export type { FooterLink, SocialLink, AppFooterProps } from "./AppFooter";
