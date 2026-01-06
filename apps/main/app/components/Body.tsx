@@ -2,6 +2,7 @@
 
 import { CookieConsentModal } from "@nathanhfoster/pwa/device";
 import GoogleTagManageIframe from "./GoogleTagManageIframe";
+import { Box } from "@nathanhfoster/ui";
 
 interface BodyProps {
   children: React.ReactNode;
@@ -10,7 +11,7 @@ interface BodyProps {
 
 export function Body({ children }: BodyProps) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <Box pt="pt-8" className="flex min-h-screen flex-col">
       <script
         dangerouslySetInnerHTML={{
           __html: "window.dataLayer = window.dataLayer || [];",
@@ -36,6 +37,6 @@ export function Body({ children }: BodyProps) {
       )}
       <CookieConsentModal />
       {children}
-    </div>
+    </Box>
   );
 }
