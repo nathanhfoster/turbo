@@ -35,7 +35,6 @@ function ResumeSelectorPage() {
     async () => {
       throw new Error("Not implemented");
     },
-    async () => {},
     handleContentChange,
     improveResume,
     tailorForJob,

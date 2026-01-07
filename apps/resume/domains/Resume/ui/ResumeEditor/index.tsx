@@ -130,7 +130,6 @@ export function ResumeEditor({
           }}
           placeholder="Start editing your resume..."
           editable={true}
-          showToolbar={true}
           className="w-full"
         />
       )}

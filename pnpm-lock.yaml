@@ -452,9 +452,6 @@ importers:
 
   packages/react-hooks:
     dependencies:
-      '@nathanhfoster/resurrection':
-        specifier: workspace:*
-        version: link:../resurrection
       '@nathanhfoster/utils':
         specifier: workspace:*
         version: link:../utils
