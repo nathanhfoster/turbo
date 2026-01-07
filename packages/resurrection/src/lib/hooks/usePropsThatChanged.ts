@@ -2,7 +2,7 @@
 
 import { shallowEquals } from "../utils";
 import { useRef } from "react";
-import usePreviousValue from "./usePreviousValue";
+import { usePreviousValue } from "@nathanhfoster/react-hooks";
 import { ComponentPropsType } from "../connect/types";
 
 /**

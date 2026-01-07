@@ -9,7 +9,7 @@ import {
   DRAWER_TRANSFORM_CLASSES,
   DRAWER_TRANSITION_DELAY,
 } from "./constants";
-import { useIsomorphicLayoutEffect } from "@nathanhfoster/resurrection";
+import { useIsomorphicLayoutEffect } from "@nathanhfoster/react-hooks";
 import Portal from "../Portal";
 
 const Drawer = ({

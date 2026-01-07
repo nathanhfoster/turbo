@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { createContext, useContext } from "@nathanhfoster/resurrection";
+import { createContext, useContext } from "react";
 import { combineClassNames } from "@nathanhfoster/utils";
 import type {
   DropdownProps,

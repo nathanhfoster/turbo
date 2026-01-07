@@ -3,10 +3,9 @@
 import { isFunction } from "../utils";
 import { useCallback, useRef, Dispatch, SetStateAction } from "react";
 import usePropsThatChanged from "./usePropsThatChanged";
-import useLazyMemo from "./useLazyMemo";
+import { useLazyMemo, useEffectAfterMount } from "@nathanhfoster/react-hooks";
 import getDerivedStateFromProps from "../utils/getDerivedStateFromProps";
 import useSetStateReducer, { StateCallback } from "./useSetStateReducer";
-import useEffectAfterMount from "./useEffectAfterMount";
 
 import type {
   ContextStoreInitializer,

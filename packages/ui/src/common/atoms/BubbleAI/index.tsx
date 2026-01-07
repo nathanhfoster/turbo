@@ -2,7 +2,8 @@
 
 import React, { useMemo, useEffect, useRef, useState } from "react";
 import { combineClassNames } from "@nathanhfoster/utils";
-import { useEventListener, getRandomNumber } from "@nathanhfoster/resurrection";
+import { getRandomNumber } from "@nathanhfoster/utils";
+import { useEventListener } from "@nathanhfoster/react-hooks";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";

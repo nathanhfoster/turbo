@@ -4,7 +4,7 @@ import type { MouseEvent } from "react";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import { combineClassNames } from "@nathanhfoster/utils";
 import { useMemo } from "react";
-import { useIsomorphicLayoutEffect } from "@nathanhfoster/resurrection";
+import { useIsomorphicLayoutEffect } from "@nathanhfoster/react-hooks";
 import Box from "../Box";
 import Portal from "../Portal";
 import { MODAL_SIZE_CLASSES, MODAL_TRANSITION_DELAY } from "./constants";

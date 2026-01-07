@@ -1,61 +1,54 @@
-import { FC } from 'react'
-import Dropdown from '@rewind-ui/core/dist/components/Dropdown/Dropdown'
-import InputGroup from '@rewind-ui/core/dist/components/InputGroup/InputGroup'
-import { useRouter } from 'next/router'
+"use client";
+
+import { FC } from "react";
+import { useRouter } from "next/navigation";
 import {
-	EntriesActions,
-	EntriesDispatchContext,
-} from '@/contexts/EntriesContext'
-import { deleteEntryFromDb } from '@/contexts/EntriesContext/indexedDb'
-import { connect } from '@/packages/ui'
-import { IconEllipsis } from '@/packages/ui/src/icons'
-import {
-	EllipsisConnectedProps,
-	EllipsisMapDispatchToProps,
-	EllipsisMapStateToProps,
-	EllipsisOwnProps,
-} from './types'
+  Dropdown,
+  IconButton,
+  IconEllipsis,
+} from "@nathanhfoster/ui";
+import { useEntry } from "@/domains/Entry";
+import { initializeEntryDatabase } from "@/domains/Entry/model/repository";
 
-const Ellipsis: FC<EllipsisConnectedProps> = ({ deleteEntry, entryId }) => {
-	const router = useRouter()
-
-	const handleDeleteEntry = () => {
-		deleteEntryFromDb(entryId).then(() => {
-			deleteEntry(entryId)
-			router.back()
-		})
-	}
-
-	return (
-		<Dropdown tone='solid'>
-			<Dropdown.Trigger>
-				<InputGroup.Button tone='solid'>
-					<IconEllipsis />
-				</InputGroup.Button>
-			</Dropdown.Trigger>
-			<Dropdown.Content>
-				<Dropdown.Label>Entry</Dropdown.Label>
-				<Dropdown.Divider />
-				<Dropdown.Item>Settings</Dropdown.Item>
-				<Dropdown.Label>Danger Zone</Dropdown.Label>
-				<Dropdown.Divider />
-				<Dropdown.Item onClick={handleDeleteEntry}>Delete</Dropdown.Item>
-			</Dropdown.Content>
-		</Dropdown>
-	)
+interface EllipsisProps {
+  entryId: number;
 }
 
-export default connect<
-	EllipsisMapStateToProps,
-	EllipsisMapDispatchToProps,
-	EllipsisOwnProps
->({
-	mapDispatchToPropsOptions: [
-		{
-			context: EntriesDispatchContext,
-			mapDispatchToProps: {
-				deleteEntry: EntriesActions.deleteEntry,
-			},
-		},
-	],
-})(Ellipsis)
+export function Ellipsis({ entryId }: EllipsisProps) {
+  const router = useRouter();
+  const { deleteEntry } = useEntry();
+
+  const handleDeleteEntry = async () => {
+    try {
+      const repository = await initializeEntryDatabase();
+      await repository.delete(entryId);
+      await deleteEntry(entryId);
+      router.back();
+    } catch (error) {
+      console.error("Failed to delete entry:", error);
+    }
+  };
+
+  return (
+    <Dropdown>
+      <Dropdown.Trigger>
+        <IconButton
+          icon={<IconEllipsis />}
+          variant="default"
+          size="md"
+          aria-label="Entry menu"
+        />
+      </Dropdown.Trigger>
+      <Dropdown.Content>
+        <Dropdown.Label>Entry</Dropdown.Label>
+        <Dropdown.Divider />
+        <Dropdown.Item>Settings</Dropdown.Item>
+        <Dropdown.Label>Danger Zone</Dropdown.Label>
+        <Dropdown.Divider />
+        <Dropdown.Item onClick={handleDeleteEntry}>Delete</Dropdown.Item>
+      </Dropdown.Content>
+    </Dropdown>
+  );
+}
+
+export default Ellipsis;

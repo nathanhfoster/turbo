@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, RefObject, useCallback, useState } from "react";
 
-import useEffectAfterMount from "../useEffectAfterMount";
+import { useEffectAfterMount } from "@nathanhfoster/react-hooks";
 
 import {
   CURSOR_MAP,

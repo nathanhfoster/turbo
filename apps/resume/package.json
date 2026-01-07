@@ -15,6 +15,7 @@
     "@nathanhfoster/indexeddb": "workspace:*",
     "@nathanhfoster/openai": "workspace:*",
     "@nathanhfoster/pwa": "workspace:*",
+    "@nathanhfoster/react-hooks": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/ui": "workspace:*",
     "@nathanhfoster/utils": "workspace:*",

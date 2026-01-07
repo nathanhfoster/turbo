@@ -27,6 +27,8 @@ export * from "./Switch/types";
 export * from "./Tab";
 export { default as TextArea } from "./TextArea";
 export * from "./TextArea/types";
+export { default as TipTapEditor } from "./TipTapEditor";
+export type { TipTapEditorProps } from "./TipTapEditor/types";
 export { default as Typography } from "./Typography";
 export { default as FileDropper } from "./FileDropper";
 export * from "./FileDropper/types";

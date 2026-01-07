@@ -2,7 +2,7 @@
 
 import { ComponentType, Ref, useMemo, useRef, JSX } from "react";
 import { ComponentPropsType, EqualityFunctionType } from "../connect/types";
-import usePreviousValue from "./usePreviousValue";
+import { usePreviousValue } from "@nathanhfoster/react-hooks";
 
 export interface useMemoComponentOptions<P extends ComponentPropsType> {
   Component: ComponentType<P>;

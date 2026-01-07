@@ -1,106 +1,66 @@
-import { FC } from 'react'
-import FormControl from '@rewind-ui/core/dist/components/FormControl/FormControl'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+"use client";
+
+import { FC } from "react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import {
-	EntriesActions,
-	EntriesDispatchContext,
-} from '@/contexts/EntriesContext'
-import { saveEntryToDb } from '@/contexts/EntriesContext/indexedDb'
-import {
-	connect,
-	useDebouncedCallback,
-	useEffectAfterMount,
-} from '@/packages/ui'
-import { IconCalendar, IconHeading } from '@/packages/ui/src/icons'
-import { getValidDate } from '@/packages/utils/src'
-import Ellipsis from './components/Ellipsis'
-import {
-	EntryConnectedProps,
-	EntryMapDispatchToProps,
-	EntryMapStateToProps,
-	EntryOwnProps,
-} from './types'
+  Box,
+  Input,
+  FormControl,
+} from "@nathanhfoster/ui";
+import { useEntry, useEntryEditor } from "@/domains/Entry";
+import { getValidDate } from "@nathanhfoster/utils";
+import Ellipsis from "./components/Ellipsis";
+import type { EntryProps } from "./types";
 
-const Editor = dynamic(() => import('@/components/Editor'), { ssr: false })
+const Editor = dynamic(() => import("@/components/Editor"), { ssr: false });
 
-const Entry: FC<EntryConnectedProps> = ({ setEntryValue, entry }) => {
-	const router = useRouter()
-	const debounceSaveEntryToDb = useDebouncedCallback(saveEntryToDb, [], 1000)
+export function Entry({ entryId }: EntryProps) {
+  const router = useRouter();
+  const { currentEntry, setEntryValue } = useEntry({ entryId });
+  const { handleContentChange, handleTitleChange } = useEntryEditor(currentEntry);
 
-	useEffectAfterMount(() => {
-		if (entry?.id) {
-			debounceSaveEntryToDb(entry)
-		}
-	}, [entry?.title, entry?.date_created, entry?.html])
+  if (!currentEntry) {
+    router.push("/");
+    return null;
+  }
 
-	if (!entry) {
-		router.push('/')
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEntryValue(currentEntry.id, "date_created", event.target.value);
+  };
 
-		return null
-	}
-	const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEntryValue({
-			id: entry?.id,
-			key: 'date_created',
-			value: event.target.value,
-		})
-	}
+  return (
+    <Box className="flex flex-col gap-4 p-4">
+      <FormControl>
+        <Box className="flex items-center gap-2">
+          <Input
+            type="date"
+            name="date_created"
+            value={getValidDate(currentEntry.date_created)}
+            onChange={handleDateChange}
+            className="flex-1"
+          />
+          <Ellipsis entryId={currentEntry.id} />
+        </Box>
+      </FormControl>
 
-	const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setEntryValue({
-			id: entry.id,
-			key: 'title',
-			value: event.target.value,
-		})
-	}
+      <FormControl>
+        <Input
+          name="title"
+          placeholder="My first diary entry"
+          value={currentEntry.title}
+          onChange={(e) => handleTitleChange(e.target.value)}
+          className="w-full"
+        />
+      </FormControl>
 
-	const handleEditorStateChange = (value: string) => {
-		setEntryValue({ id: entry.id, key: 'html', value })
-	}
-
-	return (
-		<FormControl size='lg' className='text-white'>
-			<FormControl.InputGroup size='lg' tone='transparent'>
-				<FormControl.Input
-					className='cursor-default text-inherit'
-					type='date'
-					value={getValidDate(entry.date_created)}
-					leftIcon={<IconCalendar />}
-					tone='transparent'
-					onChange={handleDateChange}
-				/>
-				<Ellipsis entryId={entry.id} />
-			</FormControl.InputGroup>
-			<FormControl.InputGroup size='lg' tone='transparent'>
-				<FormControl.Input
-					className='text-inherit'
-					placeholder='My first diary entry'
-					leftIcon={<IconHeading />}
-					value={entry.title}
-					onChange={handleTitleChange}
-				/>
-			</FormControl.InputGroup>
-			<Editor
-				className='h-dvh resize-none'
-				onChange={handleEditorStateChange}
-				value={entry.html}
-			/>
-		</FormControl>
-	)
+      <Box className="flex-1 min-h-0">
+        <Editor
+          className="h-full min-h-[600px]"
+          onChange={handleContentChange}
+          value={currentEntry.html}
+        />
+      </Box>
+    </Box>
+  );
 }
-
-export default connect<
-	EntryMapStateToProps,
-	EntryMapDispatchToProps,
-	EntryOwnProps
->({
-	mapDispatchToPropsOptions: [
-		{
-			context: EntriesDispatchContext,
-			mapDispatchToProps: {
-				setEntryValue: EntriesActions.setEntryValue,
-			},
-		},
-	],
-})(Entry)

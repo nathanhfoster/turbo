@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useIsMounted } from "@nathanhfoster/resurrection";
+import { useIsMounted } from "@nathanhfoster/react-hooks";
 import { isNavItemActive } from "@nathanhfoster/utils";
 import { Box, Typography, BubbleAI } from "../../atoms";
 import { ThemeToggle } from "../../Theme";

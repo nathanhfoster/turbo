@@ -1,7 +1,7 @@
 "use client";
 
-import { Box, Button, Typography, Input, Switch, IconDocument, IconCode } from "@nathanhfoster/ui";
-import { ACTION_BUTTONS, EXPORT_BUTTONS, JOB_INPUT_BUTTONS } from "../../lib/buttonConstants";
+import { Box, Button, Typography, Input } from "@nathanhfoster/ui";
+import { ACTION_BUTTONS, EXPORT_BUTTONS, JOB_INPUT_BUTTONS } from "./constants";
 import type { LeftPaneProps } from "./types";
 
 export function LeftPane({
@@ -19,13 +19,6 @@ export function LeftPane({
   onExportTXT,
   onExportPDF,
   onCopy,
-  isEditing,
-  isDirty,
-  showPlainText,
-  onEdit,
-  onSave,
-  onReset,
-  onTogglePlainText,
 }: LeftPaneProps) {
   if (!currentResume) return null;
 
@@ -67,54 +60,6 @@ export function LeftPane({
   return (
     <Box className="flex flex-col gap-4 p-4 w-full max-w-full min-w-0">
       <Box className="flex flex-col gap-3">
-        {/* Edit and Toggle Controls */}
-        <Box className="flex flex-col gap-2 pb-3 border-b border-gray-200 dark:border-gray-700">
-          {!isEditing && (
-            <Box className="flex items-center justify-between gap-2">
-              <Box className="flex items-center gap-2">
-                <IconDocument 
-                  className={`w-5 h-5 transition-opacity ${showPlainText ? 'opacity-40' : 'opacity-100'}`}
-                />
-                <Switch
-                  checked={showPlainText}
-                  onChange={(e) => onTogglePlainText(e.target.checked)}
-                  name="plain-text-toggle"
-                />
-                <IconCode 
-                  className={`w-5 h-5 transition-opacity ${showPlainText ? 'opacity-100' : 'opacity-40'}`}
-                />
-              </Box>
-            </Box>
-          )}
-          <Box className="flex gap-2">
-            {!isEditing ? (
-              <>
-                <Button onClick={onEdit} variant="outlined" color="primary" className="w-full">
-                  Edit
-                </Button>
-                {isDirty && (
-                  <>
-                    <Button onClick={onSave} variant="contained" color="primary" className="flex-1">
-                      Save
-                    </Button>
-                    <Button onClick={onReset} variant="text" color="inherit" className="flex-1">
-                      Reset
-                    </Button>
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <Button onClick={onSave} variant="contained" color="primary" className="flex-1">
-                  Save
-                </Button>
-                <Button onClick={onReset} variant="outlined" color="inherit" className="flex-1">
-                  Cancel
-                </Button>
-              </>
-            )}
-          </Box>
-        </Box>
         {ACTION_BUTTONS.map((button) => {
           const handler = actionHandlers[button.id];
           const isDisabled =

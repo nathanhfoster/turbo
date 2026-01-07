@@ -18,8 +18,8 @@ import {
 import {
   useEffectAfterChange,
   useEffectOnce,
-  useMemoComponent,
-} from "../hooks";
+} from "@nathanhfoster/react-hooks";
+import useMemoComponent from "../hooks/useMemoComponent";
 import defaultMergeProps from "../utils/defaultMergeProps";
 import createUseSelectorHook from "../hooks/createUseSelectorHook";
 import createUseDispatchHook from "../hooks/createUseDispatchHook";

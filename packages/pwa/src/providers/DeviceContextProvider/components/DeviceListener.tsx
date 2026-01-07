@@ -1,7 +1,8 @@
 "use client";
 
 import { FC, useCallback, useEffect } from "react";
-import { isPwaInstalled, useEventListener } from "@nathanhfoster/resurrection";
+import { isPwaInstalled } from "@nathanhfoster/resurrection";
+import { useEventListener } from "@nathanhfoster/ui";
 import { deviceContextActions, useDeviceDispatch } from "../context";
 import {
   KEY_COOKIE_CONSENT_MODAL_OPEN,

@@ -4,7 +4,7 @@ import Box from "../../atoms/Box";
 import Button from "../../atoms/Button";
 import Drawer from "../../atoms/Drawer";
 import Typography from "../../atoms/Typography";
-import { useBooleanToggler } from "@nathanhfoster/resurrection";
+import { useBooleanToggler } from "@nathanhfoster/react-hooks";
 import { MENU_ITEM_CLASSES, DEFAULT_MENU_ITEMS } from "./constants";
 import type { HamburgerMenuProps } from "./types";
 

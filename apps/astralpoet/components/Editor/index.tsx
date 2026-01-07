@@ -1,12 +1,22 @@
 import { FC, memo } from 'react'
-import ReactQuill from 'react-quill'
-import { FORMATS } from './modules'
+import { WysiwygEditor } from '@nathanhfoster/ui'
 import { EditorProps } from './types'
 
-import 'react-quill/dist/quill.snow.css'
-
-const Editor: FC<EditorProps> = ({ ...restOfProps }) => {
-	return <ReactQuill {...restOfProps} formats={FORMATS} theme='snow' />
+const Editor: FC<EditorProps> = ({ onChange, value, ...restOfProps }) => {
+	return (
+		<WysiwygEditor
+			{...restOfProps}
+			value={value}
+			onChange={(html) => {
+				if (onChange) {
+					onChange(html)
+				}
+			}}
+			placeholder="Start writing your entry..."
+			editable={true}
+			showBubbleMenu={true}
+		/>
+	)
 }
 
 export default memo(Editor)

@@ -41,6 +41,8 @@ export default defineConfig(() => ({
         "immer",
         "scheduler",
         "use-context-selector",
+        "@nathanhfoster/utils",
+        "@nathanhfoster/react-hooks",
       ],
     },
   },

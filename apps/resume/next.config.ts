@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     ? undefined 
     : process.env.APPS_RESUME_URL || "https://turbo-resume-ten.vercel.app",
   transpilePackages: [
+    "@nathanhfoster/react-hooks",
     "@nathanhfoster/resurrection",
     "@nathanhfoster/ui",
     "@nathanhfoster/utils",

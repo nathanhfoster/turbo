@@ -1,60 +1,44 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import { createOpenAIAdapter } from "@nathanhfoster/openai";
+import { useState, useCallback } from "react";
+import {
+  improveResumeContent,
+  tailorResumeForJob,
+  generateResumeSuggestions,
+} from "../api/openaiApi";
 import type { Resume } from "../model/types";
 
 /**
  * Hook for AI-powered resume editing
  * Following FSD pattern - domain-level business logic
+ *
+ * This hook abstracts the API layer and manages state.
+ * API calls are delegated to the api/ layer for better separation of concerns.
  */
 export function useResumeAI() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Create OpenAI adapter instance with configuration
-  // This follows SOLID principles by creating a unique instance per application
-  const openAIAdapter = useMemo(() => {
-    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-    if (!apiKey) {
-      console.warn("NEXT_PUBLIC_OPENAI_API_KEY is not set");
-      return null;
-    }
-
-    return createOpenAIAdapter({
-      apiKey,
-      defaultModel: "gpt-4o",
-      defaultTemperature: 0.7,
-      defaultMaxTokens: 2000,
-    });
-  }, []);
 
   /**
    * Improve resume content using AI
    */
   const improveResume = useCallback(
     async (resume: Resume, instructions?: string): Promise<string | null> => {
-      if (!openAIAdapter) {
-        setError("OpenAI API key is not configured");
-        return null;
-      }
-
       setIsGenerating(true);
       setError(null);
 
       try {
-        const prompt = instructions
-          ? `Improve the following resume based on these instructions: ${instructions}\n\nResume content:\n${resume.content}`
-          : `Improve the following resume content to make it more professional and impactful:\n\n${resume.content}`;
-
-        const result = await openAIAdapter.generateContent({
-          prompt,
+        const result = await improveResumeContent({
+          content: resume.content,
+          instructions,
         });
 
         if (result.success && result.content) {
           return result.content;
         } else {
-          throw new Error(result.error?.message || "Failed to generate improved resume");
+          const errorMessage = result.error?.message || "Failed to improve resume";
+          setError(errorMessage);
+          return null;
         }
       } catch (err) {
         const errorMessage =
@@ -65,7 +49,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [openAIAdapter],
+    [],
   );
 
   /**
@@ -76,27 +60,21 @@ export function useResumeAI() {
       resume: Resume,
       jobDescription: string,
     ): Promise<string | null> => {
-      if (!openAIAdapter) {
-        setError("OpenAI API key is not configured");
-        return null;
-      }
-
       setIsGenerating(true);
       setError(null);
 
       try {
-        const prompt = `Tailor the following resume to match this job description. Keep the same structure and format, but adjust the content to highlight relevant skills and experiences:\n\nJob Description:\n${jobDescription}\n\nResume content:\n${resume.content}`;
-
-        const result = await openAIAdapter.generateContent({
-          prompt,
+        const result = await tailorResumeForJob({
+          content: resume.content,
+          jobDescription,
         });
 
         if (result.success && result.content) {
           return result.content;
         } else {
-          throw new Error(
-            result.error?.message || "Failed to tailor resume for job",
-          );
+          const errorMessage = result.error?.message || "Failed to tailor resume";
+          setError(errorMessage);
+          return null;
         }
       } catch (err) {
         const errorMessage =
@@ -107,7 +85,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [openAIAdapter],
+    [],
   );
 
   /**
@@ -118,30 +96,21 @@ export function useResumeAI() {
       resume: Resume,
       section?: string,
     ): Promise<string | null> => {
-      if (!openAIAdapter) {
-        setError("OpenAI API key is not configured");
-        return null;
-      }
-
       setIsGenerating(true);
       setError(null);
 
       try {
-        const prompt = section
-          ? `Analyze the following resume and provide specific suggestions for improving the "${section}" section:\n\nResume content:\n${resume.content}`
-          : `Analyze the following resume and provide specific suggestions for improvement:\n\n${resume.content}`;
-
-        const result = await openAIAdapter.generateContent({
-          prompt,
-          max_tokens: 1000,
+        const result = await generateResumeSuggestions({
+          content: resume.content,
+          section,
         });
 
         if (result.success && result.content) {
           return result.content;
         } else {
-          throw new Error(
-            result.error?.message || "Failed to generate suggestions",
-          );
+          const errorMessage = result.error?.message || "Failed to generate suggestions";
+          setError(errorMessage);
+          return null;
         }
       } catch (err) {
         const errorMessage =
@@ -152,7 +121,7 @@ export function useResumeAI() {
         setIsGenerating(false);
       }
     },
-    [openAIAdapter],
+    [],
   );
 
   return {

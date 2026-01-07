@@ -7,6 +7,7 @@
   "exports": {
     ".": "./src/index.tsx",
     "./index.css": "./src/index.css",
+    "./src/types": "./src/types.ts",
     "./*": "./src/*.tsx"
   },
   "scripts": {
@@ -41,9 +42,21 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@nathanhfoster/cookies": "workspace:*",
+    "@nathanhfoster/react-hooks": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
     "@nathanhfoster/utils": "workspace:*",
+    "@tiptap/core": "^2.11.2",
+    "@tiptap/extension-bold": "^2.11.2",
+    "@tiptap/extension-color": "^2.11.2",
+    "@tiptap/extension-font-family": "^2.11.2",
+    "@tiptap/extension-heading": "^2.11.2",
+    "@tiptap/extension-highlight": "^2.11.2",
+    "@tiptap/extension-subscript": "^2.11.2",
+    "@tiptap/extension-superscript": "^2.11.2",
+    "@tiptap/extension-text-align": "^2.11.2",
+    "@tiptap/extension-text-style": "^2.11.2",
     "html-react-parser": "^5.2.5",
+    "novel": "^1.0.2",
     "react-virtualized": "^9.22.5",
     "tailwindcss": "^4.1.13"
   },

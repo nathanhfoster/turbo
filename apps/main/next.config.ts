@@ -39,19 +39,50 @@ const nextConfig: NextConfig = {
   ],
   // Multi-zone architecture: proxy routes to other apps
   rewrites: async () => {
-    const astralpoetUrl = process.env.APPS_ASTRAL_POET_URL || "http://localhost:3002";
+    const astralpoetUrl = process.env.APPS_ASTRAL_POET_URL || "http://localhost:3004";
     const resumeUrl = process.env.APPS_RESUME_URL || "http://localhost:3003";
     
-    // In development, resume app has basePath: "/resume", so we need to include it
-    // In production, resume app is deployed separately without basePath
+    // In development, apps have basePath, so we need to include it
+    // In production, apps are deployed separately without basePath
+    const isAstralpoetLocalhost = astralpoetUrl.includes("localhost");
+    const astralpoetBasePath = isAstralpoetLocalhost ? "/astralpoet" : "";
     const isResumeLocalhost = resumeUrl.includes("localhost");
     const resumeBasePath = isResumeLocalhost ? "/resume" : "";
     
     return [
+      // Astralpoet app routes - more specific routes first, then wildcard
       {
-        source: "/astralpoet/:path*",
-        destination: `${astralpoetUrl}/:path*`,
+        source: "/apps/astralpoet",
+        destination: `${astralpoetUrl}${astralpoetBasePath}`,
       },
+      // Proxy static assets for astralpoet app (must come before wildcard)
+      {
+        source: "/apps/astralpoet/_next/static/:path*",
+        destination: `${astralpoetUrl}${astralpoetBasePath}/_next/static/:path*`,
+      },
+      {
+        source: "/apps/astralpoet/_next/webpack-hmr",
+        destination: `${astralpoetUrl}${astralpoetBasePath}/_next/webpack-hmr`,
+      },
+      // Wildcard route (must come last to catch all other paths)
+      {
+        source: "/apps/astralpoet/:path*",
+        destination: `${astralpoetUrl}${astralpoetBasePath}/:path*`,
+      },
+      // Proxy astralpoet app basePath routes (astralpoet app generates /astralpoet/* paths due to basePath)
+      // Only needed in development when astralpoet app has basePath
+      ...(isAstralpoetLocalhost
+        ? [
+            {
+              source: "/astralpoet",
+              destination: `${astralpoetUrl}/astralpoet`,
+            },
+            {
+              source: "/astralpoet/:path*",
+              destination: `${astralpoetUrl}/astralpoet/:path*`,
+            },
+          ]
+        : []),
       // Resume app routes - more specific routes first, then wildcard
       {
         source: "/apps/resume",

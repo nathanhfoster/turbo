@@ -15,7 +15,7 @@ import Skeleton from "../../atoms/Skeleton";
 import {
   useLayoutEffectAfterMount,
   useThrottledCallback,
-} from "@nathanhfoster/resurrection";
+} from "@nathanhfoster/react-hooks";
 import { THROTTLE_TIME } from "./constants";
 
 const ListGrid = <T extends object>({

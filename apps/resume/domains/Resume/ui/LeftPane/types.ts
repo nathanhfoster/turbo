@@ -1,3 +1,4 @@
+import type { ComponentColor, ComponentVariant } from "@nathanhfoster/ui";
 import type { Resume } from "../../model/types";
 
 export interface LeftPaneProps {
@@ -15,13 +16,32 @@ export interface LeftPaneProps {
   onExportTXT: (resume: Resume) => void;
   onExportPDF: (resume: Resume) => Promise<void>;
   onCopy: (resume: Resume) => Promise<void>;
-  // Edit and toggle props
-  isEditing: boolean;
-  isDirty: boolean;
-  showPlainText: boolean;
-  onEdit: () => void;
-  onSave: () => void;
-  onReset: () => void;
-  onTogglePlainText: (checked: boolean) => void;
+}
+
+export interface ActionButtonConfig {
+  id: string;
+  label: string;
+  variant: ComponentVariant;
+  color: ComponentColor;
+  className?: string;
+  disabled?: boolean | ((isGenerating: boolean) => boolean);
+  loadingLabel?: string;
+}
+
+export interface ExportButtonConfig {
+  id: string;
+  label: string;
+  variant: ComponentVariant;
+  color: ComponentColor;
+  className?: string;
+}
+
+export interface JobInputButtonConfig {
+  id: string;
+  label: string;
+  variant: ComponentVariant;
+  color: ComponentColor;
+  className?: string;
+  disabled?: (jobDescription: string, isGenerating: boolean) => boolean;
 }
 

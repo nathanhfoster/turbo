@@ -1,5 +1,5 @@
 import type { BubbleAIQuality, BubbleAIState, RingConfig } from "./types";
-import { getRandomNumber } from "@nathanhfoster/resurrection";
+import { getRandomNumber } from "@nathanhfoster/utils";
 
 /**
  * Default ring configurations for different themes

@@ -10,9 +10,11 @@
         "VAPID_PRIVATE_KEY",
         "VAPID_EMAIL",
         "NEXT_PUBLIC_VAPID_PUBLIC_KEY",
+        "NEXT_PUBLIC_OPENAI_API_KEY",
         "APPS_RESUME_URL",
         "APPS_MAIN_URL",
-        "APPS_ASTRAL_POET_URL"
+        "APPS_ASTRAL_POET_URL",
+        "NODE_ENV"
       ]
     },
     "lint": {

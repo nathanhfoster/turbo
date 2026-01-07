@@ -3,7 +3,7 @@
 import React, { useRef, useState, useCallback, useId, useMemo, useEffect } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { combineClassNames } from "@nathanhfoster/utils";
-import { useEventListener } from "@nathanhfoster/resurrection";
+import { useEventListener } from "@nathanhfoster/react-hooks";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";

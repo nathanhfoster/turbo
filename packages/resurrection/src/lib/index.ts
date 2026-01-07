@@ -30,37 +30,13 @@ export { default as createContextWithName } from "./utils/createContextWithName"
 export { default as createSlice } from "./utils/createSlice";
 export { default as setStateReducer } from "./reducers/setStateReducer";
 
-// Hook Exports
+// Hook Exports (resurrection-specific hooks only)
+// Note: General-purpose hooks are available from @nathanhfoster/ui
 export { default as createUseDispatchHook } from "./hooks/createUseDispatchHook";
 export { default as createUseSelectorHook } from "./hooks/createUseSelectorHook";
 export { default as useSetStateReducer } from "./hooks/useSetStateReducer";
+export { default as useDispatch } from "./hooks/createUseDispatchHook";
 
 // Utility Functions
 export * from "./utils";
-// Explicitly export all hooks for better TypeScript resolution
-export {
-  useBooleanToggler,
-  useDebouncedCallback,
-  useDerivedInitialStateFromProps,
-  useEffectAfterChange,
-  useEffectAfterMount,
-  useEffectOnce,
-  useEventListener,
-  useIntervalIndex,
-  useIsMounted,
-  useIsomorphicLayoutEffect,
-  useLayoutEffectAfterMount,
-  useLazyMemo,
-  useMemoComponent,
-  usePreviousValue,
-  usePropsThatChanged,
-  useReducerWithThunk,
-  useResize,
-  useThrottledCallback,
-  useTriggerRerender,
-  useWillUnmount,
-  useWindowSize,
-  useDispatch,
-  useNavigator,
-} from "./hooks";
 export * from "./reducers";
