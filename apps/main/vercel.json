@@ -4,6 +4,22 @@
   "framework": "nextjs",
   "rewrites": [
     {
+      "source": "/apps/astralpoet",
+      "destination": "https://turbo-astralpoet.vercel.app"
+    },
+    {
+      "source": "/apps/astralpoet/_next/static/:path*",
+      "destination": "https://turbo-astralpoet.vercel.app/_next/static/:path*"
+    },
+    {
+      "source": "/apps/astralpoet/_next/webpack-hmr",
+      "destination": "https://turbo-astralpoet.vercel.app/_next/webpack-hmr"
+    },
+    {
+      "source": "/apps/astralpoet/:path*",
+      "destination": "https://turbo-astralpoet.vercel.app/:path*"
+    },
+    {
       "source": "/apps/resume",
       "destination": "https://turbo-resume-ten.vercel.app"
     },

@@ -25,7 +25,7 @@ export function FeaturedProjectsSection() {
         </Box>
         <Box className="grid gap-8 md:grid-cols-2 max-w-4xl mx-auto">
           <Card
-            href="/astralpoet"
+            href={`${mainAppUrl}/apps/astralpoet`}
             padding="p-6 md:p-8"
             hoverable
             className="hover:shadow-xl transition-all border-2 border-primary/20 hover:border-primary group"

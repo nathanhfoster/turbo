@@ -38,7 +38,7 @@ export default function AppsPage() {
         </Typography>
         <Box className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <Card
-            href="/astralpoet"
+            href={`${mainAppUrl}/apps/astralpoet`}
             padding="p-5 sm:p-6 md:p-8"
             hoverable
             className="hover:shadow-lg transition-all border-2 border-primary/20 hover:border-primary group"
