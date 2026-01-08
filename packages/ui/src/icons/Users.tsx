@@ -1,7 +1,8 @@
 import BaseSvg from "./BaseSvg";
+import type { BaseProps } from "./BaseSvg";
 
-const Users = () => (
-  <BaseSvg viewBox="0 0 640 512">
+const Users = ({ className, ...props }: BaseProps = {}) => (
+  <BaseSvg viewBox="0 0 640 512" className={className} {...props}>
     <path d="M320 320a96 96 0 1 0 0-192 96 96 0 1 0 0 192zm-58.7 32C187.7 352 128 411.7 128 485.3c0 14.7 11.9 26.7 26.7 26.7H485.3c14.7 0 26.7-11.9 26.7-26.7C512 411.7 452.3 352 378.7 352H261.3z" />
     <path
       className="opacity-50"

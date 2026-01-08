@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { useDebouncedCallback } from "@nathanhfoster/react-hooks";
 import { useEntryDispatch } from "../model/entryContext";
 import { entryActions } from "../model/entrySlice";
@@ -17,21 +17,40 @@ export function useEntryEditor(entry: Entry | null) {
   const [title, setTitle] = useState(entry?.title || "");
   const [isDirty, setIsDirty] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
+  const lastEntryIdRef = useRef<number | null>(entry?.id || null);
+  const lastContentRef = useRef<string>(entry?.html || "");
 
   // Update content when entry changes
   useEffect(() => {
     if (entry) {
-      setContent(entry.html || "");
-      setTitle(entry.title || "");
-      setIsDirty(false);
+      // Only update if entry ID changed (new entry selected)
+      // Don't update if it's the same entry (prevents cursor jumping on auto-save)
+      if (entry.id !== lastEntryIdRef.current) {
+        setContent(entry.html || "");
+        setTitle(entry.title || "");
+        setIsDirty(false);
+        lastEntryIdRef.current = entry.id;
+        lastContentRef.current = entry.html || "";
+      }
+      // Don't sync content from entry if we're dirty (user is typing)
+      // This prevents cursor jumping when auto-save updates the entry
     } else {
       setContent("");
       setTitle("");
       setIsDirty(false);
+      lastEntryIdRef.current = null;
+      lastContentRef.current = "";
     }
-  }, [entry?.id, entry?.html, entry?.title]);
+    // Only depend on entry ID to prevent unnecessary updates
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.id]);
+
+  // Memoize content to prevent unnecessary re-renders when value hasn't changed
+  const memoizedContent = useMemo(() => content, [content]);
 
   // Auto-save to IndexedDB with debounce (1 second after user stops typing)
+  // NOTE: We do NOT dispatch UpdateEntry during auto-save to prevent cursor jumping
+  // The state will be updated when the user selects a different entry or manually saves
   const autoSaveToIndexedDB = useDebouncedCallback(
     async (newContent: string, newTitle: string, currentEntry: Entry) => {
       if (!currentEntry) return;
@@ -50,8 +69,10 @@ export function useEntryEditor(entry: Entry | null) {
           size: newContent.length,
         };
 
+        // Save to IndexedDB but don't update Redux state
+        // This prevents re-renders that cause cursor jumping
         await repository.save(updatedEntry);
-        dispatch(entryActions.UpdateEntry(updatedEntry));
+        lastContentRef.current = newContent;
         setIsDirty(false);
       } catch (error) {
         console.error("Auto-save failed:", error);
@@ -59,7 +80,7 @@ export function useEntryEditor(entry: Entry | null) {
         setIsAutoSaving(false);
       }
     },
-    [dispatch],
+    [],
     1000, // Wait 1 second after user stops typing
     { leading: false, trailing: true } // Only save after pause
   );
@@ -126,7 +147,7 @@ export function useEntryEditor(entry: Entry | null) {
   }, [entry]);
 
   return {
-    content,
+    content: memoizedContent,
     title,
     isDirty,
     isAutoSaving,

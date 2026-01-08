@@ -5,7 +5,17 @@ import { combineClassNames } from "@nathanhfoster/utils";
 import Box from "../../atoms/Box";
 import Button from "../../atoms/Button";
 import Dropdown from "../../molecules/Dropdown";
+import { IconChevronLeft, IconChevronRight, IconChevronDown } from "../../../icons";
 import type { CalendarProps } from "./types";
+import { RADIUS_CLASSES, SHADOW_CLASSES, WEEK_DAYS, MONTH_NAMES } from "./constants";
+import {
+  isDateDisabled,
+  isGreenDate,
+  isSelected,
+  getDaysInMonth,
+  generateYearOptions,
+  generateMonthOptions,
+} from "./utils";
 
 const Calendar = ({
   bordered = true,
@@ -48,113 +58,22 @@ const Calendar = ({
   }, [defaultMonth]);
 
   const handleDateClick = (date: Date) => {
-    if (isDateDisabled(date)) return;
+    if (isDateDisabled(date, disabledDates, disabledWeekends, minDate, maxDate)) return;
     setSelectedDate(date);
     onChange?.(date);
   };
 
-  const isDateDisabled = (date: Date): boolean => {
-    if (disabledWeekends && (date.getDay() === 0 || date.getDay() === 6)) {
-      return true;
-    }
-    if (minDate && date < minDate) return true;
-    if (maxDate && date > maxDate) return true;
-    return disabledDates.some(
-      (d) =>
-        d.getDate() === date.getDate() &&
-        d.getMonth() === date.getMonth() &&
-        d.getFullYear() === date.getFullYear(),
-    );
-  };
-
-  const isGreenDate = (date: Date): boolean => {
-    return greenDates.some(
-      (d) =>
-        d.getDate() === date.getDate() &&
-        d.getMonth() === date.getMonth() &&
-        d.getFullYear() === date.getFullYear(),
-    );
-  };
-
-  const isSelected = (date: Date): boolean => {
-    if (!selectedDate) return false;
-    return (
-      date.getDate() === selectedDate.getDate() &&
-      date.getMonth() === selectedDate.getMonth() &&
-      date.getFullYear() === selectedDate.getFullYear()
-    );
-  };
-
-  const getDaysInMonth = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDayOfWeek = firstDay.getDay();
-
-    const days: (Date | null)[] = [];
-    for (let i = 0; i < startingDayOfWeek; i++) {
-      days.push(null);
-    }
-    for (let i = 1; i <= daysInMonth; i++) {
-      days.push(new Date(year, month, i));
-    }
-    return days;
-  };
-
   const days = getDaysInMonth(currentMonth);
-  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   // Generate year options
   const yearOptions = useMemo(() => {
-    const [startYear, endYear] = yearRange;
-    const years: number[] = [];
-    for (let year = startYear; year <= endYear; year++) {
-      years.push(year);
-    }
-    return years;
+    return generateYearOptions(yearRange);
   }, [yearRange]);
 
   // Generate month options
   const monthOptions = useMemo(() => {
-    return monthNames.map((name, index) => ({
-      label: name,
-      value: index,
-    }));
+    return generateMonthOptions(MONTH_NAMES);
   }, []);
-
-  const radiusClasses = {
-    none: "rounded-none",
-    sm: "rounded-sm",
-    md: "rounded-md",
-    lg: "rounded-lg",
-    xl: "rounded-xl",
-    full: "rounded-full",
-  };
-
-  const shadowClasses = {
-    none: "",
-    sm: "shadow-sm",
-    md: "shadow-md",
-    lg: "shadow-lg",
-    xl: "shadow-xl",
-    "2xl": "shadow-2xl",
-  };
 
   const goToPreviousMonth = () => {
     setCurrentMonth(
@@ -178,21 +97,21 @@ const Calendar = ({
 
   const currentYear = currentMonth.getFullYear();
   const currentMonthIndex = currentMonth.getMonth();
-  const monthName = monthNames[currentMonthIndex];
+  const monthName = MONTH_NAMES[currentMonthIndex];
 
   return (
     <Box
       className={combineClassNames(
         "bg-white dark:bg-gray-800 p-2 sm:p-4",
-        radiusClasses[radius],
-        shadowClasses[shadow],
+        RADIUS_CLASSES[radius],
+        SHADOW_CLASSES[shadow],
         bordered && "border border-gray-200 dark:border-gray-700",
         className,
       )}
       {...props}
     >
       {/* Header with navigation and selectors */}
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2 sm:gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2 sm:gap-4 min-w-0 w-full">
         {/* Previous/Next buttons - hidden on mobile when selectors are shown */}
         <div className={combineClassNames(
           "flex items-center gap-2",
@@ -205,44 +124,31 @@ const Calendar = ({
             className="p-1 sm:p-2"
             aria-label="Previous month"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 sm:h-5 sm:w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <IconChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+          </Button>
+          <Button
+            onClick={goToNextMonth}
+            variant="text"
+            size="sm"
+            className="p-1 sm:p-2"
+            aria-label="Next month"
+          >
+            <IconChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
 
         {/* Month and Year Selectors */}
-        <div className="flex items-center gap-2 flex-1 justify-center sm:justify-start">
+        <div className="flex items-center gap-2 flex-1 justify-center sm:justify-start min-w-0">
           {showMonthSelector ? (
             <Dropdown>
               <Dropdown.Trigger>
                 <Button
                   variant="text"
                   size="sm"
-                  className="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 min-w-[100px] sm:min-w-[120px]"
+                  className="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 min-w-[80px] sm:min-w-[100px] max-w-full truncate"
                 >
                   {monthName}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ml-1 h-4 w-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <IconChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </Dropdown.Trigger>
               <Dropdown.Content>
@@ -250,7 +156,7 @@ const Calendar = ({
                   <Dropdown.Item
                     key={month.value}
                     onClick={() => handleMonthChange(month.value)}
-                    className={currentMonthIndex === month.value ? "bg-blue-50 dark:bg-blue-900" : ""}
+                    className={currentMonthIndex === month.value ? "bg-primary/10 dark:bg-primary/20" : ""}
                   >
                     {month.label}
                   </Dropdown.Item>
@@ -269,21 +175,10 @@ const Calendar = ({
                 <Button
                   variant="text"
                   size="sm"
-                  className="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 min-w-[70px] sm:min-w-[80px]"
+                  className="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 min-w-[60px] sm:min-w-[70px] max-w-full truncate"
                 >
                   {currentYear}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ml-1 h-4 w-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <IconChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </Dropdown.Trigger>
               <Dropdown.Content className="max-h-[200px] overflow-y-auto">
@@ -291,7 +186,7 @@ const Calendar = ({
                   <Dropdown.Item
                     key={year}
                     onClick={() => handleYearChange(year)}
-                    className={currentYear === year ? "bg-blue-50 dark:bg-blue-900" : ""}
+                    className={currentYear === year ? "bg-primary/10 dark:bg-primary/20" : ""}
                   >
                     {year}
                   </Dropdown.Item>
@@ -308,7 +203,7 @@ const Calendar = ({
         {/* Previous/Next buttons - shown on mobile when selectors are hidden */}
         <div className={combineClassNames(
           "flex items-center gap-2",
-          (!showYearSelector && !showMonthSelector) && "flex sm:flex"
+          (!showYearSelector && !showMonthSelector) ? "flex sm:hidden" : "hidden"
         )}>
           <Button
             onClick={goToPreviousMonth}
@@ -317,18 +212,7 @@ const Calendar = ({
             className="p-1 sm:p-2"
             aria-label="Previous month"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 sm:h-5 sm:w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <IconChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
           <Button
             onClick={goToNextMonth}
@@ -337,18 +221,7 @@ const Calendar = ({
             className="p-1 sm:p-2"
             aria-label="Next month"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 sm:h-5 sm:w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <IconChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
       </div>
@@ -356,7 +229,7 @@ const Calendar = ({
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1">
         {/* Week day headers */}
-        {weekDays.map((day) => (
+        {WEEK_DAYS.map((day) => (
           <div
             key={day}
             className="text-center text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 py-1 sm:py-2"
@@ -370,9 +243,9 @@ const Calendar = ({
           if (!date) {
             return <div key={`empty-${index}`} className="p-1 sm:p-2" />;
           }
-          const disabled = isDateDisabled(date);
-          const green = isGreenDate(date);
-          const selected = isSelected(date);
+          const disabled = isDateDisabled(date, disabledDates, disabledWeekends, minDate, maxDate);
+          const green = isGreenDate(date, greenDates);
+          const selected = isSelected(date, selectedDate);
           const dayNumber = date.getDate();
 
           // Use custom renderDay if provided
@@ -397,19 +270,24 @@ const Calendar = ({
                 disabled
                   ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
                   : "hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer",
-                green && !disabled && "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200",
-                selected && !disabled && "bg-blue-500 dark:bg-blue-600 text-white",
+                // Selected state takes priority over green state - must be checked first
+                selected && !disabled && "bg-primary text-foreground-inverted",
+                // Green state only applies when NOT selected
+                !selected && green && !disabled && "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200",
               )}
             >
               <span className={combineClassNames(
                 "text-xs sm:text-sm font-medium",
-                selected && !disabled && "text-white"
+                selected && !disabled && "text-foreground-inverted"
               )}>
                 {dayNumber}
               </span>
               {/* Custom day content */}
               {renderDayContent && !disabled && (
-                <div className="mt-0.5 sm:mt-1 text-[8px] sm:text-[10px]">
+                <div className={combineClassNames(
+                  "mt-0.5 sm:mt-1 text-[8px] sm:text-[10px]",
+                  selected && !disabled && "text-foreground-inverted"
+                )}>
                   {renderDayContent(date)}
                 </div>
               )}

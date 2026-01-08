@@ -2,6 +2,8 @@ export * from "./BasicTable";
 export { default as Calendar } from "./Calendar";
 export type { CalendarProps } from "./Calendar/types";
 export * from "./ListGrid";
+export { default as List } from "./List";
+export type { ListProps } from "./List/types";
 export { default as NovelEditor } from "./NovelEditor";
 export type { NovelEditorProps } from "./NovelEditor/types";
 export { default as Sidebar } from "./Sidebar";

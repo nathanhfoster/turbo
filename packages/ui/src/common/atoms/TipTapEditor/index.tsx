@@ -71,13 +71,13 @@ const EditorController = ({
   editable: boolean;
   onChange?: (html: string, json: JSONContent) => void;
   onUpdate?: (props: { editor: any }) => void;
-  resetKey?: string;
+  resetKey?: string | number;
 }) => {
   const { editor } = useEditor();
   const isUpdatingFromProps = useRef(false);
   const hasSetInitialHTML = useRef(false);
   const lastValueRef = useRef<string | undefined>(undefined);
-  const lastResetKeyRef = useRef<string | undefined>(undefined);
+  const lastResetKeyRef = useRef<string | number | undefined>(undefined);
 
   // Reset state when resetKey changes (e.g., resume ID changes)
   React.useEffect(() => {
@@ -203,6 +203,7 @@ const TipTapEditor = ({
   extensions,
   skipEditorRoot = false,
   toolbar,
+  resetKey,
   ...props
 }: TipTapEditorProps) => {
   // Determine the initial content - prefer initialContent (JSON), then value/defaultValue (HTML)
@@ -286,7 +287,7 @@ const TipTapEditor = ({
         editable={editable}
         onChange={onChange}
         onUpdate={onUpdate}
-        resetKey={value}
+        resetKey={resetKey}
       />
       <BubbleMenuContent showBubbleMenu={showBubbleMenu} editable={editable} />
     </EditorContent>

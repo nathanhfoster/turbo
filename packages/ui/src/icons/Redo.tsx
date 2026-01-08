@@ -12,7 +12,7 @@ const Redo = ({ className, ...props }: BaseProps = {}) => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={2}
+      strokeWidth={1.5}
       d="M21 9H8a5 5 0 0 0 0 10h9m4-10-4-4m4 4-4 4"
     />
   </BaseSvg>

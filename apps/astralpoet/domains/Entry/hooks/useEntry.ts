@@ -15,6 +15,12 @@ import {
 } from "../model/selectors";
 import { initializeEntryDatabase } from "../model/repository";
 import type { Entry, EntryProps } from "../model/types";
+import {
+  exportEntriesToJson,
+  exportEntriesToCsv,
+  importEntriesFromJson,
+  importEntriesFromCsv,
+} from "../utils/importExport";
 
 /**
  * Main Entry domain hook
@@ -76,11 +82,15 @@ export function useEntry(props?: EntryProps) {
         const repository = await initializeEntryDatabase();
 
         const now = date ? date.toISOString() : new Date().toISOString();
+        
+        // Default HTML content if none provided
+        const defaultHtml = html || `<p>After I've installed Astral Poet today, I will make a diary entry every day from now on. In case I forget to make an entry, the app will remind me with a notification in the evening. In addition to photos, videos, audio recordings or other files, I can also add a location, tags or people to my diary entries.✍ I can use it on all my devices and synchronize the journal with the sync button on the main page. I am already looking forward to revisiting all those memories in a few months or years. ✨</p>`;
+        
         const newEntry: Entry = {
           id: Date.now(), // Temporary ID, will be replaced by autoIncrement
           author: 1, // Default author ID
           title,
-          html,
+          html: defaultHtml,
           tags: "",
           people: "",
           address: "",
@@ -194,6 +204,55 @@ export function useEntry(props?: EntryProps) {
     [dispatch],
   );
 
+  // Export entries to JSON or CSV
+  const exportEntries = useCallback(
+    (format: "json" | "csv" = "json") => {
+      if (format === "csv") {
+        return exportEntriesToCsv(entries);
+      }
+      return exportEntriesToJson(entries);
+    },
+    [entries],
+  );
+
+  // Import entries from JSON or CSV
+  const importEntries = useCallback(
+    async (data: string, format: "json" | "csv" = "json") => {
+      try {
+        dispatch(entryActions.SetLoading(true));
+        const repository = await initializeEntryDatabase();
+
+        const importedEntries =
+          format === "csv"
+            ? importEntriesFromCsv(data)
+            : importEntriesFromJson(data);
+
+        // Save each imported entry to IndexedDB
+        for (const entry of importedEntries) {
+          // Remove the id to let IndexedDB generate a new one
+          const { id, ...entryWithoutId } = entry;
+          const newId = await repository.save(entryWithoutId as Entry);
+          const savedEntry = await repository.getById(newId);
+          if (savedEntry) {
+            dispatch(entryActions.AddEntry(savedEntry));
+          }
+        }
+
+        return importedEntries;
+      } catch (err) {
+        dispatch(
+          entryActions.SetError(
+            err instanceof Error ? err.message : "Failed to import entries",
+          ),
+        );
+        throw err;
+      } finally {
+        dispatch(entryActions.SetLoading(false));
+      }
+    },
+    [dispatch],
+  );
+
   return {
     entries,
     currentEntry,
@@ -205,6 +264,8 @@ export function useEntry(props?: EntryProps) {
     setCurrentEntry,
     getEntryById,
     setEntryValue,
+    exportEntries,
+    importEntries,
   };
 }
 

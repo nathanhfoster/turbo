@@ -55,5 +55,10 @@ export interface TipTapEditorProps extends Omit<BaseTailwindProps, "shadow"> {
    * Custom toolbar component to render inside EditorRoot (has access to editor context)
    */
   toolbar?: React.ReactNode;
+  /**
+   * Key to reset the editor when it changes (e.g., entry ID)
+   * Use this instead of value to prevent cursor jumping during typing
+   */
+  resetKey?: string | number;
 }
 

@@ -6,8 +6,6 @@ export * from "./BottomNavigation";
 export * from "./Breadcrumb";
 export { default as ButtonGroup } from "./ButtonGroup";
 export type { ButtonGroupProps } from "./ButtonGroup";
-export { Chip } from "./Chip";
-export type { ChipProps } from "./Chip";
 export { default as Dropdown } from "./Dropdown";
 export { default as Footer } from "./Footer";
 export * from "./Footer";

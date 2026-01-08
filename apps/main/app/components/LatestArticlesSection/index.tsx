@@ -19,7 +19,7 @@ export function LatestArticlesSection({ posts }: LatestArticlesSectionProps) {
             size="text-4xl"
             weight="font-bold"
           >
-            Latest Articles
+            Latest Newsletters
           </Typography>
           <Typography
             variant="p"

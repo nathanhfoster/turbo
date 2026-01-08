@@ -37,6 +37,7 @@ const WysiwygEditor = ({
   editorClassName,
   showBubbleMenu = true,
   toolbarConfig,
+  resetKey,
   ...props
 }: WysiwygEditorProps) => {
   // Configure extensions
@@ -93,6 +94,7 @@ const WysiwygEditor = ({
         showBubbleMenu={showBubbleMenu}
         extensions={extensions}
         toolbar={<WysiwygToolbar config={toolbarConfig} />}
+        resetKey={resetKey}
       />
     </Box>
   );

@@ -1,6 +1,8 @@
 export { default as Box } from "./Box";
 export { default as Button } from "./Button";
 export { default as Card } from "./Card";
+export { Chip } from "./Chip";
+export type { ChipProps } from "./Chip";
 export * from "./Checkbox";
 export { IconButton } from "./IconButton";
 export type { IconButtonProps } from "./IconButton";

@@ -47,5 +47,10 @@ export interface WysiwygEditorProps extends Omit<BaseTailwindProps, "shadow"> {
    * Custom toolbar configuration
    */
   toolbarConfig?: ToolbarConfig;
+  /**
+   * Key to reset the editor when it changes (e.g., entry ID)
+   * Use this instead of value to prevent cursor jumping during typing
+   */
+  resetKey?: string | number;
 }
 
