@@ -1,4 +1,4 @@
-import { createTypedCache } from "@nathanhfoster/utils/cache";
+import { createTypedCache } from "@nathanhfoster/utils";
 import type { DnsCache } from "./types";
 
 /**

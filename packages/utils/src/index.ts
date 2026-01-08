@@ -12,6 +12,7 @@ export { default as getDerivedStateFromProps } from "./getDerivedStateFromProps"
 export { default as getErrorMessage } from "./getErrorMessage";
 export { default as actionTypes } from "./actionTypes";
 export { default as bindActionCreator } from "./bindActionCreator";
+export { createTypedCache, type Cache, type CacheConfig } from "./cache";
 export { default as createArrayObject } from "./createArrayObject";
 export { default as createHandlerSetter } from "./createHandlerSetter";
 export { default as debounce, type DebounceOptions } from "./debounce";
@@ -60,6 +61,7 @@ export { default as isString } from "./isString";
 export { default as isValidUrl } from "./isValidUrl";
 export { default as loadJSON } from "./loadJSON";
 export { default as match } from "./match";
+export { MemoryCache } from "./memoryCache";
 export * from "./navigate";
 export { default as objectKeysHaveAValue } from "./objectKeysHaveAValue";
 export { default as pickBy } from "./pickBy";
@@ -79,6 +81,11 @@ export { default as stringMatch } from "./stringMatch";
 export { default as subtractDays } from "./subtractDays";
 export { default as throttle } from "./throttle";
 export type { RunTests, TestToRun } from "./types";
+export type {
+  DomainResult,
+  DomainResultSuccess,
+  DomainResultFailure,
+} from "./types/index";
 export { default as UTILS_CONSTANTS } from "./UTILS_CONSTANTS";
 export { default as validateEmail } from "./validateEmail";
 export { default as validatePassword } from "./validatePassword";

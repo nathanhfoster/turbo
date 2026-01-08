@@ -1,4 +1,4 @@
-import { MemoryCache } from "@nathanhfoster/utils/memoryCache";
+import { MemoryCache } from "@nathanhfoster/utils";
 
 // Singleton instances for different cache types
 export const responseCache = new MemoryCache<string>({

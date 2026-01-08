@@ -1,4 +1,4 @@
-import type { DomainResult } from "@nathanhfoster/utils/types";
+import type { DomainResult } from "@nathanhfoster/utils";
 
 /**
  * Email validation checks that can be performed
