@@ -26,10 +26,11 @@ const downloadFile = (
     return;
   }
 
-  const blob = data instanceof Blob ? data : new Blob([data], { type: mimeType });
+  const blob =
+    data instanceof Blob ? data : new Blob([data], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  
+
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);

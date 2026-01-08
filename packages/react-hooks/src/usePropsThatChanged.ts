@@ -3,7 +3,7 @@
 import { shallowEquals } from "@nathanhfoster/utils";
 import { useRef } from "react";
 import usePreviousValue from "./usePreviousValue";
-import type { ComponentPropsType } from "@nathanhfoster/resurrection/src/lib/connect/types";
+import type { ComponentPropsType } from "../../resurrection/src/lib/connect/types";
 
 /**
  * Returns a copy of the next props whose values shallowly differ from the previous ones

@@ -1,8 +1,4 @@
-import {
-  DatabaseConfig,
-  ObjectStoreConfig,
-  DatabaseError,
-} from "../types/index.js";
+import { DatabaseConfig, ObjectStoreConfig } from "../types";
 
 /**
  * Database interface following Dependency Inversion Principle
@@ -34,6 +30,3 @@ export interface IDatabase {
    */
   isAvailable(): boolean;
 }
-
-
-

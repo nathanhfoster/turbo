@@ -27,4 +27,3 @@ export const BRAND_NAME = "AgentNate";
 
 export const BRAND_DESCRIPTION =
   "Full-stack developer and technical consultant specializing in modern web applications, PWAs, and scalable architectures.";
-

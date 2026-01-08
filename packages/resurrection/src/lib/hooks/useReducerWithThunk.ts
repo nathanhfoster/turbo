@@ -1,7 +1,7 @@
 "use client";
 
 import { isFunction } from "../utils";
-import { useCallback, useRef, Dispatch, SetStateAction } from "react";
+import { useCallback, useRef, SetStateAction } from "react";
 import usePropsThatChanged from "./usePropsThatChanged";
 import { useLazyMemo, useEffectAfterMount } from "@nathanhfoster/react-hooks";
 import getDerivedStateFromProps from "../utils/getDerivedStateFromProps";
@@ -13,6 +13,7 @@ import type {
   ActionCreatorWithPayload,
   PayloadActionCreator,
   PayloadAction,
+  DispatchWithCallback,
 } from "../types";
 
 /**
@@ -33,14 +34,15 @@ const useReducerWithThunk = <
   derivedStateFromProps?: Partial<S>,
 ): [
   S,
-  Dispatch<
+  DispatchWithCallback<
     | PayloadAction<string, any>
     | Thunk<A, S>
     | ActionCreatorWithPayload<any, string>
     | PayloadActionCreator<any, string>
     | A
     | SetStateAction<S>
-    | Partial<S>
+    | Partial<S>,
+    S
   >,
   boolean,
 ] => {

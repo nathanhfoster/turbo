@@ -2,19 +2,28 @@ import React, { FC, SVGProps } from "react";
 
 export interface BaseProps extends SVGProps<SVGSVGElement> {}
 
-const BaseSvg: FC<BaseProps> = ({ children, className, width, height, style, ...restOfProps }) => {
+const BaseSvg: FC<BaseProps> = ({
+  children,
+  className,
+  width,
+  height,
+  style,
+  ...restOfProps
+}) => {
   // Check if className contains Tailwind width/height utilities
   const hasSizeClass = className?.includes("w-") || className?.includes("h-");
-  
+
   // Build SVG props
   const svgProps: React.SVGProps<SVGSVGElement> = {
     ...restOfProps,
-    className: className ? `fill-current stroke-current ${className}` : "fill-current stroke-current",
+    className: className
+      ? `fill-current stroke-current ${className}`
+      : "fill-current stroke-current",
     xmlns: "http://www.w3.org/2000/svg",
     stroke: "currentColor",
     fill: "currentColor",
   };
-  
+
   // Only set width/height attributes if:
   // 1. No size classes in className (let CSS handle it), AND
   // 2. Explicit width/height props are provided OR we need defaults
@@ -27,11 +36,11 @@ const BaseSvg: FC<BaseProps> = ({ children, className, width, height, style, ...
     if (height) svgProps.height = height;
   }
   // If hasSizeClass and no explicit width/height, don't set attributes - let CSS handle it
-  
+
   if (style) {
     svgProps.style = style;
   }
-  
+
   return <svg {...svgProps}>{children}</svg>;
 };
 

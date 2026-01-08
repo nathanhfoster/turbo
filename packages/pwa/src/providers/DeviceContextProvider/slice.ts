@@ -46,7 +46,7 @@ export const deviceInitialState: DeviceContextState = {
 export const getDeviceInitialState: ContextStoreInitializer<
   DeviceContextState,
   DeviceServerProps
-> = (initialState) => {
+> = (initialState?: DeviceServerProps) => {
   if (!initialState) {
     return deviceInitialState;
   }
@@ -64,14 +64,14 @@ export const deviceSlice = createSlice({
   name: "Device",
   initialState: deviceInitialState,
   actions: {
-    SetDeviceInfo: (state, payload: Partial<DeviceContextState>) => {
+    SetDeviceInfo: (state: DeviceContextState, payload: Partial<DeviceContextState>) => {
       state = { ...state, ...payload };
     },
-    SetBatteryStatus: (state, payload: DeviceContextState["batteryStatus"]) => {
+    SetBatteryStatus: (state: DeviceContextState, payload: DeviceContextState["batteryStatus"]) => {
       state.batteryStatus = payload;
     },
     UpdateScreenSize: (
-      state,
+      state: DeviceContextState,
       payload: Pick<DeviceContextState, "innerWidth" | "innerHeight">,
     ) => {
       state.innerWidth = payload.innerWidth;
@@ -80,7 +80,7 @@ export const deviceSlice = createSlice({
         payload.innerWidth > payload.innerHeight ? "landscape" : "portrait";
     },
     UpdateDeviceType: (
-      state,
+      state: DeviceContextState,
       payload: Pick<DeviceContextState, "isMobile" | "isTablet" | "isDesktop">,
     ) => {
       state.isMobile = payload.isMobile;
@@ -88,19 +88,19 @@ export const deviceSlice = createSlice({
       state.isDesktop = payload.isDesktop;
     },
     UpdatePwaStatus: (
-      state,
+      state: DeviceContextState,
       payload: Pick<DeviceContextState, "isPWAInstalled">,
     ) => {
       state.isPWAInstalled = payload.isPWAInstalled;
     },
-    SetHasScrolled: (state, hasScrolled: DeviceContextState["hasScrolled"]) => {
+    SetHasScrolled: (state: DeviceContextState, hasScrolled: DeviceContextState["hasScrolled"]) => {
       state.hasScrolled = hasScrolled;
 
       if (typeof localStorage !== "undefined") {
         localStorage.setItem(KEY_COOKIE_HAS_SCROLLED, hasScrolled.toString());
       }
     },
-    ToggleCookieModalOpen: (state, payload: boolean | undefined) => {
+    ToggleCookieModalOpen: (state: DeviceContextState, payload: boolean | undefined) => {
       const newIsCookieModalOpen = payload ?? !state.isCookieModalOpen;
       state.isCookieModalOpen = newIsCookieModalOpen;
       if (typeof localStorage !== "undefined") {
@@ -111,7 +111,7 @@ export const deviceSlice = createSlice({
       }
     },
     ToggleCookieSettings: (
-      state,
+      state: DeviceContextState,
       payload: {
         key: keyof DeviceContextState["cookieSettings"];
         value?: boolean;
@@ -159,7 +159,7 @@ export const deviceSlice = createSlice({
         newCookieSettings.preferences.toString(),
       );
     },
-    AcceptAllCookies: (state) => {
+    AcceptAllCookies: (state: DeviceContextState) => {
       state.cookieSettings = {
         necessary: true,
         analytics: true,
@@ -171,7 +171,7 @@ export const deviceSlice = createSlice({
         localStorage.setItem(KEY_COOKIE_CONSENT_MODAL_OPEN, "false");
       }
     },
-    RejectAllCookies: (state) => {
+    RejectAllCookies: (state: DeviceContextState) => {
       state.cookieSettings = {
         necessary: true, // Always true
         analytics: false,

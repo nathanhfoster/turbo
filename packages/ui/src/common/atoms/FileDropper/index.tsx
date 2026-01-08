@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useRef, useState, useCallback, useId, useMemo, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useId,
+  useMemo,
+  useEffect,
+} from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { combineClassNames } from "@nathanhfoster/utils";
 import { useEventListener } from "@nathanhfoster/react-hooks";
@@ -52,22 +59,29 @@ const FileDropper = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const [dragError, setDragError] = useState<string | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [uploadStatus, setUploadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [uploadStatus, setUploadStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [bubbleAIScale, setBubbleAIScale] = useState(1);
   const [particleSpeedBoost, setParticleSpeedBoost] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successStateTransition, setSuccessStateTransition] = useState<"speaking" | "navigating">("speaking");
+  const [successStateTransition, setSuccessStateTransition] = useState<
+    "speaking" | "navigating"
+  >("speaking");
   const previousInitialFilesRef = useRef<string>("");
 
   // Load initial files on mount or when initialFiles prop changes
   useEffect(() => {
     // Create a stable key from file names to detect changes
-    const fileNamesKey = (initialFiles || []).map(f => f.name).sort().join(',');
-    
+    const fileNamesKey = (initialFiles || [])
+      .map((f) => f.name)
+      .sort()
+      .join(",");
+
     // Only update if the file names have actually changed
     if (previousInitialFilesRef.current !== fileNamesKey) {
       previousInitialFilesRef.current = fileNamesKey;
-      
+
       if (initialFiles && initialFiles.length > 0) {
         setSelectedFiles([...initialFiles]); // Create new array to trigger update
         // Call onFilesSelected if provided
@@ -133,11 +147,13 @@ const FileDropper = ({
       }
 
       setDragError(null);
-      setSelectedFiles((prev) => (multiple ? [...prev, ...fileArray] : fileArray));
-      
+      setSelectedFiles((prev) =>
+        multiple ? [...prev, ...fileArray] : fileArray,
+      );
+
       // Call onFilesSelected immediately (for immediate file access)
       onFilesSelected?.(fileArray);
-      
+
       // Excitement animation when files are selected
       setBubbleAIScale(1.15);
       setParticleSpeedBoost(1.5);
@@ -145,7 +161,7 @@ const FileDropper = ({
         setBubbleAIScale(1);
         setParticleSpeedBoost(1);
       }, 300);
-      
+
       // Set loading state if loading prop is true
       if (loading) {
         setUploadStatus("loading");
@@ -200,7 +216,8 @@ const FileDropper = ({
             }, 2000);
           } catch (err) {
             // Handle errors from onSubmit
-            const errorMsg = err instanceof Error ? err.message : "Upload failed";
+            const errorMsg =
+              err instanceof Error ? err.message : "Upload failed";
             setDragError(errorMsg);
             setUploadStatus("error");
             setIsSubmitting(false);
@@ -237,7 +254,12 @@ const FileDropper = ({
         setBubbleAIScale(1);
         setParticleSpeedBoost(1);
       }, 200);
-    } else if (uploadStatus === "loading" && !loading && !isSubmitting && selectedFiles.length > 0) {
+    } else if (
+      uploadStatus === "loading" &&
+      !loading &&
+      !isSubmitting &&
+      selectedFiles.length > 0
+    ) {
       // Only call onSubmit if we're not already submitting (prevents duplicate calls)
       // This handles the case when loading prop is controlled externally
       setIsSubmitting(true);
@@ -295,7 +317,15 @@ const FileDropper = ({
         }
       }, 500); // Small delay to show the transition
     }
-  }, [loading, uploadStatus, onSubmit, onSuccess, onError, selectedFiles, isSubmitting]);
+  }, [
+    loading,
+    uploadStatus,
+    onSubmit,
+    onSuccess,
+    onError,
+    selectedFiles,
+    isSubmitting,
+  ]);
 
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLLabelElement>) => {
@@ -312,33 +342,42 @@ const FileDropper = ({
     [isDisabled, handleFiles],
   );
 
-  const handleDragEnter = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isDisabled) return;
-    setIsDragOver(true);
-  }, [isDisabled]);
+  const handleDragEnter = useCallback(
+    (e: React.DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isDisabled) return;
+      setIsDragOver(true);
+    },
+    [isDisabled],
+  );
 
-  const handleDragOver = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isDisabled) return;
-    // Set dataTransfer dropEffect to show it's a valid drop target
-    if (e.dataTransfer) {
-      e.dataTransfer.dropEffect = 'copy';
-    }
-    setIsDragOver(true);
-  }, [isDisabled]);
+  const handleDragOver = useCallback(
+    (e: React.DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (isDisabled) return;
+      // Set dataTransfer dropEffect to show it's a valid drop target
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = "copy";
+      }
+      setIsDragOver(true);
+    },
+    [isDisabled],
+  );
 
-  const handleDragLeave = useCallback((e: React.DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    // Only set drag over to false if we're actually leaving the label element
-    const relatedTarget = e.relatedTarget as HTMLElement;
-    if (!relatedTarget || !e.currentTarget.contains(relatedTarget)) {
-      setIsDragOver(false);
-    }
-  }, []);
+  const handleDragLeave = useCallback(
+    (e: React.DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Only set drag over to false if we're actually leaving the label element
+      const relatedTarget = e.relatedTarget as HTMLElement;
+      if (!relatedTarget || !e.currentTarget.contains(relatedTarget)) {
+        setIsDragOver(false);
+      }
+    },
+    [],
+  );
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLLabelElement>) => {
@@ -347,20 +386,20 @@ const FileDropper = ({
         e.stopPropagation();
         return;
       }
-      
+
       const target = e.target as HTMLElement;
-      
+
       // If clicking on a button or interactive element inside, don't trigger file input
-      if (target.tagName === 'BUTTON' || target.closest('button')) {
+      if (target.tagName === "BUTTON" || target.closest("button")) {
         e.stopPropagation();
         return;
       }
-      
+
       // Always prevent default to avoid double-triggering from label's htmlFor
       // Then manually trigger the file input for consistent behavior
       e.preventDefault();
       e.stopPropagation();
-      
+
       if (fileInputRef.current && !fileInputRef.current.disabled) {
         fileInputRef.current.click();
       }
@@ -418,7 +457,9 @@ const FileDropper = ({
   }, [size]);
 
   // Determine BubbleAI state based on component state with dynamic transitions
-  const bubbleAIState = useMemo<"idle" | "listening" | "thinking" | "speaking" | "navigating">(() => {
+  const bubbleAIState = useMemo<
+    "idle" | "listening" | "thinking" | "speaking" | "navigating"
+  >(() => {
     if (loading || uploadStatus === "loading") {
       return "thinking";
     }
@@ -437,16 +478,25 @@ const FileDropper = ({
       return "idle"; // Will use error colors
     }
     return "idle";
-  }, [loading, uploadStatus, isDragOver, displayError, hasSelectedFiles, successStateTransition]);
+  }, [
+    loading,
+    uploadStatus,
+    isDragOver,
+    displayError,
+    hasSelectedFiles,
+    successStateTransition,
+  ]);
 
   // Get file type and size info for better visual feedback
   const fileInfo = useMemo(() => {
     if (!hasSelectedFiles || selectedFiles.length === 0) return null;
     const totalSize = selectedFiles.reduce((sum, file) => sum + file.size, 0);
-    const fileTypes = new Set(selectedFiles.map((file) => {
-      const ext = file.name.split('.').pop()?.toLowerCase() || 'file';
-      return ext;
-    }));
+    const fileTypes = new Set(
+      selectedFiles.map((file) => {
+        const ext = file.name.split(".").pop()?.toLowerCase() || "file";
+        return ext;
+      }),
+    );
     return {
       count: selectedFiles.length,
       totalSize,
@@ -454,28 +504,34 @@ const FileDropper = ({
     };
   }, [selectedFiles, hasSelectedFiles]);
 
-  const handleClearFiles = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const filesToClear = [...selectedFiles];
-    setSelectedFiles([]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-    // Call callback with cleared files
-    onFilesCleared?.(filesToClear);
-  }, [selectedFiles, onFilesCleared]);
+  const handleClearFiles = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const filesToClear = [...selectedFiles];
+      setSelectedFiles([]);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      // Call callback with cleared files
+      onFilesCleared?.(filesToClear);
+    },
+    [selectedFiles, onFilesCleared],
+  );
 
-  const handleRemoveFile = useCallback((index: number) => {
-    setSelectedFiles((prev) => {
-      const removedFile = prev[index];
-      if (!removedFile) return prev; // Safety check
-      const remainingFiles = prev.filter((_, i) => i !== index);
-      // Call callback with removed file and remaining files
-      onFileRemoved?.(removedFile, remainingFiles);
-      return remainingFiles;
-    });
-  }, [onFileRemoved]);
+  const handleRemoveFile = useCallback(
+    (index: number) => {
+      setSelectedFiles((prev) => {
+        const removedFile = prev[index];
+        if (!removedFile) return prev; // Safety check
+        const remainingFiles = prev.filter((_, i) => i !== index);
+        // Call callback with removed file and remaining files
+        onFileRemoved?.(removedFile, remainingFiles);
+        return remainingFiles;
+      });
+    },
+    [onFileRemoved],
+  );
 
   const formatFileSize = useCallback((bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
@@ -533,8 +589,8 @@ const FileDropper = ({
   return (
     <Box fullWidth className={className} {...props}>
       {label && (
-        <Typography 
-          variant="label" 
+        <Typography
+          variant="label"
           className="mb-2 block text-sm font-medium text-foreground"
         >
           {label}
@@ -572,7 +628,8 @@ const FileDropper = ({
                   variant="div"
                   style={{
                     transform: `scale(${bubbleAIScale})`,
-                    transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                    transition:
+                      "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
                   }}
                 >
                   <BubbleAI
@@ -580,72 +637,148 @@ const FileDropper = ({
                     state={bubbleAIState}
                     quality="medium"
                     ringCount={uploadStatus === "success" ? 4 : 3}
-                    particleCount={Math.min(100, Math.max(25, bubbleAISize / 2))}
+                    particleCount={Math.min(
+                      100,
+                      Math.max(25, bubbleAISize / 2),
+                    )}
                     particleSize={0.5}
                     particleSpeed={particleSpeedBoost}
                     rings={
                       displayError || uploadStatus === "error"
                         ? [
-                            { color: "#ef4444", rotationSpeed: 1.5, glowIntensity: 0.9, opacity: 0.9 },
-                            { color: "#dc2626", rotationSpeed: -1.8, glowIntensity: 0.7, opacity: 0.7 },
-                            { color: "#991b1b", rotationSpeed: 1.2, glowIntensity: 0.5, opacity: 0.5 },
+                            {
+                              color: "#ef4444",
+                              rotationSpeed: 1.5,
+                              glowIntensity: 0.9,
+                              opacity: 0.9,
+                            },
+                            {
+                              color: "#dc2626",
+                              rotationSpeed: -1.8,
+                              glowIntensity: 0.7,
+                              opacity: 0.7,
+                            },
+                            {
+                              color: "#991b1b",
+                              rotationSpeed: 1.2,
+                              glowIntensity: 0.5,
+                              opacity: 0.5,
+                            },
                           ]
                         : uploadStatus === "success"
                           ? [
-                              { color: "#10b981", rotationSpeed: 2, glowIntensity: 1, opacity: 1 },
-                              { color: "#059669", rotationSpeed: -2.4, glowIntensity: 0.8, opacity: 0.9 },
-                              { color: "#34d399", rotationSpeed: 1.6, glowIntensity: 0.6, opacity: 0.7 },
-                              { color: "#6ee7b7", rotationSpeed: -1.2, glowIntensity: 0.4, opacity: 0.5 },
+                              {
+                                color: "#10b981",
+                                rotationSpeed: 2,
+                                glowIntensity: 1,
+                                opacity: 1,
+                              },
+                              {
+                                color: "#059669",
+                                rotationSpeed: -2.4,
+                                glowIntensity: 0.8,
+                                opacity: 0.9,
+                              },
+                              {
+                                color: "#34d399",
+                                rotationSpeed: 1.6,
+                                glowIntensity: 0.6,
+                                opacity: 0.7,
+                              },
+                              {
+                                color: "#6ee7b7",
+                                rotationSpeed: -1.2,
+                                glowIntensity: 0.4,
+                                opacity: 0.5,
+                              },
                             ]
                           : uploadStatus === "loading" || loading
                             ? [
-                                { color: "#3b82f6", rotationSpeed: 1.8, glowIntensity: 0.9, opacity: 0.9 },
-                                { color: "#2563eb", rotationSpeed: -2.2, glowIntensity: 0.7, opacity: 0.7 },
-                                { color: "#1d4ed8", rotationSpeed: 1.4, glowIntensity: 0.5, opacity: 0.5 },
+                                {
+                                  color: "#3b82f6",
+                                  rotationSpeed: 1.8,
+                                  glowIntensity: 0.9,
+                                  opacity: 0.9,
+                                },
+                                {
+                                  color: "#2563eb",
+                                  rotationSpeed: -2.2,
+                                  glowIntensity: 0.7,
+                                  opacity: 0.7,
+                                },
+                                {
+                                  color: "#1d4ed8",
+                                  rotationSpeed: 1.4,
+                                  glowIntensity: 0.5,
+                                  opacity: 0.5,
+                                },
                               ]
                             : hasSelectedFiles
                               ? [
-                                  { color: "#8b5cf6", rotationSpeed: 1.3, glowIntensity: 0.85, opacity: 0.95 },
-                                  { color: "#7c3aed", rotationSpeed: -1.6, glowIntensity: 0.65, opacity: 0.75 },
-                                  { color: "#6d28d9", rotationSpeed: 1.1, glowIntensity: 0.45, opacity: 0.55 },
+                                  {
+                                    color: "#8b5cf6",
+                                    rotationSpeed: 1.3,
+                                    glowIntensity: 0.85,
+                                    opacity: 0.95,
+                                  },
+                                  {
+                                    color: "#7c3aed",
+                                    rotationSpeed: -1.6,
+                                    glowIntensity: 0.65,
+                                    opacity: 0.75,
+                                  },
+                                  {
+                                    color: "#6d28d9",
+                                    rotationSpeed: 1.1,
+                                    glowIntensity: 0.45,
+                                    opacity: 0.55,
+                                  },
                                 ]
                               : undefined
                     }
                     opacity={isDisabled ? 0.5 : 1}
                   />
                 </Box>
-                <Typography variant="p" className="text-gray-600 dark:text-gray-400">
-                  {loading ? (
-                    loadingText
-                  ) : uploadStatus === "success" ? (
-                    hasSelectedFiles
-                      ? multiple
-                        ? `${selectedFiles.length} file${selectedFiles.length > 1 ? "s" : ""} uploaded successfully`
-                        : `${selectedFiles[0]?.name || "File"} uploaded successfully`
-                      : "Upload successful"
-                  ) : displayError || uploadStatus === "error" ? (
-                    displayError || "Upload failed"
-                  ) : hasSelectedFiles ? (
-                    multiple
-                      ? `${selectedFiles.length} file${selectedFiles.length > 1 ? "s" : ""} selected`
-                      : selectedFiles[0]?.name || dropZoneText
-                  ) : (
-                    dropZoneText
-                  )}
+                <Typography
+                  variant="p"
+                  className="text-gray-600 dark:text-gray-400"
+                >
+                  {loading
+                    ? loadingText
+                    : uploadStatus === "success"
+                      ? hasSelectedFiles
+                        ? multiple
+                          ? `${selectedFiles.length} file${selectedFiles.length > 1 ? "s" : ""} uploaded successfully`
+                          : `${selectedFiles[0]?.name || "File"} uploaded successfully`
+                        : "Upload successful"
+                      : displayError || uploadStatus === "error"
+                        ? displayError || "Upload failed"
+                        : hasSelectedFiles
+                          ? multiple
+                            ? `${selectedFiles.length} file${selectedFiles.length > 1 ? "s" : ""} selected`
+                            : selectedFiles[0]?.name || dropZoneText
+                          : dropZoneText}
                 </Typography>
                 {fileInfo && uploadStatus !== "error" && (
-                  <Typography variant="small" className="text-gray-500 dark:text-gray-400">
+                  <Typography
+                    variant="small"
+                    className="text-gray-500 dark:text-gray-400"
+                  >
                     {fileInfo.count} file{fileInfo.count > 1 ? "s" : ""} •{" "}
                     {(fileInfo.totalSize / 1024 / 1024).toFixed(2)} MB
-                    {fileInfo.types.length > 0 && ` • ${fileInfo.types.slice(0, 3).join(", ")}${fileInfo.types.length > 3 ? "..." : ""}`}
+                    {fileInfo.types.length > 0 &&
+                      ` • ${fileInfo.types.slice(0, 3).join(", ")}${fileInfo.types.length > 3 ? "..." : ""}`}
                   </Typography>
                 )}
               </>
             )}
             {accept && (
-              <Box variant="div" className="w-full min-w-0 max-w-full px-2 text-left">
-                <Typography 
-                  variant="small" 
+              <Box
+                variant="div"
+                className="w-full min-w-0 max-w-full px-2 text-left"
+              >
+                <Typography
+                  variant="small"
                   truncate
                   className="text-gray-500 dark:text-gray-500 block w-full overflow-hidden"
                 >
@@ -686,7 +819,10 @@ const FileDropper = ({
         aria-label={label || "File input"}
       />
       {helperText && !displayError && (
-        <Typography variant="small" className="mt-1 text-gray-500 dark:text-gray-400">
+        <Typography
+          variant="small"
+          className="mt-1 text-gray-500 dark:text-gray-400"
+        >
           {helperText}
         </Typography>
       )}
@@ -702,37 +838,51 @@ const FileDropper = ({
               key={`${file.name}-${index}`}
               variant="div"
               className={`flex items-center justify-between gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 ${
-                onFileClick ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" : ""
+                onFileClick
+                  ? "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  : ""
               }`}
-              onClick={onFileClick ? (e) => {
-                // Only trigger if clicking on the file area, not the delete button
-                if ((e.target as HTMLElement).closest('button[aria-label*="Remove"]')) {
-                  return;
-                }
-                e.preventDefault();
-                e.stopPropagation();
-                onFileClick(file);
-              } : undefined}
+              onClick={
+                onFileClick
+                  ? (e) => {
+                      // Only trigger if clicking on the file area, not the delete button
+                      if (
+                        (e.target as HTMLElement).closest(
+                          'button[aria-label*="Remove"]',
+                        )
+                      ) {
+                        return;
+                      }
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onFileClick(file);
+                    }
+                  : undefined
+              }
               role={onFileClick ? "button" : undefined}
               tabIndex={onFileClick ? 0 : undefined}
-              onKeyDown={onFileClick ? (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onFileClick(file);
-                }
-              } : undefined}
+              onKeyDown={
+                onFileClick
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onFileClick(file);
+                      }
+                    }
+                  : undefined
+              }
             >
               <Box variant="div" className="flex-1 min-w-0">
-                <Typography 
-                  variant="small" 
+                <Typography
+                  variant="small"
                   className="font-medium text-gray-900 dark:text-gray-100 truncate"
                   title={file.name}
                 >
                   {file.name}
                 </Typography>
-                <Typography 
-                  variant="small" 
+                <Typography
+                  variant="small"
                   className="text-gray-700 dark:text-gray-400 text-xs ml-1"
                 >
                   {formatFileSize(file.size)}
@@ -770,5 +920,3 @@ const FileDropper = ({
 export default withForwardRef(
   withBaseTheme(withBaseTailwindProps(FileDropper)),
 );
-
-

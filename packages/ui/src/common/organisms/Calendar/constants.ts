@@ -34,4 +34,3 @@ export const SHADOW_CLASSES: Record<CalendarShadow, string> = {
   xl: "shadow-xl",
   "2xl": "shadow-2xl",
 };
-

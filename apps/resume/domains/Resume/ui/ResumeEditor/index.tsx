@@ -25,8 +25,12 @@ export function ResumeEditor({
   const [internalShowPlainText, setInternalShowPlainText] = useState(false);
 
   // Use external state if provided, otherwise use internal state
-  const isEditing = externalIsEditing !== undefined ? externalIsEditing : internalIsEditing;
-  const showPlainText = externalShowPlainText !== undefined ? externalShowPlainText : internalShowPlainText;
+  const isEditing =
+    externalIsEditing !== undefined ? externalIsEditing : internalIsEditing;
+  const showPlainText =
+    externalShowPlainText !== undefined
+      ? externalShowPlainText
+      : internalShowPlainText;
 
   // Update editContent when content changes externally
   React.useEffect(() => {
@@ -37,7 +41,10 @@ export function ResumeEditor({
 
   // Sync internal state with external state when provided
   React.useEffect(() => {
-    if (externalIsEditing !== undefined && externalIsEditing !== internalIsEditing) {
+    if (
+      externalIsEditing !== undefined &&
+      externalIsEditing !== internalIsEditing
+    ) {
       if (externalIsEditing) {
         setEditContent(content);
       }
@@ -46,7 +53,10 @@ export function ResumeEditor({
   }, [externalIsEditing]);
 
   React.useEffect(() => {
-    if (externalShowPlainText !== undefined && externalShowPlainText !== internalShowPlainText) {
+    if (
+      externalShowPlainText !== undefined &&
+      externalShowPlainText !== internalShowPlainText
+    ) {
       setInternalShowPlainText(externalShowPlainText);
     }
   }, [externalShowPlainText]);

@@ -18,11 +18,11 @@ export const ToolbarButton: React.FC<ToolbarButtonProps> = ({
     title={title}
     className={combineClassNames(
       "p-1.5 text-gray-600 dark:text-gray-400 rounded-sm cursor-pointer hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
-      isActive && "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100",
-      className
+      isActive &&
+        "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100",
+      className,
     )}
   >
     {children}
   </button>
 );
-

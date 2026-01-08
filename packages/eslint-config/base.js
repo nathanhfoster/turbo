@@ -27,6 +27,47 @@ export const config = [
     },
   },
   {
-    ignores: ["dist/**"],
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      // TypeScript best practices
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-non-null-assertion": "warn",
+      
+      // Code quality
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-debugger": "warn",
+      "prefer-const": "error",
+      "no-var": "error",
+      "object-shorthand": "error",
+      "prefer-arrow-callback": "error",
+      
+      // Best practices
+      "eqeqeq": ["error", "always", { null: "ignore" }],
+      "curly": ["error", "all"],
+      "no-throw-literal": "error",
+      "prefer-promise-reject-errors": "error",
+    },
+  },
+  {
+    ignores: [
+      "dist/**",
+      "build/**",
+      ".next/**",
+      "node_modules/**",
+      "coverage/**",
+      "*.config.js",
+      "*.config.mjs",
+      "*.config.ts",
+    ],
   },
 ];

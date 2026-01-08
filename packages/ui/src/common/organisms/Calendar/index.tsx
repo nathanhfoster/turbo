@@ -5,9 +5,18 @@ import { combineClassNames } from "@nathanhfoster/utils";
 import Box from "../../atoms/Box";
 import Button from "../../atoms/Button";
 import Dropdown from "../../molecules/Dropdown";
-import { IconChevronLeft, IconChevronRight, IconChevronDown } from "../../../icons";
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconChevronDown,
+} from "../../../icons";
 import type { CalendarProps } from "./types";
-import { RADIUS_CLASSES, SHADOW_CLASSES, WEEK_DAYS, MONTH_NAMES } from "./constants";
+import {
+  RADIUS_CLASSES,
+  SHADOW_CLASSES,
+  WEEK_DAYS,
+  MONTH_NAMES,
+} from "./constants";
 import {
   isDateDisabled,
   isGreenDate,
@@ -58,7 +67,8 @@ const Calendar = ({
   }, [defaultMonth]);
 
   const handleDateClick = (date: Date) => {
-    if (isDateDisabled(date, disabledDates, disabledWeekends, minDate, maxDate)) return;
+    if (isDateDisabled(date, disabledDates, disabledWeekends, minDate, maxDate))
+      return;
     setSelectedDate(date);
     onChange?.(date);
   };
@@ -113,10 +123,12 @@ const Calendar = ({
       {/* Header with navigation and selectors */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-4 gap-2 sm:gap-4 min-w-0 w-full">
         {/* Previous/Next buttons - hidden on mobile when selectors are shown */}
-        <div className={combineClassNames(
-          "flex items-center gap-2",
-          (showYearSelector || showMonthSelector) && "hidden sm:flex"
-        )}>
+        <div
+          className={combineClassNames(
+            "flex items-center gap-2",
+            (showYearSelector || showMonthSelector) && "hidden sm:flex",
+          )}
+        >
           <Button
             onClick={goToPreviousMonth}
             variant="text"
@@ -156,7 +168,11 @@ const Calendar = ({
                   <Dropdown.Item
                     key={month.value}
                     onClick={() => handleMonthChange(month.value)}
-                    className={currentMonthIndex === month.value ? "bg-primary/10 dark:bg-primary/20" : ""}
+                    className={
+                      currentMonthIndex === month.value
+                        ? "bg-primary/10 dark:bg-primary/20"
+                        : ""
+                    }
                   >
                     {month.label}
                   </Dropdown.Item>
@@ -186,7 +202,11 @@ const Calendar = ({
                   <Dropdown.Item
                     key={year}
                     onClick={() => handleYearChange(year)}
-                    className={currentYear === year ? "bg-primary/10 dark:bg-primary/20" : ""}
+                    className={
+                      currentYear === year
+                        ? "bg-primary/10 dark:bg-primary/20"
+                        : ""
+                    }
                   >
                     {year}
                   </Dropdown.Item>
@@ -201,10 +221,14 @@ const Calendar = ({
         </div>
 
         {/* Previous/Next buttons - shown on mobile when selectors are hidden */}
-        <div className={combineClassNames(
-          "flex items-center gap-2",
-          (!showYearSelector && !showMonthSelector) ? "flex sm:hidden" : "hidden"
-        )}>
+        <div
+          className={combineClassNames(
+            "flex items-center gap-2",
+            !showYearSelector && !showMonthSelector
+              ? "flex sm:hidden"
+              : "hidden",
+          )}
+        >
           <Button
             onClick={goToPreviousMonth}
             variant="text"
@@ -243,7 +267,13 @@ const Calendar = ({
           if (!date) {
             return <div key={`empty-${index}`} className="p-1 sm:p-2" />;
           }
-          const disabled = isDateDisabled(date, disabledDates, disabledWeekends, minDate, maxDate);
+          const disabled = isDateDisabled(
+            date,
+            disabledDates,
+            disabledWeekends,
+            minDate,
+            maxDate,
+          );
           const green = isGreenDate(date, greenDates);
           const selected = isSelected(date, selectedDate);
           const dayNumber = date.getDate();
@@ -265,29 +295,38 @@ const Calendar = ({
               disabled={disabled}
               className={combineClassNames(
                 "relative p-1 sm:p-2 text-center rounded-md transition-colors min-h-[32px] sm:min-h-[44px] flex flex-col items-center justify-center",
-                horizontalBorders && "border-t border-gray-200 dark:border-gray-700",
-                verticalBorders && "border-l border-gray-200 dark:border-gray-700",
+                horizontalBorders &&
+                  "border-t border-gray-200 dark:border-gray-700",
+                verticalBorders &&
+                  "border-l border-gray-200 dark:border-gray-700",
                 disabled
                   ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
                   : "hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer",
                 // Selected state takes priority over green state - must be checked first
                 selected && !disabled && "bg-primary text-foreground-inverted",
                 // Green state only applies when NOT selected
-                !selected && green && !disabled && "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200",
+                !selected &&
+                  green &&
+                  !disabled &&
+                  "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200",
               )}
             >
-              <span className={combineClassNames(
-                "text-xs sm:text-sm font-medium",
-                selected && !disabled && "text-foreground-inverted"
-              )}>
+              <span
+                className={combineClassNames(
+                  "text-xs sm:text-sm font-medium",
+                  selected && !disabled && "text-foreground-inverted",
+                )}
+              >
                 {dayNumber}
               </span>
               {/* Custom day content */}
               {renderDayContent && !disabled && (
-                <div className={combineClassNames(
-                  "mt-0.5 sm:mt-1 text-[8px] sm:text-[10px]",
-                  selected && !disabled && "text-foreground-inverted"
-                )}>
+                <div
+                  className={combineClassNames(
+                    "mt-0.5 sm:mt-1 text-[8px] sm:text-[10px]",
+                    selected && !disabled && "text-foreground-inverted",
+                  )}
+                >
                   {renderDayContent(date)}
                 </div>
               )}

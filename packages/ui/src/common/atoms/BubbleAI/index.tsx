@@ -42,8 +42,10 @@ const BubbleAI = ({
   const previousStateRef = useRef<BubbleAIState>(state);
   const stateChangeTimeRef = useRef<number>(0);
   const [isMounted, setIsMounted] = useState(false);
-  const ringVariationsRef = useRef<Array<{ speedVariation: number; animationDelay: number }>>([]);
-  
+  const ringVariationsRef = useRef<
+    Array<{ speedVariation: number; animationDelay: number }>
+  >([]);
+
   // Use theme from ThemeProvider - component will re-render when theme changes
   const { theme } = useTheme();
 
@@ -55,7 +57,8 @@ const BubbleAI = ({
       if (particlesRef.current.length > 0 && !reducedMotion) {
         // Give some particles a burst of energy
         particlesRef.current.forEach((particle, index) => {
-          if (index % 3 === 0) { // Every 3rd particle
+          if (index % 3 === 0) {
+            // Every 3rd particle
             particle.speedX *= 2;
             particle.speedY *= 2;
             // Reset after a short time
@@ -75,7 +78,9 @@ const BubbleAI = ({
   // Initialize media query and set initial state
   useEffect(() => {
     if (respectReducedMotion && typeof window !== "undefined") {
-      mediaQueryRef.current = window.matchMedia("(prefers-reduced-motion: reduce)");
+      mediaQueryRef.current = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
       setReducedMotion(mediaQueryRef.current.matches);
     }
   }, [respectReducedMotion]);
@@ -171,11 +176,18 @@ const BubbleAI = ({
 
         // Fade out as particle ages and moves away
         // Opacity decreases both with age and distance
-        const fadeFactor = Math.max(0, 1 - ageProgress - distanceProgress * 0.5);
+        const fadeFactor = Math.max(
+          0,
+          1 - ageProgress - distanceProgress * 0.5,
+        );
         particle.opacity = particle.maxOpacity * fadeFactor;
 
         // Regenerate particle if it's faded out or moved too far
-        if (particle.opacity <= 0.01 || distance > maxRadius * 1.2 || particle.age >= particle.lifetime) {
+        if (
+          particle.opacity <= 0.01 ||
+          distance > maxRadius * 1.2 ||
+          particle.age >= particle.lifetime
+        ) {
           particlesRef.current[index] = regenerateParticle(size);
           return;
         }
@@ -185,11 +197,19 @@ const BubbleAI = ({
         let moveX = particle.speedX;
         let moveY = particle.speedY;
 
-        if (particle.personality === "explorer" && particle.orbitRadius && particle.orbitSpeed && particle.orbitAngle !== undefined) {
+        if (
+          particle.personality === "explorer" &&
+          particle.orbitRadius &&
+          particle.orbitSpeed &&
+          particle.orbitAngle !== undefined
+        ) {
           // Orbital movement - particles orbit around center
           // Apply particleSpeed to orbital speed
-          const orbitalSpeedMultiplier = particleSpeed * stateConfig.particleSpeedMultiplier;
-          const newAngle = (particle.orbitAngle || 0) + particle.orbitSpeed * deltaTime * 0.1 * orbitalSpeedMultiplier;
+          const orbitalSpeedMultiplier =
+            particleSpeed * stateConfig.particleSpeedMultiplier;
+          const newAngle =
+            (particle.orbitAngle || 0) +
+            particle.orbitSpeed * deltaTime * 0.1 * orbitalSpeedMultiplier;
           particle.orbitAngle = newAngle;
           const targetX = centerX + Math.cos(newAngle) * particle.orbitRadius;
           const targetY = centerY + Math.sin(newAngle) * particle.orbitRadius;
@@ -203,12 +223,18 @@ const BubbleAI = ({
           const edgeAttraction = distance > maxRadius * 0.7 ? 1.3 : 0.8;
           const angleToEdge = Math.atan2(dy, dx);
           // Use original speed values but apply edge attraction
-          moveX = Math.cos(angleToEdge) * Math.abs(particle.speedX) * edgeAttraction;
-          moveY = Math.sin(angleToEdge) * Math.abs(particle.speedY) * edgeAttraction;
+          moveX =
+            Math.cos(angleToEdge) * Math.abs(particle.speedX) * edgeAttraction;
+          moveY =
+            Math.sin(angleToEdge) * Math.abs(particle.speedY) * edgeAttraction;
           effectiveSpeed = 1.2; // Curious particles move faster
         } else if (particle.personality === "energetic") {
           // Energetic particles have bursts and erratic movement
-          if (particle.energyBurst && particle.age >= particle.energyBurst && particle.age < particle.energyBurst + 200) {
+          if (
+            particle.energyBurst &&
+            particle.age >= particle.energyBurst &&
+            particle.age < particle.energyBurst + 200
+          ) {
             // Energy burst!
             effectiveSpeed = 2.5;
             moveX *= 1.5;
@@ -264,18 +290,13 @@ const BubbleAI = ({
         // Apply particleSize multiplier to make size changes more noticeable
         const finalParticleSize = Math.max(0.5, particle.size * particleSize);
         ctx.beginPath();
-        ctx.arc(
-          particle.x,
-          particle.y,
-          finalParticleSize,
-          0,
-          Math.PI * 2,
-        );
+        ctx.arc(particle.x, particle.y, finalParticleSize, 0, Math.PI * 2);
         // Use theme-aware particle colors
         // Light mode: darker particles, Dark mode: lighter particles
-        const particleColor = theme === "dark" 
-          ? `rgba(248, 250, 252, ${particle.opacity * opacity})` // Light gray for dark mode
-          : `rgba(30, 41, 59, ${particle.opacity * opacity})`; // Dark gray for light mode
+        const particleColor =
+          theme === "dark"
+            ? `rgba(248, 250, 252, ${particle.opacity * opacity})` // Light gray for dark mode
+            : `rgba(30, 41, 59, ${particle.opacity * opacity})`; // Dark gray for light mode
         ctx.fillStyle = particleColor;
         ctx.fill();
       });
@@ -306,20 +327,20 @@ const BubbleAI = ({
     return ringConfigs.map((ring, index) => {
       const ringSize = ring.size ?? 1 - index * 0.15;
       const actualSize = size * ringSize;
-      
+
       // Use pre-generated variations to avoid hydration mismatch
       // On server or before mount, use deterministic values
       const variation = ringVariationsRef.current[index] || {
         speedVariation: 1, // Default to no variation on server
         animationDelay: 0, // Default to no delay on server
       };
-      
+
       const rotationSpeed =
         (ring.rotationSpeed ?? 1) *
         stateConfig.ringSpeedMultiplier *
         variation.speedVariation *
         (reducedMotion ? 0 : 1);
-      
+
       const glowIntensity = ring.glowIntensity ?? 0.6;
       const ringOpacity = (ring.opacity ?? 0.8) * opacity;
 
@@ -391,7 +412,9 @@ const BubbleAI = ({
             const gradientId = `ring-gradient-${index}`;
             // Parse color to RGB for gradient variations
             const hexToRgb = (hex: string) => {
-              const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+              const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
+                hex,
+              );
               if (result && result[1] && result[2] && result[3]) {
                 return {
                   r: parseInt(result[1], 16),
@@ -419,7 +442,13 @@ const BubbleAI = ({
             return (
               <React.Fragment key={`defs-${index}`}>
                 {/* Enhanced 3D filter with depth */}
-                <filter id={`glow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
+                <filter
+                  id={`glow-${index}`}
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
                   <feGaussianBlur stdDeviation={ring.glowIntensity * 4} />
                   <feComponentTransfer>
                     <feFuncA type="linear" slope={ring.glowIntensity} />
@@ -435,10 +464,26 @@ const BubbleAI = ({
                 </filter>
                 {/* 3D radial gradient for ring depth */}
                 <radialGradient id={gradientId} cx="50%" cy="50%">
-                  <stop offset="0%" stopColor={lighterColor} stopOpacity={ring.opacity} />
-                  <stop offset="30%" stopColor={ring.color} stopOpacity={ring.opacity} />
-                  <stop offset="70%" stopColor={ring.color} stopOpacity={ring.opacity} />
-                  <stop offset="100%" stopColor={darkerColor} stopOpacity={ring.opacity * 0.8} />
+                  <stop
+                    offset="0%"
+                    stopColor={lighterColor}
+                    stopOpacity={ring.opacity}
+                  />
+                  <stop
+                    offset="30%"
+                    stopColor={ring.color}
+                    stopOpacity={ring.opacity}
+                  />
+                  <stop
+                    offset="70%"
+                    stopColor={ring.color}
+                    stopOpacity={ring.opacity}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={darkerColor}
+                    stopOpacity={ring.opacity * 0.8}
+                  />
                 </radialGradient>
               </React.Fragment>
             );
@@ -451,7 +496,7 @@ const BubbleAI = ({
             ? 0
             : Math.abs(20 / ring.rotationSpeed);
           const rippleDuration = 2; // 2 seconds for ripple animation
-          
+
           // Use deterministic variations based on index to avoid hydration mismatch
           // These create organic variation while being consistent between server and client
           const baseVibrationDuration = 0.8 + index * 0.1;
@@ -459,44 +504,49 @@ const BubbleAI = ({
           const vibrationHash = ((index * 7 + 13) % 61) / 61; // 0-1 range
           const vibrationVariation = 0.6 + vibrationHash * 0.6; // 0.6 to 1.2
           const vibrationDuration = baseVibrationDuration * vibrationVariation;
-          
+
           // Deterministic sphere rotation variation
           const baseSphereDuration = 8 + index * 2;
           const sphereHash = ((index * 11 + 17) % 51) / 51; // 0-1 range
           const sphereVariation = 0.75 + sphereHash * 0.5; // 0.75 to 1.25
           const sphereRotationDuration = baseSphereDuration * sphereVariation;
-          
+
           const gradientId = `ring-gradient-${index}`;
-          
+
           // Choose vibration animation based on ring index for variety
-          const vibrationAnimation = index % 3 === 0 
-            ? "bubbleVibrate" 
-            : index % 3 === 1 
-            ? "bubbleVibratePhase1" 
-            : "bubbleVibratePhase2";
-          
+          const vibrationAnimation =
+            index % 3 === 0
+              ? "bubbleVibrate"
+              : index % 3 === 1
+                ? "bubbleVibratePhase1"
+                : "bubbleVibratePhase2";
+
           // Choose 3D sphere rotation based on ring index for variety
           // Each ring rotates on different axes to create sphere effect
-          const sphereAnimation = index % 3 === 0
-            ? `bubbleSphereRotateXY ${sphereRotationDuration}s linear infinite`
-            : index % 3 === 1
-            ? `bubbleSphereRotateXZ ${sphereRotationDuration * 1.2}s linear infinite`
-            : `bubbleSphereRotateYZ ${sphereRotationDuration * 0.8}s linear infinite`;
+          const sphereAnimation =
+            index % 3 === 0
+              ? `bubbleSphereRotateXY ${sphereRotationDuration}s linear infinite`
+              : index % 3 === 1
+                ? `bubbleSphereRotateXZ ${sphereRotationDuration * 1.2}s linear infinite`
+                : `bubbleSphereRotateYZ ${sphereRotationDuration * 0.8}s linear infinite`;
 
           // Include delay in animation shorthand to avoid mixing shorthand and non-shorthand
           // CSS animation format: name duration timing-function delay iteration-count
           const delayValue = reducedMotion ? "0s" : `${ring.animationDelay}s`;
           // Insert delay after timing-function (linear) and before iteration-count (infinite)
-          const sphereAnimationWithDelay = reducedMotion 
-            ? "none" 
-            : sphereAnimation.replace(/\s+(linear|ease|ease-in|ease-out|ease-in-out)\s+(infinite|\d+)/, ` $1 ${delayValue} $2`);
-          
+          const sphereAnimationWithDelay = reducedMotion
+            ? "none"
+            : sphereAnimation.replace(
+                /\s+(linear|ease|ease-in|ease-out|ease-in-out)\s+(infinite|\d+)/,
+                ` $1 ${delayValue} $2`,
+              );
+
           const circleAnimationWithDelay = reducedMotion
             ? "none"
             : `${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear ${delayValue} infinite, ${vibrationAnimation} ${vibrationDuration}s ease-in-out ${delayValue} infinite`;
 
           return (
-            <g 
+            <g
               key={`ring-group-${index}`}
               style={{
                 transformOrigin: `${center}px ${center}px`,
@@ -530,13 +580,15 @@ const BubbleAI = ({
                     strokeWidth={size * 0.018}
                     opacity={0}
                     filter={`url(#glow-${index})`}
-                    style={{
-                      transformOrigin: `${center}px ${center}px`,
-                      transformStyle: "preserve-3d",
-                      "--bubble-ripple-start-opacity": ring.opacity * 0.8,
-                      "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
-                      animation: `bubbleRipple ${rippleDuration}s ease-out infinite, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
-                    } as React.CSSProperties}
+                    style={
+                      {
+                        transformOrigin: `${center}px ${center}px`,
+                        transformStyle: "preserve-3d",
+                        "--bubble-ripple-start-opacity": ring.opacity * 0.8,
+                        "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
+                        animation: `bubbleRipple ${rippleDuration}s ease-out infinite, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
+                      } as React.CSSProperties
+                    }
                   />
                   <circle
                     cx={center}
@@ -547,13 +599,15 @@ const BubbleAI = ({
                     strokeWidth={size * 0.018}
                     opacity={0}
                     filter={`url(#glow-${index})`}
-                    style={{
-                      transformOrigin: `${center}px ${center}px`,
-                      transformStyle: "preserve-3d",
-                      "--bubble-ripple-start-opacity": ring.opacity * 0.8,
-                      "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
-                      animation: `bubbleRippleDelay1 ${rippleDuration}s ease-out infinite ${rippleDuration * 0.33}s, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
-                    } as React.CSSProperties}
+                    style={
+                      {
+                        transformOrigin: `${center}px ${center}px`,
+                        transformStyle: "preserve-3d",
+                        "--bubble-ripple-start-opacity": ring.opacity * 0.8,
+                        "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
+                        animation: `bubbleRippleDelay1 ${rippleDuration}s ease-out infinite ${rippleDuration * 0.33}s, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
+                      } as React.CSSProperties
+                    }
                   />
                   <circle
                     cx={center}
@@ -564,13 +618,15 @@ const BubbleAI = ({
                     strokeWidth={size * 0.018}
                     opacity={0}
                     filter={`url(#glow-${index})`}
-                    style={{
-                      transformOrigin: `${center}px ${center}px`,
-                      transformStyle: "preserve-3d",
-                      "--bubble-ripple-start-opacity": ring.opacity * 0.8,
-                      "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
-                      animation: `bubbleRippleDelay2 ${rippleDuration}s ease-out infinite ${rippleDuration * 0.66}s, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
-                    } as React.CSSProperties}
+                    style={
+                      {
+                        transformOrigin: `${center}px ${center}px`,
+                        transformStyle: "preserve-3d",
+                        "--bubble-ripple-start-opacity": ring.opacity * 0.8,
+                        "--bubble-ripple-mid-opacity": ring.opacity * 0.4,
+                        animation: `bubbleRippleDelay2 ${rippleDuration}s ease-out infinite ${rippleDuration * 0.66}s, ${ring.rotationSpeed > 0 ? "bubbleRotateCW" : "bubbleRotateCCW"} ${rotationDuration}s linear infinite`,
+                      } as React.CSSProperties
+                    }
                   />
                 </>
               )}
@@ -589,13 +645,15 @@ const BubbleAI = ({
       {stateConfig.pulseIntensity > 0.3 && !reducedMotion && (
         <div
           className="absolute inset-0 rounded-full pointer-events-none"
-          style={{
-            boxShadow: `0 0 ${size * 0.3}px ${ringElements[0]?.color ?? "#8b5cf6"}40`,
-            "--bubble-pulse-min-opacity": stateConfig.pulseIntensity * 0.5,
-            "--bubble-pulse-max-opacity": stateConfig.pulseIntensity,
-            animation: "bubblePulse 2s ease-in-out infinite",
-            opacity: stateConfig.pulseIntensity * opacity,
-          } as React.CSSProperties}
+          style={
+            {
+              boxShadow: `0 0 ${size * 0.3}px ${ringElements[0]?.color ?? "#8b5cf6"}40`,
+              "--bubble-pulse-min-opacity": stateConfig.pulseIntensity * 0.5,
+              "--bubble-pulse-max-opacity": stateConfig.pulseIntensity,
+              animation: "bubblePulse 2s ease-in-out infinite",
+              opacity: stateConfig.pulseIntensity * opacity,
+            } as React.CSSProperties
+          }
         />
       )}
     </div>
@@ -603,4 +661,3 @@ const BubbleAI = ({
 };
 
 export default withForwardRef(withBaseTheme(withBaseTailwindProps(BubbleAI)));
-

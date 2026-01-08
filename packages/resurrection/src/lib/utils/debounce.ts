@@ -92,6 +92,7 @@ export function debounce<T extends GenericFunction>(
       return trailingEdge(time);
     }
     timeoutId = setTimeout(timerExpired, remainingWait(time));
+    return undefined;
   }
 
   function trailingEdge(time: number) {

@@ -4,4 +4,3 @@ export interface NavbarProps {
   logo?: ReactNode;
   logoHref?: string;
 }
-

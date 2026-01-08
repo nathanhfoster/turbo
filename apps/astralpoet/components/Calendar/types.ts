@@ -1,4 +1,3 @@
 export interface CalendarProps {
-  onChange?: (date: Date | null) => void;
+	onChange?: (date: Date | null) => void
 }
-

@@ -6,10 +6,9 @@ import "./preview.css";
 const preview: Preview = {
   decorators: [
     (Story) => {
-      return React.createElement(
-        ThemeProvider,
-        { children: React.createElement(Story) },
-      );
+      return React.createElement(ThemeProvider, {
+        children: React.createElement(Story),
+      });
     },
   ],
   parameters: {

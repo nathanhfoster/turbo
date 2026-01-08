@@ -67,7 +67,8 @@
     "@nathanhfoster/cookies": "workspace:*",
     "@nathanhfoster/react-hooks": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",
-    "@nathanhfoster/ui": "workspace:*"
+    "@nathanhfoster/ui": "workspace:*",
+    "@nathanhfoster/utils": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19.0.0",

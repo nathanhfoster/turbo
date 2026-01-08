@@ -1,5 +1,5 @@
 import type { ImageProps as NextImageProps } from "next/image";
-import type { ConnectedComponentProps } from "resurrection";
+import type { ConnectedComponentProps } from "@nathanhfoster/resurrection";
 import type { ImageProps } from "../../types";
 
 export interface ConnectedImageMapStateToProps

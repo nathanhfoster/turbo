@@ -1,5 +1,5 @@
 import type { ComposableComponent } from "../../../types";
-import type { ColoredComponent, Size } from "../types";
+import type { ColoredComponent } from "../types";
 
 export type TextAreaSizeProp = string;
 

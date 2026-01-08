@@ -20,4 +20,3 @@ export function ResumeViewer({ resume, className }: ResumeViewerProps) {
     </Box>
   );
 }
-

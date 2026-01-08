@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dispatch, SetStateAction } from "react";
+import type { SetStateAction } from "react";
 import { createContext } from "use-context-selector";
 import createUseDispatchHook from "../hooks/createUseDispatchHook";
 import createUseSelectorHook from "../hooks/createUseSelectorHook";
@@ -10,6 +10,7 @@ import type {
   ActionCreatorWithPayload,
   PayloadActionCreator,
   PayloadAction,
+  DispatchWithCallback,
 } from "../types";
 import type { ComponentPropsType } from "../connect/types";
 
@@ -26,13 +27,14 @@ const createContextWithName = <
   const useSelector = createUseSelectorHook(StateContext);
 
   const DispatchContext = createContext<
-    Dispatch<
+    DispatchWithCallback<
       | PayloadAction<string, any>
       | ActionCreatorWithPayload<any, string>
       | PayloadActionCreator<any, string>
       | Thunk<A, S>
       | SetStateAction<S>
-      | Partial<S>
+      | Partial<S>,
+      S
     >
   >(() => {
     throw new Error("Dispatch function not initialized");

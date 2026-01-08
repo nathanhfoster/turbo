@@ -61,4 +61,3 @@ export interface TipTapEditorProps extends Omit<BaseTailwindProps, "shadow"> {
    */
   resetKey?: string | number;
 }
-

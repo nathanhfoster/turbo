@@ -19,7 +19,7 @@ let defaultAdapter: OpenAIAdapter | null = null;
  */
 const getDefaultAdapter = (): OpenAIAdapter => {
   if (!defaultAdapter) {
-    const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+    const apiKey = process.env["NEXT_PUBLIC_OPENAI_API_KEY"];
     if (!apiKey) {
       throw new Error(
         "NEXT_PUBLIC_OPENAI_API_KEY environment variable is required",

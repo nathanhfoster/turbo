@@ -214,4 +214,3 @@ export const LoadingWithCustomText: Story = {
     dropZoneText: "Drop files here or click to browse",
   },
 };
-

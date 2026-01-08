@@ -2,8 +2,18 @@
   "extends": "@nathanhfoster/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "declaration": true,
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

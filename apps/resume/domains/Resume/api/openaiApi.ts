@@ -68,7 +68,8 @@ export async function improveResumeContent(
       return {
         success: false,
         error: {
-          message: result.error?.message || "Failed to generate improved resume",
+          message:
+            result.error?.message || "Failed to generate improved resume",
           code: result.error?.code,
         },
       };
@@ -77,7 +78,8 @@ export async function improveResumeContent(
     return {
       success: false,
       error: {
-        message: err instanceof Error ? err.message : "Failed to improve resume",
+        message:
+          err instanceof Error ? err.message : "Failed to improve resume",
         code: "UNKNOWN_ERROR",
       },
     };

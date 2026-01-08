@@ -1,4 +1,3 @@
 export interface EntryEditorProps {
-  entryId?: number;
+	entryId?: number
 }
-

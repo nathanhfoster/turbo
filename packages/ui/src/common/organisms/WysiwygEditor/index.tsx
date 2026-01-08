@@ -101,4 +101,3 @@ const WysiwygEditor = ({
 };
 
 export default WysiwygEditor;
-

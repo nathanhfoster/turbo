@@ -168,4 +168,3 @@ export async function exportResumeAsPDF(resume: Resume): Promise<void> {
     document.body.removeChild(container);
   }
 }
-

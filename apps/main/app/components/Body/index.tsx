@@ -6,8 +6,8 @@ import type { BodyProps } from "./types";
 
 export function Body({ children, className }: BodyProps) {
   return (
-    <AppBody 
-      enableGoogleTagManager 
+    <AppBody
+      enableGoogleTagManager
       className={className}
       consentModal={<CookieConsentModal />}
     >
@@ -15,4 +15,3 @@ export function Body({ children, className }: BodyProps) {
     </AppBody>
   );
 }
-

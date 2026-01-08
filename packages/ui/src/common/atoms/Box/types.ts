@@ -1,5 +1,5 @@
 import type React from "react";
-import type { BaseTailwindProps, ComponentColor, Size } from "../types";
+import type { BaseTailwindProps, ComponentColor } from "../types";
 
 export type BoxHtmlVariant = "html";
 export type BoxDivVariant = "div";

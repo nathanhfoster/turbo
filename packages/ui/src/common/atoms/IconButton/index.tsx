@@ -88,7 +88,10 @@ export function IconButton({
         variantStyles,
         variantColorClasses,
         disabled && DISABLED_COMMON_STYLES,
-        disabled && effectiveVariant !== "text" && effectiveVariant !== "ghost" && DISABLED_BG_STYLES,
+        disabled &&
+          effectiveVariant !== "text" &&
+          effectiveVariant !== "ghost" &&
+          DISABLED_BG_STYLES,
         className,
       )}
       aria-label={label}

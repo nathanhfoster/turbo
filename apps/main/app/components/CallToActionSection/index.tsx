@@ -16,20 +16,14 @@ export function CallToActionSection() {
           variant="p"
           className="mb-8 text-lg text-gray-700 dark:text-gray-300"
         >
-          Looking for a technical consultant or developer for your next
-          project? I specialize in modern web applications, PWAs, and
-          scalable architectures.
+          Looking for a technical consultant or developer for your next project?
+          I specialize in modern web applications, PWAs, and scalable
+          architectures.
         </Typography>
-        <Button
-          href="/services"
-          variant="contained"
-          color="primary"
-          size="lg"
-        >
+        <Button href="/services" variant="contained" color="primary" size="lg">
           View Services
         </Button>
       </Box>
     </Box>
   );
 }
-

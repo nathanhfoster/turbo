@@ -18,11 +18,21 @@ import { getResumeViewUrl } from "./utils/navigation";
  */
 export function useResumeActions(
   currentResume: Resume | null,
-  createResume: (name: string, content: string, jobDescription?: string) => Promise<Resume>,
+  createResume: (
+    name: string,
+    content: string,
+    jobDescription?: string,
+  ) => Promise<Resume>,
   updateResume: (resume: Resume) => Promise<Resume>,
   handleContentChange: (content: string) => void,
-  improveResume: (resume: Resume, instructions?: string) => Promise<string | null>,
-  tailorForJob: (resume: Resume, jobDescription: string) => Promise<string | null>,
+  improveResume: (
+    resume: Resume,
+    instructions?: string,
+  ) => Promise<string | null>,
+  tailorForJob: (
+    resume: Resume,
+    jobDescription: string,
+  ) => Promise<string | null>,
 ) {
   const router = useRouter();
 
@@ -60,17 +70,14 @@ export function useResumeActions(
   /**
    * Handle AI-powered resume improvement
    */
-  const handleImprove = useCallback(
-    async () => {
-      if (!currentResume) return;
+  const handleImprove = useCallback(async () => {
+    if (!currentResume) return;
 
-      const improvedContent = await improveResume(currentResume);
-      if (improvedContent) {
-        handleContentChange(improvedContent);
-      }
-    },
-    [currentResume, improveResume, handleContentChange],
-  );
+    const improvedContent = await improveResume(currentResume);
+    if (improvedContent) {
+      handleContentChange(improvedContent);
+    }
+  }, [currentResume, improveResume, handleContentChange]);
 
   /**
    * Handle tailoring resume for a specific job description
@@ -98,7 +105,11 @@ export function useResumeActions(
       const tailoredContent = await tailorForJob(currentResume, jobDescription);
       if (tailoredContent) {
         const versionName = `${currentResume.name} - ${jobDescription.substring(0, 30)}...`;
-        const newResume = await createResume(versionName, tailoredContent, jobDescription);
+        const newResume = await createResume(
+          versionName,
+          tailoredContent,
+          jobDescription,
+        );
         if (newResume?.id) {
           router.push(getResumeViewUrl(newResume.id));
         }
@@ -156,4 +167,3 @@ export function useResumeActions(
     handleCreateResumeFromForm,
   };
 }
-

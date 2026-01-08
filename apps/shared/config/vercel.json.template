@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd ../.. && pnpm lint && pnpm check-types && pnpm turbo build --filter=@nathanhfoster/APP_NAME",
+  "outputDirectory": ".next",
+  "framework": "nextjs"
+}

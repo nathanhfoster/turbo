@@ -25,6 +25,3 @@ export interface ICookieManager<T> {
    */
   getCookies(): Record<string, string>;
 }
-
-
-

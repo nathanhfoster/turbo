@@ -66,7 +66,7 @@ export function useResumeEditor(resume: Resume | null) {
     },
     [dispatch],
     1000, // Wait 1 second after user stops typing
-    { leading: false, trailing: true } // Only save after pause
+    { leading: false, trailing: true }, // Only save after pause
   );
 
   // Handle content changes with auto-save
@@ -80,7 +80,7 @@ export function useResumeEditor(resume: Resume | null) {
         autoSaveToIndexedDB(newContent, resume);
       }
     },
-    [resume, autoSaveToIndexedDB]
+    [resume, autoSaveToIndexedDB],
   );
 
   // Manual save (for explicit save button if needed)
@@ -129,4 +129,3 @@ export function useResumeEditor(resume: Resume | null) {
     resetChanges,
   };
 }
-

@@ -18,4 +18,3 @@ export interface AppFooterProps {
   socialLinks?: SocialLink[];
   copyrightText?: string;
 }
-

@@ -16,7 +16,13 @@ const getDefaultLogo = (href: string = "/") => (
     href={href}
     className="flex items-center gap-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors"
   >
-    <BubbleAI size={28} state="idle" quality="low" ringCount={2} particleSize={0.5} />
+    <BubbleAI
+      size={28}
+      state="idle"
+      quality="low"
+      ringCount={2}
+      particleSize={0.5}
+    />
     <span>AgentNate</span>
   </Link>
 );
@@ -89,4 +95,3 @@ export function AppNavbar({
     </>
   );
 }
-

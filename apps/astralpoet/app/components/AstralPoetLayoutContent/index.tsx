@@ -1,40 +1,36 @@
-"use client";
+'use client'
 
+import { AppBody, AppNavbar } from '@nathanhfoster/ui'
+import { CookieConsentModal } from '@nathanhfoster/pwa/device'
+import { getMainAppUrl } from '../../../../shared/utils/getMainAppUrl'
 import {
-  AppBody,
-  AppNavbar,
-} from "@nathanhfoster/ui";
-import { CookieConsentModal } from "@nathanhfoster/pwa/device";
-import { getMainAppUrl } from "../../../../shared/utils/getMainAppUrl";
-import {
-  BASE_PATH,
-  getBottomNavItems,
-  getNavItems,
-  STRIP_PREFIX,
-} from "./constants";
-import type { AstralPoetLayoutContentProps } from "./types";
+	BASE_PATH,
+	getBottomNavItems,
+	getNavItems,
+	STRIP_PREFIX,
+} from './constants'
+import type { AstralPoetLayoutContentProps } from './types'
 
 export function AstralPoetLayoutContent({
-  children,
+	children,
 }: AstralPoetLayoutContentProps) {
-  const mainAppUrl = getMainAppUrl();
+	const mainAppUrl = getMainAppUrl()
 
-  // Use absolute URLs to bypass basePath in development
-  // This ensures links go to /apps/astralpoet instead of /astralpoet/apps/astralpoet
-  const navItems = getNavItems(mainAppUrl);
-  const bottomNavItems = getBottomNavItems(mainAppUrl);
+	// Use absolute URLs to bypass basePath in development
+	// This ensures links go to /apps/astralpoet instead of /astralpoet/apps/astralpoet
+	const navItems = getNavItems(mainAppUrl)
+	const bottomNavItems = getBottomNavItems(mainAppUrl)
 
-  return (
-    <AppBody className="pt-16" consentModal={<CookieConsentModal />}>
-      <AppNavbar
-        logoHref={`${mainAppUrl}/`}
-        navItems={navItems}
-        bottomNavItems={bottomNavItems}
-        stripPrefix={STRIP_PREFIX}
-        basePath={BASE_PATH}
-      />
-      {children}
-    </AppBody>
-  );
+	return (
+		<AppBody className='pt-16' consentModal={<CookieConsentModal />}>
+			<AppNavbar
+				logoHref={`${mainAppUrl}/`}
+				navItems={navItems}
+				bottomNavItems={bottomNavItems}
+				stripPrefix={STRIP_PREFIX}
+				basePath={BASE_PATH}
+			/>
+			{children}
+		</AppBody>
+	)
 }
-

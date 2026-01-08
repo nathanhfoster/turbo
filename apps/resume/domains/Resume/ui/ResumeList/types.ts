@@ -7,4 +7,3 @@ export interface ResumeListProps {
   onDeleteResume: (resumeId: string) => void;
   className?: string;
 }
-

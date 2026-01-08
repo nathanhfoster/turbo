@@ -17,4 +17,3 @@ const ChevronLeft = ({ className, ...props }: BaseProps = {}) => (
 );
 
 export default ChevronLeft;
-

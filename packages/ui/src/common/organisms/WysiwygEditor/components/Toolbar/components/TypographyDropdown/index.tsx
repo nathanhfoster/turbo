@@ -18,13 +18,20 @@ export const TypographyDropdown: React.FC<TypographyDropdownProps> = ({
 }) => {
   return (
     <div className="relative">
-      <ToolbarButton
-        onClick={onToggle}
-        title="Format"
-      >
+      <ToolbarButton onClick={onToggle} title="Format">
         <span className="text-sm font-medium">Format</span>
-        <svg className="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 9-7 7-7-7" />
+        <svg
+          className="w-3.5 h-3.5 ml-1"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="m19 9-7 7-7-7"
+          />
         </svg>
       </ToolbarButton>
       {isOpen && (

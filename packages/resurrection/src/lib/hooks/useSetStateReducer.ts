@@ -11,8 +11,10 @@ import {
 
 import setObjectStateReducer from "../reducers/setStateObjectReducer";
 import defaultInitializer from "../utils/defaultInitializer";
+import type { StateCallback } from "../types";
 
-export type StateCallback<S> = (prevState: S) => void;
+// Re-export for backward compatibility
+export type { StateCallback };
 
 export type SetState<S> = (
   updater: Partial<S> | SetStateAction<S>,

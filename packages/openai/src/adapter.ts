@@ -1,5 +1,8 @@
 import { OpenAI } from "openai";
-import type { ChatCompletion, ChatCompletionCreateParamsNonStreaming } from "openai/resources";
+import type {
+  ChatCompletion,
+  ChatCompletionCreateParamsNonStreaming,
+} from "openai/resources";
 import type { AskOpenAIProps, OpenAIResponse } from "./types";
 
 /**
@@ -57,8 +60,16 @@ export interface IOpenAIAdapter {
  */
 export class OpenAIAdapter implements IOpenAIAdapter {
   private client: OpenAI;
-  private config: Required<Pick<OpenAIAdapterConfig, "defaultModel" | "defaultTemperature" | "defaultMaxTokens">> &
-    Omit<OpenAIAdapterConfig, "defaultModel" | "defaultTemperature" | "defaultMaxTokens">;
+  private config: Required<
+    Pick<
+      OpenAIAdapterConfig,
+      "defaultModel" | "defaultTemperature" | "defaultMaxTokens"
+    >
+  > &
+    Omit<
+      OpenAIAdapterConfig,
+      "defaultModel" | "defaultTemperature" | "defaultMaxTokens"
+    >;
 
   constructor(config: OpenAIAdapterConfig) {
     if (!config.apiKey) {
@@ -236,4 +247,3 @@ export class OpenAIAdapter implements IOpenAIAdapter {
     return cleanContent;
   }
 }
-

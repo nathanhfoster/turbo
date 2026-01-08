@@ -17,4 +17,3 @@ const ChevronDown = ({ className, ...props }: BaseProps = {}) => (
 );
 
 export default ChevronDown;
-

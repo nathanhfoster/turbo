@@ -29,4 +29,3 @@ export interface AppNavbarProps {
    */
   basePath?: string;
 }
-

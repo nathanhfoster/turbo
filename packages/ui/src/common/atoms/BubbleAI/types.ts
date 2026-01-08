@@ -1,6 +1,11 @@
 import type { BaseTailwindProps } from "../types";
 
-export type BubbleAIState = "idle" | "listening" | "thinking" | "speaking" | "navigating";
+export type BubbleAIState =
+  | "idle"
+  | "listening"
+  | "thinking"
+  | "speaking"
+  | "navigating";
 
 export type BubbleAIQuality = "low" | "medium" | "high";
 
@@ -92,4 +97,3 @@ export interface BubbleAIProps extends BaseTailwindProps {
    */
   "aria-label"?: string;
 }
-

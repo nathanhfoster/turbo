@@ -1,6 +1,6 @@
 /**
  * Copies the provided text to the clipboard using the Clipboard API.
- * 
+ *
  * Note: This is a simple implementation. For more features (HTML support, fallback),
  * use @nathanhfoster/utils instead.
  *

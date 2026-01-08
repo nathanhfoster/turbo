@@ -1,5 +1,5 @@
 import type { LinkProps } from "./../Link/types";
-import type { BaseTailwindProps, ColoredComponent, Size } from "../types";
+import type { BaseTailwindProps, ColoredComponent } from "../types";
 
 /**
  * ColorStyles type is now exported from centralized token utilities

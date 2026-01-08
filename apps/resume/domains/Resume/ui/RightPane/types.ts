@@ -15,9 +15,11 @@ export interface RightPaneProps {
   onToggleNewResumeForm: () => void;
   onNewResumeNameChange: (value: string) => void;
   onNewResumeContentChange: (value: string) => void;
-  onCreateResumeFromForm: (name: string, content: string) => Promise<Resume | null>;
+  onCreateResumeFromForm: (
+    name: string,
+    content: string,
+  ) => Promise<Resume | null>;
   onResetNewResumeForm: () => void;
   onSelectResume: (resume: Resume | null) => void;
   onDeleteResume: (id: string) => Promise<void>;
 }
-

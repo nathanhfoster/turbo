@@ -73,6 +73,3 @@ export class CookieManager<T> implements ICookieManager<T> {
     destroyCookie(this.context, this.name, { path: "/" });
   }
 }
-
-
-

@@ -31,6 +31,11 @@ export const generateRandomTopic = (category: string = "business"): string => {
   const baseTopic =
     categoryTopics[Math.floor(Math.random() * categoryTopics.length)];
 
+  if (!baseTopic) {
+    // Fallback if array is empty
+    return "Business Strategy";
+  }
+
   // 30% chance to add trending angle
   if (Math.random() < 0.3) {
     return `${trendingAngle} ${baseTopic.toLowerCase()}`;
@@ -74,10 +79,11 @@ export const getBlogPrompt = (
       const categoryLower = category.toLowerCase();
       const audienceLower = targetAudience.toLowerCase();
 
+      const firstKeyPart = key.split("_")[0];
       return (
         topicLower.includes(keyWords) ||
-        categoryLower.includes(key.split("_")[0]) ||
-        audienceLower.includes(key.split("_")[0]) ||
+        (firstKeyPart && categoryLower.includes(firstKeyPart)) ||
+        (firstKeyPart && audienceLower.includes(firstKeyPart)) ||
         // Enhanced matching for related terms
         (key === "ai_enhancement" &&
           (topicLower.includes("ai") || topicLower.includes("artificial"))) ||

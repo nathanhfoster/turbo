@@ -1,12 +1,14 @@
 {
-  "extends": "../typescript-config/base.json",
+  "extends": "@nathanhfoster/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
     "declaration": true,
     "resolveJsonModule": true,
-    "types": ["node"]
+    "types": ["node"],
+    "module": "ESNext",
+    "moduleResolution": "bundler"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "src/**/__tests__/**", "src/**/*.test.tsx", "src/**/*.test.ts"]
 }
   

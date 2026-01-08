@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useCallback, useEffect } from "react";
-import { isPwaInstalled } from "@nathanhfoster/resurrection";
+import { isPwaInstalled } from "@nathanhfoster/utils";
 import { useEventListener } from "@nathanhfoster/ui";
 import { deviceContextActions, useDeviceDispatch } from "../context";
 import {
@@ -38,7 +38,7 @@ const DeviceListener: FC<React.PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const { innerHeight, scrollY } = window;
+      const { scrollY } = window;
       const hasScrolled = scrollY > 0;
       dispatch(deviceContextActions.SetHasScrolled(hasScrolled));
     }

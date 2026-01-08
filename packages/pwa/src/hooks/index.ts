@@ -190,7 +190,7 @@ export function usePushNotification(): PushNotificationState {
       throw new Error("Push notifications not supported");
     }
 
-    const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+    const vapidPublicKey = (process.env as any)['NEXT_PUBLIC_VAPID_PUBLIC_KEY'];
     if (!vapidPublicKey) {
       console.warn("VAPID public key not configured");
       return;

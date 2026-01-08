@@ -1,11 +1,10 @@
-import { SettingsContent } from "./SettingsContent";
+import { SettingsContent } from './SettingsContent'
 
 export const metadata = {
-  title: "Settings",
-  description: "PWA settings and preferences",
-};
-
-export default function SettingsPage() {
-  return <SettingsContent />;
+	title: 'Settings',
+	description: 'PWA settings and preferences',
 }
 
+export default function SettingsPage() {
+	return <SettingsContent />
+}

@@ -30,8 +30,8 @@ export const selectResumeById = (state: ResumeState, id: string) =>
 export const selectResumeVersions = (
   state: ResumeState,
   baseResumeId: string,
-) => state.resumes.filter((r) => {
-  // Check if resume has baseResumeId property (for versions)
-  return "baseResumeId" in r && r.baseResumeId === baseResumeId;
-});
-
+) =>
+  state.resumes.filter((r) => {
+    // Check if resume has baseResumeId property (for versions)
+    return "baseResumeId" in r && r.baseResumeId === baseResumeId;
+  });

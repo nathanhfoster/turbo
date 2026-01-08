@@ -32,7 +32,7 @@ const readFileAsText = (file: File): Promise<string> => {
     }
 
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
       const result = e.target?.result;
       // FileReader.result can be string | ArrayBuffer | null
@@ -46,21 +46,26 @@ const readFileAsText = (file: File): Promise<string> => {
         reject(new Error("Failed to read file: unexpected result type"));
       }
     };
-    
+
     reader.onerror = (e) => {
       const error = e.target?.error;
-      const errorMessage = error?.message || "Unknown error occurred while reading file";
+      const errorMessage =
+        error?.message || "Unknown error occurred while reading file";
       reject(new Error(`Failed to read file: ${errorMessage}`));
     };
-    
+
     reader.onabort = () => {
       reject(new Error("File reading was aborted"));
     };
-    
+
     try {
       reader.readAsText(file);
     } catch (error) {
-      reject(new Error(`Failed to start reading file: ${error instanceof Error ? error.message : "Unknown error"}`));
+      reject(
+        new Error(
+          `Failed to start reading file: ${error instanceof Error ? error.message : "Unknown error"}`,
+        ),
+      );
     }
   });
 };

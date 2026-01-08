@@ -7,7 +7,7 @@
     "dev": "next dev --turbopack --port 3003",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
@@ -31,11 +31,7 @@
   "devDependencies": {
     "@nathanhfoster/eslint-config": "workspace:*",
     "@nathanhfoster/typescript-config": "workspace:*",
-    "@types/node": "22.10.5",
-    "@types/react": "19.2.3",
-    "@types/react-dom": "19.2.3",
-    "eslint": "9.18.0",
-    "eslint-config-next": "16.1.1",
+    "eslint": "^9.34.0",
     "typescript": "5.9.2"
   }
 }

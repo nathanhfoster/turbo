@@ -17,4 +17,3 @@ export const getBottomNavItems = (mainAppUrl: string): NavItem[] => [
 
 export const STRIP_PREFIX = "/apps/resume";
 export const BASE_PATH = "/resume";
-

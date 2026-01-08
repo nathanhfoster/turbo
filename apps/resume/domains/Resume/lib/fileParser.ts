@@ -47,7 +47,7 @@ async function parsePdfFile(file: File): Promise<string> {
   try {
     // Dynamically import pdfjs-dist to avoid SSR issues
     const pdfjsLib = await import("pdfjs-dist");
-    
+
     // Set worker source - use CDN URL (most reliable, works with any basePath)
     if (typeof window !== "undefined") {
       // Use the official CDN worker URL from pdfjs-dist
@@ -64,63 +64,66 @@ async function parsePdfFile(file: File): Promise<string> {
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       const page = await pdf.getPage(pageNum);
       const textContent = await page.getTextContent();
-      
+
       // Process text items to preserve structure using positions
-      const lines: Array<{ y: number; items: Array<{ x: number; text: string }> }> = [];
-      
+      const lines: Array<{
+        y: number;
+        items: Array<{ x: number; text: string }>;
+      }> = [];
+
       // Group items by Y position (same line)
       for (const item of textContent.items) {
         // Type guard: only process TextItem (has str and transform)
         if (!("str" in item) || !("transform" in item)) continue;
-        
+
         const transform = item.transform || [1, 0, 0, 1, 0, 0];
         const x = transform[4]; // X position
         const y = transform[5]; // Y position
         const text = item.str || "";
-        
+
         if (!text.trim()) continue;
-        
+
         // Find or create line for this Y position (with tolerance)
         let line = lines.find((l) => Math.abs(l.y - y) < 3);
         if (!line) {
           line = { y, items: [] };
           lines.push(line);
         }
-        
+
         line.items.push({ x, text });
       }
-      
+
       // Sort lines by Y position (top to bottom)
       lines.sort((a, b) => b.y - a.y);
-      
+
       // Build text preserving structure
       let pageText = "";
       let lastY = -1;
-      
+
       for (const line of lines) {
         if (!line || line.items.length === 0) continue;
-        
+
         // Sort items in line by X position (left to right)
         line.items.sort((a, b) => a.x - b.x);
-        
+
         // Add line break if significant Y change
         if (lastY !== -1 && Math.abs(line.y - lastY) > 10) {
           pageText += "\n";
         }
-        
+
         // Build line text with spacing
         let lineText = "";
         let lastX = -1;
-        
+
         for (const item of line.items) {
           // Add space if items are far apart (likely separate words)
           if (lastX !== -1 && item.x > lastX + 10) {
             lineText += " ";
           }
           lineText += item.text;
-          lastX = item.x + (item.text.length * 5); // Approximate width
+          lastX = item.x + item.text.length * 5; // Approximate width
         }
-        
+
         // Detect indentation and add appropriate spacing
         const firstItem = line.items[0];
         if (firstItem && firstItem.x > 50) {
@@ -128,11 +131,11 @@ async function parsePdfFile(file: File): Promise<string> {
           const indentLevel = Math.floor(firstItem.x / 30);
           pageText += "  ".repeat(Math.min(indentLevel, 4));
         }
-        
+
         pageText += lineText.trim() + "\n";
         lastY = line.y;
       }
-      
+
       fullText += pageText + "\n";
     }
 
@@ -175,24 +178,25 @@ function convertTextToHtml(text: string): string {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!line) continue;
-    
+
     const trimmed = line.trim();
-    
+
     // Detect indentation level (leading spaces)
     const indentMatch = line.match(/^(\s*)/);
     const indent = indentMatch?.[1]?.length || 0;
     const indentLevel = Math.floor(indent / 2); // Every 2 spaces = 1 indent level
-    
+
     // Check if it looks like a heading
     const isHeading =
       trimmed.length < 100 &&
       (trimmed === trimmed.toUpperCase() ||
         trimmed.startsWith("#") ||
         /^[A-Z][a-z]+(\s+[A-Z][a-z]+)*$/.test(trimmed));
-    
+
     // Check if it looks like a bullet point
-    const isBullet = /^[•\-\*\+]\s/.test(trimmed) || /^\d+[\.\)]\s/.test(trimmed);
-    
+    const isBullet =
+      /^[•\-\*\+]\s/.test(trimmed) || /^\d+[\.\)]\s/.test(trimmed);
+
     // Flush current paragraph if structure changes
     if (
       currentParagraph.length > 0 &&
@@ -209,16 +213,19 @@ function convertTextToHtml(text: string): string {
         currentParagraph = [];
       }
     }
-    
+
     if (isHeading) {
       const level = trimmed.startsWith("#")
-        ? (trimmed.match(/^#+/)?.[0]?.length || 1)
+        ? trimmed.match(/^#+/)?.[0]?.length || 1
         : 2;
       const headingText = trimmed.replace(/^#+\s*/, "");
       htmlParts.push(`<h${level}>${escapeHtml(headingText)}</h${level}>`);
     } else if (isBullet) {
       // Start a list if not already in one
-      if (htmlParts.length === 0 || !htmlParts[htmlParts.length - 1]?.startsWith("<ul")) {
+      if (
+        htmlParts.length === 0 ||
+        !htmlParts[htmlParts.length - 1]?.startsWith("<ul")
+      ) {
         htmlParts.push("<ul>");
       }
       const bulletText = trimmed.replace(/^[•\-\*\+\d+[\.\)]\s*/, "");
@@ -226,14 +233,16 @@ function convertTextToHtml(text: string): string {
     } else {
       // Regular text - preserve indentation with CSS
       if (indentLevel > 0) {
-        currentParagraph.push(`<span style="margin-left: ${indentLevel * 1.5}em; display: block;">${escapeHtml(trimmed)}</span>`);
+        currentParagraph.push(
+          `<span style="margin-left: ${indentLevel * 1.5}em; display: block;">${escapeHtml(trimmed)}</span>`,
+        );
       } else {
         currentParagraph.push(escapeHtml(trimmed));
       }
       currentIndent = indentLevel;
     }
   }
-  
+
   // Flush remaining paragraph
   if (currentParagraph.length > 0) {
     const paraText = currentParagraph.join(" ").trim();
@@ -241,9 +250,12 @@ function convertTextToHtml(text: string): string {
       htmlParts.push(`<p>${escapeHtml(paraText)}</p>`);
     }
   }
-  
+
   // Close any open lists
-  if (htmlParts.length > 0 && htmlParts[htmlParts.length - 1]?.startsWith("<li")) {
+  if (
+    htmlParts.length > 0 &&
+    htmlParts[htmlParts.length - 1]?.startsWith("<li")
+  ) {
     htmlParts.push("</ul>");
   }
 

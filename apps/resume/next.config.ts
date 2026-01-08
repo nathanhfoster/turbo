@@ -10,8 +10,8 @@ const nextConfig: NextConfig = {
   // This ensures static assets are served from the correct domain
   // Set APPS_RESUME_URL env var in Vercel to override the default resume app URL
   // Default is the known Vercel deployment URL for the resume app
-  assetPrefix: isDevelopment 
-    ? undefined 
+  assetPrefix: isDevelopment
+    ? undefined
     : process.env.APPS_RESUME_URL || "https://turbo-resume-ten.vercel.app",
   transpilePackages: [
     "@nathanhfoster/react-hooks",
@@ -52,4 +52,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-

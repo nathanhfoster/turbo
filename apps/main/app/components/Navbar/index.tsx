@@ -14,4 +14,3 @@ export function Navbar({ logo, logoHref }: NavbarProps = {}) {
     />
   );
 }
-

@@ -1,4 +1,3 @@
 export interface AstralPoetLayoutContentProps {
-  children: React.ReactNode;
+	children: React.ReactNode
 }
-

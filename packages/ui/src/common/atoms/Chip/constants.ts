@@ -29,4 +29,5 @@ export const SIZE_STYLES: Record<ChipSize, string> = {
 /**
  * Base chip styles
  */
-export const BASE_STYLES = "inline-flex items-center gap-1 rounded-full font-medium";
+export const BASE_STYLES =
+  "inline-flex items-center gap-1 rounded-full font-medium";

@@ -38,18 +38,12 @@ const List = <T extends object>({
       const isLoaded = isRowLoaded({ index });
 
       if (!isLoaded || !data[index]) {
-        const height = isFunction(rowHeight)
-          ? rowHeight({ index })
-          : rowHeight;
+        const height = isFunction(rowHeight) ? rowHeight({ index }) : rowHeight;
         return (
-          <Box
-            key={key}
-            style={rowStyle}
-            className="px-4 py-2"
-          >
-            <Skeleton 
-              variant="rectangular" 
-              fullWidth 
+          <Box key={key} style={rowStyle} className="px-4 py-2">
+            <Skeleton
+              variant="rectangular"
+              fullWidth
               style={{ height: `${height}px` }}
             />
           </Box>
@@ -65,14 +59,14 @@ const List = <T extends object>({
           key={key}
           style={rowStyle}
           onClick={
-            onRowClick
-              ? () => onRowClick({ index, rowData: item })
-              : undefined
+            onRowClick ? () => onRowClick({ index, rowData: item }) : undefined
           }
           className={combineClassNames(
             "px-4 py-2",
-            onRowClick && "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
-            isSelected && "bg-primary/10 dark:bg-primary/20 border-l-4 border-primary"
+            onRowClick &&
+              "cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors",
+            isSelected &&
+              "bg-primary/10 dark:bg-primary/20 border-l-4 border-primary",
           )}
         >
           {content}
@@ -103,7 +97,10 @@ const List = <T extends object>({
   if (data.length === 0 && !loadMoreRows) {
     return (
       <Box
-        className={combineClassNames("flex items-center justify-center", className)}
+        className={combineClassNames(
+          "flex items-center justify-center",
+          className,
+        )}
         style={style}
       >
         {emptyComponent || (
@@ -139,7 +136,7 @@ const List = <T extends object>({
                   registerChild(ref);
                   listRef.current = ref;
                 };
-                
+
                 return (
                   <VirtualizedList
                     ref={setRef}

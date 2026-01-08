@@ -152,4 +152,3 @@ The main app's `next.config.ts` includes rewrites to proxy `/resume/*` routes to
 - `pnpm start` - Start production server
 - `pnpm lint` - Run ESLint
 - `pnpm check-types` - Run TypeScript compiler
-

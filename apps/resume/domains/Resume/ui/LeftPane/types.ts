@@ -44,4 +44,3 @@ export interface JobInputButtonConfig {
   className?: string;
   disabled?: (jobDescription: string, isGenerating: boolean) => boolean;
 }
-

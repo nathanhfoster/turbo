@@ -74,11 +74,7 @@ export function LatestArticlesSection({ posts }: LatestArticlesSectionProps) {
           ))}
         </Box>
         <Box className="mt-8 text-center">
-          <Button
-            href="/newsletter"
-            variant="outlined"
-            color="inherit"
-          >
+          <Button href="/newsletter" variant="outlined" color="inherit">
             Read All Articles
           </Button>
         </Box>
@@ -86,4 +82,3 @@ export function LatestArticlesSection({ posts }: LatestArticlesSectionProps) {
     </Box>
   );
 }
-

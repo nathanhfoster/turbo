@@ -1,1 +1,1 @@
-export type { EntryMetadataProps } from "./index";
+export type { EntryMetadataProps } from './index'

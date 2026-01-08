@@ -1,27 +1,24 @@
 /**
  * Copy text or HTML content to clipboard
- * 
+ *
  * Uses the modern Clipboard API with fallback for older browsers.
- * 
+ *
  * @param text - Plain text content to copy
  * @param html - Optional HTML content to copy (will try HTML first, fallback to text)
  * @returns Promise that resolves to true if successful, false otherwise
- * 
+ *
  * @example
  * ```ts
  * import { copyToClipboard } from '@nathanhfoster/utils';
- * 
+ *
  * // Copy plain text
  * await copyToClipboard('Hello, world!');
- * 
+ *
  * // Copy HTML with text fallback
  * await copyToClipboard('Plain text version', '<p>HTML version</p>');
  * ```
  */
-async function copyToClipboard(
-  text: string,
-  html?: string,
-): Promise<boolean> {
+async function copyToClipboard(text: string, html?: string): Promise<boolean> {
   // Modern approach using Clipboard API
   if (navigator?.clipboard && window.isSecureContext) {
     try {

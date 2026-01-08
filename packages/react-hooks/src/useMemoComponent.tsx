@@ -4,7 +4,7 @@ import { ComponentType, Ref, useMemo, useRef, JSX } from "react";
 import type {
   ComponentPropsType,
   EqualityFunctionType,
-} from "@nathanhfoster/resurrection/src/lib/connect/types";
+} from "../../resurrection/src/lib/connect/types";
 import usePreviousValue from "./usePreviousValue";
 
 export interface useMemoComponentOptions<P extends ComponentPropsType> {

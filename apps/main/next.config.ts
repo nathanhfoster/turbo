@@ -39,16 +39,17 @@ const nextConfig: NextConfig = {
   ],
   // Multi-zone architecture: proxy routes to other apps
   rewrites: async () => {
-    const astralpoetUrl = process.env.APPS_ASTRAL_POET_URL || "http://localhost:3004";
+    const astralpoetUrl =
+      process.env.APPS_ASTRAL_POET_URL || "http://localhost:3004";
     const resumeUrl = process.env.APPS_RESUME_URL || "http://localhost:3003";
-    
+
     // In development, apps have basePath, so we need to include it
     // In production, apps are deployed separately without basePath
     const isAstralpoetLocalhost = astralpoetUrl.includes("localhost");
     const astralpoetBasePath = isAstralpoetLocalhost ? "/astralpoet" : "";
     const isResumeLocalhost = resumeUrl.includes("localhost");
     const resumeBasePath = isResumeLocalhost ? "/resume" : "";
-    
+
     return [
       // Astralpoet app routes - more specific routes first, then wildcard
       {

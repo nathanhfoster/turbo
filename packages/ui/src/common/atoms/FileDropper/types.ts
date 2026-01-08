@@ -106,4 +106,3 @@ export interface FileDropperProps extends BaseTailwindProps {
    */
   onFileClick?: (file: File) => void;
 }
-

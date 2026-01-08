@@ -154,11 +154,14 @@ export function ResumeLayout({
 
           {/* Middle Panel: Resume Editor */}
           <Box
-            className={`flex-1 min-w-0 ${isDesktop ? "w-0" : isTablet ? "max-w-4xl mx-auto w-full" : "w-full"} ${!currentResume ? (isDesktop ? "order-1" : "order-2") : (isDesktop ? "order-2" : "order-1")} ${currentResume ? "animate-[fadeIn_0.4s_ease-out_0.2s_both]" : ""}`}
+            className={`flex-1 min-w-0 ${isDesktop ? "w-0" : isTablet ? "max-w-4xl mx-auto w-full" : "w-full"} ${!currentResume ? (isDesktop ? "order-1" : "order-2") : isDesktop ? "order-2" : "order-1"} ${currentResume ? "animate-[fadeIn_0.4s_ease-out_0.2s_both]" : ""}`}
           >
             {isLoading ? (
               <Box className="text-center py-12 md:py-24">
-                <Typography variant="p" className="text-gray-500 dark:text-gray-400">
+                <Typography
+                  variant="p"
+                  className="text-gray-500 dark:text-gray-400"
+                >
                   Loading resume...
                 </Typography>
               </Box>
@@ -180,7 +183,10 @@ export function ResumeLayout({
               </Box>
             ) : (
               <Box className="text-center py-12 md:py-24">
-                <Typography variant="p" className="text-gray-500 dark:text-gray-400">
+                <Typography
+                  variant="p"
+                  className="text-gray-500 dark:text-gray-400"
+                >
                   Select or create a resume to get started
                 </Typography>
               </Box>
@@ -214,7 +220,10 @@ export function ResumeLayout({
         {/* Loading Indicator */}
         {isLoading && (
           <Box className="text-center py-8">
-            <Typography variant="p" className="text-gray-500 dark:text-gray-400">
+            <Typography
+              variant="p"
+              className="text-gray-500 dark:text-gray-400"
+            >
               Loading...
             </Typography>
           </Box>

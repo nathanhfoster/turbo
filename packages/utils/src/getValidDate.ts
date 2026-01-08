@@ -21,8 +21,6 @@ const getValidDate = (s: any, getIsoString = false) => {
   if (isString(s) && DATE_FORMAT.test(s)) {
     const date = new Date(s);
 
-    console.log({ date });
-
     return getIsoString
       ? getValidIsoString(date)
       : date.toLocaleDateString("en-CA");

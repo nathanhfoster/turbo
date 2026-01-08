@@ -13,20 +13,21 @@ type LinkComponentProps = LinkProps & {
   style?: React.CSSProperties;
 };
 
-const Link = ({ href, children, className, style, ...props }: LinkComponentProps) => {
-  const hrefString = typeof href === "string" ? href : href.pathname || href.href || "#";
+const Link = ({
+  href,
+  children,
+  className,
+  style,
+  ...props
+}: LinkComponentProps) => {
+  const hrefString =
+    typeof href === "string" ? href : href.pathname || href.href || "#";
 
   return (
-    <a
-      href={hrefString}
-      className={className}
-      style={style}
-      {...props}
-    >
+    <a href={hrefString} className={className} style={style} {...props}>
       {children}
     </a>
   );
 };
 
 export default Link;
-

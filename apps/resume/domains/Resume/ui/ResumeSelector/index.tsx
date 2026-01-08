@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Typography,
-  FileDropper,
-} from "@nathanhfoster/ui";
+import { Box, Typography, FileDropper } from "@nathanhfoster/ui";
 import { ResumeList } from "../ResumeList";
 import { ACCEPTED_FILE_TYPES, MAX_FILE_SIZE } from "../../lib/constants";
 import type { ResumeSelectorProps } from "./types";
@@ -64,4 +60,3 @@ export function ResumeSelector({
     </Box>
   );
 }
-

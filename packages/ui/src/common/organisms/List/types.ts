@@ -35,7 +35,10 @@ export interface ListProps<T extends object> {
    * Function to load more rows (for infinite loading)
    * @default () => Promise.resolve()
    */
-  loadMoreRows?: (params: { startIndex: number; stopIndex: number }) => Promise<void>;
+  loadMoreRows?: (params: {
+    startIndex: number;
+    stopIndex: number;
+  }) => Promise<void>;
   /**
    * Total row count (for infinite loading)
    * @default data.length

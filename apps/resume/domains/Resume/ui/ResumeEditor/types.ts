@@ -17,4 +17,3 @@ export interface ResumeEditorProps {
   // Control title visibility
   showTitle?: boolean;
 }
-

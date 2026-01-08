@@ -1,4 +1,4 @@
-import { getMainAppUrl } from "../../../../../shared/utils/getMainAppUrl";
+import { getMainAppUrl } from '../../../../../shared/utils/getMainAppUrl'
 
 /**
  * Navigation utility for entry domain
@@ -11,7 +11,6 @@ import { getMainAppUrl } from "../../../../../shared/utils/getMainAppUrl";
  * @returns The absolute URL for the entry view page
  */
 export function getEntryViewUrl(entryId: number): string {
-  const mainAppUrl = getMainAppUrl();
-  return `${mainAppUrl}/apps/astralpoet/view/${entryId}`;
+	const mainAppUrl = getMainAppUrl()
+	return `${mainAppUrl}/apps/astralpoet/view/${entryId}`
 }
-

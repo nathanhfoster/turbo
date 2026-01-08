@@ -70,7 +70,10 @@ function ResumeSelectorPage() {
   };
 
   return (
-    <Box variant="main" className="flex flex-1 flex-col py-4 px-4 md:py-8 md:px-8 w-full max-w-4xl mx-auto animate-[fadeIn_0.4s_ease-out_0.1s_both]">
+    <Box
+      variant="main"
+      className="flex flex-1 flex-col py-4 px-4 md:py-8 md:px-8 w-full max-w-4xl mx-auto animate-[fadeIn_0.4s_ease-out_0.1s_both]"
+    >
       <ResumeSelector
         resumes={resumes}
         currentResume={currentResume}
@@ -94,4 +97,3 @@ export default function Home() {
     </ResumeContextProvider>
   );
 }
-

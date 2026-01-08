@@ -10,7 +10,7 @@ import type { GenericFunction } from "./types";
  */
 const useWillUnmount = <TCallback extends GenericFunction>(
   callback?: TCallback,
-) => {
+): ((nextCallback: TCallback) => void) => {
   const mountRef = useRef(false);
   const [handler, setHandler] = createHandlerSetter<undefined>(callback);
 

@@ -92,7 +92,7 @@ const EditorController = ({
         onChange(html, json);
       }
     },
-    [onChange, onUpdate]
+    [onChange, onUpdate],
   );
 
   // Set up update handler
@@ -109,7 +109,10 @@ const EditorController = ({
   React.useEffect(() => {
     if (editor && initialHTML !== undefined && !hasSetInitialHTML.current) {
       const currentHTML = editor.getHTML();
-      if (currentHTML !== initialHTML && (currentHTML === "<p></p>" || !currentHTML.trim())) {
+      if (
+        currentHTML !== initialHTML &&
+        (currentHTML === "<p></p>" || !currentHTML.trim())
+      ) {
         isUpdatingFromProps.current = true;
         editor.commands.setContent(initialHTML, false);
         hasSetInitialHTML.current = true;
@@ -187,7 +190,7 @@ const NovelEditor = ({
         onChange(html, json);
       }
     },
-    [onChange, onUpdate]
+    [onChange, onUpdate],
   );
 
   return (
@@ -209,13 +212,13 @@ const NovelEditor = ({
             attributes: {
               class: combineClassNames(
                 "prose dark:prose-invert prose-headings:font-title focus:outline-none max-w-full",
-                editorClassName
+                editorClassName,
               ),
             },
           }}
           className={combineClassNames(
             "min-h-[400px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-primary",
-            editorClassName
+            editorClassName,
           )}
         />
         <EditorController
@@ -225,11 +228,13 @@ const NovelEditor = ({
           onChange={onChange}
           onUpdate={onUpdate}
         />
-        <BubbleMenuContent showBubbleMenu={showBubbleMenu} editable={editable} />
+        <BubbleMenuContent
+          showBubbleMenu={showBubbleMenu}
+          editable={editable}
+        />
       </EditorRoot>
     </Box>
   );
 };
 
 export default NovelEditor;
-

@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import BaseSvg from "./BaseSvg";
 
 const Sun = () => {
@@ -24,7 +23,3 @@ const Sun = () => {
 };
 
 export default Sun;
-
-
-
-

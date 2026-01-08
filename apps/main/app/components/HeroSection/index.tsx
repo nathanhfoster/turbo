@@ -26,12 +26,7 @@ export function HeroSection() {
           web applications, PWAs, and scalable architectures.
         </Typography>
         <Box className="flex flex-wrap gap-4 justify-center">
-          <Button
-            href="/apps"
-            variant="contained"
-            color="primary"
-            size="lg"
-          >
+          <Button href="/apps" variant="contained" color="primary" size="lg">
             View My Work
           </Button>
           <Button
@@ -47,4 +42,3 @@ export function HeroSection() {
     </Box>
   );
 }
-

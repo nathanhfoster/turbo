@@ -58,7 +58,8 @@ export const Default: Story = {
 // Story with initial HTML content
 export const WithInitialContent: Story = {
   args: {
-    defaultValue: "<p>This is <strong>initial</strong> HTML content with <em>formatting</em>.</p><p>You can edit this content.</p>",
+    defaultValue:
+      "<p>This is <strong>initial</strong> HTML content with <em>formatting</em>.</p><p>You can edit this content.</p>",
     placeholder: "Start typing...",
     editable: true,
     showBubbleMenu: true,
@@ -90,7 +91,7 @@ export const WithRichContent: Story = {
 export const Controlled: Story = {
   render: (args) => {
     const [content, setContent] = useState(
-      "<p>This is controlled content. Try editing it!</p>"
+      "<p>This is controlled content. Try editing it!</p>",
     );
 
     return (
@@ -119,7 +120,8 @@ export const Controlled: Story = {
 // Read-only mode
 export const ReadOnly: Story = {
   args: {
-    defaultValue: "<p>This content is <strong>read-only</strong>. You cannot edit it.</p><p>The editor is disabled.</p>",
+    defaultValue:
+      "<p>This content is <strong>read-only</strong>. You cannot edit it.</p><p>The editor is disabled.</p>",
     editable: false,
     showBubbleMenu: false,
   },
@@ -128,7 +130,8 @@ export const ReadOnly: Story = {
 // Without bubble menu
 export const WithoutBubbleMenu: Story = {
   args: {
-    defaultValue: "<p>This editor doesn't show the bubble menu. Select text to see - no formatting options will appear.</p>",
+    defaultValue:
+      "<p>This editor doesn't show the bubble menu. Select text to see - no formatting options will appear.</p>",
     placeholder: "Start typing...",
     editable: true,
     showBubbleMenu: false,
@@ -215,7 +218,11 @@ export const FullExample: Story = {
           <Typography variant="p" size="text-sm" className="mb-2">
             <strong>Change count:</strong> {changeCount}
           </Typography>
-          <Typography variant="p" size="text-xs" className="text-gray-600 dark:text-gray-400">
+          <Typography
+            variant="p"
+            size="text-xs"
+            className="text-gray-600 dark:text-gray-400"
+          >
             Content length: {content.length} characters
           </Typography>
         </Box>
@@ -240,4 +247,3 @@ export const FullExample: Story = {
     showBubbleMenu: true,
   },
 };
-

@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  createContextWithName,
-  ReducerActionCreators,
-} from "@nathanhfoster/resurrection";
+import { createContextWithName } from "@nathanhfoster/resurrection";
+import type { ReducerActionCreators } from "@nathanhfoster/resurrection";
 import { deviceInitialState, deviceSlice } from "./slice";
 import type { DeviceContextState } from "./types";
 

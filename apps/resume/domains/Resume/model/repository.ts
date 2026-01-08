@@ -80,4 +80,3 @@ export async function getSharedDatabase(): Promise<IDatabase> {
     ],
   );
 }
-

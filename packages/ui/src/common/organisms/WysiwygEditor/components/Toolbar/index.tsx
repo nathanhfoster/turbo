@@ -33,31 +33,53 @@ import { ToolbarButton } from "./utils";
 import { ToolbarDivider } from "./components/ToolbarDivider";
 
 // Dynamically import conditionally rendered dropdown components
-const TextSizeDropdown = dynamic<import("./components/TextSizeDropdown/types").TextSizeDropdownProps>(
+const TextSizeDropdown = dynamic<
+  import("./components/TextSizeDropdown/types").TextSizeDropdownProps
+>(
   // @ts-ignore - Next.js handles module resolution for dynamic imports without extensions
-  () => import("./components/TextSizeDropdown").then((mod) => ({ default: mod.TextSizeDropdown })),
-  { ssr: false }
+  () =>
+    import("./components/TextSizeDropdown").then((mod) => ({
+      default: mod.TextSizeDropdown,
+    })),
+  { ssr: false },
 );
 
-const TextColorDropdown = dynamic<import("./components/TextColorDropdown/types").TextColorDropdownProps>(
+const TextColorDropdown = dynamic<
+  import("./components/TextColorDropdown/types").TextColorDropdownProps
+>(
   // @ts-ignore - Next.js handles module resolution for dynamic imports without extensions
-  () => import("./components/TextColorDropdown").then((mod) => ({ default: mod.TextColorDropdown })),
-  { ssr: false }
+  () =>
+    import("./components/TextColorDropdown").then((mod) => ({
+      default: mod.TextColorDropdown,
+    })),
+  { ssr: false },
 );
 
-const FontFamilyDropdown = dynamic<import("./components/FontFamilyDropdown/types").FontFamilyDropdownProps>(
+const FontFamilyDropdown = dynamic<
+  import("./components/FontFamilyDropdown/types").FontFamilyDropdownProps
+>(
   // @ts-ignore - Next.js handles module resolution for dynamic imports without extensions
-  () => import("./components/FontFamilyDropdown").then((mod) => ({ default: mod.FontFamilyDropdown })),
-  { ssr: false }
+  () =>
+    import("./components/FontFamilyDropdown").then((mod) => ({
+      default: mod.FontFamilyDropdown,
+    })),
+  { ssr: false },
 );
 
-const TypographyDropdown = dynamic<import("./components/TypographyDropdown/types").TypographyDropdownProps>(
+const TypographyDropdown = dynamic<
+  import("./components/TypographyDropdown/types").TypographyDropdownProps
+>(
   // @ts-ignore - Next.js handles module resolution for dynamic imports without extensions
-  () => import("./components/TypographyDropdown").then((mod) => ({ default: mod.TypographyDropdown })),
-  { ssr: false }
+  () =>
+    import("./components/TypographyDropdown").then((mod) => ({
+      default: mod.TypographyDropdown,
+    })),
+  { ssr: false },
 );
 
-export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) => {
+export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({
+  config = {},
+}) => {
   const { editor } = useEditor();
   const [showTextSizeDropdown, setShowTextSizeDropdown] = useState(false);
   const [showTextColorDropdown, setShowTextColorDropdown] = useState(false);
@@ -66,17 +88,28 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
   const toolbarRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns when clicking outside
-  useClickOutside(toolbarRef, showTextSizeDropdown, () => setShowTextSizeDropdown(false));
-  useClickOutside(toolbarRef, showTextColorDropdown, () => setShowTextColorDropdown(false));
-  useClickOutside(toolbarRef, showFontFamilyDropdown, () => setShowFontFamilyDropdown(false));
-  useClickOutside(toolbarRef, showTypographyDropdown, () => setShowTypographyDropdown(false));
+  useClickOutside(toolbarRef, showTextSizeDropdown, () =>
+    setShowTextSizeDropdown(false),
+  );
+  useClickOutside(toolbarRef, showTextColorDropdown, () =>
+    setShowTextColorDropdown(false),
+  );
+  useClickOutside(toolbarRef, showFontFamilyDropdown, () =>
+    setShowFontFamilyDropdown(false),
+  );
+  useClickOutside(toolbarRef, showTypographyDropdown, () =>
+    setShowTypographyDropdown(false),
+  );
 
   // Wait for editor to be available
   if (!editor) {
     return null;
   }
 
-  const toolbarConfig: Required<ToolbarConfig> = { ...DEFAULT_TOOLBAR_CONFIG, ...config };
+  const toolbarConfig: Required<ToolbarConfig> = {
+    ...DEFAULT_TOOLBAR_CONFIG,
+    ...config,
+  };
 
   return (
     <div ref={toolbarRef}>
@@ -130,7 +163,11 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
                 if (isHighlighted) {
                   editor.chain().focus().unsetHighlight().run();
                 } else {
-                  editor.chain().focus().setHighlight({ color: HIGHLIGHT_COLOR }).run();
+                  editor
+                    .chain()
+                    .focus()
+                    .setHighlight({ color: HIGHLIGHT_COLOR })
+                    .run();
                 }
               }}
               isActive={editor.isActive("highlight")}
@@ -201,7 +238,9 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
             <FontFamilyDropdown
               editor={editor}
               isOpen={showFontFamilyDropdown}
-              onToggle={() => setShowFontFamilyDropdown(!showFontFamilyDropdown)}
+              onToggle={() =>
+                setShowFontFamilyDropdown(!showFontFamilyDropdown)
+              }
               onClose={() => setShowFontFamilyDropdown(false)}
             />
           )}
@@ -212,21 +251,27 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
           {toolbarConfig.showAlignment && (
             <>
               <ToolbarButton
-                onClick={() => editor.chain().focus().setTextAlign("left").run()}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("left").run()
+                }
                 isActive={editor.isActive({ textAlign: "left" })}
                 title="Align Left"
               >
                 <IconAlignLeft className="w-5 h-5" />
               </ToolbarButton>
               <ToolbarButton
-                onClick={() => editor.chain().focus().setTextAlign("center").run()}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("center").run()
+                }
                 isActive={editor.isActive({ textAlign: "center" })}
                 title="Align Center"
               >
                 <IconAlignCenter className="w-5 h-5" />
               </ToolbarButton>
               <ToolbarButton
-                onClick={() => editor.chain().focus().setTextAlign("right").run()}
+                onClick={() =>
+                  editor.chain().focus().setTextAlign("right").run()
+                }
                 isActive={editor.isActive({ textAlign: "right" })}
                 title="Align Right"
               >
@@ -240,7 +285,9 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
             <TypographyDropdown
               editor={editor}
               isOpen={showTypographyDropdown}
-              onToggle={() => setShowTypographyDropdown(!showTypographyDropdown)}
+              onToggle={() =>
+                setShowTypographyDropdown(!showTypographyDropdown)
+              }
               onClose={() => setShowTypographyDropdown(false)}
             />
           )}
@@ -288,7 +335,10 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
             <ToolbarButton
               onClick={() => {
                 if (!isClientSide()) return;
-                const url = window.prompt("Enter image URL:", "https://placehold.co/600x400");
+                const url = window.prompt(
+                  "Enter image URL:",
+                  "https://placehold.co/600x400",
+                );
                 if (url) {
                   editor.chain().focus().setImage({ src: url }).run();
                 }
@@ -303,7 +353,10 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
             <ToolbarButton
               onClick={() => {
                 if (!isClientSide()) return;
-                const url = window.prompt("Enter YouTube URL:", "https://www.youtube.com/watch?v=");
+                const url = window.prompt(
+                  "Enter YouTube URL:",
+                  "https://www.youtube.com/watch?v=",
+                );
                 if (url) {
                   editor.commands.setYoutubeVideo({
                     src: url,
@@ -340,4 +393,3 @@ export const WysiwygToolbar: React.FC<WysiwygToolbarProps> = ({ config = {} }) =
     </div>
   );
 };
-

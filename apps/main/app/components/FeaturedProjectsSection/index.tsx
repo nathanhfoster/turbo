@@ -72,11 +72,7 @@ export function FeaturedProjectsSection() {
           </Card>
         </Box>
         <Box className="mt-8 text-center">
-          <Button
-            href="/apps"
-            variant="outlined"
-            color="inherit"
-          >
+          <Button href="/apps" variant="outlined" color="inherit">
             View All Projects
           </Button>
         </Box>
@@ -84,4 +80,3 @@ export function FeaturedProjectsSection() {
     </Box>
   );
 }
-

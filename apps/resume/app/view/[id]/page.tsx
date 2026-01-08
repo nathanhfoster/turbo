@@ -12,11 +12,10 @@ interface ResumePageProps {
 
 export default function ResumePage({ params }: ResumePageProps) {
   const { id } = use(params);
-  
+
   return (
     <ResumeContextProvider>
       <ResumeBuilder resumeId={id} />
     </ResumeContextProvider>
   );
 }
-

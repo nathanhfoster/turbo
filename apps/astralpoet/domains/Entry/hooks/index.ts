@@ -1,3 +1,2 @@
-export * from "./useEntry";
-export * from "./useEntryEditor";
-
+export * from './useEntry'
+export * from './useEntryEditor'

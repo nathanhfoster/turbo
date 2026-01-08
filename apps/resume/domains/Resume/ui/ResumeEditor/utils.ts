@@ -65,7 +65,11 @@ export function stripHtml(html: string): string {
     return 0;
   }
 
-  function processNode(node: Node, currentIndent: number = 0, isInList: boolean = false): void {
+  function processNode(
+    node: Node,
+    currentIndent: number = 0,
+    isInList: boolean = false,
+  ): void {
     for (const child of Array.from(node.childNodes)) {
       if (child.nodeType === Node.TEXT_NODE) {
         const text = child.textContent?.trim();
@@ -79,12 +83,26 @@ export function stripHtml(html: string): string {
           const parent = child.parentElement;
           if (parent) {
             const siblings = Array.from(parent.childNodes);
-            const hasBlockSibling = siblings.some(sibling => {
+            const hasBlockSibling = siblings.some((sibling) => {
               if (sibling.nodeType === Node.ELEMENT_NODE) {
                 const el = sibling as HTMLElement;
                 const style = el.getAttribute("style") || "";
-                return style.includes("display: block") ||
-                       ["p", "div", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li"].includes(el.tagName.toLowerCase());
+                return (
+                  style.includes("display: block") ||
+                  [
+                    "p",
+                    "div",
+                    "h1",
+                    "h2",
+                    "h3",
+                    "h4",
+                    "h5",
+                    "h6",
+                    "ul",
+                    "ol",
+                    "li",
+                  ].includes(el.tagName.toLowerCase())
+                );
               }
               return false;
             });
@@ -96,7 +114,7 @@ export function stripHtml(html: string): string {
               // If text has multiple bullet points, split them
               if (bulletMatches && bulletMatches.length > 1) {
                 const parts = text.split(/(?=[●•\-\*]\s)/);
-                parts.forEach(part => {
+                parts.forEach((part) => {
                   const trimmed = part.trim();
                   if (trimmed) {
                     lines.push(indentStr + trimmed);
@@ -112,7 +130,7 @@ export function stripHtml(html: string): string {
             // If text has multiple bullet points, split them
             if (bulletMatches && bulletMatches.length > 1) {
               const parts = text.split(/(?=[●•\-\*]\s)/);
-              parts.forEach(part => {
+              parts.forEach((part) => {
                 const trimmed = part.trim();
                 if (trimmed) {
                   lines.push(indentStr + trimmed);
@@ -139,8 +157,14 @@ export function stripHtml(html: string): string {
         // Get text content (this automatically strips all nested HTML tags)
         const elementText = element.textContent?.trim() || "";
 
-        if (tagName === "h1" || tagName === "h2" || tagName === "h3" ||
-            tagName === "h4" || tagName === "h5" || tagName === "h6") {
+        if (
+          tagName === "h1" ||
+          tagName === "h2" ||
+          tagName === "h3" ||
+          tagName === "h4" ||
+          tagName === "h5" ||
+          tagName === "h6"
+        ) {
           if (elementText) {
             if (lines.length > 0 && lines[lines.length - 1] !== "") {
               lines.push(""); // Blank line before heading
@@ -184,7 +208,7 @@ export function stripHtml(html: string): string {
                 if (bulletMatches && bulletMatches.length > 1) {
                   // Split by bullet points
                   const parts = childText.split(/(?=[●•\-\*]\s)/);
-                  parts.forEach(part => {
+                  parts.forEach((part) => {
                     const trimmed = part.trim();
                     if (trimmed) {
                       listItemLines.push(trimmed);
@@ -203,19 +227,24 @@ export function stripHtml(html: string): string {
             if (itemText) {
               // Check if the text contains multiple bullet points that should be split
               const bulletPattern = /([●•\-\*])\s/g;
-              const hasMultipleBullets = (itemText.match(bulletPattern) || []).length > 1;
+              const hasMultipleBullets =
+                (itemText.match(bulletPattern) || []).length > 1;
 
               if (hasMultipleBullets) {
                 // Split by bullet points and create separate list items
                 const parts = itemText.split(/(?=[●•\-\*]\s)/);
-                parts.forEach(part => {
+                parts.forEach((part) => {
                   const trimmed = part.trim();
                   if (trimmed) {
                     // Ensure it starts with a bullet
                     const bulletChar = trimmed.match(/^([●•\-\*])/)?.[1] || "•";
-                    const textWithoutBullet = trimmed.replace(/^[●•\-\*]\s*/, "").trim();
+                    const textWithoutBullet = trimmed
+                      .replace(/^[●•\-\*]\s*/, "")
+                      .trim();
                     if (textWithoutBullet) {
-                      lines.push(indentStr + bulletChar + " " + textWithoutBullet);
+                      lines.push(
+                        indentStr + bulletChar + " " + textWithoutBullet,
+                      );
                     }
                   }
                 });
@@ -246,7 +275,7 @@ export function stripHtml(html: string): string {
               const totalIndent = Math.max(minIndent, indent);
               const indentStr = " ".repeat(totalIndent);
 
-              parts.forEach(part => {
+              parts.forEach((part) => {
                 const trimmed = part.trim();
                 if (trimmed) {
                   // Ensure it starts with a bullet
@@ -298,14 +327,14 @@ export function stripHtml(html: string): string {
     .replace(/\n{3,}/g, "\n\n")
     // Remove trailing whitespace from each line
     .split("\n")
-    .map(line => {
+    .map((line) => {
       // Remove any HTML tags that might still be in the line
       let cleanLine = line.replace(/<[^>]*>/g, "");
       // Remove trailing whitespace
       return cleanLine.replace(/\s+$/, "");
     })
     // Split lines that contain multiple bullet points
-    .flatMap(line => {
+    .flatMap((line) => {
       // Check if line contains multiple bullet points (not already indented separately)
       const bulletPattern = /([●•\-\*])\s/g;
       const bulletMatches = line.match(bulletPattern);
@@ -315,9 +344,9 @@ export function stripHtml(html: string): string {
         // Split by bullet points, preserving the bullet character
         const parts = line.split(/(?=[●•\-\*]\s)/);
         return parts
-          .map(part => part.trim())
-          .filter(part => part.length > 0)
-          .map(part => {
+          .map((part) => part.trim())
+          .filter((part) => part.length > 0)
+          .map((part) => {
             // Ensure each part has proper indentation (2 spaces for bullet points)
             const hasBullet = /^[●•\-\*]/.test(part);
             if (hasBullet) {
@@ -335,9 +364,9 @@ export function stripHtml(html: string): string {
         // Split by bullet points
         const parts = line.split(/(?=[●•\-\*]\s)/);
         return parts
-          .map(part => part.trim())
-          .filter(part => part.length > 0)
-          .map(part => {
+          .map((part) => part.trim())
+          .filter((part) => part.length > 0)
+          .map((part) => {
             const hasBullet = /^[●•\-\*]/.test(part);
             if (hasBullet) {
               return existingIndent + part;
@@ -352,7 +381,12 @@ export function stripHtml(html: string): string {
     .trim();
 
   // Final safety check: if we still see HTML tags or entities, use textContent
-  if (text.includes("<") || text.includes(">") || text.includes("&lt;") || text.includes("&gt;")) {
+  if (
+    text.includes("<") ||
+    text.includes(">") ||
+    text.includes("&lt;") ||
+    text.includes("&gt;")
+  ) {
     // Use textContent which automatically strips ALL HTML
     const fallbackDiv = document.createElement("div");
     fallbackDiv.innerHTML = decodedHtml;
@@ -374,7 +408,7 @@ export function stripHtml(html: string): string {
   text = text
     .replace(/\n{3,}/g, "\n\n")
     .split("\n")
-    .map(line => line.trimEnd())
+    .map((line) => line.trimEnd())
     .join("\n")
     .trim();
 

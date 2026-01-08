@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, Typography, Box, IconButton, IconTrash } from "@nathanhfoster/ui";
+import {
+  Card,
+  Typography,
+  Box,
+  IconButton,
+  IconTrash,
+} from "@nathanhfoster/ui";
 import { useRouter } from "next/navigation";
 import { getMainAppUrl } from "../../../../../shared/utils/getMainAppUrl";
 import type { ResumeListProps } from "./types";
@@ -120,4 +126,3 @@ export function ResumeList({
     </Box>
   );
 }
-

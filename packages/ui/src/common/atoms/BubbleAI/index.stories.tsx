@@ -136,30 +136,40 @@ export const Welcome: Story = {
  */
 export const RingConfigurations: Story = {
   args: {
-    quality: "high"
+    quality: "high",
   },
 
   render: () => (
     <Box className="flex flex-wrap gap-8 items-center justify-center p-8">
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} ringCount={1} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">Single Ring (Minimalist)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          Single Ring (Minimalist)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} ringCount={2} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">Two Rings (Balanced)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          Two Rings (Balanced)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} ringCount={3} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">Three Rings (Default/Optimal)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          Three Rings (Default/Optimal)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} ringCount={4} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">Four Rings (Complex)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          Four Rings (Complex)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} ringCount={5} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">Five Rings (Maximum Chaos)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          Five Rings (Maximum Chaos)
+        </Typography>
       </Box>
     </Box>
   ),
@@ -172,7 +182,7 @@ export const RingConfigurations: Story = {
           "Compare how adding or removing rings changes the character and perceived complexity of the entity.",
       },
     },
-  }
+  },
 };
 
 /**
@@ -187,19 +197,27 @@ export const ParticleDensity: Story = {
     <Box className="flex flex-wrap gap-8 items-center justify-center p-8">
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} particleCount={25} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">25 particles (Subtle, Elegant)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          25 particles (Subtle, Elegant)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} particleCount={100} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">100 particles (Balanced, Default)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          100 particles (Balanced, Default)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} particleCount={250} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">250 particles (Dense, Energetic)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          250 particles (Dense, Energetic)
+        </Typography>
       </Box>
       <Box className="flex flex-col items-center gap-2">
         <BubbleAI size={150} particleCount={500} state="idle" />
-        <Typography variant="p" size="text-sm" color="gray">500 particles (Maximum Nebula Effect)</Typography>
+        <Typography variant="p" size="text-sm" color="gray">
+          500 particles (Maximum Nebula Effect)
+        </Typography>
       </Box>
     </Box>
   ),
@@ -227,7 +245,9 @@ export const SizeScaling: Story = {
       {[100, 150, 200, 300, 400, 600].map((size) => (
         <Box key={size} className="flex flex-col items-center gap-2">
           <BubbleAI size={size} state="idle" />
-          <Typography variant="p" size="text-sm" color="gray">{size}px</Typography>
+          <Typography variant="p" size="text-sm" color="gray">
+            {size}px
+          </Typography>
         </Box>
       ))}
     </Box>
@@ -272,7 +292,13 @@ export const AllStates: Story = {
         >
           <BubbleAI size={180} state={state} />
           <Box className="text-center">
-            <Typography variant="h3" weight="font-semibold" className="capitalize mb-1">{state}</Typography>
+            <Typography
+              variant="h3"
+              weight="font-semibold"
+              className="capitalize mb-1"
+            >
+              {state}
+            </Typography>
             <Typography variant="p" size="text-sm" color="gray">
               {STATE_ANIMATIONS[state].description}
             </Typography>
@@ -319,16 +345,23 @@ export const StateTransitions: Story = {
       <Box className="flex flex-col items-center gap-6 p-8">
         <BubbleAI size={250} state={currentState} onClick={nextState} />
         <Box className="text-center">
-          <Typography variant="h3" weight="font-semibold" size="text-lg" className="capitalize mb-2">
+          <Typography
+            variant="h3"
+            weight="font-semibold"
+            size="text-lg"
+            className="capitalize mb-2"
+          >
             {currentState}
           </Typography>
-          <Typography variant="p" size="text-sm" color="gray" className="mb-4 max-w-md">
+          <Typography
+            variant="p"
+            size="text-sm"
+            color="gray"
+            className="mb-4 max-w-md"
+          >
             {currentState && STATE_ANIMATIONS[currentState].description}
           </Typography>
-          <Button
-            onClick={nextState}
-            color="primary"
-          >
+          <Button onClick={nextState} color="primary">
             Next State
           </Button>
           <Typography variant="p" size="text-xs" color="gray" className="mt-2">
@@ -370,10 +403,7 @@ export const ChatbotAvatar: Story = {
       setTimeout(() => {
         setState("thinking");
         setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            "Hello! How can I help you today?",
-          ]);
+          setMessages((prev) => [...prev, "Hello! How can I help you today?"]);
           setState("speaking");
           setTimeout(() => {
             setState("idle");
@@ -387,14 +417,20 @@ export const ChatbotAvatar: Story = {
         <Box className="flex items-center gap-3 mb-4 pb-4 border-b">
           <BubbleAI size={50} state={state} />
           <Box>
-            <Typography variant="h3" weight="font-semibold">BubbleAI Assistant</Typography>
-            <Typography variant="p" size="text-xs" color="gray">Online</Typography>
+            <Typography variant="h3" weight="font-semibold">
+              BubbleAI Assistant
+            </Typography>
+            <Typography variant="p" size="text-xs" color="gray">
+              Online
+            </Typography>
           </Box>
         </Box>
         <Box className="space-y-2 mb-4 min-h-[200px]">
           {messages.map((msg, i) => (
             <Box key={i} className="bg-blue-50 p-3 rounded-lg">
-              <Typography variant="p" size="text-sm">{msg}</Typography>
+              <Typography variant="p" size="text-sm">
+                {msg}
+              </Typography>
             </Box>
           ))}
         </Box>
@@ -430,20 +466,28 @@ export const LoadingIndicators: Story = {
   render: () => (
     <Box className="space-y-8 p-8 max-w-2xl mx-auto">
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-2">Card Loading State</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-2">
+          Card Loading State
+        </Typography>
         <Box className="flex items-center justify-center h-32 bg-gray-50 rounded">
           <BubbleAI size={80} state="thinking" />
         </Box>
       </Box>
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-2">Form Submission</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-2">
+          Form Submission
+        </Typography>
         <Box className="flex items-center justify-center h-24 bg-gray-50 rounded">
           <BubbleAI size={60} state="thinking" />
-          <Typography variant="span" className="ml-3" color="gray">Processing...</Typography>
+          <Typography variant="span" className="ml-3" color="gray">
+            Processing...
+          </Typography>
         </Box>
       </Box>
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-2">Data Fetching</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-2">
+          Data Fetching
+        </Typography>
         <Box className="flex items-center justify-center h-40 bg-gray-50 rounded">
           <BubbleAI size={100} state="thinking" />
         </Box>
@@ -479,7 +523,9 @@ export const NavigationGuide: Story = {
           <BubbleAI size={60} state="navigating" />
           <Box className="flex-1 ml-4">
             <Box className="flex justify-between mb-2">
-              <Typography variant="span" size="text-sm" weight="font-medium">Step {step} of {totalSteps}</Typography>
+              <Typography variant="span" size="text-sm" weight="font-medium">
+                Step {step} of {totalSteps}
+              </Typography>
               <Typography variant="span" size="text-sm" color="gray">
                 {Math.round((step / totalSteps) * 100)}%
               </Typography>
@@ -493,7 +539,10 @@ export const NavigationGuide: Story = {
           </Box>
         </Box>
         <Box className="mb-6 p-4 bg-gray-50 rounded">
-          <Typography variant="h3" weight="font-semibold" className="mb-2">Step {step}: {["Welcome", "Information", "Preferences", "Complete"][step - 1]}</Typography>
+          <Typography variant="h3" weight="font-semibold" className="mb-2">
+            Step {step}:{" "}
+            {["Welcome", "Information", "Preferences", "Complete"][step - 1]}
+          </Typography>
           <Typography variant="p" size="text-sm" color="gray">
             {step === 1 && "Welcome! Let's get started."}
             {step === 2 && "Please provide some basic information."}
@@ -543,7 +592,14 @@ export const CornerAssistant: Story = {
     <Box className="relative w-full h-screen bg-gray-100">
       <Box className="p-4">
         <Box className="bg-white rounded-lg shadow p-6 mb-4">
-          <Typography variant="h2" size="text-xl" weight="font-bold" className="mb-2">Application Content</Typography>
+          <Typography
+            variant="h2"
+            size="text-xl"
+            weight="font-bold"
+            className="mb-2"
+          >
+            Application Content
+          </Typography>
           <Typography variant="p" color="gray">
             This is your main application interface. BubbleAI floats in the
             corner, ready to assist.
@@ -593,13 +649,19 @@ export const ColorThemes: Story = {
             key={name}
             className="flex flex-col items-center gap-4 p-6 bg-white rounded-lg shadow border"
           >
-            <BubbleAI 
-              size={150} 
-              rings={Array.isArray(rings) ? [...rings] : [...rings.light]} 
-              state="idle" 
+            <BubbleAI
+              size={150}
+              rings={Array.isArray(rings) ? [...rings] : [...rings.light]}
+              state="idle"
             />
             <Box className="text-center">
-              <Typography variant="h3" weight="font-semibold" className="capitalize mb-1">{name}</Typography>
+              <Typography
+                variant="h3"
+                weight="font-semibold"
+                className="capitalize mb-1"
+              >
+                {name}
+              </Typography>
               <Typography variant="p" size="text-xs" color="gray">
                 {name === "nebula" && "Default - Mystical AI"}
                 {name === "emerald" && "Nature - Organic Feel"}
@@ -638,13 +700,21 @@ export const LightDarkMode: Story = {
   render: () => (
     <Box className="space-y-8 p-8">
       <Box className="bg-white p-8 rounded-lg shadow">
-        <Typography variant="h3" weight="font-semibold" className="mb-4">Light Background</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-4">
+          Light Background
+        </Typography>
         <Box className="flex items-center justify-center h-64">
           <BubbleAI size={200} state="idle" />
         </Box>
       </Box>
       <Box className="bg-gray-900 p-8 rounded-lg shadow">
-        <Typography variant="h3" weight="font-semibold" className="mb-4 text-white">Dark Background</Typography>
+        <Typography
+          variant="h3"
+          weight="font-semibold"
+          className="mb-4 text-white"
+        >
+          Dark Background
+        </Typography>
         <Box className="flex items-center justify-center h-64">
           <BubbleAI size={200} state="idle" />
         </Box>
@@ -652,11 +722,16 @@ export const LightDarkMode: Story = {
       <Box
         className="p-8 rounded-lg shadow"
         style={{
-          background:
-            "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         }}
       >
-        <Typography variant="h3" weight="font-semibold" className="mb-4 text-white">Gradient Background</Typography>
+        <Typography
+          variant="h3"
+          weight="font-semibold"
+          className="mb-4 text-white"
+        >
+          Gradient Background
+        </Typography>
         <Box className="flex items-center justify-center h-64">
           <BubbleAI size={200} state="idle" />
         </Box>
@@ -687,7 +762,7 @@ export const LightDarkMode: Story = {
  */
 export const QualityLevels: Story = {
   args: {
-    state: "thinking"
+    state: "thinking",
   },
 
   render: () => (
@@ -696,7 +771,13 @@ export const QualityLevels: Story = {
         <Box key={quality} className="flex flex-col items-center gap-4">
           <BubbleAI size={200} quality={quality} state="thinking" />
           <Box className="text-center">
-            <Typography variant="h3" weight="font-semibold" className="capitalize mb-1">{quality} Quality</Typography>
+            <Typography
+              variant="h3"
+              weight="font-semibold"
+              className="capitalize mb-1"
+            >
+              {quality} Quality
+            </Typography>
             <Typography variant="p" size="text-xs" color="gray">
               {quality === "low" && "25 particles - Mobile optimized"}
               {quality === "medium" && "100 particles - Balanced (default)"}
@@ -716,7 +797,7 @@ export const QualityLevels: Story = {
           "Compare quality levels to understand the performance vs. visual impact tradeoff. Use low for mobile, medium for most cases, high for hero sections.",
       },
     },
-  }
+  },
 };
 
 /**
@@ -778,23 +859,38 @@ export const EdgeCases: Story = {
       <Box className="flex flex-wrap gap-8 items-center justify-center">
         <Box className="flex flex-col items-center gap-2">
           <BubbleAI size={50} state="idle" />
-          <Typography variant="p" size="text-xs" color="gray">Minimum Size (50px)</Typography>
+          <Typography variant="p" size="text-xs" color="gray">
+            Minimum Size (50px)
+          </Typography>
         </Box>
         <Box className="flex flex-col items-center gap-2">
           <BubbleAI size={800} state="idle" />
-          <Typography variant="p" size="text-xs" color="gray">Maximum Size (800px)</Typography>
+          <Typography variant="p" size="text-xs" color="gray">
+            Maximum Size (800px)
+          </Typography>
         </Box>
         <Box className="flex flex-col items-center gap-2">
           <BubbleAI size={150} particleCount={0} state="idle" />
-          <Typography variant="p" size="text-xs" color="gray">No Particles (0 count)</Typography>
+          <Typography variant="p" size="text-xs" color="gray">
+            No Particles (0 count)
+          </Typography>
         </Box>
         <Box className="flex flex-col items-center gap-2">
-          <BubbleAI size={150} particleCount={1000} quality="high" state="idle" />
-          <Typography variant="p" size="text-xs" color="gray">Maximum Particles (1000+)</Typography>
+          <BubbleAI
+            size={150}
+            particleCount={1000}
+            quality="high"
+            state="idle"
+          />
+          <Typography variant="p" size="text-xs" color="gray">
+            Maximum Particles (1000+)
+          </Typography>
         </Box>
         <Box className="flex flex-col items-center gap-2">
           <BubbleAI size={150} ringCount={1} state="idle" />
-          <Typography variant="p" size="text-xs" color="gray">Single Ring</Typography>
+          <Typography variant="p" size="text-xs" color="gray">
+            Single Ring
+          </Typography>
         </Box>
       </Box>
     </Box>
@@ -821,7 +917,9 @@ export const Accessibility: Story = {
   render: () => (
     <Box className="space-y-8 p-8 max-w-2xl mx-auto">
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-4">Reduced Motion</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-4">
+          Reduced Motion
+        </Typography>
         <Typography variant="p" size="text-sm" color="gray" className="mb-4">
           BubbleAI respects prefers-reduced-motion. Enable it in your system
           settings to see the difference.
@@ -831,7 +929,9 @@ export const Accessibility: Story = {
         </Box>
       </Box>
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-4">Keyboard Navigation</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-4">
+          Keyboard Navigation
+        </Typography>
         <Typography variant="p" size="text-sm" color="gray" className="mb-4">
           BubbleAI with onClick handler is keyboard accessible. Tab to focus and
           press Enter or Space to activate.
@@ -846,7 +946,9 @@ export const Accessibility: Story = {
         </Box>
       </Box>
       <Box className="bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h3" weight="font-semibold" className="mb-4">ARIA Labels</Typography>
+        <Typography variant="h3" weight="font-semibold" className="mb-4">
+          ARIA Labels
+        </Typography>
         <Typography variant="p" size="text-sm" color="gray" className="mb-4">
           Always provide meaningful aria-label for screen readers.
         </Typography>
@@ -870,4 +972,3 @@ export const Accessibility: Story = {
     },
   },
 };
-

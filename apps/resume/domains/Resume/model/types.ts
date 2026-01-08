@@ -41,4 +41,3 @@ export interface ResumeState {
 export interface ResumeProps {
   resumeId?: string;
 }
-

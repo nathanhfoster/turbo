@@ -9,7 +9,11 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false
   },
   "include": [
     "next-env.d.ts",

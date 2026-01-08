@@ -74,4 +74,3 @@ export const resumeSlice = createSlice({
 
 // Export actions directly from slice for easier access
 export const resumeActions = resumeSlice.actions;
-

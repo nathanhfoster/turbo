@@ -1,7 +1,7 @@
 // Internal hooks used by resurrection - NOT exported publicly
 // These hooks are now imported from @nathanhfoster/react-hooks
 // Public hooks are available from @nathanhfoster/react-hooks
-// 
+//
 // Only resurrection-specific hooks are exported here:
 export { default as useReducerWithThunk } from "./useReducerWithThunk";
 export { default as useResize } from "./useResize/index";

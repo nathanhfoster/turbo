@@ -4,4 +4,3 @@ export interface ResumeViewerProps {
   resume: Resume | null;
   className?: string;
 }
-

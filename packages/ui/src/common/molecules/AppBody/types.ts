@@ -6,4 +6,3 @@ export interface AppBodyProps {
   enableGoogleTagManager?: boolean;
   consentModal?: ReactNode;
 }
-

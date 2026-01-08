@@ -53,4 +53,3 @@ export interface WysiwygEditorProps extends Omit<BaseTailwindProps, "shadow"> {
    */
   resetKey?: string | number;
 }
-

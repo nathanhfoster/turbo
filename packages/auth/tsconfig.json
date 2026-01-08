@@ -1,10 +1,12 @@
 {
   "extends": "@nathanhfoster/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "resolveJsonModule": true,
     "types": ["node"]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests", "**/*.test.ts", "**/*.spec.ts"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

@@ -105,7 +105,7 @@ const EditorController = ({
         onChange(html, json);
       }
     },
-    [onChange, onUpdate]
+    [onChange, onUpdate],
   );
 
   // Set up update handler
@@ -123,7 +123,10 @@ const EditorController = ({
     if (editor && initialHTML !== undefined && !hasSetInitialHTML.current) {
       const currentHTML = editor.getHTML();
       // Set initial content if editor is empty or just has default paragraph
-      const isEmpty = currentHTML === "<p></p>" || !currentHTML.trim() || currentHTML === "<p><br></p>";
+      const isEmpty =
+        currentHTML === "<p></p>" ||
+        !currentHTML.trim() ||
+        currentHTML === "<p><br></p>";
       if (isEmpty && initialHTML && initialHTML.trim()) {
         isUpdatingFromProps.current = true;
         editor.commands.setContent(initialHTML, false);
@@ -143,27 +146,37 @@ const EditorController = ({
       const currentHTML = editor.getHTML();
       // Normalize HTML for comparison (remove whitespace differences)
       const normalizeHTML = (html: string) => {
-        const normalized = html.trim().replace(/\s+/g, " ").replace(/>\s+</g, "><");
+        const normalized = html
+          .trim()
+          .replace(/\s+/g, " ")
+          .replace(/>\s+</g, "><");
         return normalized;
       };
       const normalizedCurrent = normalizeHTML(currentHTML);
       const normalizedValue = normalizeHTML(value || "");
-      
+
       // Check if editor is essentially empty (just default paragraph)
-      const isEmpty = normalizedCurrent === "<p></p>" || normalizedCurrent === "" || normalizedCurrent === "<p><br></p>" || normalizedCurrent === "<p></p>";
-      
+      const isEmpty =
+        normalizedCurrent === "<p></p>" ||
+        normalizedCurrent === "" ||
+        normalizedCurrent === "<p><br></p>" ||
+        normalizedCurrent === "<p></p>";
+
       // Check if value actually has content
-      const hasContent = normalizedValue && normalizedValue !== "<p></p>" && normalizedValue !== "";
-      
+      const hasContent =
+        normalizedValue &&
+        normalizedValue !== "<p></p>" &&
+        normalizedValue !== "";
+
       // Update if:
       // 1. Content actually changed (and it's not just whitespace differences), OR
       // 2. Editor is empty and we have content to set, OR
       // 3. We haven't set initial HTML yet and have content
-      const shouldUpdate = 
+      const shouldUpdate =
         (normalizedCurrent !== normalizedValue && normalizedValue !== "") ||
         (isEmpty && hasContent) ||
         (!hasSetInitialHTML.current && hasContent);
-      
+
       if (shouldUpdate) {
         isUpdatingFromProps.current = true;
         editor.commands.setContent(value || "", false); // false = don't emit update event
@@ -256,7 +269,7 @@ const TipTapEditor = ({
         onChange(html, json);
       }
     },
-    [onChange, onUpdate]
+    [onChange, onUpdate],
   );
 
   const editorContent = (
@@ -269,18 +282,16 @@ const TipTapEditor = ({
         attributes: {
           class: combineClassNames(
             "prose dark:prose-invert prose-headings:font-title focus:outline-none max-w-full",
-            editorClassName
+            editorClassName,
           ),
         },
       }}
       className={combineClassNames(
         "relative min-h-[400px] px-4 pb-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 focus-within:ring-2 focus-within:ring-primary pt-20",
-        editorClassName
+        editorClassName,
       )}
     >
-      <div className="absolute top-0 left-0 right-0 z-10">
-        {toolbar}
-      </div>
+      <div className="absolute top-0 left-0 right-0 z-10">{toolbar}</div>
       <EditorController
         value={value}
         initialHTML={initialHTMLContent}
@@ -305,4 +316,3 @@ const TipTapEditor = ({
 };
 
 export default TipTapEditor;
-

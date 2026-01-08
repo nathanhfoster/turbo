@@ -13,4 +13,3 @@ export interface ResumeSelectorProps {
   onDeleteResume: (id: string) => Promise<void>;
   className?: string;
 }
-

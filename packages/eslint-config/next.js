@@ -44,6 +44,19 @@ export const nextJsConfig = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
+      // React best practices
+      "react/prop-types": "off", // TypeScript handles this
+      "react/display-name": "off",
+      "react/jsx-key": ["error", { checkFragmentShorthand: true }],
+      "react/jsx-no-useless-fragment": "error",
+      "react/jsx-boolean-value": ["error", "never"],
+      "react/jsx-curly-brace-presence": [
+        "error",
+        { props: "never", children: "never" },
+      ],
+      "react/self-closing-comp": "error",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ];

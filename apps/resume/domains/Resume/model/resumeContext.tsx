@@ -49,7 +49,9 @@ export const ResumeContextProvider: FC<{
     <Provider
       {...restOfProps}
       StateContext={ResumeStateContext}
-      reducer={resumeSlice.reducer as unknown as Reducer<ResumeState, ResumeActions>}
+      reducer={
+        resumeSlice.reducer as unknown as Reducer<ResumeState, ResumeActions>
+      }
       initializer={getInitialState}
       DispatchContext={ResumeDispatchContext}
       initialState={initialState}
@@ -58,4 +60,3 @@ export const ResumeContextProvider: FC<{
     </Provider>
   );
 };
-

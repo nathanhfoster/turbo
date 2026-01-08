@@ -11,7 +11,7 @@ import {
   IfVoid,
   IsAny,
   IsUnknownOrNonInferrable,
-} from "./utils/tsHelpers";
+} from "./utils/tsHelpers.js";
 
 /**
  * Represent a generic function.
@@ -273,3 +273,17 @@ export type Reducer<S, A> = (state: S, action: A) => S;
 export type Action =
   | ActionCreatorWithPayload<any, string>
   | PayloadActionCreator<any, string>;
+
+/**
+ * Callback function that receives the updated state after a dispatch completes
+ */
+export type StateCallback<S> = (state: S) => void;
+
+/**
+ * Dispatch function that supports an optional callback parameter
+ * The callback is called after the state update completes
+ */
+export type DispatchWithCallback<A = any, S = any> = {
+  (action: A, callback?: StateCallback<S>): void;
+  (action: A): void;
+};

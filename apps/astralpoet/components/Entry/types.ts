@@ -1,3 +1,3 @@
 export interface EntryProps {
-  entryId?: number;
+	entryId?: number
 }

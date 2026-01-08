@@ -2,9 +2,9 @@ import BaseSvg from "./BaseSvg";
 import type { BaseProps } from "./BaseSvg";
 
 const Undo = ({ className, ...props }: BaseProps = {}) => (
-  <BaseSvg 
-    viewBox="0 0 24 24" 
-    fill="none" 
+  <BaseSvg
+    viewBox="0 0 24 24"
+    fill="none"
     stroke="currentColor"
     className={className}
     {...props}
@@ -19,4 +19,3 @@ const Undo = ({ className, ...props }: BaseProps = {}) => (
 );
 
 export default Undo;
-

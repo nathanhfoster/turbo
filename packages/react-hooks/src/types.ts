@@ -91,4 +91,3 @@ export type Thunk<A, S, P = void> = (
   dispatch: (value?: A) => void,
   getState: () => S,
 ) => PayloadActionCreator | Promise<P> | Promise<void> | P;
-

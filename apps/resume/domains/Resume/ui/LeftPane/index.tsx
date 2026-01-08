@@ -29,7 +29,10 @@ export function LeftPane({
   };
 
   // Export button handlers map
-  const exportHandlers: Record<string, (resume: typeof currentResume) => void | Promise<void>> = {
+  const exportHandlers: Record<
+    string,
+    (resume: typeof currentResume) => void | Promise<void>
+  > = {
     "export-html": (resume) => {
       if (resume) onExportHTML(resume);
     },
@@ -41,7 +44,7 @@ export function LeftPane({
         await onExportPDF(resume);
       }
     },
-    "copy": async (resume) => {
+    copy: async (resume) => {
       if (resume) {
         await onCopy(resume);
       }
@@ -65,7 +68,7 @@ export function LeftPane({
           const isDisabled =
             typeof button.disabled === "function"
               ? button.disabled(isGenerating)
-              : button.disabled ?? false;
+              : (button.disabled ?? false);
           const displayLabel =
             isGenerating && button.loadingLabel
               ? button.loadingLabel
@@ -145,4 +148,3 @@ export function LeftPane({
     </Box>
   );
 }
-

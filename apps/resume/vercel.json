@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm turbo build --filter=@nathanhfoster/resume",
+  "buildCommand": "cd ../.. && pnpm lint && pnpm check-types && pnpm turbo build --filter=@nathanhfoster/resume",
   "outputDirectory": ".next",
   "framework": "nextjs"
 }

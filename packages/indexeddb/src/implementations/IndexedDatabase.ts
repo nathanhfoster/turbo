@@ -1,9 +1,5 @@
 import { IDatabase } from "../interfaces/IDatabase.js";
-import {
-  DatabaseConfig,
-  ObjectStoreConfig,
-  DatabaseError,
-} from "../types/index.js";
+import { DatabaseConfig, ObjectStoreConfig } from "../types";
 
 /**
  * IndexedDatabase implementation following Single Responsibility Principle
@@ -63,7 +59,7 @@ export class IndexedDatabase implements IDatabase {
     });
   }
 
-  async createObjectStore(config: ObjectStoreConfig): Promise<void> {
+  async createObjectStore(_config: ObjectStoreConfig): Promise<void> {
     // Object stores can only be created during onupgradeneeded
     // This method should be called during database initialization
     // We'll handle this in a factory function that sets up the database properly

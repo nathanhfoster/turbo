@@ -1,4 +1,8 @@
-import type { ActionButtonConfig, ExportButtonConfig, JobInputButtonConfig } from "./types";
+import type {
+  ActionButtonConfig,
+  ExportButtonConfig,
+  JobInputButtonConfig,
+} from "./types";
 
 export const ACTION_BUTTONS: ActionButtonConfig[] = [
   {

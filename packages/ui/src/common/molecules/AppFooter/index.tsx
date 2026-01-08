@@ -44,9 +44,7 @@ export function AppFooter({
                     className="text-foreground-muted hover:text-primary transition-colors"
                     aria-label={label}
                   >
-                    <Box className="w-6 h-6">
-                      {Icon}
-                    </Box>
+                    <Box className="w-6 h-6">{Icon}</Box>
                   </Link>
                 ))}
               </Box>
@@ -86,5 +84,3 @@ export function AppFooter({
     </Box>
   );
 }
-
-

@@ -12,7 +12,7 @@ const Editor: FC<EditorProps> = ({ onChange, value, ...restOfProps }) => {
 					onChange(html)
 				}
 			}}
-			placeholder="Start writing your entry..."
+			placeholder='Start writing your entry...'
 			editable={true}
 			showBubbleMenu={true}
 		/>

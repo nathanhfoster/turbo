@@ -41,7 +41,7 @@ const exportFile = (
   } else if (window.URL?.createObjectURL) {
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);
-    a.dataset.downloadurl = [type, a.download, a.href].join(":");
+    a.dataset["downloadurl"] = [type, a.download, a.href].join(":");
     e.initMouseEvent(
       "click",
       true,

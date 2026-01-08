@@ -14,4 +14,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: "https://agentnate.dev/apps/resume/sitemap.xml",
   });
 }
-

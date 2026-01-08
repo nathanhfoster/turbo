@@ -40,4 +40,3 @@ export interface FontFamilyOption {
   label: string;
   value: string;
 }
-

@@ -36,7 +36,8 @@ export function useResumeAI() {
         if (result.success && result.content) {
           return result.content;
         } else {
-          const errorMessage = result.error?.message || "Failed to improve resume";
+          const errorMessage =
+            result.error?.message || "Failed to improve resume";
           setError(errorMessage);
           return null;
         }
@@ -56,10 +57,7 @@ export function useResumeAI() {
    * Tailor resume for a specific job description
    */
   const tailorForJob = useCallback(
-    async (
-      resume: Resume,
-      jobDescription: string,
-    ): Promise<string | null> => {
+    async (resume: Resume, jobDescription: string): Promise<string | null> => {
       setIsGenerating(true);
       setError(null);
 
@@ -72,7 +70,8 @@ export function useResumeAI() {
         if (result.success && result.content) {
           return result.content;
         } else {
-          const errorMessage = result.error?.message || "Failed to tailor resume";
+          const errorMessage =
+            result.error?.message || "Failed to tailor resume";
           setError(errorMessage);
           return null;
         }
@@ -92,10 +91,7 @@ export function useResumeAI() {
    * Generate suggestions for improving specific sections
    */
   const generateSuggestions = useCallback(
-    async (
-      resume: Resume,
-      section?: string,
-    ): Promise<string | null> => {
+    async (resume: Resume, section?: string): Promise<string | null> => {
       setIsGenerating(true);
       setError(null);
 
@@ -108,7 +104,8 @@ export function useResumeAI() {
         if (result.success && result.content) {
           return result.content;
         } else {
-          const errorMessage = result.error?.message || "Failed to generate suggestions";
+          const errorMessage =
+            result.error?.message || "Failed to generate suggestions";
           setError(errorMessage);
           return null;
         }
@@ -132,4 +129,3 @@ export function useResumeAI() {
     error,
   };
 }
-

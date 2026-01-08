@@ -2,8 +2,8 @@ import BaseSvg from "./BaseSvg";
 import type { BaseProps } from "./BaseSvg";
 
 const Download = ({ className, ...props }: BaseProps = {}) => (
-  <BaseSvg 
-    viewBox="0 0 16 16" 
+  <BaseSvg
+    viewBox="0 0 16 16"
     fill="currentColor"
     className={className}
     {...props}

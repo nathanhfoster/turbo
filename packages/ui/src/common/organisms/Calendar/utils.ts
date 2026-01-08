@@ -92,4 +92,3 @@ export function generateMonthOptions(monthNames: string[]) {
     value: index,
   }));
 }
-

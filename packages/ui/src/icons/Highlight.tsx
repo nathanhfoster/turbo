@@ -2,9 +2,9 @@ import BaseSvg from "./BaseSvg";
 import type { BaseProps } from "./BaseSvg";
 
 const Highlight = ({ className, ...props }: BaseProps = {}) => (
-  <BaseSvg 
-    viewBox="0 0 24 24" 
-    fill="none" 
+  <BaseSvg
+    viewBox="0 0 24 24"
+    fill="none"
     stroke="currentColor"
     className={className}
     {...props}
@@ -18,4 +18,3 @@ const Highlight = ({ className, ...props }: BaseProps = {}) => (
 );
 
 export default Highlight;
-

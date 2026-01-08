@@ -1,0 +1,21 @@
+[11:52:05.533] [INFO] storybook v10.1.11
+[11:52:05.787] [DEBUG] Getting package.json info for /home/nathan/repos/turbo/packages/ui/package.json...
+[11:52:06.470] [DEBUG] Serving static files from node_modules/.pnpm/@chromatic-com+storybook@4.1.3_storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_r_neh5tb7ly7oh6ujw4gjts2iimu/node_modules/@chromatic-com/storybook/assets at /addon-visual-tests-assets
+[11:52:06.470] [INFO] Starting...
+[11:52:06.495] [WARN] No story files found for the specified pattern: src/**/*.mdx
+[11:52:06.633] [DEBUG] Starting preview..
+[11:52:06.953] [DEBUG] Using tsconfig paths for react-docgen
+[11:52:06.980] [ERROR] Failed to build the preview
+[11:52:06.982] [ERROR] [38;2;241;97;97mReferenceError: __dirname is not defined[39m
+    at Object.viteFinal (file://./.storybook/main.ts:18:39)
+    at file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/_node-chunks/chunk-Q4DOC7HF.js:10134:36
+    at async createViteServer (file:///home/nathan/repos/turbo/node_modules/.pnpm/@storybook+builder-vite@10.1.11_esbuild@0.27.2_rollup@4.55.1_storybook@10.1.11_@testing-libra_6gxia7xf5dd72z4zt734zcg7fq/node_modules/@storybook/builder-vite/dist/index.js:6410:21)
+    at async Module.start (file:///home/nathan/repos/turbo/node_modules/.pnpm/@storybook+builder-vite@10.1.11_esbuild@0.27.2_rollup@4.55.1_storybook@10.1.11_@testing-libra_6gxia7xf5dd72z4zt734zcg7fq/node_modules/@storybook/builder-vite/dist/index.js:6435:17)
+    at async storybookDevServer (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/core-server/index.js:6806:82)
+    at async buildOrThrow (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/core-server/index.js:5555:12)
+    at async buildDevStandalone (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/core-server/index.js:7208:66)
+    at async withTelemetry (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/_node-chunks/chunk-2372JZ52.js:209:12)
+    at async dev (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file:///home/nathan/repos/turbo/node_modules/.pnpm/storybook@10.1.11_@testing-library+dom@10.4.1_prettier@3.7.4_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/storybook/dist/bin/core.js:2801:92)
+[11:52:06.983] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.

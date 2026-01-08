@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  AppBody,
-  AppNavbar,
-} from "@nathanhfoster/ui";
+import { AppBody, AppNavbar } from "@nathanhfoster/ui";
 import { CookieConsentModal } from "@nathanhfoster/pwa/device";
 import { getMainAppUrl } from "../../../../shared/utils/getMainAppUrl";
 import {
@@ -14,9 +11,7 @@ import {
 } from "./constants";
 import type { ResumeLayoutContentProps } from "./types";
 
-export function ResumeLayoutContent({
-  children,
-}: ResumeLayoutContentProps) {
+export function ResumeLayoutContent({ children }: ResumeLayoutContentProps) {
   const mainAppUrl = getMainAppUrl();
 
   // Use absolute URLs to bypass basePath in development
@@ -37,4 +32,3 @@ export function ResumeLayoutContent({
     </AppBody>
   );
 }
-

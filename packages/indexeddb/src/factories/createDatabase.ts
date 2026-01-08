@@ -1,5 +1,5 @@
 import { IndexedDatabase } from "../implementations/IndexedDatabase.js";
-import { DatabaseConfig, ObjectStoreConfig } from "../types/index.js";
+import { DatabaseConfig, ObjectStoreConfig } from "../types";
 
 /**
  * Factory function to create and initialize a database with object stores

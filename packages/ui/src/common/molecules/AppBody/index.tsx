@@ -4,8 +4,8 @@ import { Box } from "../../atoms";
 import GoogleTagManageIframe from "./GoogleTagManageIframe";
 import type { AppBodyProps } from "./types";
 
-export function AppBody({ 
-  children, 
+export function AppBody({
+  children,
   className,
   enableGoogleTagManager = false,
   consentModal,
@@ -44,4 +44,3 @@ export function AppBody({
     </Box>
   );
 }
-

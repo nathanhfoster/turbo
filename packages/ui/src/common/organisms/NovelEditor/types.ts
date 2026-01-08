@@ -43,4 +43,3 @@ export interface NovelEditorProps extends Omit<BaseTailwindProps, "shadow"> {
    */
   showBubbleMenu?: boolean;
 }
-

@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import {
-  useResumeSelector,
-  useResumeDispatch,
-} from "../model/resumeContext";
+import { useResumeSelector, useResumeDispatch } from "../model/resumeContext";
 import { resumeActions } from "../model/resumeSlice";
 import {
   selectResumes,
@@ -42,7 +39,7 @@ export function useResume(props?: ResumeProps) {
         if (props?.resumeId) {
           // First try to find it in the list
           let resume = allResumes.find((r) => r.id === props.resumeId);
-          
+
           // If not found in the list, fetch it directly from IndexedDB
           if (!resume) {
             resume = await repository.getById(props.resumeId);
@@ -51,7 +48,7 @@ export function useResume(props?: ResumeProps) {
               dispatch(resumeActions.AddResume(resume));
             }
           }
-          
+
           if (resume) {
             dispatch(resumeActions.SetCurrentResume(resume));
           }
@@ -186,7 +183,7 @@ export function useResume(props?: ResumeProps) {
     async (file: File) => {
       try {
         dispatch(resumeActions.SetLoading(true));
-        
+
         // Parse file content
         const content = await parseResumeFile(file);
         const name = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
@@ -194,7 +191,7 @@ export function useResume(props?: ResumeProps) {
         // Store file data directly in the resume
         const fileData = fileToResumeFileData(file);
         const newResume = await createResume(name, content);
-        
+
         if (!newResume) {
           throw new Error("Failed to create resume");
         }
@@ -214,7 +211,9 @@ export function useResume(props?: ResumeProps) {
       } catch (err) {
         dispatch(
           resumeActions.SetError(
-            err instanceof Error ? err.message : "Failed to create resume from file",
+            err instanceof Error
+              ? err.message
+              : "Failed to create resume from file",
           ),
         );
         throw err;
@@ -284,4 +283,3 @@ export function useResume(props?: ResumeProps) {
     clearFilesFromResumes,
   };
 }
-

@@ -84,7 +84,13 @@ export interface CalendarProps extends Omit<BaseTailwindProps, "shadow"> {
    * Custom render function for day tile wrapper
    * Allows full control over the day tile rendering
    */
-  renderDay?: (date: Date, dayNumber: number, isDisabled: boolean, isSelected: boolean, isGreen: boolean) => ReactNode;
+  renderDay?: (
+    date: Date,
+    dayNumber: number,
+    isDisabled: boolean,
+    isSelected: boolean,
+    isGreen: boolean,
+  ) => ReactNode;
   /**
    * Year range for year selector
    * [startYear, endYear]

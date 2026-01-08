@@ -19,4 +19,3 @@ export const BOTTOM_NAV_ITEMS: NavItem[] = [
   { label: "Newsletter", href: "/newsletter", Icon: <IconEnvelopeOpen /> },
   { label: "Settings", href: "/settings", Icon: <IconSliders /> },
 ];
-

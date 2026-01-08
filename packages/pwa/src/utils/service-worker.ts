@@ -228,6 +228,3 @@ export function registerServiceWorker(
       });
   });
 }
-
-
-

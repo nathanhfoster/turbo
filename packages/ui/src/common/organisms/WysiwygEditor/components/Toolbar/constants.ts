@@ -40,13 +40,32 @@ export const FONT_FAMILIES: FontFamilyOption[] = [
 ];
 
 export const TEXT_COLORS: string[] = [
-  "#1A56DB", "#0E9F6E", "#FACA15", "#F05252", "#FF8A4C", "#0694A2",
-  "#B4C6FC", "#8DA2FB", "#5145CD", "#771D1D", "#FCD9BD", "#99154B",
-  "#7E3AF2", "#CABFFD", "#D61F69", "#F8B4D9", "#F6C196", "#A4CAFE",
-  "#111928", "#4B5563", "#6B7280", "#D1D5DB", "#F3F4F6", "#F9FAFB",
+  "#1A56DB",
+  "#0E9F6E",
+  "#FACA15",
+  "#F05252",
+  "#FF8A4C",
+  "#0694A2",
+  "#B4C6FC",
+  "#8DA2FB",
+  "#5145CD",
+  "#771D1D",
+  "#FCD9BD",
+  "#99154B",
+  "#7E3AF2",
+  "#CABFFD",
+  "#D61F69",
+  "#F8B4D9",
+  "#F6C196",
+  "#A4CAFE",
+  "#111928",
+  "#4B5563",
+  "#6B7280",
+  "#D1D5DB",
+  "#F3F4F6",
+  "#F9FAFB",
 ];
 
 export const HIGHLIGHT_COLOR = "#ffc078";
 
 export const HEADING_LEVELS = [1, 2, 3, 4, 5, 6] as const;
-

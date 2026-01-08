@@ -21,4 +21,3 @@ const setStateObjectReducer = <S extends Record<string, any>>(
 };
 
 export default setStateObjectReducer;
-

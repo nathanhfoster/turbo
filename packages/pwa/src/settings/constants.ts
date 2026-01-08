@@ -83,6 +83,3 @@ export const PERMISSION_NAMES = {
   microphone: "microphone" as PermissionName,
   geolocation: "geolocation" as PermissionName,
 } as const;
-
-
-

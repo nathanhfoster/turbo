@@ -19,6 +19,7 @@ export async function clearIndexedDB(): Promise<void> {
         if (db.name) {
           return indexedDB.deleteDatabase(db.name);
         }
+        return Promise.resolve();
       }),
     );
   } catch (error) {
