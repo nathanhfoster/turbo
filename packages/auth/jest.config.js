@@ -6,6 +6,8 @@ module.exports = {
   moduleNameMapper: {
     '^@nathanhfoster/utils$': '<rootDir>/../utils/src/index.ts',
     '^@nathanhfoster/utils/(.*)$': '<rootDir>/../utils/src/$1',
+    '^lodash-es$': 'lodash',
+    '^lodash-es/(.*)$': 'lodash/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   collectCoverageFrom: [

@@ -64,10 +64,16 @@ export const deviceSlice = createSlice({
   name: "Device",
   initialState: deviceInitialState,
   actions: {
-    SetDeviceInfo: (state: DeviceContextState, payload: Partial<DeviceContextState>) => {
+    SetDeviceInfo: (
+      state: DeviceContextState,
+      payload: Partial<DeviceContextState>,
+    ) => {
       state = { ...state, ...payload };
     },
-    SetBatteryStatus: (state: DeviceContextState, payload: DeviceContextState["batteryStatus"]) => {
+    SetBatteryStatus: (
+      state: DeviceContextState,
+      payload: DeviceContextState["batteryStatus"],
+    ) => {
       state.batteryStatus = payload;
     },
     UpdateScreenSize: (
@@ -93,14 +99,20 @@ export const deviceSlice = createSlice({
     ) => {
       state.isPWAInstalled = payload.isPWAInstalled;
     },
-    SetHasScrolled: (state: DeviceContextState, hasScrolled: DeviceContextState["hasScrolled"]) => {
+    SetHasScrolled: (
+      state: DeviceContextState,
+      hasScrolled: DeviceContextState["hasScrolled"],
+    ) => {
       state.hasScrolled = hasScrolled;
 
       if (typeof localStorage !== "undefined") {
         localStorage.setItem(KEY_COOKIE_HAS_SCROLLED, hasScrolled.toString());
       }
     },
-    ToggleCookieModalOpen: (state: DeviceContextState, payload: boolean | undefined) => {
+    ToggleCookieModalOpen: (
+      state: DeviceContextState,
+      payload: boolean | undefined,
+    ) => {
       const newIsCookieModalOpen = payload ?? !state.isCookieModalOpen;
       state.isCookieModalOpen = newIsCookieModalOpen;
       if (typeof localStorage !== "undefined") {
