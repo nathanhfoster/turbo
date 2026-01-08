@@ -159,18 +159,21 @@ export function EntrySelector({
         </Box>
       </Box>
 
-      {/* Calendar Section */}
-      <Box className="space-y-4">
-        <Typography
-          variant="h3"
-          className="mb-4"
-          size="text-lg"
-          weight="font-semibold"
-        >
-          Calendar
-        </Typography>
-        <EntryCalendar onChange={onCalendarChange} />
-      </Box>
+          {/* Calendar Section */}
+          <Box className="space-y-4">
+            <Typography
+              variant="h3"
+              className="mb-4"
+              size="text-lg"
+              weight="font-semibold"
+            >
+              Calendar
+            </Typography>
+            <EntryCalendar
+              value={currentEntry ? new Date(currentEntry.date_created) : null}
+              onChange={onCalendarChange}
+            />
+          </Box>
 
       {/* Entry List */}
       <Box>
@@ -184,6 +187,7 @@ export function EntrySelector({
         </Typography>
         <Box className="h-[400px] md:h-[600px]">
           <EntryList
+            currentEntry={currentEntry}
             onEntrySelect={(entryId) => {
               const entry = entries.find((e) => e.id === entryId);
               onEntrySelect(entry || null);

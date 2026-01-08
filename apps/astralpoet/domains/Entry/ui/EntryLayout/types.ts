@@ -16,6 +16,7 @@ export interface EntryLayoutProps {
 
   // Calendar props
   calendarProps: {
+    value?: Date | null;
     onChange?: (date: Date | null) => void;
   };
 

@@ -34,7 +34,7 @@ export function Ellipsis({ entryId }: EllipsisProps) {
       <Dropdown.Trigger>
         <IconButton
           icon={<IconEllipsis />}
-          variant="default"
+          variant="ghost"
           size="md"
           aria-label="Entry menu"
         />

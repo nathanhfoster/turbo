@@ -90,7 +90,8 @@ export function EntryLayout({
                   onClick={() => setIsCalendarDrawerOpen(true)}
                   icon={<IconCalendar />}
                   aria-label="Calendar"
-                  variant="primary"
+                  variant="ghost"
+                  color="primary"
                   size="sm"
                   className={`flex-shrink-0 transition-all duration-300 pointer-events-auto ${hasScrolled ? "bg-background-elevated/90 backdrop-blur-sm" : ""} ${isMobile ? "-ml-2" : isTablet ? "-ml-4" : ""}`}
                 />
@@ -101,7 +102,8 @@ export function EntryLayout({
                   onClick={() => setIsEntryListDrawerOpen(true)}
                   icon={<IconMenu className="size-6" />}
                   aria-label="Entries"
-                  variant="primary"
+                  variant="ghost"
+                  color="primary"
                   size="sm"
                   className={`flex-shrink-0 transition-all duration-300 pointer-events-auto ${hasScrolled ? "bg-background-elevated/90 backdrop-blur-sm" : ""} ${isMobile ? "-mr-2" : isTablet ? "-mr-4" : ""}`}
                 />
@@ -121,7 +123,10 @@ export function EntryLayout({
             {/* Desktop: Direct rendering */}
             {isDesktop && (
               <Box className="flex w-80 flex-shrink-0 flex-col gap-4 min-w-0 max-w-full overflow-hidden animate-[fadeIn_0.4s_ease-out_0.1s_both]">
-                <EntryCalendar {...calendarProps} />
+                <EntryCalendar
+                  {...calendarProps}
+                  value={currentEntry ? new Date(currentEntry.date_created) : null}
+                />
                 {/* Additional Details - only show when entry is selected */}
                 {currentEntry && (
                   <Box className="flex flex-col gap-4 p-4 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-700 overflow-y-auto">
@@ -291,7 +296,10 @@ export function EntryLayout({
                 width="w-80"
               >
                 <Box className="flex flex-col gap-4">
-                  <EntryCalendar {...calendarProps} />
+                  <EntryCalendar
+                    {...calendarProps}
+                    value={currentEntry ? new Date(currentEntry.date_created) : null}
+                  />
                   {/* Additional Details - only show when entry is selected */}
                   {currentEntry && (
                     <Box className="flex flex-col gap-4 p-4 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-700">
@@ -521,7 +529,7 @@ export function EntryLayout({
               <Box
                 className={`flex w-80 xl:w-96 flex-shrink-0 min-w-0 order-3 animate-[fadeIn_0.4s_ease-out_0.3s_both]`}
               >
-                <EntryList {...entryListProps} />
+                <EntryList {...entryListProps} currentEntry={currentEntry} />
               </Box>
             )}
             {/* Mobile/Tablet: Drawer */}
@@ -532,7 +540,7 @@ export function EntryLayout({
                 position="right"
                 width="w-80"
               >
-                <EntryList {...entryListProps} />
+                <EntryList {...entryListProps} currentEntry={currentEntry} />
               </Drawer>
             )}
           </>

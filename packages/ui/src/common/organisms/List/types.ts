@@ -63,4 +63,12 @@ export interface ListProps<T extends object> {
    * Empty state component
    */
   emptyComponent?: React.ReactNode;
+  /**
+   * Index to scroll to (will scroll when this changes)
+   */
+  scrollToIndex?: number;
+  /**
+   * Index of the selected row (will be highlighted)
+   */
+  selectedIndex?: number;
 }

@@ -5,7 +5,7 @@ import { Calendar } from "@nathanhfoster/ui";
 import { useEntry } from "../../hooks";
 import type { CalendarProps } from "./types";
 
-export function EntryCalendar({ onChange }: CalendarProps) {
+export function EntryCalendar({ value, onChange }: CalendarProps) {
   const { entries } = useEntry();
 
   // Get dates that have entries (for green highlighting)
@@ -43,6 +43,7 @@ export function EntryCalendar({ onChange }: CalendarProps) {
       shadow="xl"
       size="xl"
       verticalBorders={false}
+      value={value}
       onChange={onChange}
       showYearSelector={true}
       showMonthSelector={true}

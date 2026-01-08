@@ -105,6 +105,11 @@ export function EntryJournal(props?: EntryProps) {
     }
   };
 
+  // Get the current entry's date for the calendar
+  const currentEntryDate = currentEntry
+    ? new Date(currentEntry.date_created)
+    : null;
+
   // Prepare props for layout component
   return (
     <EntryLayout
@@ -114,6 +119,7 @@ export function EntryJournal(props?: EntryProps) {
       content={content}
       onContentChange={handleContentChange}
       calendarProps={{
+        value: currentEntryDate,
         onChange: handleCalendarChange,
       }}
       entryListProps={{

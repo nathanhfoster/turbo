@@ -90,7 +90,8 @@ export function ResumeLayout({
                   onClick={() => setIsLeftDrawerOpen(true)}
                   icon={<IconMenu className="size-6" />}
                   aria-label="Actions"
-                  variant="primary"
+                  variant="ghost"
+                  color="primary"
                   size="sm"
                   className={`flex-shrink-0 transition-all duration-300 ${hasScrolled ? "bg-background-elevated/90 backdrop-blur-sm" : ""} ${isMobile ? "-ml-2" : isTablet ? "-ml-4" : ""}`}
                 />
@@ -112,7 +113,8 @@ export function ResumeLayout({
                   onClick={() => setIsRightDrawerOpen(true)}
                   icon={<IconDocument className="size-6" />}
                   aria-label="Resumes"
-                  variant="primary"
+                  variant="ghost"
+                  color="primary"
                   size="sm"
                   className={`flex-shrink-0 transition-all duration-300 ${hasScrolled ? "bg-background-elevated/90 backdrop-blur-sm" : ""} ${isMobile ? "-mr-2" : isTablet ? "-mr-4" : ""}`}
                 />

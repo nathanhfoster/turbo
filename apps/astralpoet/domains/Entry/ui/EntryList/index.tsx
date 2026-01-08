@@ -8,9 +8,15 @@ import { getEntryViewUrl } from "../../hooks/utils/navigation";
 import type { EntryListProps } from "./types";
 import type { Entry } from "../../model/types";
 
-export function EntryList({ onEntrySelect, onDeleteEntry }: EntryListProps) {
+export function EntryList({ currentEntry, onEntrySelect, onDeleteEntry }: EntryListProps) {
   const router = useRouter();
   const { entries } = useEntry();
+
+  // Find the index of the current entry
+  const selectedIndex = useMemo(() => {
+    if (!currentEntry) return undefined;
+    return entries.findIndex((entry) => entry.id === currentEntry.id);
+  }, [currentEntry, entries]);
 
   const handleEntryClick = (entryId: number) => {
     if (onEntrySelect) {
@@ -117,6 +123,7 @@ export function EntryList({ onEntrySelect, onDeleteEntry }: EntryListProps) {
           <IconButton
             icon={<IconTrash />}
             variant="ghost"
+            color="warning"
             size="sm"
             onClick={(e) => handleDelete(e, entry.id)}
             className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
@@ -136,6 +143,8 @@ export function EntryList({ onEntrySelect, onDeleteEntry }: EntryListProps) {
         onRowClick={({ rowData }) => handleEntryClick(rowData.id)}
         emptyMessage="No entries yet. Create your first entry!"
         className="h-full"
+        selectedIndex={selectedIndex !== -1 ? selectedIndex : undefined}
+        scrollToIndex={selectedIndex !== -1 ? selectedIndex : undefined}
       />
     </Box>
   );
