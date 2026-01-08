@@ -53,6 +53,7 @@ export function useEntry(props?: EntryProps) {
 					if (entry) {
 						// Entry found in loaded entries
 						// Use callback to ensure entry is in state before setting as current
+						// SetEntries will automatically set loading to false
 						dispatch(entryActions.SetEntries(allEntries), (state) => {
 							const entryInState = state.entries.find((e) => {
 								const entryId = typeof e.id === 'string' ? Number(e.id) : e.id
@@ -68,6 +69,7 @@ export function useEntry(props?: EntryProps) {
 						})
 					} else {
 						// Not found, try fetching it from IndexedDB with different ID formats
+						// SetEntries will automatically set loading to false
 						dispatch(entryActions.SetEntries(allEntries))
 
 						// Try both number and string formats
@@ -108,7 +110,7 @@ export function useEntry(props?: EntryProps) {
 						}
 					}
 				} else {
-					// No entryId, just set entries
+					// No entryId, just set entries (SetEntries will also set loading to false)
 					dispatch(entryActions.SetEntries(allEntries))
 				}
 			} catch (err) {
@@ -117,7 +119,7 @@ export function useEntry(props?: EntryProps) {
 						err instanceof Error ? err.message : 'Failed to load entries',
 					),
 				)
-			} finally {
+				// Set loading to false even on error
 				dispatch(entryActions.SetLoading(false))
 			}
 		}

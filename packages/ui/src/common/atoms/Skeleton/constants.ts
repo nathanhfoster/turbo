@@ -9,24 +9,24 @@ export const VARIANTS: Record<SkeletonVariant, string> = {
 
 export const ANIMATION_STYLES: Record<string, string> = {
   pulse: "animate-pulse",
-  wave: "animate-shimmer",
+  wave: "skeleton-wave",
   none: "",
 };
 
 export const COLOR_STYLES: Record<ComponentColor, string> = {
-  primary: "bg-primary/20",
-  secondary: "bg-secondary/20",
-  accent: "bg-accent/20",
-  error: "bg-error/20",
-  success: "bg-success/20",
-  warning: "bg-warning/20",
-  info: "bg-info/20",
-  white: "bg-white/20",
-  black: "bg-black/20",
-  inherit: "bg-inherit/20",
-  gray: "bg-neutral-200",
+  primary: "bg-primary/10",
+  secondary: "bg-secondary/10",
+  accent: "bg-accent/10",
+  error: "bg-error/10",
+  success: "bg-success/10",
+  warning: "bg-warning/10",
+  info: "bg-info/10",
+  white: "bg-white/10",
+  black: "bg-black/10",
+  inherit: "bg-inherit/10",
+  gray: "bg-background-muted",
 };
 
-export const DEFAULT_ANIMATION = "pulse";
+export const DEFAULT_ANIMATION = "wave";
 export const DEFAULT_VARIANT = "rectangular";
 export const DEFAULT_COLOR = "gray";

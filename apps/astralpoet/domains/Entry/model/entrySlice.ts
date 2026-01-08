@@ -4,7 +4,7 @@ import type { EntryState, Entry } from './types'
 const initialState: EntryState = {
 	entries: [],
 	currentEntry: null,
-	isLoading: false,
+	isLoading: true, // Start as true to show skeletons on initial load
 	error: null,
 	isEditing: false,
 	isSaving: false,
@@ -13,6 +13,10 @@ const initialState: EntryState = {
 // Action reducers
 const SetEntries = (state: Draft<EntryState>, entries: Entry[]) => {
 	state.entries = entries
+	// Automatically set loading to false when entries are set (prevents flickering)
+	if (state.isLoading) {
+		state.isLoading = false
+	}
 }
 
 const SetCurrentEntry = (state: Draft<EntryState>, entry: Entry | null) => {

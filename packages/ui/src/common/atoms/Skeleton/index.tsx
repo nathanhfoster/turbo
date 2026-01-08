@@ -22,6 +22,7 @@ const Skeleton = ({
   animation = DEFAULT_ANIMATION,
   color = DEFAULT_COLOR,
   className,
+  style,
   ...props
 }: SkeletonProps) => {
   const variantClasses = VARIANTS[variant];
@@ -34,13 +35,28 @@ const Skeleton = ({
     colorClasses,
     fullWidth && "w-full",
     fullHeight && "h-full",
-    width,
-    height,
-    borderRadius,
+    "relative",
+    "overflow-hidden",
     className,
   );
 
-  return <div className={baseClasses} {...props} />;
+  const sizeStyle: React.CSSProperties = {
+    width: fullWidth ? "100%" : width,
+    height: fullHeight ? "100%" : height,
+    borderRadius: borderRadius,
+    ...style,
+  };
+
+  return (
+    <div className={baseClasses} style={sizeStyle} {...props}>
+      {animation === "wave" && (
+        <div
+          className="absolute inset-0 skeleton-shimmer pointer-events-none"
+          aria-hidden="true"
+        />
+      )}
+    </div>
+  );
 };
 
 export default withForwardRef(withBaseTheme(Skeleton));
