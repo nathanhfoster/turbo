@@ -3,10 +3,7 @@
  * Validates that entries can be imported and exported correctly
  */
 
-import { describe, it, expect, beforeAll } from "vitest";
-import { readFileSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { describe, it, expect } from "vitest";
 import {
   importEntriesFromJson,
   exportEntriesToJson,
@@ -16,25 +13,70 @@ import {
 } from "../importExport";
 import type { Entry } from "../../model/types";
 
-// Get the directory of the current file
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Path to test entries file (relative to test file location)
-const TEST_ENTRIES_PATH = join(
-  __dirname,
-  "entries.json",
-);
+// Mock test entries data
+const createMockEntries = (): any[] => [
+  {
+    id: "1",
+    author: "1",
+    title: "Test Entry 1",
+    html: "<p>This is a test entry with some content.</p>",
+    tags: "test,example",
+    people: "John Doe,Jane Smith",
+    address: "123 Test St",
+    latitude: "40.7128",
+    longitude: "-74.0060",
+    date_created: "2024-01-01T00:00:00.000Z",
+    date_updated: "2024-01-01T00:00:00.000Z",
+    date_created_by_author: "2024-01-01T00:00:00.000Z",
+    views: "10",
+    rating: "5",
+    EntryFiles: "[]",
+    is_public: "true",
+    size: "50",
+  },
+  {
+    id: "2",
+    author: "1",
+    title: "Test Entry 2",
+    html: "<p>Another test entry with <strong>bold</strong> text.</p>",
+    tags: "example,demo",
+    people: "Alice Brown",
+    address: "",
+    latitude: "",
+    longitude: "",
+    date_created: "2024-01-02T00:00:00.000Z",
+    date_updated: "2024-01-02T00:00:00.000Z",
+    date_created_by_author: "2024-01-02T00:00:00.000Z",
+    views: "5",
+    rating: "4",
+    EntryFiles: "[]",
+    is_public: "false",
+    size: "60",
+  },
+  {
+    id: "3",
+    author: "2",
+    title: "Test Entry 3",
+    html: "<h1>Heading</h1><p>Content with <em>emphasis</em>.</p>",
+    tags: "",
+    people: "",
+    address: "456 Main Ave",
+    latitude: "34.0522",
+    longitude: "-118.2437",
+    date_created: "2024-01-03T00:00:00.000Z",
+    date_updated: "2024-01-03T00:00:00.000Z",
+    date_created_by_author: "2024-01-03T00:00:00.000Z",
+    views: "0",
+    rating: "0",
+    EntryFiles: '[{"name":"test.jpg","url":"https://example.com/test.jpg"}]',
+    is_public: "true",
+    size: "45",
+  },
+];
 
 describe("Entry Import/Export", () => {
-  let originalEntriesJson: string;
-  let originalEntries: any[];
-
-  beforeAll(() => {
-    // Read the test entries file
-    originalEntriesJson = readFileSync(TEST_ENTRIES_PATH, "utf-8");
-    originalEntries = JSON.parse(originalEntriesJson);
-  });
+  const originalEntries = createMockEntries();
+  const originalEntriesJson = JSON.stringify(originalEntries);
 
   describe("JSON Import/Export", () => {
     it("should import entries from JSON correctly", () => {

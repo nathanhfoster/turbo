@@ -225,8 +225,9 @@ export const importEntriesFromJson = (jsonString: string): Entry[] => {
 export const exportEntriesToCsv = (entries: Entry[]): string => {
   if (entries.length === 0) return "";
 
+  // Use returnObject = true to get an object with keys for CSV headers
   const transformedEntries = entries.map((entry) =>
-    getEntryTransform(entry, false, true),
+    getEntryTransform(entry, true, true),
   );
 
   // Get headers from first transformed entry
