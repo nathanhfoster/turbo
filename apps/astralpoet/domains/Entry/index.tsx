@@ -6,6 +6,7 @@ import { useEntry } from './hooks/useEntry'
 import { useEntryEditor } from './hooks/useEntryEditor'
 import { EntryLayout } from './ui/EntryLayout'
 import { getMainAppUrl } from '../../../shared/utils/getMainAppUrl'
+import { getEntryViewUrl } from './hooks/utils/navigation'
 import type { EntryProps } from './model/types'
 
 // Export provider for wrapping app
@@ -73,7 +74,7 @@ export function EntryJournal(props?: EntryProps) {
 	}, [props?.entryId, isLoading, entries.length, currentEntry, error, router])
 
 	// Calendar handler
-	const handleCalendarChange = (date: Date | null) => {
+	const handleCalendarChange = async (date: Date | null) => {
 		if (date) {
 			// Find or create entry for selected date
 			const existingEntry = entries.find((entry) => {
@@ -86,10 +87,18 @@ export function EntryJournal(props?: EntryProps) {
 			})
 
 			if (existingEntry) {
-				setCurrentEntry(existingEntry)
+				// Navigate to update the URL, which will sync with the state via the useEffect in useEntry
+				router.push(getEntryViewUrl(existingEntry.id))
 			} else {
-				// Create new entry for selected date
-				createEntry('Untitled Entry', '', date)
+				// Create new entry for selected date and navigate to it
+				try {
+					const newEntry = await createEntry('Untitled Entry', '', date)
+					if (newEntry) {
+						router.push(getEntryViewUrl(newEntry.id))
+					}
+				} catch (error) {
+					console.error('Failed to create entry:', error)
+				}
 			}
 		}
 	}
@@ -98,7 +107,8 @@ export function EntryJournal(props?: EntryProps) {
 	const handleEntrySelect = (entryId: number) => {
 		const entry = getEntryById(entryId)
 		if (entry) {
-			setCurrentEntry(entry)
+			// Navigate to update the URL, which will sync with the state via the useEffect in useEntry
+			router.push(getEntryViewUrl(entryId))
 		}
 	}
 
