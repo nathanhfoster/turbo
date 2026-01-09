@@ -14,7 +14,6 @@ import {
 	Input,
 	FormControl,
 	Chip,
-	Skeleton,
 } from '@nathanhfoster/ui'
 import { useEntry, useEntryEditor } from '../../hooks'
 import { getValidDate } from '@nathanhfoster/utils'
@@ -49,9 +48,6 @@ export function EntryLayout({
 
 	// Entry hooks for title and date editing
 	const { setEntryValue, updateEntry, entries } = useEntry()
-
-	// Only show skeletons during initial load (when entries are empty and loading)
-	const showSkeletons = isLoading && entries.length === 0
 
 	const handleTitleChange = async (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -145,116 +141,18 @@ export function EntryLayout({
 						{/* Desktop: Direct rendering */}
 						{isDesktop && (
 							<Box
-								className={`flex w-80 flex-shrink-0 flex-col gap-4 min-w-0 max-w-full overflow-hidden ${showSkeletons ? '' : 'animate-[fadeIn_0.4s_ease-out_0.1s_both]'}`}
+								className='flex w-80 flex-shrink-0 flex-col gap-4 min-w-0 max-w-full overflow-hidden animate-[fadeIn_0.4s_ease-out_0.1s_both]'
 							>
-								{showSkeletons ? (
-									<Box className='flex flex-col gap-4'>
-										{/* Calendar Skeleton */}
-										<Box className='w-full border border-border rounded-lg overflow-hidden bg-background p-4'>
-											{/* Month/Year Selector Skeleton */}
-											<Box className='flex items-center justify-between mb-4'>
-												<Skeleton
-													variant='rectangular'
-													height='32px'
-													width='120px'
-													borderRadius='md'
-												/>
-												<Skeleton
-													variant='rectangular'
-													height='32px'
-													width='100px'
-													borderRadius='md'
-												/>
-											</Box>
-											{/* Calendar Grid Skeleton */}
-											<Box className='grid grid-cols-7 gap-2 mb-2'>
-												{/* Day headers */}
-												{['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, idx) => (
-													<Skeleton
-														key={`day-header-${idx}`}
-														variant='text'
-														height='20px'
-														width='100%'
-													/>
-												))}
-											</Box>
-											<Box className='grid grid-cols-7 gap-2'>
-												{/* Calendar days - 6 rows x 7 columns = 42 days */}
-												{Array.from({ length: 42 }).map((_, idx) => (
-													<Skeleton
-														key={`calendar-day-${idx}`}
-														variant='rectangular'
-														height='40px'
-														width='100%'
-														borderRadius='md'
-													/>
-												))}
-											</Box>
-										</Box>
-										{/* Additional Details Skeleton */}
-										<Box className='flex flex-col gap-4 p-4 bg-background-subtle rounded-lg border border-border'>
-											<Skeleton variant='text' height='24px' width='40%' />
-											<Box className='flex flex-col gap-3'>
-												<Skeleton variant='text' height='16px' width='50%' />
-												<Skeleton
-													variant='rectangular'
-													fullWidth
-													height='40px'
-													borderRadius='md'
-												/>
-											</Box>
-											<Box className='flex flex-col gap-3'>
-												<Skeleton variant='text' height='16px' width='50%' />
-												<Skeleton
-													variant='rectangular'
-													fullWidth
-													height='40px'
-													borderRadius='md'
-												/>
-											</Box>
-											<Box className='flex flex-col gap-3'>
-												<Skeleton variant='text' height='16px' width='50%' />
-												<Skeleton
-													variant='rectangular'
-													fullWidth
-													height='40px'
-													borderRadius='md'
-												/>
-											</Box>
-											<Box className='grid grid-cols-2 gap-4'>
-												<Box className='flex flex-col gap-2'>
-													<Skeleton variant='text' height='16px' width='60%' />
-													<Skeleton
-														variant='rectangular'
-														fullWidth
-														height='40px'
-														borderRadius='md'
-													/>
-												</Box>
-												<Box className='flex flex-col gap-2'>
-													<Skeleton variant='text' height='16px' width='60%' />
-													<Skeleton
-														variant='rectangular'
-														fullWidth
-														height='40px'
-														borderRadius='md'
-													/>
-												</Box>
-											</Box>
-										</Box>
-									</Box>
-								) : (
-									<>
-										<EntryCalendar
-											{...calendarProps}
-											value={
-												currentEntry
-													? new Date(currentEntry.date_created)
-													: null
-											}
-										/>
-										{/* Additional Details - only show when entry is selected */}
-										{currentEntry && (
+								<EntryCalendar
+									{...calendarProps}
+									value={
+										currentEntry
+											? new Date(currentEntry.date_created)
+											: null
+									}
+								/>
+								{/* Additional Details - only show when entry is selected */}
+								{currentEntry && (
 											<Box className='flex flex-col gap-4 p-4 bg-gray-50 dark:bg-gray-900/30 rounded-lg border border-gray-200 dark:border-gray-700 overflow-y-auto'>
 												<Typography
 													variant='h6'
@@ -493,8 +391,6 @@ export function EntryLayout({
 												</Box>
 											</Box>
 										)}
-									</>
-								)}
 							</Box>
 						)}
 						{/* Mobile/Tablet: Drawer */}
@@ -753,49 +649,9 @@ export function EntryLayout({
 
 					{/* Middle Panel: Entry Editor */}
 					<Box
-						className={`flex flex-1 flex-col min-w-0 ${isDesktop ? 'w-0' : isTablet ? 'max-w-4xl mx-auto w-full' : 'w-full'} ${!currentEntry ? (isDesktop ? 'order-1' : 'order-2') : isDesktop ? 'order-2' : 'order-1'} ${currentEntry && !showSkeletons ? 'animate-[fadeIn_0.4s_ease-out_0.2s_both]' : ''}`}
+						className={`flex flex-1 flex-col min-w-0 ${isDesktop ? 'w-0' : isTablet ? 'max-w-4xl mx-auto w-full' : 'w-full'} ${!currentEntry ? (isDesktop ? 'order-1' : 'order-2') : isDesktop ? 'order-2' : 'order-1'} ${currentEntry ? 'animate-[fadeIn_0.4s_ease-out_0.2s_both]' : ''}`}
 					>
-						{showSkeletons ? (
-							<Box className='flex flex-1 flex-col space-y-4 w-full max-w-full min-w-0 min-h-0'>
-								{/* Title and Date Fields Skeleton */}
-								<Box className='flex flex-col gap-4 flex-shrink-0'>
-									<Box className='flex flex-col gap-2'>
-										<Skeleton variant='text' height='16px' width='30%' />
-										<Skeleton
-											variant='rectangular'
-											fullWidth
-											height='48px'
-											borderRadius='md'
-										/>
-									</Box>
-									<Box className='flex flex-col gap-2'>
-										<Skeleton variant='text' height='16px' width='25%' />
-										<Skeleton
-											variant='rectangular'
-											fullWidth
-											height='48px'
-											borderRadius='md'
-										/>
-									</Box>
-								</Box>
-								{/* Editor Content Skeleton */}
-								<Box className='flex-1 min-h-0 border border-border rounded-lg overflow-hidden bg-background p-6'>
-									<Box className='flex flex-col gap-3'>
-										{/* Simulate editor content lines */}
-										<Skeleton variant='text' height='20px' width='100%' />
-										<Skeleton variant='text' height='20px' width='95%' />
-										<Skeleton variant='text' height='20px' width='100%' />
-										<Box className='h-4' />
-										<Skeleton variant='text' height='20px' width='90%' />
-										<Skeleton variant='text' height='20px' width='100%' />
-										<Skeleton variant='text' height='20px' width='85%' />
-										<Box className='h-4' />
-										<Skeleton variant='text' height='20px' width='100%' />
-										<Skeleton variant='text' height='20px' width='92%' />
-									</Box>
-								</Box>
-							</Box>
-						) : currentEntry ? (
+						{currentEntry ? (
 							<Box className='flex flex-1 flex-col space-y-4 w-full max-w-full min-w-0 min-h-0 overflow-hidden'>
 								{/* Title and Date Fields */}
 								<Box className='flex flex-col gap-4 flex-shrink-0'>
@@ -852,63 +708,9 @@ export function EntryLayout({
 						{/* Desktop: Direct rendering */}
 						{isDesktop && (
 							<Box
-								className={`flex w-80 xl:w-96 flex-shrink-0 min-w-0 order-3 ${showSkeletons ? '' : 'animate-[fadeIn_0.4s_ease-out_0.3s_both]'}`}
+								className='flex w-80 xl:w-96 flex-shrink-0 min-w-0 order-3 animate-[fadeIn_0.4s_ease-out_0.3s_both]'
 							>
-								{showSkeletons ? (
-									<Box className='w-full h-full border border-border rounded-lg overflow-hidden bg-background'>
-										<Box className='flex flex-col'>
-											{/* Entry List Skeleton - show 6 items with varying heights */}
-											{Array.from({ length: 6 }).map((_, index) => (
-												<Box
-													key={`skeleton-entry-${index}`}
-													className='flex items-start justify-between gap-2 p-4 border-b border-border last:border-b-0'
-												>
-													<Box className='flex-1 min-w-0 space-y-2'>
-														{/* Title */}
-														<Skeleton
-															variant='text'
-															height='18px'
-															width={index % 2 === 0 ? '75%' : '85%'}
-														/>
-														{/* Date */}
-														<Skeleton
-															variant='text'
-															height='14px'
-															width='45%'
-														/>
-														{/* Tags - only show on some items */}
-														{index % 3 !== 0 && (
-															<Box className='flex gap-2 mt-2'>
-																<Skeleton
-																	variant='rectangular'
-																	height='24px'
-																	width='60px'
-																	borderRadius='full'
-																/>
-																{index % 2 === 0 && (
-																	<Skeleton
-																		variant='rectangular'
-																		height='24px'
-																		width='75px'
-																		borderRadius='full'
-																	/>
-																)}
-															</Box>
-														)}
-													</Box>
-													{/* Delete button placeholder */}
-													<Skeleton
-														variant='circular'
-														height='32px'
-														width='32px'
-													/>
-												</Box>
-											))}
-										</Box>
-									</Box>
-								) : (
-									<EntryList {...entryListProps} currentEntry={currentEntry} />
-								)}
+								<EntryList {...entryListProps} currentEntry={currentEntry} />
 							</Box>
 						)}
 						{/* Mobile/Tablet: Drawer */}

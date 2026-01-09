@@ -4,7 +4,7 @@ import type { EntryState, Entry } from './types'
 const initialState: EntryState = {
 	entries: [],
 	currentEntry: null,
-	isLoading: true, // Start as true to show skeletons on initial load
+	isLoading: false,
 	error: null,
 	isEditing: false,
 	isSaving: false,
