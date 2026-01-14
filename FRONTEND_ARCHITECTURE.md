@@ -11,6 +11,64 @@ The frontend team has aligned on a unified architecture combining:
 
 ---
 
+## Quick Reference
+
+### Decision Tree: Where Does This Code Go?
+
+```
+Is it shared across ALL apps?
+├─ YES → packages/[feature]/
+│         (auth, analytics, error-handling, ui)
+│
+└─ NO → Is it shared across multiple domains in ONE app?
+        ├─ YES → apps/[app-name]/core/[feature]/
+        │
+        └─ NO → Is it domain-specific business logic?
+                ├─ YES → apps/[app-name]/domains/[Domain]/
+                │         ├─ api/        (API integration)
+                │         ├─ model/      (State management)
+                │         ├─ lib/        (Domain utilities)
+                │         ├─ hooks/      (Business logic)
+                │         └─ ui/         (Presentation)
+                │
+                └─ NO → Is it a Next.js route/page?
+                        └─ YES → apps/[app-name]/app/[route]/
+```
+
+### Import Path Conventions
+
+| Location | Import Pattern | Example |
+|----------|---------------|---------|
+| Packages | `@packages/[name]` or `@nathanhfoster/[name]` | `@nathanhfoster/ui` |
+| App Core | `@/core/[feature]` | `@/core/pwa` |
+| Domains | `@/domains/[Domain]` | `@/domains/UserProfile` |
+| Domain UI | `@/domains/[Domain]/ui/[Component]` | `@/domains/UserProfile/ui/ProfileForm` |
+| App Utils | `@/utils` | `@/utils/format` |
+| App Types | `@/types` | `@/types/app` |
+
+### File Naming Conventions
+
+- **Components**: `PascalCase.tsx` (e.g., `UserProfile.tsx`)
+- **Hooks**: `camelCase.ts` starting with `use` (e.g., `useUserProfile.ts`)
+- **Utils**: `camelCase.ts` (e.g., `formatDate.ts`)
+- **Types**: `types.ts` or `[name]Types.ts`
+- **Constants**: `constants.ts`
+- **API**: `[domain]Api.ts` (e.g., `userApi.ts`)
+- **Slice**: `[domain]Slice.ts` (e.g., `userSlice.ts`)
+
+### Common Patterns Cheat Sheet
+
+| Pattern | Location | Purpose |
+|---------|----------|---------|
+| **Domain Container** | `domains/[Domain]/index.tsx` | Orchestrates domain logic, uses hooks, passes props to UI |
+| **Domain Hook** | `domains/[Domain]/hooks/use[Domain].ts` | Business logic, state management, API calls |
+| **Presentation Component** | `domains/[Domain]/ui/[Component]/` | Pure UI, receives props only, no side effects |
+| **API Endpoints** | `domains/[Domain]/api/[domain]Api.ts` | RTK Query endpoints, API integration |
+| **State Slice** | `domains/[Domain]/model/[domain]Slice.ts` | Redux slice, state management |
+| **Page Component** | `app/[route]/page.tsx` | Next.js route, orchestrates domains, SSR/SSG |
+
+---
+
 ## Architecture in Monorepo Structure
 
 ### Folder Structure
@@ -148,6 +206,108 @@ DEPENDENCY FLOW (Top-Down Only):
 6. **Domain Lib** (apps/[app-name]/domains/[Domain]/lib/) - Utilities specific to ONLY that domain
 7. **Presentation** (apps/[app-name]/domains/[Domain]/ui/) - Pure UI, organized by purpose
 8. **Data flows top-down** - Never import from lower levels to higher levels
+
+### Common Pitfalls & Anti-Patterns
+
+**❌ DON'T: Import from lower levels to higher levels**
+
+```typescript
+// ❌ WRONG: Domain importing from component
+// domains/UserProfile/model/types.ts
+import type { UserProfileProps } from "../ui/UserProfile/types";
+```
+
+```typescript
+// ✅ CORRECT: Component extends domain type
+// domains/UserProfile/ui/UserProfile/types.ts
+import type { User } from "../../../model/types";
+export interface UserProfileProps extends Pick<User, "id" | "name"> {}
+```
+
+**❌ DON'T: Put business logic in presentation components**
+
+```typescript
+// ❌ WRONG: Presentation component with business logic
+export function UserProfile({ userId }: UserProfileProps) {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetch(`/api/users/${userId}`).then(res => res.json()).then(setUser);
+  }, [userId]);
+  // ...
+}
+```
+
+```typescript
+// ✅ CORRECT: Business logic in hook, passed as props
+export function UserProfile({ user, isLoading, error }: UserProfileProps) {
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
+  // Pure presentation
+}
+```
+
+**❌ DON'T: Use Atomic Design in domain components**
+
+```typescript
+// ❌ WRONG: Organizing domain UI by atomic levels
+domains/UserProfile/ui/
+  ├── atoms/
+  ├── molecules/
+  └── organisms/
+```
+
+```typescript
+// ✅ CORRECT: Organize by purpose/functionality
+domains/UserProfile/ui/
+  ├── ProfileForm/
+  ├── ProfileView/
+  └── ProfileSettings/
+```
+
+**❌ DON'T: Create cross-domain dependencies**
+
+```typescript
+// ❌ WRONG: Domain importing from another domain
+// domains/Cashier/hooks/useCashier.ts
+import { useUserProfile } from "../../UserProfile/hooks/useUserProfile";
+```
+
+```typescript
+// ✅ CORRECT: Use app core or packages for shared features
+// core/payments/hooks/usePayment.ts (if app-specific)
+// or packages/auth/hooks/useAuth.ts (if cross-app)
+```
+
+**❌ DON'T: Mix state management concerns**
+
+```typescript
+// ❌ WRONG: Presentation component using Redux directly
+export function UserProfile({ userId }: UserProfileProps) {
+  const user = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
+  // ...
+}
+```
+
+```typescript
+// ✅ CORRECT: Domain hook encapsulates state management
+// Domain container uses hook, passes props to presentation
+```
+
+**❌ DON'T: Put app-specific code in packages**
+
+```typescript
+// ❌ WRONG: App-specific logic in shared package
+// packages/auth/hooks/useAuth.ts
+if (appName === 'casino') {
+  // casino-specific logic
+}
+```
+
+```typescript
+// ✅ CORRECT: App-specific logic in app core
+// apps/casino/core/auth/hooks/useCasinoAuth.ts
+```
 
 ---
 
@@ -750,6 +910,985 @@ The Container/Presentation pattern with hooks abstraction provides a clean migra
 
 ---
 
+## Error Handling Patterns
+
+### Error Boundary Hierarchy
+
+Next.js App Router provides a hierarchical error handling system:
+
+1. **Global Error Boundary** (`app/error.tsx`) - Catches unhandled errors across the entire app
+2. **Route Error Boundary** (`app/[route]/error.tsx`) - Catches errors within a specific route
+3. **Component Error Boundary** - Domain/component-level error handling (custom implementation)
+
+### Error Handling in Domain Hooks
+
+Domain hooks should always return error state and handle errors gracefully:
+
+```typescript
+// domains/UserProfile/hooks/useUserProfile.ts
+export function useUserProfile() {
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const fetchProfile = async (userId: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      const profile = await userApi.getProfile(userId);
+      return profile;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch profile';
+      setError(errorMessage);
+      // Log error for monitoring
+      console.error('Profile fetch error:', err);
+      throw err; // Re-throw for error boundaries
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  return {
+    error,
+    isLoading,
+    fetchProfile,
+    // ...
+  };
+}
+```
+
+### Error Handling in Domain Containers
+
+Domain containers should handle errors from hooks and pass error state to presentation components:
+
+```typescript
+// domains/UserProfile/index.tsx
+export function UserProfile(props: UserProfileProps) {
+  const { profile, isLoading, error, fetchProfile } = useUserProfile();
+  
+  // Handle errors at container level
+  useEffect(() => {
+    if (error) {
+      // Could trigger error logging, notifications, etc.
+      console.error('UserProfile error:', error);
+    }
+  }, [error]);
+  
+  // Pass error state to presentation component
+  return (
+    <ProfileView
+      profile={profile}
+      isLoading={isLoading}
+      error={error}
+      onRetry={() => fetchProfile(props.userId)}
+    />
+  );
+}
+```
+
+### Error Handling in Presentation Components
+
+Presentation components should display errors but not handle error recovery:
+
+```typescript
+// domains/UserProfile/ui/ProfileView/ProfileView.tsx
+export function ProfileView({
+  profile,
+  isLoading,
+  error,
+  onRetry,
+}: ProfileViewProps) {
+  if (isLoading) return <Loading />;
+  
+  if (error) {
+    return (
+      <Error
+        message={error}
+        onRetry={onRetry}
+        variant="full"
+      />
+    );
+  }
+  
+  return <ProfileContent profile={profile} />;
+}
+```
+
+### Next.js Error Files
+
+**Global Error Boundary** (`app/error.tsx`):
+
+```typescript
+'use client';
+
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <html>
+      <body>
+        <div>
+          <h2>Something went wrong!</h2>
+          <button onClick={() => reset()}>Try again</button>
+        </div>
+      </body>
+    </html>
+  );
+}
+```
+
+**Route Error Boundary** (`app/[route]/error.tsx`):
+
+```typescript
+'use client';
+
+export default function RouteError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <div>
+      <h2>Error in {error.message}</h2>
+      <button onClick={() => reset()}>Try again</button>
+    </div>
+  );
+}
+```
+
+### Error Recovery Strategies
+
+1. **Retry Logic** - Allow users to retry failed operations
+2. **Fallback UI** - Show alternative content when errors occur
+3. **Error Logging** - Log errors to monitoring service (e.g., Sentry)
+4. **User-Friendly Messages** - Transform technical errors into user-friendly messages
+5. **Partial Failure Handling** - Handle partial data when some operations fail
+
+### Error Types
+
+**Expected Errors** (validation, business logic):
+- Handle in hooks/containers
+- Return error state to presentation components
+- Display inline error messages
+
+**Unexpected Errors** (network failures, runtime errors):
+- Use error boundaries
+- Log to monitoring service
+- Show user-friendly error UI
+- Provide recovery options
+
+### Best Practices
+
+1. **Always return error state from hooks** - Don't swallow errors
+2. **Use error boundaries for unexpected errors** - Let React handle component tree errors
+3. **Log errors appropriately** - Use structured logging for monitoring
+4. **Provide recovery paths** - Allow users to retry or navigate away
+5. **Don't show technical errors to users** - Transform into user-friendly messages
+6. **Handle loading and error states together** - Both are part of async operation lifecycle
+
+---
+
+## API Route Patterns
+
+### Next.js API Routes Structure
+
+API routes in Next.js App Router are located in `app/api/` and follow the route segment pattern:
+
+```
+app/
+└── api/
+    └── [route]/
+        └── route.ts          # HTTP method handlers (GET, POST, etc.)
+```
+
+### API Route Organization
+
+**Option 1: Co-locate with Domain** (Recommended for domain-specific APIs)
+
+```
+domains/UserProfile/
+├── api/
+│   ├── userApi.ts            # RTK Query endpoints (client-side)
+│   └── routes/               # Next.js API routes (server-side)
+│       └── profile/
+│           └── route.ts
+```
+
+**Option 2: Centralized API Routes** (For shared or complex APIs)
+
+```
+app/
+└── api/
+    ├── users/
+    │   └── route.ts
+    ├── auth/
+    │   └── route.ts
+    └── [resource]/
+        └── route.ts
+```
+
+### API Route Implementation Pattern
+
+**Basic API Route** (`app/api/users/route.ts`):
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(request: NextRequest) {
+  try {
+    // Validate request
+    const searchParams = request.nextUrl.searchParams;
+    const userId = searchParams.get('userId');
+    
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'userId is required' },
+        { status: 400 }
+      );
+    }
+    
+    // Fetch data (from database, external API, etc.)
+    const user = await getUserById(userId);
+    
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      );
+    }
+    
+    // Return response
+    return NextResponse.json(user, { status: 200 });
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    // Validate request body
+    if (!body.email || !body.name) {
+      return NextResponse.json(
+        { error: 'email and name are required' },
+        { status: 400 }
+      );
+    }
+    
+    // Create resource
+    const user = await createUser(body);
+    
+    return NextResponse.json(user, { status: 201 });
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### API Route Best Practices
+
+1. **Always validate input** - Check required fields, types, formats
+2. **Handle errors gracefully** - Return appropriate HTTP status codes
+3. **Use TypeScript** - Type request/response bodies
+4. **Implement authentication** - Protect routes that require auth
+5. **Rate limiting** - Prevent abuse (use middleware or external service)
+6. **CORS configuration** - Configure CORS headers if needed
+7. **Logging** - Log requests and errors for debugging
+8. **Response consistency** - Use consistent response format
+
+### Authentication in API Routes
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import { verifyToken } from '@/lib/auth';
+
+export async function GET(request: NextRequest) {
+  // Verify authentication
+  const token = request.headers.get('authorization')?.replace('Bearer ', '');
+  
+  if (!token) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
+  
+  try {
+    const user = await verifyToken(token);
+    // Proceed with authenticated request
+    // ...
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Invalid token' },
+      { status: 401 }
+    );
+  }
+}
+```
+
+### API Route Error Handling
+
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+// Custom error class
+class ApiError extends Error {
+  constructor(
+    public statusCode: number,
+    public message: string,
+    public details?: unknown
+  ) {
+    super(message);
+  }
+}
+
+// Error handler utility
+function handleApiError(error: unknown): NextResponse {
+  if (error instanceof ApiError) {
+    return NextResponse.json(
+      { error: error.message, details: error.details },
+      { status: error.statusCode }
+    );
+  }
+  
+  console.error('Unexpected API error:', error);
+  return NextResponse.json(
+    { error: 'Internal server error' },
+    { status: 500 }
+  );
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    // API logic
+    // ...
+  } catch (error) {
+    return handleApiError(error);
+  }
+}
+```
+
+### API Route Validation
+
+```typescript
+import { z } from 'zod'; // or your validation library
+import { NextRequest, NextResponse } from 'next/server';
+
+const createUserSchema = z.object({
+  email: z.string().email(),
+  name: z.string().min(1),
+  age: z.number().int().positive().optional(),
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    // Validate request body
+    const validationResult = createUserSchema.safeParse(body);
+    
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: 'Validation failed', details: validationResult.error },
+        { status: 400 }
+      );
+    }
+    
+    const validatedData = validationResult.data;
+    // Proceed with validated data
+    // ...
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### Connecting API Routes to Domains
+
+**Client-side (RTK Query)**:
+
+```typescript
+// domains/UserProfile/api/userApi.ts
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const userApi = createApi({
+  reducerPath: 'userApi',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  endpoints: (builder) => ({
+    getProfile: builder.query<User, string>({
+      query: (userId) => `/users?userId=${userId}`,
+    }),
+    createUser: builder.mutation<User, CreateUserRequest>({
+      query: (body) => ({
+        url: '/users',
+        method: 'POST',
+        body,
+      }),
+    }),
+  }),
+});
+```
+
+**Server-side (Direct import)**:
+
+```typescript
+// app/api/users/route.ts
+import { getUserById } from '@/domains/UserProfile/lib/userService';
+
+export async function GET(request: NextRequest) {
+  const userId = request.nextUrl.searchParams.get('userId');
+  const user = await getUserById(userId);
+  return NextResponse.json(user);
+}
+```
+
+### API Route Testing
+
+```typescript
+// __tests__/api/users/route.test.ts
+import { GET, POST } from '@/app/api/users/route';
+import { NextRequest } from 'next/server';
+
+describe('Users API', () => {
+  it('should return user by id', async () => {
+    const request = new NextRequest('http://localhost/api/users?userId=123');
+    const response = await GET(request);
+    const data = await response.json();
+    
+    expect(response.status).toBe(200);
+    expect(data).toHaveProperty('id', '123');
+  });
+  
+  it('should return 400 for missing userId', async () => {
+    const request = new NextRequest('http://localhost/api/users');
+    const response = await GET(request);
+    
+    expect(response.status).toBe(400);
+  });
+});
+```
+
+---
+
+## Environment Variables & Configuration
+
+### Environment Variable Naming Conventions
+
+**Next.js Environment Variables:**
+
+- **`NEXT_PUBLIC_*`** - Exposed to the browser (client-side accessible)
+- **No prefix** - Server-side only (not exposed to browser)
+
+**Examples:**
+
+```bash
+# Client-side (exposed to browser)
+NEXT_PUBLIC_API_URL=https://api.example.com
+NEXT_PUBLIC_ANALYTICS_ID=UA-123456789
+NEXT_PUBLIC_ENVIRONMENT=production
+
+# Server-side only (not exposed to browser)
+DATABASE_URL=postgresql://...
+API_SECRET_KEY=secret123
+OPENAI_API_KEY=sk-...
+```
+
+### Environment File Organization
+
+```
+apps/[app-name]/
+├── .env.local          # Local development (gitignored)
+├── .env.example        # Example file (committed)
+├── .env.development    # Development defaults (optional)
+├── .env.staging        # Staging defaults (optional)
+└── .env.production     # Production defaults (optional)
+```
+
+### Type-Safe Environment Variable Access
+
+**Create environment configuration** (`app/config/env.ts`):
+
+```typescript
+// app/config/env.ts
+function getEnvVar(key: string, defaultValue?: string): string {
+  const value = process.env[key] ?? defaultValue;
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
+}
+
+export const env = {
+  // Public (client-side)
+  public: {
+    apiUrl: getEnvVar('NEXT_PUBLIC_API_URL', 'http://localhost:3000/api'),
+    environment: getEnvVar('NEXT_PUBLIC_ENVIRONMENT', 'development'),
+    analyticsId: process.env.NEXT_PUBLIC_ANALYTICS_ID,
+  },
+  
+  // Private (server-side only)
+  private: {
+    databaseUrl: getEnvVar('DATABASE_URL'),
+    apiSecretKey: getEnvVar('API_SECRET_KEY'),
+    openaiApiKey: getEnvVar('OPENAI_API_KEY'),
+  },
+} as const;
+```
+
+**Usage:**
+
+```typescript
+// Client-side
+import { env } from '@/config/env';
+const apiUrl = env.public.apiUrl;
+
+// Server-side (API routes, server components)
+import { env } from '@/config/env';
+const dbUrl = env.private.databaseUrl;
+```
+
+### Multi-Environment Configuration
+
+**Environment-specific configuration** (`app/config/environments.ts`):
+
+```typescript
+// app/config/environments.ts
+export const environments = {
+  development: {
+    apiUrl: 'http://localhost:3000/api',
+    enableDebug: true,
+    logLevel: 'debug',
+  },
+  staging: {
+    apiUrl: 'https://staging-api.example.com',
+    enableDebug: true,
+    logLevel: 'info',
+  },
+  production: {
+    apiUrl: 'https://api.example.com',
+    enableDebug: false,
+    logLevel: 'error',
+  },
+} as const;
+
+export type Environment = keyof typeof environments;
+
+export function getEnvironment(): Environment {
+  return (process.env.NEXT_PUBLIC_ENVIRONMENT || 'development') as Environment;
+}
+
+export function getConfig() {
+  const env = getEnvironment();
+  return environments[env];
+}
+```
+
+### Multi-Zone Environment Variables
+
+For multi-zone architecture, configure zone URLs:
+
+```bash
+# apps/main/.env.local
+APPS_RESUME_URL=http://localhost:3003
+APPS_ASTRAL_POET_URL=http://localhost:3002
+APPS_MAIN_URL=http://localhost:3000
+```
+
+**Usage in `next.config.ts`:**
+
+```typescript
+const nextConfig = {
+  rewrites: async () => {
+    const resumeUrl = process.env.APPS_RESUME_URL || 'http://localhost:3003';
+    return [
+      {
+        source: '/apps/resume/:path*',
+        destination: `${resumeUrl}/:path*`,
+      },
+    ];
+  },
+};
+```
+
+### Secrets Management
+
+**Best Practices:**
+
+1. **Never commit secrets** - Use `.env.local` (gitignored)
+2. **Use `.env.example`** - Document required variables without values
+3. **Use secret management services** - For production (Vercel, AWS Secrets Manager, etc.)
+4. **Rotate secrets regularly** - Implement secret rotation policies
+5. **Limit access** - Only expose what's necessary to client-side
+
+**Example `.env.example`:**
+
+```bash
+# API Configuration
+NEXT_PUBLIC_API_URL=https://api.example.com
+
+# Analytics
+NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
+
+# Database (server-side only)
+DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+
+# API Keys (server-side only)
+OPENAI_API_KEY=sk-your-key-here
+API_SECRET_KEY=your-secret-key
+
+# Multi-Zone URLs
+APPS_RESUME_URL=http://localhost:3003
+APPS_MAIN_URL=http://localhost:3000
+```
+
+### Configuration Validation
+
+**Validate environment variables at startup** (`app/config/validateEnv.ts`):
+
+```typescript
+// app/config/validateEnv.ts
+const requiredEnvVars = {
+  development: ['DATABASE_URL'],
+  staging: ['DATABASE_URL', 'API_SECRET_KEY'],
+  production: ['DATABASE_URL', 'API_SECRET_KEY', 'OPENAI_API_KEY'],
+} as const;
+
+export function validateEnvironment() {
+  const env = process.env.NEXT_PUBLIC_ENVIRONMENT || 'development';
+  const required = requiredEnvVars[env as keyof typeof requiredEnvVars] || [];
+  
+  const missing: string[] = [];
+  
+  for (const varName of required) {
+    if (!process.env[varName]) {
+      missing.push(varName);
+    }
+  }
+  
+  if (missing.length > 0) {
+    throw new Error(
+      `Missing required environment variables for ${env}: ${missing.join(', ')}`
+    );
+  }
+}
+
+// Call in app initialization
+validateEnvironment();
+```
+
+### Turbo Environment Variables
+
+**Configure in `turbo.json`** for build-time access:
+
+```json
+{
+  "tasks": {
+    "build": {
+      "env": [
+        "NEXT_PUBLIC_API_URL",
+        "APPS_RESUME_URL",
+        "APPS_MAIN_URL",
+        "DATABASE_URL"
+      ]
+    }
+  }
+}
+```
+
+---
+
+## Multi-Zone Architecture
+
+### Overview
+
+Multi-zone architecture allows multiple Next.js applications to be deployed independently while appearing as a single application to users. Each app can be developed, deployed, and scaled separately.
+
+### Zone Communication Patterns
+
+**1. Navigation Between Zones**
+
+Zones communicate through URL routing and rewrites:
+
+```typescript
+// apps/main/next.config.ts
+const nextConfig = {
+  rewrites: async () => {
+    const resumeUrl = process.env.APPS_RESUME_URL || 'http://localhost:3003';
+    const astralPoetUrl = process.env.APPS_ASTRAL_POET_URL || 'http://localhost:3002';
+    
+    return [
+      {
+        source: '/apps/resume/:path*',
+        destination: `${resumeUrl}/:path*`,
+      },
+      {
+        source: '/astralpoet/:path*',
+        destination: `${astralPoetUrl}/:path*`,
+      },
+    ];
+  },
+};
+```
+
+**2. Shared State Management**
+
+- Use shared packages (`packages/auth`, `packages/analytics`) for cross-zone state
+- Use cookies/localStorage for state persistence across zones
+- Avoid direct state sharing between zones (use events or shared storage)
+
+**3. Shared Authentication**
+
+```typescript
+// packages/auth/hooks/useAuth.ts
+export function useAuth() {
+  // Shared authentication logic
+  // Uses cookies/localStorage accessible across zones
+  const token = getCookie('auth_token');
+  // ...
+}
+```
+
+### Zone Configuration
+
+**Main App Configuration** (`apps/main/next.config.ts`):
+
+```typescript
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  // Multi-zone rewrites
+  rewrites: async () => {
+    const resumeUrl = process.env.APPS_RESUME_URL || 'http://localhost:3003';
+    const astralPoetUrl = process.env.APPS_ASTRAL_POET_URL || 'http://localhost:3002';
+    
+    return [
+      {
+        source: '/apps/resume/:path*',
+        destination: `${resumeUrl}/:path*`,
+      },
+      {
+        source: '/astralpoet/:path*',
+        destination: `${astralPoetUrl}/:path*`,
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
+
+**Sub-App Configuration** (`apps/resume/next.config.ts`):
+
+```typescript
+import type { NextConfig } from 'next';
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+const nextConfig: NextConfig = {
+  // Use basePath in development when running standalone
+  // In production, sub-app is deployed separately without basePath
+  basePath: isDevelopment ? '/resume' : undefined,
+  
+  // Use assetPrefix in production for correct asset loading when proxied
+  assetPrefix: isDevelopment 
+    ? undefined 
+    : process.env.APPS_RESUME_URL || 'https://resume-app.vercel.app',
+  
+  transpilePackages: [
+    '@nathanhfoster/resurrection',
+    '@nathanhfoster/ui',
+    // ... other packages
+  ],
+};
+
+export default nextConfig;
+```
+
+### Environment Variables for Multi-Zone
+
+**Main App** (`apps/main/.env.local`):
+
+```bash
+APPS_RESUME_URL=http://localhost:3003
+APPS_ASTRAL_POET_URL=http://localhost:3002
+APPS_MAIN_URL=http://localhost:3000
+```
+
+**Sub-App** (`apps/resume/.env.local`):
+
+```bash
+# Sub-apps typically don't need zone URLs
+# But may need shared configuration
+NEXT_PUBLIC_API_URL=https://api.example.com
+```
+
+### Deployment Considerations
+
+**Vercel Deployment:**
+
+1. **Main App** - Deployed at root domain (`yoursite.com`)
+2. **Sub-Apps** - Deployed separately (can be same or different domains)
+3. **Rewrites** - Configure rewrites in main app to proxy to sub-apps
+4. **Environment Variables** - Set `APPS_*_URL` in Vercel dashboard
+
+**Vercel Configuration** (`vercel.json`):
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/apps/resume/:path*",
+      "destination": "https://resume-app.vercel.app/:path*"
+    }
+  ]
+}
+```
+
+### Asset Prefixing
+
+When sub-apps are proxied, static assets need correct URLs:
+
+```typescript
+// apps/resume/next.config.ts
+const nextConfig = {
+  assetPrefix: process.env.APPS_RESUME_URL || 'https://resume-app.vercel.app',
+};
+```
+
+This ensures:
+- `/_next/static/` assets load from correct domain
+- Images and other static assets resolve correctly
+- Service workers work across zones
+
+### Cross-Zone Navigation
+
+**Client-Side Navigation:**
+
+```typescript
+// Use Next.js Link for same-zone navigation
+import Link from 'next/link';
+
+<Link href="/apps/resume">Go to Resume App</Link>
+
+// Use regular anchor for cross-zone navigation (full page reload)
+<a href="/apps/resume">Go to Resume App</a>
+```
+
+**Programmatic Navigation:**
+
+```typescript
+// For cross-zone navigation, use window.location
+function navigateToResume() {
+  window.location.href = '/apps/resume';
+}
+
+// For same-zone navigation, use Next.js router
+import { useRouter } from 'next/navigation';
+const router = useRouter();
+router.push('/apps/resume');
+```
+
+### Shared State Across Zones
+
+**Using Cookies:**
+
+```typescript
+// packages/auth/lib/cookies.ts
+export function setAuthToken(token: string) {
+  // Set cookie accessible across zones (same domain)
+  document.cookie = `auth_token=${token}; path=/; max-age=3600; SameSite=Lax`;
+}
+
+export function getAuthToken(): string | null {
+  // Read cookie
+  const cookies = document.cookie.split(';');
+  const tokenCookie = cookies.find(c => c.trim().startsWith('auth_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : null;
+}
+```
+
+**Using LocalStorage:**
+
+```typescript
+// packages/auth/lib/storage.ts
+export function setUserPreferences(prefs: UserPreferences) {
+  localStorage.setItem('user_preferences', JSON.stringify(prefs));
+}
+
+export function getUserPreferences(): UserPreferences | null {
+  const stored = localStorage.getItem('user_preferences');
+  return stored ? JSON.parse(stored) : null;
+}
+```
+
+### Testing Multi-Zone Architecture
+
+**E2E Testing:**
+
+```typescript
+// tests/e2e/integration/zone-navigation.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('Navigation between zones', async ({ page }) => {
+  // Start at main app
+  await page.goto('http://localhost:3000');
+  
+  // Navigate to resume app
+  await page.click('text=Resume');
+  await expect(page).toHaveURL(/\/apps\/resume/);
+  
+  // Verify resume app loaded
+  await expect(page.locator('h1')).toContainText('Resume Builder');
+  
+  // Navigate back to main app
+  await page.goto('http://localhost:3000');
+  await expect(page).toHaveURL('http://localhost:3000');
+});
+```
+
+### Best Practices
+
+1. **Independent Deployment** - Each zone should deploy independently
+2. **Shared Packages** - Use packages for shared functionality
+3. **Consistent Design** - Use shared UI library for consistent look/feel
+4. **Error Handling** - Handle zone communication errors gracefully
+5. **Performance** - Minimize cross-zone requests, use caching
+6. **Security** - Validate cross-zone requests, use CORS appropriately
+7. **Monitoring** - Monitor each zone independently
+
+### Common Issues & Solutions
+
+**Issue: Assets not loading in proxied sub-app**
+
+**Solution:** Use `assetPrefix` in sub-app's `next.config.ts`
+
+**Issue: Authentication state not persisting across zones**
+
+**Solution:** Use cookies with `path=/` and `SameSite=Lax` for cross-zone access
+
+**Issue: CORS errors when sub-apps are on different domains**
+
+**Solution:** Configure CORS headers in sub-app's API routes or use same domain with rewrites
+
+---
+
 ## SOLID & DRY Principles
 
 ### SOLID Application
@@ -1168,6 +2307,99 @@ export * from "./lib"; // Still use export * for everything else
 - All `packages/*/src/index.ts` files (package entry points)
 - All `packages/*/src/lib/index.ts` or similar intermediate index files
 - Any file where TypeScript reports "has no exported member" errors
+
+---
+
+## Code Review Checklist
+
+Use this checklist when reviewing code to ensure architecture compliance:
+
+### Architecture Compliance
+
+- [ ] **Correct location** - Code is in the right layer (packages/core/domain/app)
+- [ ] **No circular dependencies** - Dependencies flow top-down only
+- [ ] **No cross-domain imports** - Domains don't import from other domains
+- [ ] **Proper separation** - Business logic in hooks, UI in presentation components
+- [ ] **Container/Presentation pattern** - Domain container uses hooks, passes props to UI
+
+### TypeScript & Types
+
+- [ ] **Function declarations** - Components use `export function ComponentName()`
+- [ ] **Explicit props typing** - All props are explicitly typed
+- [ ] **Type composition** - Types flow top-down (domain → component → subcomponent)
+- [ ] **No `any` types** - Use proper types or `unknown` with type guards
+- [ ] **Type exports** - Types are exported from component files
+
+### Component Structure
+
+- [ ] **Atomic Design** - Only in `packages/ui/`, not in domain components
+- [ ] **Domain organization** - Domain UI organized by purpose, not atomic levels
+- [ ] **File structure** - Follows standard structure (types.ts, Component.tsx, index.tsx)
+- [ ] **Constants/utils** - Only created if needed and component-specific
+
+### State Management
+
+- [ ] **Hooks abstraction** - State management encapsulated in domain hooks
+- [ ] **No direct Redux** - Presentation components don't use Redux directly
+- [ ] **Error handling** - Hooks return error state
+- [ ] **Loading states** - Loading states handled in hooks
+
+### Error Handling
+
+- [ ] **Error boundaries** - Appropriate error boundaries in place
+- [ ] **Error state** - Errors returned from hooks, not swallowed
+- [ ] **User-friendly messages** - Technical errors transformed for users
+- [ ] **Recovery paths** - Users can retry or navigate away from errors
+
+### API & Data Fetching
+
+- [ ] **API routes** - Properly structured in `app/api/`
+- [ ] **Validation** - Input validation in API routes
+- [ ] **Error handling** - API routes handle errors gracefully
+- [ ] **Type safety** - Request/response types defined
+- [ ] **Authentication** - Protected routes have auth checks
+
+### Performance
+
+- [ ] **Code splitting** - Large components/dependencies are lazy loaded
+- [ ] **Memoization** - Appropriate use of `useMemo`, `useCallback`, `React.memo`
+- [ ] **Bundle size** - No unnecessary large dependencies added
+- [ ] **Image optimization** - Images use Next.js Image component
+
+### Testing
+
+- [ ] **Unit tests** - Business logic has unit tests
+- [ ] **Component tests** - Components have rendering tests
+- [ ] **Test coverage** - Meets coverage thresholds
+- [ ] **Test utilities** - Uses shared test utilities from `packages/test-utils`
+
+### Accessibility
+
+- [ ] **Semantic HTML** - Uses proper HTML elements
+- [ ] **ARIA attributes** - ARIA used when needed
+- [ ] **Keyboard navigation** - All interactive elements keyboard accessible
+- [ ] **Focus management** - Focus handled appropriately
+- [ ] **Color contrast** - Meets WCAG contrast requirements
+
+### Documentation
+
+- [ ] **JSDoc comments** - Complex functions have JSDoc
+- [ ] **Component documentation** - Components have clear prop documentation
+- [ ] **README updates** - Domain/package READMEs updated if needed
+
+### Security
+
+- [ ] **No secrets in code** - No API keys or secrets in source code
+- [ ] **Environment variables** - Uses proper env var naming (`NEXT_PUBLIC_*` for client)
+- [ ] **Input sanitization** - User input is sanitized
+- [ ] **XSS prevention** - No `dangerouslySetInnerHTML` without sanitization
+
+### Multi-Zone (if applicable)
+
+- [ ] **Zone URLs** - Environment variables configured correctly
+- [ ] **Asset prefixing** - Sub-apps use correct `assetPrefix`
+- [ ] **Cross-zone state** - Uses cookies/localStorage for shared state
+- [ ] **Navigation** - Proper navigation patterns for cross-zone
 
 ---
 
