@@ -121,6 +121,7 @@ This monorepo follows a unified architecture combining:
 - **[FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md)** - Complete architecture guide
 - **[TESTING.md](./TESTING.md)** - Testing strategy and patterns
 - **[DOCUMENTATION_STRATEGY.md](./DOCUMENTATION_STRATEGY.md)** - Documentation approach
+- **[PROMPT_ENGINEERING.md](./PROMPT_ENGINEERING.md)** - Master prompt engineering guide
 
 ### Package Documentation
 

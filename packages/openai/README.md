@@ -282,6 +282,26 @@ try {
 }
 ```
 
+## Prompt Engineering
+
+📖 **Master Prompt Engineering Guide:** [PROMPT_ENGINEERING.md](../../PROMPT_ENGINEERING.md)
+
+For comprehensive guidance on writing effective prompts, see the master prompt engineering guide. It covers:
+- Core principles and best practices
+- Prompt structure and patterns
+- System message strategies
+- Temperature and parameter tuning
+- Advanced techniques (chain-of-thought, few-shot, etc.)
+- Codebase examples and templates
+
+### Quick Tips
+
+1. **Be Specific** - Clear instructions yield better results
+2. **Provide Context** - Include relevant background information
+3. **Use System Messages** - Set the model's role and behavior
+4. **Specify Output Format** - Tell the model exactly what you want
+5. **Test and Iterate** - Refine prompts based on results
+
 ## Best Practices
 
 1. **Use Environment Variables** - Never hardcode API keys
@@ -291,6 +311,7 @@ try {
 5. **Temperature** - Adjust temperature based on use case (lower for factual, higher for creative)
 6. **Token Limits** - Set appropriate max tokens to control costs
 7. **Server-Side** - Consider using server-side API routes for sensitive operations
+8. **Prompt Engineering** - Follow prompt engineering best practices (see guide above)
 
 ## Architecture
 
