@@ -68,9 +68,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Get cookies using Next.js cookies() for proper server-side support
-  const cookieStore = await cookies();
-  const userAgent = (await headers()).get("user-agent") || "";
+  // Get cookies and headers in parallel to avoid waterfall
+  const [cookieStore, headersList] = await Promise.all([
+    cookies(),
+    headers(),
+  ]);
+  const userAgent = headersList.get("user-agent") || "";
 
   // Helper to parse cookie value
   const parseCookie = <T,>(name: string, defaultValue: T): T => {

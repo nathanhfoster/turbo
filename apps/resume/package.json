@@ -13,7 +13,7 @@
   "dependencies": {
     "@nathanhfoster/cookies": "workspace:*",
     "@nathanhfoster/indexeddb": "workspace:*",
-    "@nathanhfoster/openai": "workspace:*",
+    "@nathanhfoster/llm-adapter": "workspace:*",
     "@nathanhfoster/pwa": "workspace:*",
     "@nathanhfoster/react-hooks": "workspace:*",
     "@nathanhfoster/resurrection": "workspace:*",

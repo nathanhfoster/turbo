@@ -1,3 +1,4 @@
+import { cache } from "react";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -8,8 +9,9 @@ const postsDirectory = path.join(process.cwd(), "app/newsletter/posts");
 
 /**
  * Get all newsletter posts sorted by date (newest first)
+ * Wrapped with React.cache() for per-request deduplication
  */
-export function getAllPosts(): NewsletterPost[] {
+export const getAllPosts = cache((): NewsletterPost[] => {
   try {
     if (!fs.existsSync(postsDirectory)) {
       return [];
@@ -44,14 +46,15 @@ export function getAllPosts(): NewsletterPost[] {
     console.error("Error getting all posts:", error);
     return [];
   }
-}
+});
 
 /**
  * Get a single newsletter post by slug with HTML content
+ * Wrapped with React.cache() for per-request deduplication
  */
-export async function getPostBySlug(
+export const getPostBySlug = cache(async (
   slug: string,
-): Promise<NewsletterPostWithContent | null> {
+): Promise<NewsletterPostWithContent | null> => {
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
 
@@ -89,4 +92,4 @@ export async function getPostBySlug(
     console.error(`Error getting post ${slug}:`, error);
     return null;
   }
-}
+});

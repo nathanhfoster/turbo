@@ -1,4 +1,4 @@
-import { createOpenAIAdapter } from "@nathanhfoster/openai";
+import { createOpenAIAdapter } from "@nathanhfoster/llm-adapter";
 import type {
   ImproveResumeRequest,
   TailorResumeRequest,

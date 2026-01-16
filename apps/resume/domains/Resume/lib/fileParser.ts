@@ -58,12 +58,20 @@ async function parsePdfFile(file: File): Promise<string> {
     const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
     const pdf = await loadingTask.promise;
 
+    // Extract all pages in parallel to eliminate waterfall
+    const pagePromises = Array.from({ length: pdf.numPages }, (_, i) =>
+      pdf.getPage(i + 1).then((page) => page.getTextContent())
+    );
+    const allTextContents = await Promise.all(pagePromises);
+
     let fullText = "";
 
-    // Extract text from all pages with formatting preserved
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const textContent = await page.getTextContent();
+    // Process text from all pages with formatting preserved
+    for (let pageNum = 0; pageNum < allTextContents.length; pageNum++) {
+      const textContent = allTextContents[pageNum];
+
+      // Skip if textContent is undefined or missing items
+      if (!textContent?.items) continue;
 
       // Process text items to preserve structure using positions
       const lines: Array<{
@@ -167,26 +175,41 @@ async function parseDocxFile(file: File): Promise<string> {
 
 /**
  * Convert plain text to HTML format for RichText component
- * Preserves indentation and structure
+ * Preserves structure without inline styles that cause rendering issues
  */
 function convertTextToHtml(text: string): string {
-  const lines = text.split("\n").filter((line) => line.trim().length > 0);
+  const lines = text.split("\n");
   const htmlParts: string[] = [];
   let currentParagraph: string[] = [];
-  let currentIndent = 0;
+  let inList = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (!line) continue;
+    if (!line) {
+      // Empty line - flush current paragraph and close list if needed
+      if (currentParagraph.length > 0) {
+        const paraText = currentParagraph.join(" ").trim();
+        if (paraText) {
+          htmlParts.push(`<p>${escapeHtml(paraText)}</p>`);
+        }
+        currentParagraph = [];
+      }
+      if (inList) {
+        htmlParts.push("</ul>");
+        inList = false;
+      }
+      continue;
+    }
 
     const trimmed = line.trim();
+    if (!trimmed) continue;
 
-    // Detect indentation level (leading spaces)
+    // Detect indentation (but don't use inline styles)
     const indentMatch = line.match(/^(\s*)/);
     const indent = indentMatch?.[1]?.length || 0;
-    const indentLevel = Math.floor(indent / 2); // Every 2 spaces = 1 indent level
+    const isIndented = indent > 2;
 
-    // Check if it looks like a heading
+    // Check if it looks like a heading (all caps, short, or starts with #)
     const isHeading =
       trimmed.length < 100 &&
       (trimmed === trimmed.toUpperCase() ||
@@ -198,20 +221,12 @@ function convertTextToHtml(text: string): string {
       /^[•\-\*\+]\s/.test(trimmed) || /^\d+[\.\)]\s/.test(trimmed);
 
     // Flush current paragraph if structure changes
-    if (
-      currentParagraph.length > 0 &&
-      (isHeading ||
-        isBullet ||
-        indentLevel !== currentIndent ||
-        (i > 0 && Math.abs(indentLevel - currentIndent) > 1))
-    ) {
-      if (currentParagraph.length > 0) {
-        const paraText = currentParagraph.join(" ").trim();
-        if (paraText) {
-          htmlParts.push(`<p>${escapeHtml(paraText)}</p>`);
-        }
-        currentParagraph = [];
+    if (currentParagraph.length > 0 && (isHeading || isBullet || isIndented)) {
+      const paraText = currentParagraph.join(" ").trim();
+      if (paraText) {
+        htmlParts.push(`<p>${escapeHtml(paraText)}</p>`);
       }
+      currentParagraph = [];
     }
 
     if (isHeading) {
@@ -221,25 +236,15 @@ function convertTextToHtml(text: string): string {
       const headingText = trimmed.replace(/^#+\s*/, "");
       htmlParts.push(`<h${level}>${escapeHtml(headingText)}</h${level}>`);
     } else if (isBullet) {
-      // Start a list if not already in one
-      if (
-        htmlParts.length === 0 ||
-        !htmlParts[htmlParts.length - 1]?.startsWith("<ul")
-      ) {
+      if (!inList) {
         htmlParts.push("<ul>");
+        inList = true;
       }
       const bulletText = trimmed.replace(/^[•\-\*\+\d+[\.\)]\s*/, "");
       htmlParts.push(`<li>${escapeHtml(bulletText)}</li>`);
     } else {
-      // Regular text - preserve indentation with CSS
-      if (indentLevel > 0) {
-        currentParagraph.push(
-          `<span style="margin-left: ${indentLevel * 1.5}em; display: block;">${escapeHtml(trimmed)}</span>`,
-        );
-      } else {
-        currentParagraph.push(escapeHtml(trimmed));
-      }
-      currentIndent = indentLevel;
+      // Regular text - just add to current paragraph (no inline styles)
+      currentParagraph.push(escapeHtml(trimmed));
     }
   }
 
@@ -252,10 +257,7 @@ function convertTextToHtml(text: string): string {
   }
 
   // Close any open lists
-  if (
-    htmlParts.length > 0 &&
-    htmlParts[htmlParts.length - 1]?.startsWith("<li")
-  ) {
+  if (inList) {
     htmlParts.push("</ul>");
   }
 

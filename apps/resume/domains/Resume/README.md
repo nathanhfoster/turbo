@@ -362,7 +362,7 @@ Resumes are persisted to IndexedDB using `@nathanhfoster/indexeddb`:
 ## Related
 
 - `@nathanhfoster/indexeddb` - Persistence layer
-- `@nathanhfoster/openai` - AI integration
+- `@nathanhfoster/llm-adapter` - AI integration (LLM provider adapter)
 - `@nathanhfoster/ui` - UI components
 
 ## Architecture

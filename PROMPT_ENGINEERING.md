@@ -553,7 +553,7 @@ Return the tailored resume in the same HTML format.`;
 ### Example 3: Blog Generation (Advanced)
 
 ```typescript
-// From: packages/openai/src/prompts/blogs/index.ts
+// From: packages/llm-adapter/src/prompts/blogs/index.ts
 const prompt = `
 You are writing a sophisticated blog post for **${companyName}** (${url}), 
 the pioneering digital impact platform that ${description}

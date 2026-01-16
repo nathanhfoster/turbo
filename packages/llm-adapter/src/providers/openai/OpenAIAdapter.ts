@@ -3,75 +3,45 @@ import type {
   ChatCompletion,
   ChatCompletionCreateParamsNonStreaming,
 } from "openai/resources";
-import type { AskOpenAIProps, OpenAIResponse } from "./types";
+import type {
+  IProviderAdapter,
+  BaseProviderConfig,
+  GenerateContentParams,
+  ProviderResponse,
+} from "../../interfaces";
 
 /**
- * Configuration options for OpenAI client instances
+ * OpenAI-specific configuration
  */
-export interface OpenAIAdapterConfig {
-  apiKey: string;
-  baseURL?: string;
-  defaultModel?: ChatCompletionCreateParamsNonStreaming["model"];
-  defaultTemperature?: number;
-  defaultMaxTokens?: number;
+export interface OpenAIProviderConfig extends BaseProviderConfig {
   organization?: string;
-  timeout?: number;
-  maxRetries?: number;
+  defaultModel?: ChatCompletionCreateParamsNonStreaming["model"];
 }
 
 /**
- * Adapter interface for OpenAI operations
- * Follows the Adapter pattern to allow for different implementations
+ * OpenAI adapter implementation
+ * 
+ * Implements IProviderAdapter interface following SOLID principles:
+ * - Single Responsibility: Handles OpenAI API interactions only
+ * - Open/Closed: Can be extended via IProviderAdapter interface
+ * - Liskov Substitution: Can be used anywhere IProviderAdapter is expected
+ * - Interface Segregation: Implements only the required interface methods
+ * - Dependency Inversion: Depends on IProviderAdapter abstraction
  */
-export interface IOpenAIAdapter {
-  /**
-   * Generate content using OpenAI API
-   */
-  generateContent(params: AskOpenAIProps): Promise<OpenAIResponse>;
-
-  /**
-   * Generate content with retry logic
-   */
-  generateContentWithRetry(
-    params: AskOpenAIProps,
-    maxRetries?: number,
-    baseDelay?: number,
-  ): Promise<OpenAIResponse>;
-
-  /**
-   * Direct access to OpenAI chat completions
-   */
-  askOpenAI(params: AskOpenAIProps): Promise<ChatCompletion.Choice[]>;
-
-  /**
-   * Get the underlying OpenAI client instance
-   */
-  getClient(): OpenAI;
-}
-
-/**
- * Concrete implementation of OpenAI adapter
- * Follows SOLID principles:
- * - Single Responsibility: Handles OpenAI API interactions
- * - Open/Closed: Can be extended without modification via adapter interface
- * - Liskov Substitution: Implements IOpenAIAdapter interface
- * - Interface Segregation: Focused interface for OpenAI operations
- * - Dependency Inversion: Depends on abstraction (IOpenAIAdapter)
- */
-export class OpenAIAdapter implements IOpenAIAdapter {
+export class OpenAIAdapter implements IProviderAdapter {
   private client: OpenAI;
   private config: Required<
     Pick<
-      OpenAIAdapterConfig,
+      OpenAIProviderConfig,
       "defaultModel" | "defaultTemperature" | "defaultMaxTokens"
     >
   > &
     Omit<
-      OpenAIAdapterConfig,
+      OpenAIProviderConfig,
       "defaultModel" | "defaultTemperature" | "defaultMaxTokens"
     >;
 
-  constructor(config: OpenAIAdapterConfig) {
+  constructor(config: OpenAIProviderConfig) {
     if (!config.apiKey) {
       throw new Error("API key is required for OpenAIAdapter");
     }
@@ -93,6 +63,13 @@ export class OpenAIAdapter implements IOpenAIAdapter {
   }
 
   /**
+   * Get the provider name
+   */
+  getProviderName(): string {
+    return "openai";
+  }
+
+  /**
    * Get the underlying OpenAI client instance
    */
   getClient(): OpenAI {
@@ -100,41 +77,14 @@ export class OpenAIAdapter implements IOpenAIAdapter {
   }
 
   /**
-   * Direct access to OpenAI chat completions
+   * Generate content using OpenAI API
    */
-  async askOpenAI({
-    prompt,
-    messages,
-    temperature = this.config.defaultTemperature,
-    max_tokens = this.config.defaultMaxTokens,
-    model = this.config.defaultModel,
-    ...rest
-  }: AskOpenAIProps): Promise<ChatCompletion.Choice[]> {
-    const chatMessages = messages ?? [{ role: "user", content: prompt! }];
-
-    try {
-      const response = await this.client.chat.completions.create({
-        model,
-        messages: chatMessages,
-        temperature,
-        max_completion_tokens: max_tokens,
-        ...rest,
-      });
-
-      return response.choices;
-    } catch (error) {
-      console.error("OpenAI API error:", error);
-      throw new Error("Failed to generate content from OpenAI");
-    }
-  }
-
-  /**
-   * Generate content with standardized error handling and response formatting
-   */
-  async generateContent(params: AskOpenAIProps): Promise<OpenAIResponse> {
+  async generateContent(
+    params: GenerateContentParams,
+  ): Promise<ProviderResponse> {
     try {
       const choices = await this.askOpenAI(params);
-      const content = this.getOpenAiChoiceContent(choices);
+      const content = this.getChoiceContent(choices);
 
       if (!content) {
         return {
@@ -142,6 +92,7 @@ export class OpenAIAdapter implements IOpenAIAdapter {
           error: {
             message: "No content generated from OpenAI response",
             type: "empty_response",
+            provider: "openai",
           },
         };
       }
@@ -149,6 +100,10 @@ export class OpenAIAdapter implements IOpenAIAdapter {
       return {
         success: true,
         content,
+        metadata: {
+          model: params.model || this.config.defaultModel,
+          provider: "openai",
+        },
       };
     } catch (error) {
       const errorMessage =
@@ -159,6 +114,7 @@ export class OpenAIAdapter implements IOpenAIAdapter {
         error: {
           message: errorMessage,
           type: "api_error",
+          provider: "openai",
         },
       };
     }
@@ -168,11 +124,11 @@ export class OpenAIAdapter implements IOpenAIAdapter {
    * Generate content with retry logic and exponential backoff
    */
   async generateContentWithRetry(
-    params: AskOpenAIProps,
+    params: GenerateContentParams,
     maxRetries = 3,
     baseDelay = 1000,
-  ): Promise<OpenAIResponse> {
-    let lastError: OpenAIResponse["error"];
+  ): Promise<ProviderResponse> {
+    let lastError: ProviderResponse["error"];
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       const result = await this.generateContent(params);
@@ -191,17 +147,54 @@ export class OpenAIAdapter implements IOpenAIAdapter {
 
     return {
       success: false,
-      error: lastError || {
-        message: "Max retries exceeded",
-        type: "retry_limit_exceeded",
-      },
+      error:
+        lastError || {
+          message: "Max retries exceeded",
+          type: "retry_limit_exceeded",
+          provider: "openai",
+        },
     };
+  }
+
+  /**
+   * Direct access to OpenAI chat completions (OpenAI-specific method)
+   * This is kept for backward compatibility and advanced use cases
+   */
+  async askOpenAI(
+    params: GenerateContentParams,
+  ): Promise<ChatCompletion.Choice[]> {
+    const {
+      prompt,
+      messages,
+      temperature = this.config.defaultTemperature,
+      max_tokens = this.config.defaultMaxTokens,
+      model = this.config.defaultModel,
+      ...rest
+    } = params;
+
+    const chatMessages =
+      messages ?? [{ role: "user" as const, content: prompt! }];
+
+    try {
+      const response = await this.client.chat.completions.create({
+        model,
+        messages: chatMessages,
+        temperature,
+        max_completion_tokens: max_tokens,
+        ...rest,
+      } as ChatCompletionCreateParamsNonStreaming);
+
+      return response.choices;
+    } catch (error) {
+      console.error("OpenAI API error:", error);
+      throw new Error("Failed to generate content from OpenAI");
+    }
   }
 
   /**
    * Extract content from OpenAI choice response
    */
-  private getOpenAiChoiceContent(
+  private getChoiceContent(
     choices: ChatCompletion.Choice[],
     index = 0,
   ): string | undefined {

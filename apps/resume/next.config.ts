@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     "@nathanhfoster/utils",
     "@nathanhfoster/pwa",
     "@nathanhfoster/indexeddb",
-    "@nathanhfoster/openai",
+    "@nathanhfoster/llm-adapter",
   ],
   headers: async () => [
     {

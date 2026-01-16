@@ -1,12 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  getAllPosts,
-  getPostBySlug,
-  getAdjacentPosts,
-  getRelatedPosts,
-} from "@/domains/Newsletter/lib/mdx";
+import { getAllPosts, getPostBySlug } from "@/domains/Newsletter/lib/mdxParser";
+import { getAdjacentPosts, getRelatedPosts } from "@/domains/Newsletter/lib/postRelations";
 import { Box, Typography, Button, RichText } from "@nathanhfoster/ui";
 
 // Generate static pages for all newsletter posts at build time

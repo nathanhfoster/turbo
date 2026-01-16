@@ -1,16 +1,16 @@
-import { askOpenAI } from "./index";
-import type { AskOpenAIProps, OpenAIResponse } from "./types";
-import type { IOpenAIAdapter } from "./adapter";
+import type { GenerateContentParams, ProviderResponse } from "./interfaces";
+import type { IProviderAdapter } from "./interfaces";
+import { OpenAIAdapter } from "./providers/openai";
 
 /**
  * Wrapper function that provides standardized error handling and response formatting
- * @deprecated Use OpenAIAdapter.generateContent() instead
+ * @deprecated Use IProviderAdapter.generateContent() instead
  * Maintained for backward compatibility
  */
 export const generateContent = async (
-  params: AskOpenAIProps,
-  adapter?: IOpenAIAdapter,
-): Promise<OpenAIResponse> => {
+  params: GenerateContentParams,
+  adapter?: IProviderAdapter,
+): Promise<ProviderResponse> => {
   // If adapter is provided, use it; otherwise use default (backward compatibility)
   if (adapter) {
     return adapter.generateContent(params);
@@ -18,14 +18,27 @@ export const generateContent = async (
 
   // Fallback to default adapter for backward compatibility
   try {
-    const choices = await askOpenAI(params);
+    // Create a temporary adapter instance for backward compatibility
+    const apiKey = process.env["NEXT_PUBLIC_OPENAI_API_KEY"];
+    if (!apiKey) {
+      return {
+        success: false,
+        error: {
+          message: "NEXT_PUBLIC_OPENAI_API_KEY environment variable is required",
+          type: "missing_api_key",
+        },
+      };
+    }
+    
+    const tempAdapter = new OpenAIAdapter({ apiKey });
+    const choices = await tempAdapter.askOpenAI(params);
     const content = getOpenAiChoiceContent(choices);
 
     if (!content) {
       return {
         success: false,
         error: {
-          message: "No content generated from OpenAI response",
+          message: "No content generated from provider response",
           type: "empty_response",
         },
       };
@@ -50,23 +63,23 @@ export const generateContent = async (
 };
 
 /**
- * Retry wrapper for OpenAI requests with exponential backoff
- * @deprecated Use OpenAIAdapter.generateContentWithRetry() instead
+ * Retry wrapper for provider requests with exponential backoff
+ * @deprecated Use IProviderAdapter.generateContentWithRetry() instead
  * Maintained for backward compatibility
  */
 export const generateContentWithRetry = async (
-  params: AskOpenAIProps,
+  params: GenerateContentParams,
   maxRetries = 3,
   baseDelay = 1000,
-  adapter?: IOpenAIAdapter,
-): Promise<OpenAIResponse> => {
+  adapter?: IProviderAdapter,
+): Promise<ProviderResponse> => {
   // If adapter is provided, use it; otherwise use default (backward compatibility)
   if (adapter) {
     return adapter.generateContentWithRetry(params, maxRetries, baseDelay);
   }
 
   // Fallback to default implementation for backward compatibility
-  let lastError: OpenAIResponse["error"];
+  let lastError: ProviderResponse["error"];
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     const result = await generateContent(params);
@@ -85,16 +98,17 @@ export const generateContentWithRetry = async (
 
   return {
     success: false,
-    error: lastError || {
-      message: "Max retries exceeded",
-      type: "retry_limit_exceeded",
-    },
+    error:
+      lastError || {
+        message: "Max retries exceeded",
+        type: "retry_limit_exceeded",
+      },
   };
 };
 
 /**
  * Helper function to extract content from choices
- * @deprecated This is now internal to OpenAIAdapter
+ * @deprecated This is now internal to provider adapters
  */
 const getOpenAiChoiceContent = (
   choices: Array<{ message: { content?: string | null } }>,

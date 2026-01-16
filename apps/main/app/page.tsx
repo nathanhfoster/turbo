@@ -1,5 +1,5 @@
 import { Box } from "@nathanhfoster/ui";
-import { getAllPosts } from "@/domains/Newsletter/lib/mdx";
+import { getAllPosts } from "@/domains/Newsletter/lib/mdxParser";
 import { HeroSection } from "./components/HeroSection";
 import { FeaturedProjectsSection } from "./components/FeaturedProjectsSection";
 import { LatestArticlesSection } from "./components/LatestArticlesSection";

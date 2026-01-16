@@ -37,7 +37,7 @@ A Next.js 15 Progressive Web App (PWA) for building, editing, and customizing re
 - **State Management**: @nathanhfoster/resurrection
 - **UI Components**: @nathanhfoster/ui
 - **Persistence**: @nathanhfoster/indexeddb
-- **AI Integration**: @nathanhfoster/openai
+- **AI Integration**: @nathanhfoster/llm-adapter
 
 ## Getting Started
 
