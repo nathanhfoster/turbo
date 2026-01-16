@@ -177,9 +177,9 @@ importers:
       '@nathanhfoster/indexeddb':
         specifier: workspace:*
         version: link:../../packages/indexeddb
-      '@nathanhfoster/openai':
+      '@nathanhfoster/llm-adapter':
         specifier: workspace:*
-        version: link:../../packages/openai
+        version: link:../../packages/llm-adapter
       '@nathanhfoster/pwa':
         specifier: workspace:*
         version: link:../../packages/pwa
@@ -361,7 +361,7 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  packages/openai:
+  packages/llm-adapter:
     dependencies:
       '@nathanhfoster/utils':
         specifier: workspace:*
@@ -378,7 +378,7 @@ importers:
         version: link:../typescript-config
       '@types/node':
         specifier: ^22.0.0
-        version: 22.10.5
+        version: 22.15.3
       eslint:
         specifier: ^9.34.0
         version: 9.34.0(jiti@2.6.1)
