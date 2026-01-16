@@ -227,3 +227,4 @@ export { create{Provider}Adapter } from "./factory";
 See existing implementations:
 - `openai/OpenAIAdapter.ts` - OpenAI implementation
 - `anthropic/AnthropicAdapter.ts` - Anthropic implementation
+- `vercel-gateway/VercelGatewayAdapter.ts` - Vercel AI Gateway implementation (uses OpenAI-compatible API)

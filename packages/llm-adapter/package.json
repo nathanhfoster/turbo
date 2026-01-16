@@ -16,6 +16,7 @@
     }
   },
   "scripts": {
+    "build": "echo 'No build output - type checking only'",
     "lint": "eslint .",
     "check-types": "tsc --noEmit"
   },

@@ -109,6 +109,7 @@ export enum ProviderType {
   OPENAI = "openai",
   ANTHROPIC = "anthropic",
   GOOGLE = "google",
+  VERCEL_GATEWAY = "vercel-gateway",
   // Add more providers as needed
 }
 

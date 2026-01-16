@@ -188,6 +188,42 @@ const response = await adapter.generateContent({
 pnpm add @anthropic-ai/sdk
 ```
 
+### Using Vercel AI Gateway
+
+Vercel AI Gateway provides a unified API to multiple providers with budgets, monitoring, load-balancing, and fallbacks:
+
+```typescript
+import { createVercelGatewayAdapter, ProviderType } from '@nathanhfoster/llm-adapter';
+
+// Option 1: Direct adapter creation
+const adapter = createVercelGatewayAdapter({
+  apiKey: process.env.AI_GATEWAY_API_KEY!,
+  defaultModel: 'openai/gpt-4o', // Format: "provider/model-name"
+  providerOrder: ['openai', 'anthropic'], // Optional: routing order
+});
+
+// Option 2: Factory pattern (provider-agnostic)
+const adapter = createProviderAdapter({
+  provider: ProviderType.VERCEL_GATEWAY,
+  apiKey: process.env.AI_GATEWAY_API_KEY!,
+  defaultModel: 'anthropic/claude-3-5-sonnet-20241022',
+});
+
+const response = await adapter.generateContent({
+  prompt: 'Hello!',
+  model: 'openai/gpt-4o', // Can override default model
+});
+```
+
+**Benefits of AI Gateway:**
+- ✅ Unified API to multiple providers
+- ✅ Automatic failover and load-balancing
+- ✅ Budgets and monitoring
+- ✅ Provider routing and fallbacks
+- ✅ Model discovery
+
+**Note**: Vercel AI Gateway uses OpenAI-compatible API, so the `openai` package (already a dependency) is used. For OIDC token authentication in Vercel deployments, use `vercel env pull` to get the token.
+
 ### Switching Providers
 
 Switch providers without changing your application code:
@@ -341,6 +377,16 @@ function createAnthropicAdapter(
 ): AnthropicAdapter;
 ```
 
+#### `createVercelGatewayAdapter`
+
+Convenience function for creating Vercel AI Gateway adapter:
+
+```typescript
+function createVercelGatewayAdapter(
+  config: VercelGatewayProviderConfig
+): VercelGatewayAdapter;
+```
+
 ### Provider Types
 
 ```typescript
@@ -348,6 +394,7 @@ enum ProviderType {
   OPENAI = "openai",
   ANTHROPIC = "anthropic",
   GOOGLE = "google",
+  VERCEL_GATEWAY = "vercel-gateway",
 }
 ```
 
@@ -402,6 +449,8 @@ function getProvider(): ProviderType {
       return ProviderType.ANTHROPIC;
     case 'google':
       return ProviderType.GOOGLE;
+    case 'vercel-gateway':
+      return ProviderType.VERCEL_GATEWAY;
     default:
       return ProviderType.OPENAI;
   }
@@ -492,6 +541,9 @@ NEXT_PUBLIC_OPENAI_API_KEY=sk-your-api-key-here
 
 # Optional (for Anthropic)
 ANTHROPIC_API_KEY=sk-ant-your-api-key-here
+
+# Optional (for Vercel AI Gateway)
+AI_GATEWAY_API_KEY=your-vercel-gateway-api-key-here
 
 # Optional (for multi-provider support)
 LLM_PROVIDER=openai

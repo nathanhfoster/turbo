@@ -11,6 +11,8 @@ export * from "./types";
 
 // Provider implementations
 export * from "./providers/openai";
+export * from "./providers/anthropic";
+export * from "./providers/vercel-gateway";
 
 // Factory functions
 export * from "./factory";
@@ -28,8 +30,12 @@ export {
   AnthropicAdapter,
   type AnthropicProviderConfig,
 } from "./providers/anthropic";
-export { createOpenAIAdapter, createAnthropicAdapter } from "./factory";
-
-// Re-export for backward compatibility
-import type { ChatCompletion } from "openai/resources";
-export type { ChatCompletion };
+export {
+  VercelGatewayAdapter,
+  type VercelGatewayProviderConfig,
+} from "./providers/vercel-gateway";
+export {
+  createOpenAIAdapter,
+  createAnthropicAdapter,
+  createVercelGatewayAdapter,
+} from "./factory";

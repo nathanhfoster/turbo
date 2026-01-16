@@ -9,6 +9,10 @@ import {
   AnthropicAdapter,
   type AnthropicProviderConfig,
 } from "./providers/anthropic";
+import {
+  VercelGatewayAdapter,
+  type VercelGatewayProviderConfig,
+} from "./providers/vercel-gateway";
 
 /**
  * Factory function to create provider adapters
@@ -39,17 +43,27 @@ export function createProviderAdapter(
       } as OpenAIProviderConfig);
     }
 
-    case ProviderType.ANTHROPIC:
-      // TODO: Implement Anthropic adapter
-      throw new Error(
-        "Anthropic adapter not yet implemented. Use ProviderType.OPENAI for now.",
-      );
+    case ProviderType.ANTHROPIC: {
+      return new AnthropicAdapter({
+        ...baseConfig,
+        defaultModel: (config as AnthropicProviderConfig).defaultModel,
+      } as AnthropicProviderConfig);
+    }
 
     case ProviderType.GOOGLE:
       // TODO: Implement Google adapter
       throw new Error(
         "Google adapter not yet implemented. Use ProviderType.OPENAI for now.",
       );
+
+    case ProviderType.VERCEL_GATEWAY: {
+      return new VercelGatewayAdapter({
+        ...baseConfig,
+        providerOrder: (config as VercelGatewayProviderConfig).providerOrder,
+        onlyProviders: (config as VercelGatewayProviderConfig).onlyProviders,
+        fallbackModels: (config as VercelGatewayProviderConfig).fallbackModels,
+      } as VercelGatewayProviderConfig);
+    }
 
     default:
       throw new Error(
@@ -75,4 +89,19 @@ export function createAnthropicAdapter(
   config: AnthropicProviderConfig,
 ): AnthropicAdapter {
   return new AnthropicAdapter(config);
+}
+
+/**
+ * Convenience function to create a Vercel AI Gateway adapter
+ * 
+ * Vercel AI Gateway provides unified access to multiple providers with:
+ * - Budgets and monitoring
+ * - Load-balancing and fallbacks
+ * - Provider routing
+ * - Model discovery
+ */
+export function createVercelGatewayAdapter(
+  config: VercelGatewayProviderConfig,
+): VercelGatewayAdapter {
+  return new VercelGatewayAdapter(config);
 }
