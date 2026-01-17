@@ -38,7 +38,7 @@ const TextArea = ({
       {label && (
         <Typography variant="p" mb="mb-1">
           {label}
-          {required && <span className="text-error"> *</span>}
+          {required ? <span className="text-error"> *</span> : null}
         </Typography>
       )}
       <textarea

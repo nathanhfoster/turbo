@@ -98,7 +98,7 @@ export function IconButton({
       {...props}
     >
       <span className="flex-shrink-0">{icon}</span>
-      {label && <span className="text-xs">{label}</span>}
+      {label ? <span className="text-xs">{label}</span> : null}
     </button>
   );
 }

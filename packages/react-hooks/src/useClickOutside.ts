@@ -1,11 +1,13 @@
 "use client";
 
 import { isClientSide } from "@nathanhfoster/utils";
-import { useEffect } from "react";
+import { useEffect, type RefObject } from "react";
+import useLatest from "./useLatest";
 
 /**
- * Hook to handle clicking outside dropdowns to close them
- * Optimized for SSR - only runs on the client side
+ * Hook to handle clicking outside an element to close it (e.g., dropdowns, modals).
+ * Optimized for SSR - only runs on the client side.
+ * Uses useLatest for stable subscriptions (Rule: advanced-use-latest).
  *
  * @param ref - React ref to the element that should not trigger the close
  * @param isOpen - Whether the dropdown/menu is currently open
@@ -20,16 +22,19 @@ import { useEffect } from "react";
  * ```
  */
 export function useClickOutside<T extends HTMLElement>(
-  ref: React.RefObject<T | null>,
+  ref: RefObject<T | null>,
   isOpen: boolean,
   onClose: () => void,
 ) {
+  // Rule: advanced-use-latest - Store callback in ref for stable subscription
+  const onCloseRef = useLatest(onClose);
+
   useEffect(() => {
     if (!isOpen || !isClientSide()) return;
 
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose();
+        onCloseRef.current();
       }
     };
 
@@ -37,5 +42,5 @@ export function useClickOutside<T extends HTMLElement>(
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, ref, onClose]);
+  }, [isOpen, ref]); // onClose not in deps - stable subscription via useLatest
 }

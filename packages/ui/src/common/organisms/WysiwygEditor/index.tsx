@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, memo } from "react";
 import {
   StarterKit,
   Placeholder,
@@ -100,4 +100,5 @@ const WysiwygEditor = ({
   );
 };
 
-export default WysiwygEditor;
+// Rule: rerender-memo - Extract to memoized components for expensive work
+export default memo(WysiwygEditor);

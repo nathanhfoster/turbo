@@ -11,6 +11,7 @@
     "./*": "./src/*.tsx"
   },
   "scripts": {
+    "build": "tsc --noEmit && echo 'Build complete - using source files directly'",
     "lint": "eslint .",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",

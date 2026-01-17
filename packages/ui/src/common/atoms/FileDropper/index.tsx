@@ -7,10 +7,14 @@ import React, {
   useId,
   useMemo,
   useEffect,
+  memo,
 } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { combineClassNames } from "@nathanhfoster/utils";
-import { useEventListener } from "@nathanhfoster/react-hooks";
+import {
+  useEventListener,
+  useTimeoutCleanup,
+} from "@nathanhfoster/react-hooks";
 import withBaseTheme from "../../hocs/withBaseTheme";
 import withForwardRef from "../../hocs/withForwardRef";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
@@ -69,6 +73,8 @@ const FileDropper = ({
     "speaking" | "navigating"
   >("speaking");
   const previousInitialFilesRef = useRef<string>("");
+  // Rule: client-event-listeners - Use hook for automatic timeout cleanup
+  const registerTimeout = useTimeoutCleanup();
 
   // Load initial files on mount or when initialFiles prop changes
   useEffect(() => {
@@ -126,27 +132,32 @@ const FileDropper = ({
         const errorMessage = errors.join(", ");
         setDragError(errorMessage);
         setUploadStatus("error");
-        // Error animation: quick shake
+        // Error animation: quick shake (Rule: client-event-listeners)
         setBubbleAIScale(0.9);
-        setTimeout(() => {
+        const timeout1 = setTimeout(() => {
           setBubbleAIScale(1.1);
         }, 100);
-        setTimeout(() => {
+        registerTimeout(timeout1);
+        const timeout2 = setTimeout(() => {
           setBubbleAIScale(0.95);
         }, 200);
-        setTimeout(() => {
+        registerTimeout(timeout2);
+        const timeout3 = setTimeout(() => {
           setBubbleAIScale(1);
         }, 300);
+        registerTimeout(timeout3);
         // Call onError callback immediately
         onError?.(errorMessage, fileArray);
         // Reset error state after 3 seconds
-        setTimeout(() => {
+        const timeout4 = setTimeout(() => {
           setUploadStatus("idle");
         }, 3000);
+        registerTimeout(timeout4);
         return;
       }
 
       setDragError(null);
+      // Rule: rerender-functional-setstate - use functional setState
       setSelectedFiles((prev) =>
         multiple ? [...prev, ...fileArray] : fileArray,
       );
@@ -154,36 +165,39 @@ const FileDropper = ({
       // Call onFilesSelected immediately (for immediate file access)
       onFilesSelected?.(fileArray);
 
-      // Excitement animation when files are selected
+      // Excitement animation when files are selected (Rule: client-event-listeners)
       setBubbleAIScale(1.15);
       setParticleSpeedBoost(1.5);
-      setTimeout(() => {
+      const timeout5 = setTimeout(() => {
         setBubbleAIScale(1);
         setParticleSpeedBoost(1);
       }, 300);
+      registerTimeout(timeout5);
 
       // Set loading state if loading prop is true
       if (loading) {
         setUploadStatus("loading");
-        // Animate: Scale up when processing starts
+        // Animate: Scale up when processing starts (Rule: client-event-listeners)
         setBubbleAIScale(1.1);
         setParticleSpeedBoost(1.3);
-        setTimeout(() => {
+        const timeout6 = setTimeout(() => {
           setBubbleAIScale(1);
           setParticleSpeedBoost(1);
         }, 200);
+        registerTimeout(timeout6);
       } else {
         // Show thinking animation first, then success
         setUploadStatus("loading");
         setIsSubmitting(true);
-        // Processing animation: subtle pulse
+        // Processing animation: subtle pulse (Rule: client-event-listeners)
         setBubbleAIScale(1.08);
         setParticleSpeedBoost(1.2);
-        setTimeout(() => {
+        const timeout7 = setTimeout(() => {
           setBubbleAIScale(1);
           setParticleSpeedBoost(1);
         }, 150);
-        setTimeout(async () => {
+        registerTimeout(timeout7);
+        const timeout8 = setTimeout(async () => {
           // Call onSubmit after thinking animation (useful for API calls)
           try {
             const result = await onSubmit?.(fileArray);
@@ -192,28 +206,32 @@ const FileDropper = ({
             setIsSubmitting(false);
             // Start with "navigating" state for excitement
             setSuccessStateTransition("navigating");
-            // Celebration animation: exciting bounce with particle burst
+            // Celebration animation: exciting bounce with particle burst (Rule: client-event-listeners)
             setBubbleAIScale(1.25);
             setParticleSpeedBoost(2.2);
-            setTimeout(() => {
+            const timeout9 = setTimeout(() => {
               setBubbleAIScale(1.15);
               setParticleSpeedBoost(1.5);
             }, 150);
-            setTimeout(() => {
+            registerTimeout(timeout9);
+            const timeout10 = setTimeout(() => {
               setBubbleAIScale(1.05);
               setParticleSpeedBoost(1.2);
               // Transition to "speaking" state after initial excitement
               setSuccessStateTransition("speaking");
             }, 400);
-            setTimeout(() => {
+            registerTimeout(timeout10);
+            const timeout11 = setTimeout(() => {
               setBubbleAIScale(1);
               setParticleSpeedBoost(1);
             }, 600);
-            setTimeout(() => {
+            registerTimeout(timeout11);
+            const timeout12 = setTimeout(() => {
               // Call onSuccess after success animation completes, passing the result
               onSuccess?.(fileArray, result);
               setUploadStatus("idle");
             }, 2000);
+            registerTimeout(timeout12);
           } catch (err) {
             // Handle errors from onSubmit
             const errorMsg =
@@ -221,23 +239,28 @@ const FileDropper = ({
             setDragError(errorMsg);
             setUploadStatus("error");
             setIsSubmitting(false);
-            // Error animation: quick shake
+            // Error animation: quick shake (Rule: client-event-listeners)
             setBubbleAIScale(0.9);
-            setTimeout(() => {
+            const timeout13 = setTimeout(() => {
               setBubbleAIScale(1.1);
             }, 100);
-            setTimeout(() => {
+            registerTimeout(timeout13);
+            const timeout14 = setTimeout(() => {
               setBubbleAIScale(0.95);
             }, 200);
-            setTimeout(() => {
+            registerTimeout(timeout14);
+            const timeout15 = setTimeout(() => {
               setBubbleAIScale(1);
             }, 300);
+            registerTimeout(timeout15);
             onError?.(errorMsg, fileArray);
-            setTimeout(() => {
+            const timeout16 = setTimeout(() => {
               setUploadStatus("idle");
             }, 3000);
+            registerTimeout(timeout16);
           }
         }, 1500); // Show thinking animation for 1.5 seconds
+        registerTimeout(timeout8);
       }
     },
     [validateFile, onFilesSelected, multiple, loading],
@@ -247,13 +270,14 @@ const FileDropper = ({
   useEffect(() => {
     if (loading) {
       setUploadStatus("loading");
-      // Animate: Scale up when processing starts
+      // Animate: Scale up when processing starts (Rule: client-event-listeners)
       setBubbleAIScale(1.1);
       setParticleSpeedBoost(1.3);
-      setTimeout(() => {
+      const timeout17 = setTimeout(() => {
         setBubbleAIScale(1);
         setParticleSpeedBoost(1);
       }, 200);
+      registerTimeout(timeout17);
     } else if (
       uploadStatus === "loading" &&
       !loading &&
@@ -263,7 +287,7 @@ const FileDropper = ({
       // Only call onSubmit if we're not already submitting (prevents duplicate calls)
       // This handles the case when loading prop is controlled externally
       setIsSubmitting(true);
-      setTimeout(async () => {
+      const timeout18 = setTimeout(async () => {
         // Call onSubmit if provided (useful for API calls)
         try {
           const result = await onSubmit?.(selectedFiles);
@@ -271,50 +295,59 @@ const FileDropper = ({
           setIsSubmitting(false);
           // Start with "navigating" state for excitement
           setSuccessStateTransition("navigating");
-          // Celebration animation: exciting bounce with particle burst
+          // Celebration animation: exciting bounce with particle burst (Rule: client-event-listeners)
           setBubbleAIScale(1.25);
           setParticleSpeedBoost(2.2);
-          setTimeout(() => {
+          const timeout19 = setTimeout(() => {
             setBubbleAIScale(1.15);
             setParticleSpeedBoost(1.5);
           }, 150);
-          setTimeout(() => {
+          registerTimeout(timeout19);
+          const timeout20 = setTimeout(() => {
             setBubbleAIScale(1.05);
             setParticleSpeedBoost(1.2);
             // Transition to "speaking" state after initial excitement
             setSuccessStateTransition("speaking");
           }, 400);
-          setTimeout(() => {
+          registerTimeout(timeout20);
+          const timeout21 = setTimeout(() => {
             setBubbleAIScale(1);
             setParticleSpeedBoost(1);
           }, 600);
-          setTimeout(() => {
+          registerTimeout(timeout21);
+          const timeout22 = setTimeout(() => {
             // Call onSuccess after success animation completes, passing the result
             onSuccess?.(selectedFiles, result);
             setUploadStatus("idle");
           }, 2000);
+          registerTimeout(timeout22);
         } catch (err) {
           // Handle errors from onSubmit
           const errorMsg = err instanceof Error ? err.message : "Upload failed";
           setDragError(errorMsg);
           setUploadStatus("error");
           setIsSubmitting(false);
-          // Error animation: quick shake
+          // Error animation: quick shake (Rule: client-event-listeners)
           setBubbleAIScale(0.9);
-          setTimeout(() => {
+          const timeout23 = setTimeout(() => {
             setBubbleAIScale(1.1);
           }, 100);
-          setTimeout(() => {
+          registerTimeout(timeout23);
+          const timeout24 = setTimeout(() => {
             setBubbleAIScale(0.95);
           }, 200);
-          setTimeout(() => {
+          registerTimeout(timeout24);
+          const timeout25 = setTimeout(() => {
             setBubbleAIScale(1);
           }, 300);
+          registerTimeout(timeout25);
           onError?.(errorMsg, selectedFiles);
-          setTimeout(() => {
+          const timeout26 = setTimeout(() => {
             setUploadStatus("idle");
           }, 3000);
+          registerTimeout(timeout26);
         }
+        registerTimeout(timeout18);
       }, 500); // Small delay to show the transition
     }
   }, [
@@ -917,6 +950,10 @@ const FileDropper = ({
   );
 };
 
+// Rule: rerender-memo - Extract to memoized components for expensive work
+// Memoize before HOCs to ensure proper comparison
+const MemoizedFileDropper = memo(FileDropper);
+
 export default withForwardRef(
-  withBaseTheme(withBaseTailwindProps(FileDropper)),
+  withBaseTheme(withBaseTailwindProps(MemoizedFileDropper)),
 );

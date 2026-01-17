@@ -9,6 +9,7 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
+    "build": "tsc --noEmit && echo 'Build complete - using source files directly'",
     "lint": "eslint .",
     "check-types": "tsc --noEmit"
   },

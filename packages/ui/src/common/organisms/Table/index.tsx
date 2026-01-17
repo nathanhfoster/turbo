@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 import AutoSizerComponent from "../../molecules/AutoSizer";
 import {
   Table as VirtualizedTable,
@@ -181,9 +181,9 @@ const Table = <T extends object>({
                                   ? column.renderHeader(props)
                                   : props.label}
                               </span>
-                              {column.sortable && sortBy === column.key && (
+                              {column.sortable && sortBy === column.key ? (
                                 <SortArrow direction={sortDirection} />
-                              )}
+                              ) : null}
                             </div>
                           </Box>
                         );
@@ -211,4 +211,5 @@ const Table = <T extends object>({
   );
 };
 
-export default Table;
+// Rule: rerender-memo - Extract to memoized components for expensive work
+export default memo(Table) as typeof Table;

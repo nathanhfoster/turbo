@@ -34,7 +34,7 @@ const Input = ({
 
   return (
     <Box fullWidth className="relative">
-      {label && <InputLabel name={name} label={label} required={required} />}
+      {label ? <InputLabel name={name} label={label} required={required} /> : null}
       <div className="relative">
         <input
           type={type}
@@ -55,6 +55,8 @@ const Input = ({
             "pr-8",
           )}
           required={required}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${name}-error` : undefined}
           {...props}
         />
         <ClearButton
@@ -67,11 +69,18 @@ const Input = ({
           value={value}
         />
       </div>
-      {isString(error) && (
-        <Typography variant="p" color="error" className={ERROR_STYLES}>
+      {isString(error) ? (
+        <Typography
+          id={`${name}-error`}
+          variant="p"
+          color="error"
+          className={ERROR_STYLES}
+          role="alert"
+          aria-live="polite"
+        >
           {error}
         </Typography>
-      )}
+      ) : null}
     </Box>
   );
 };

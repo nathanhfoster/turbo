@@ -6,7 +6,7 @@ import type { SwitchProps } from "./types";
 const Switch = ({ label, name, required, disabled, ...props }: SwitchProps) => {
   return (
     <>
-      {label && <InputLabel name={name} label={label} required={required} />}
+      {label ? <InputLabel name={name} label={label} required={required} /> : null}
       <Typography
         variant="label"
         display="inline-flex"

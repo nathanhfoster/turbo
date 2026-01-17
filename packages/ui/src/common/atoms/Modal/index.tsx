@@ -4,7 +4,10 @@ import type { MouseEvent } from "react";
 import withBaseTailwindProps from "../../hocs/withBaseTailwindProps";
 import { combineClassNames } from "@nathanhfoster/utils";
 import { useMemo } from "react";
-import { useIsomorphicLayoutEffect } from "@nathanhfoster/react-hooks";
+import {
+  useIsomorphicLayoutEffect,
+  useLatest,
+} from "@nathanhfoster/react-hooks";
 import Box from "../Box";
 import Portal from "../Portal";
 import { MODAL_SIZE_CLASSES, MODAL_TRANSITION_DELAY } from "./constants";
@@ -21,9 +24,13 @@ const Modal = ({
   closeOnEscape = true,
   ...props
 }: ModalProps) => {
+  // Rule: advanced-use-latest - Store callbacks in refs for stable subscriptions
+  const onCloseRef = useLatest(onClose);
+  const closeOnEscapeRef = useLatest(closeOnEscape);
+
   const handleEscape = (e: KeyboardEvent) => {
-    if (closeOnEscape && e.key === "Escape") {
-      onClose();
+    if (closeOnEscapeRef.current && e.key === "Escape") {
+      onCloseRef.current();
     }
   };
 
@@ -35,19 +42,19 @@ const Modal = ({
 
   useIsomorphicLayoutEffect(() => {
     if (open) {
-      if (closeOnEscape) {
+      if (closeOnEscapeRef.current) {
         document.addEventListener("keydown", handleEscape);
       }
       document.body.style.overflow = "hidden";
     }
 
     return () => {
-      if (closeOnEscape) {
+      if (closeOnEscapeRef.current) {
         document.removeEventListener("keydown", handleEscape);
       }
       document.body.style.overflow = "unset";
     };
-  }, [open, onClose, closeOnEscape]);
+  }, [open]); // Rule: advanced-event-handler-refs - stable subscription, no callback dependencies
 
   const backdropClasses = useMemo(() => {
     if (!showBackdrop) {
@@ -86,6 +93,10 @@ const Modal = ({
         onClick={
           showBackdrop && closeOnOutsideClick ? handleBackdropClick : undefined
         }
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={props["aria-labelledby"]}
+        aria-describedby={props["aria-describedby"]}
       >
         <Box className={wrapperClasses}>
           <Box
