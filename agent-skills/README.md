@@ -49,6 +49,84 @@ Review UI code for compliance with web interface best practices. Audits your cod
 - Touch & Interaction (touch-action, tap-highlight)
 - Locale & i18n (Intl.DateTimeFormat, Intl.NumberFormat)
 
+### formik-to-react-hook-form
+
+Migrate Formik forms to react-hook-form one component at a time while preserving validation and behavior.
+
+**Use when:**
+- Migrating forms from Formik to react-hook-form
+- Replacing `useFormik` with `useForm`
+- Converting `<Formik>` render props to `FormProvider`
+
+### graphql-codegen-migration
+
+Migrate GraphQL operations to TypeScript with generated types, custom hooks, and MSW test handlers.
+
+**Use when:**
+- Migrating legacy GraphQL queries/mutations to TypeScript
+- Setting up new GraphQL operations with proper types
+- Creating MSW handlers for GraphQL testing
+
+### rswag-schema-migration
+
+Migrate inline Swagger schemas to reusable schema components that generate proper TypeScript types.
+
+**Use when:**
+- Fixing `Rswag/InlineSchema` violations
+- Creating reusable Swagger schema components
+- Generating TypeScript types from Rails API specs
+
+### react-ai-features
+
+Build AI-powered React features with standardized patterns for hooks, error handling, streaming, cancellation, and multi-step agents.
+
+**Use when:**
+- Building AI chat or AI content generation features
+- Integrating LLM APIs into React applications
+- Designing error taxonomy and cancellation for AI requests
+- Implementing streaming or multi-step agent interfaces
+
+### playwright-e2e-testing
+
+Write, debug, and plan Playwright E2E tests following best practices for test structure, element selection, and helper organization.
+
+**Use when:**
+- Writing Playwright E2E tests
+- Debugging failing E2E tests
+- Creating test plans for web applications
+- Setting up E2E test infrastructure
+
+**Includes agent references for:**
+- Test planning (comprehensive scenario design)
+- Test generation (from plans to code)
+- Test healing (debugging and fixing failures)
+
+### companycam-frontend
+
+CompanyCam frontend development conventions for React with TypeScript, styled-components, TanStack Query, Apollo Client, MSW testing, and Vitest.
+
+**Use when:**
+- Working on CompanyCam frontend code
+- Writing React components or custom hooks
+- Writing frontend tests with Vitest + MSW
+
+### companycam-backend
+
+CompanyCam Rails backend development conventions covering Docker, Sidekiq, coding philosophy, review standards, testing with RSpec, and Ruby style.
+
+**Use when:**
+- Working on CompanyCam Rails backend code
+- Writing models, controllers, or migrations
+- Writing RSpec tests or Swagger specs
+
+### pull-request-guidelines
+
+Guidelines for creating pull requests with concise descriptions, proper template usage, and no AI signatures.
+
+**Use when:**
+- Creating pull requests
+- Writing PR descriptions
+
 ## Skill Structure
 
 Each skill contains:
