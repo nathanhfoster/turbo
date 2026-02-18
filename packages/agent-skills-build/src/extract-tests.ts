@@ -7,7 +7,7 @@ import { readdir, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { Rule, TestCase } from './types.js'
 import { parseRuleFile } from './parser.js'
-import { RULES_DIR, TEST_CASES_FILE } from './config.js'
+import { resolveSkill, rulesDir, testCasesFile } from './config.js'
 
 /**
  * Extract test cases from a rule
@@ -42,7 +42,11 @@ function extractTestCases(rule: Rule): TestCase[] {
  */
 async function extractTests() {
   try {
-    console.log('Extracting test cases from rules...')
+    const skill = resolveSkill()
+    const RULES_DIR = rulesDir(skill)
+    const TEST_CASES_FILE = testCasesFile()
+
+    console.log(`Extracting test cases for skill: ${skill}`)
     console.log(`Rules directory: ${RULES_DIR}`)
     console.log(`Output file: ${TEST_CASES_FILE}`)
     

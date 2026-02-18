@@ -7,7 +7,7 @@ import { readdir, readFile, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { Rule, Section, GuidelinesDocument, ImpactLevel } from './types.js'
 import { parseRuleFile, RuleFile } from './parser.js'
-import { RULES_DIR, METADATA_FILE, OUTPUT_FILE } from './config.js'
+import { resolveSkill, rulesDir, metadataFile, outputFile } from './config.js'
 
 /**
  * Generate markdown from rules
@@ -116,7 +116,12 @@ function generateMarkdown(
  */
 async function build() {
   try {
-    console.log('Building AGENTS.md from rules...')
+    const skill = resolveSkill()
+    const RULES_DIR = rulesDir(skill)
+    const METADATA_FILE = metadataFile(skill)
+    const OUTPUT_FILE = outputFile(skill)
+
+    console.log(`Building AGENTS.md for skill: ${skill}`)
     console.log(`Rules directory: ${RULES_DIR}`)
     console.log(`Output file: ${OUTPUT_FILE}`)
 

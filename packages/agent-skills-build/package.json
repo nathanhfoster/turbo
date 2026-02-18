@@ -8,9 +8,10 @@
     "build": "pnpm build-agents && pnpm extract-tests",
     "build-agents": "tsx src/build.ts",
     "validate": "tsx src/validate.ts",
+    "validate-all": "tsx src/validate-all.ts",
     "extract-tests": "tsx src/extract-tests.ts",
     "migrate": "tsx src/migrate.ts",
-    "dev": "pnpm build && pnpm validate"
+    "dev": "pnpm build && pnpm validate-all"
   },
   "keywords": [
     "react",

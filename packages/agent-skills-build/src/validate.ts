@@ -7,7 +7,7 @@ import { readdir } from 'fs/promises'
 import { join } from 'path'
 import { Rule } from './types.js'
 import { parseRuleFile } from './parser.js'
-import { RULES_DIR } from './config.js'
+import { resolveSkill, rulesDir } from './config.js'
 
 interface ValidationError {
   file: string
@@ -70,7 +70,10 @@ function validateRule(rule: Rule, file: string): ValidationError[] {
  */
 async function validate() {
   try {
-    console.log('Validating rule files...')
+    const skill = resolveSkill()
+    const RULES_DIR = rulesDir(skill)
+
+    console.log(`Validating rule files for skill: ${skill}`)
     console.log(`Rules directory: ${RULES_DIR}`)
     
     const files = await readdir(RULES_DIR)
